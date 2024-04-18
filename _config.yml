@@ -19,7 +19,7 @@ locale                   : "ko-KR"
 title                    : "나의 코딩 공부"
 title_separator          : "|"
 subtitle                 : "daily power"
-name                     : "ethan"
+name                     : "코딩"
 description              : "ethan의 블로그"
 url                      : "https://ethanvolg.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
@@ -105,9 +105,8 @@ analytics:
 author:
   name             : "ethan"
   avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "ethan의 코딩공부"
+  bio              : ""
   location         : "South Korea"
-  email            : "ljj011124@gmail.com"
   links:
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square"
@@ -253,4 +252,8 @@ defaults:
       share: true
       related: true
       show_date: true
+      toc: true
+      toc_sticky: true
+      toc_label: 목차
+      toc_icon: "fas fa-laptop-code"
 date_format: "%Y-%m-%d"
