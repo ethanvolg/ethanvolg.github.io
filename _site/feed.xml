@@ -1,21 +1,19 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-04-18T22:15:55+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">나의 코딩 공부</title><subtitle>ethan의 블로그</subtitle><author><name>ethan</name></author><entry><title type="html">첫 포스팅 입니다!</title><link href="http://localhost:4000/coding/first/" rel="alternate" type="text/html" title="첫 포스팅 입니다!" /><published>2024-04-17T00:00:00+09:00</published><updated>2024-04-17T00:00:00+09:00</updated><id>http://localhost:4000/coding/first</id><content type="html" xml:base="http://localhost:4000/coding/first/"><![CDATA[<h1 id="오늘-처음입니다">오늘 처음입니다.</h1>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-04-20T04:09:26+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">나의 코딩 공부</title><subtitle>ethan의 블로그</subtitle><author><name>ethan</name></author><entry><title type="html">웹 서버 이해하기</title><link href="http://localhost:4000/coding/first/" rel="alternate" type="text/html" title="웹 서버 이해하기" /><published>2024-04-17T00:00:00+09:00</published><updated>2024-04-17T00:00:00+09:00</updated><id>http://localhost:4000/coding/first</id><content type="html" xml:base="http://localhost:4000/coding/first/"><![CDATA[<h1 id="1-웹-서버web-server">1. 웹 서버(Web server)</h1>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Python program to swap two variables
-</span>
-<span class="n">x</span> <span class="o">=</span> <span class="mi">5</span>
-<span class="n">y</span> <span class="o">=</span> <span class="mi">10</span>
+<h2 id="11-클라이언트-와-서버-client-and-server">1.1 클라이언트 와 서버 (Client and server)</h2>
 
-<span class="c1"># To take inputs from the user
-#x = input('Enter value of x: ')
-#y = input('Enter value of y: ')
-</span>
-<span class="c1"># create a temporary variable and swap the values
-</span><span class="n">temp</span> <span class="o">=</span> <span class="n">x</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">y</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">temp</span>
+<p>먼저 웹 서버를 이해하기 전에 클라이언트와 서버가 무엇인지 알아야할 필요성이 있습니다.</p>
 
-<span class="nf">print</span><span class="p">(</span><span class="sh">'</span><span class="s">The value of x after swapping: {}</span><span class="sh">'</span><span class="p">.</span><span class="nf">format</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-<span class="nf">print</span><span class="p">(</span><span class="sh">'</span><span class="s">The value of y after swapping: {}</span><span class="sh">'</span><span class="p">.</span><span class="nf">format</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
-</code></pre></div></div>
+<p>클라이언트는 파일을 서버에 요청해서 사용하는 장치, 프로그램을 의미하고,</p>
 
-<p><img src="/images/2024-04-17-first/캡처-1713397984317-3.PNG" alt="캡처" /></p>]]></content><author><name>ethan</name></author><category term="coding" /><summary type="html"><![CDATA[오늘 처음입니다.]]></summary></entry></feed>
+<p>서버는 요청받은 파일을 전달하는 프로그램을 의미합니다.</p>
+
+<p>이해되기 쉽게 예를 들어보면,</p>
+
+<p>클라이언트(장치: 사용자의 컴퓨터, 프로그램: 웹브라우저), 서버(프로그램: 웹서버)로 볼 수 있는데</p>
+
+<p>사용자가 웹브라우저를 통해 URL에 입력하는 것은 요청하는 것에 해당하고,</p>
+
+<p>웹서버는 URL에 입력된 요청을 전달하여 웹브라우저에 나타냅니다.</p>
+
+<p><img src="/images/2024-04-17-first/client-server-network.webp" alt="client-server-network" style="zoom: 25%;" /></p>]]></content><author><name>ethan</name></author><category term="coding" /><summary type="html"><![CDATA[1. 웹 서버(Web server)]]></summary></entry></feed>

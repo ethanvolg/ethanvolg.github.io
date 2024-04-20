@@ -1,6 +1,6 @@
 var store = [{
-        "title": "첫 포스팅 입니다!",
-        "excerpt":"오늘 처음입니다. # Python program to swap two variables x = 5 y = 10 # To take inputs from the user #x = input('Enter value of x: ') #y = input('Enter value of y: ') # create a temporary variable and swap the values temp = x x =...","categories": ["coding"],
+        "title": "웹 서버 이해하기",
+        "excerpt":"1. 웹 서버(Web server) 1.1 클라이언트 와 서버 (Client and server) 먼저 웹 서버를 이해하기 전에 클라이언트와 서버가 무엇인지 알아야할 필요성이 있습니다. 클라이언트는 파일을 서버에 요청해서 사용하는 장치, 프로그램을 의미하고, 서버는 요청받은 파일을 전달하는 프로그램을 의미합니다. 이해되기 쉽게 예를 들어보면, 클라이언트(장치: 사용자의 컴퓨터, 프로그램: 웹브라우저), 서버(프로그램: 웹서버)로 볼 수 있는데...","categories": ["coding"],
         "tags": [],
         "url": "/coding/first/",
         "teaser": null
