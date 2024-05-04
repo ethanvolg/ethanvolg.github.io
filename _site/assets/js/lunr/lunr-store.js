@@ -2,6 +2,42 @@ var store = [{
         "title": "웹 서버 이해하기",
         "excerpt":"1. 웹 서버(Web server) 1.1 클라이언트 와 서버 (Client and server) 먼저 웹 서버를 이해하기 전에 클라이언트와 서버가 무엇인지 알아야할 필요성이 있습니다. 클라이언트는 파일을 서버에 요청해서 사용하는 장치, 프로그램을 의미하고, 서버는 요청받은 파일을 전달하는 프로그램을 의미합니다. 이해되기 쉽게 예를 들어보면, 클라이언트(장치: 사용자의 컴퓨터, 프로그램: 웹브라우저), 서버(프로그램: 웹서버)로 볼 수 있는데...","categories": ["WEB"],
         "tags": [],
-        "url": "/web/first/",
+        "url": "/web/1/",
+        "teaser": null
+      },{
+        "title": "1주차 로그인페이지 만들기(1)",
+        "excerpt":"1. 로그인 페이지 다음 조건으로 로그인 페이지를 만들어보도록 하겠습니다. html, css, php 만으로 작성하기 아이디: admin, 비밀번호 : admin1234 로 로그인 할수 있게 하기 잘못된 정보로 로그인 했을 시, 경고문 띄우기 로그인 된 화면에서 로그아웃하면 본래 로그인화면으로 돌아가기 밑에 동영상과 같은 시나리오입니다. 1.1 html 문구 작성(파일이름: index.php) 1.1.1 head &lt;!DOCTYPE...","categories": ["project"],
+        "tags": [],
+        "url": "/project/1/",
+        "teaser": null
+      },{
+        "title": "데이터 베이스(DB)",
+        "excerpt":"1. 데이터 베이스란? 정렬된 데이터 모음이라고 표현할 수 있습니다. 프로그램을 통해 데이터를 저장, 편집(수정), 불러오기, 삭제를 할 수 있는 것이 특징입니다. 그렇다면 우리가 알고 있는 엑셀과 데이터 베이스는 무엇이 다를까요? ▶공통점 : 표의 형태로 데이터를 저장. ▶차이점 : 엑셀은 직관적으로 데이터 이용, 접근성 쉬움, 느려서 적은양의 데이터만 가능. 데이터베이스는 프로그램...","categories": ["DB"],
+        "tags": [],
+        "url": "/db/1/",
+        "teaser": null
+      },{
+        "title": "2주차 sql과 mysql사용방법",
+        "excerpt":"1. SQL 이란? Structured Query Language의 약자입니다. Structured : 관계형 데이터(table형태의 데이터) Query : 질의, 요청(ex. 프로그램 언어를 통해 web에서 클라이언트가 요청 ) Language : 프로그램 언어 정리해보면 관계형 데이터를 목적에 맞게 요청할 수 있는 프로그램 언어라고 볼 수 있습니다. 2. mysql 사용방법 mysql은 sql언어를 사용하는 데이터베이스 관리 서비스입니다. 연결된...","categories": ["sql"],
+        "tags": [],
+        "url": "/sql/1/",
+        "teaser": null
+      },{
+        "title": "2주차 DB연결해서 웹으로 데이터보기",
+        "excerpt":"1. 코딩 작성 및 결과 &lt;?php #DB연결 $db_conn = mysqli_connect('localhost','admin','student1234','test'); #url에 적은 name값 변수에 지정 $name=$_GET['name']; #변수 name에 해당하는 score값 웹 화면에 띄우기 $sql=\"select SCORE from test_table WHERE NAME='$name'\"; $result=mysqli_query($db_conn,$sql); $row=mysqli_fetch_array($result); echo $name.\"학생의 점수는\".$row['SCORE'].\"입니다.\"; ?&gt; URL파라미터는 URL에서 ? 다음부터 나오는 값인데, 저는 DB에 name: LEE 가 저장되어 있으므로 name=LEE값을 지정해줬습니다....","categories": ["project"],
+        "tags": [],
+        "url": "/project/2/",
+        "teaser": null
+      },{
+        "title": "1주차 로그인페이지 만들기(2)",
+        "excerpt":"1. 로그인 페이지 다음 조건으로 로그인 페이지를 만들어보도록 하겠습니다. html, css, php 만으로 작성하기 아이디: admin, 비밀번호 : admin1234 로 로그인 할수 있게 하기 잘못된 정보로 로그인 했을 시, 경고문 띄우기 로그인 된 화면에서 로그아웃하면 본래 로그인화면으로 돌아가기 밑에 동영상과 같은 시나리오입니다. 1.1 php 문구작성 1.초기화면(index.php) 2.로그인성공시화면(login_success.php) 3.로그인성공유무로 url이동(login.php) 4.로그아웃...","categories": ["project"],
+        "tags": [],
+        "url": "/project/3/",
+        "teaser": null
+      },{
+        "title": "로그인의 식별과 인증 및 유지",
+        "excerpt":"1. 로그인의 식별과 인증 로그인이란? 조건에 맞는 사람을 확인하는 작업입니다. 그러면 조건에 맞는 사람을 어떻게 확인할까요? 바로 식별과 인증의 과정을 거칩니다. 식별 : 수많은 데이터 속에서 특정 데이터를 찾아내는 것. ▶ 식별 정보를 찾아냄. (예 ID : primary key) 식별 정보 특징 &gt; 오로지 하나의 id만 존재한다 , 노출되어도 위험이...","categories": ["WEB"],
+        "tags": [],
+        "url": "/web/1/",
         "teaser": null
       }]

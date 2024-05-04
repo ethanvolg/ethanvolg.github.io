@@ -1,0 +1,846 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>1주차 로그인페이지 만들기(1) | 나의 코딩 공부</title>
+<meta name="description" content="1. 로그인 페이지">
+
+
+  <meta name="author" content="ethan">
+  
+  <meta property="article:author" content="ethan">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="나의 코딩 공부">
+<meta property="og:title" content="1주차 로그인페이지 만들기(1)">
+<meta property="og:url" content="http://localhost:4000/project/1/">
+
+
+  <meta property="og:description" content="1. 로그인 페이지">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2024-04-24T00:00:00+09:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/project/1/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "코딩",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+  <meta name="naver-site-verification" content="cda5169ee8858dc0fd65c97ed6247167558b5352">
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="나의 코딩 공부 Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/ethan.png" alt="나의 코딩 공부"></a>
+        
+        <a class="site-title" href="/">
+          나의 코딩 공부
+          <span class="site-subtitle">daily power</span>
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">Category</a>
+            </li><li class="masthead__menu-item">
+              <a href="/search/">Search</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="/" itemprop="item"><span itemprop="name">Home</span></a>
+
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="/categories/#project" itemprop="item"><span itemprop="name">Project</span></a>
+          <meta itemprop="position" content="2" />
+        </li>
+        <span class="sep">/</span>
+      
+    
+      
+      
+        <li class="current">1주차 로그인페이지 만들기(1)</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="1주차 로그인페이지 만들기(1)">
+    <meta itemprop="description" content="1. 로그인 페이지">
+    <meta itemprop="datePublished" content="2024-04-24T00:00:00+09:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="http://localhost:4000/project/1/" class="u-url" itemprop="url">1주차 로그인페이지 만들기(1)
+</a>
+          </h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2024-04-24T00:00:00+09:00">2024-04-24</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 분 소요
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-fas fa-laptop-code"></i> 목차</h4></header>
+              <ul class="toc__menu"><li><a href="#1-로그인-페이지">1. 로그인 페이지</a></li><li><a href="#11-html-문구-작성파일이름-indexphp">1.1 html 문구 작성(파일이름: index.php)</a><ul><li><a href="#111-head">1.1.1 head</a></li><li><a href="#112-body">1.1.2 body</a></li></ul></li><li><a href="#113-css">1.1.3 css</a></li></ul>
+
+            </nav>
+          </aside>
+        
+        <h1 id="1-로그인-페이지">1. 로그인 페이지</h1>
+
+<p>다음 조건으로 로그인 페이지를 만들어보도록 하겠습니다.</p>
+
+<ol>
+  <li>
+    <p>html, css, php 만으로 작성하기</p>
+  </li>
+  <li>
+    <p>아이디: admin, 비밀번호 : admin1234 로 로그인 할수 있게 하기</p>
+  </li>
+  <li>
+    <p>잘못된 정보로 로그인 했을 시, 경고문 띄우기</p>
+  </li>
+  <li>
+    <p>로그인 된 화면에서 로그아웃하면 본래 로그인화면으로 돌아가기</p>
+
+    <p>밑에 동영상과 같은 시나리오입니다.</p>
+  </li>
+</ol>
+
+<p><img src="/images/2024-04-24-first/video3-ezgif.com-video-to-gif-converter.gif" alt="video3-ezgif.com-video-to-gif-converter" /></p>
+
+<h1 id="11-html-문구-작성파일이름-indexphp">1.1 html 문구 작성<span style="font-size:50%">(파일이름: index.php)</span></h1>
+
+<p><br /></p>
+
+<h2 id="111-head">1.1.1 head</h2>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"en"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">"X-UA-Compatible"</span> <span class="na">content=</span><span class="s">"IE=edge"</span><span class="nt">&gt;</span> ### 모든 익스플로러에서 호환성보기 무시
+    <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"viewport"</span> <span class="na">content=</span><span class="s">"width=device-width, initial-scale=1.0"</span><span class="nt">&gt;</span> 
+    ### width=device-width :기기에 따라 화면 너비에 따르기,initial-scale :브라우저 페이지 처음로드 할때 초기 크기 수준
+    
+    <span class="nt">&lt;title&gt;</span>Document<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"style.css"</span><span class="nt">&gt;</span> #css
+    <span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">'https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'</span> <span class="na">rel=</span><span class="s">'stylesheet'</span><span class="nt">&gt;</span> #아이콘 
+<span class="nt">&lt;/head&gt;</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="112-body">1.1.2 body</h2>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span> #모양마다 class를 지정해주면 css를 보다 편하게 작업할 수 있다. #가독성이 좋게 설명구간 별로 --- 표시
+ 
+ 	#background를 이미지가 아니라 동영상으로 보이기
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"back"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;video</span> <span class="na">autoplay</span> <span class="na">loop</span> <span class="na">muted</span> <span class="na">plays-inline</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;source</span> <span class="na">src=</span><span class="s">"video1.mp4"</span> <span class="na">type=</span><span class="s">"video/mp4"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;/video&gt;</span>
+        -------------------------------------------
+        #로그인창
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"wrapper"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">"login.php"</span> <span class="na">method=</span><span class="s">"post"</span><span class="nt">&gt;</span> # form, post방식을 사용해서 url은 표시 안되지만 요청정보를 보냄
+                <span class="nt">&lt;h1&gt;</span>Login<span class="nt">&lt;/h1&gt;</span> #로그인
+                #로그인 실패시 밑에 incorrect 글귀,login.php에서 로그인 실패시 url이동하는데 그때 파라미터 글귀로 가져옴 
+				<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"php"</span><span class="nt">&gt;</span> 
+					<span class="cp">&lt;?php if (isset($_GET['incorrect'])) { ?&gt;</span>
+						<span class="nt">&lt;i</span> <span class="na">class=</span><span class="s">'bx bxs-error'</span><span class="nt">&gt;&lt;/i&gt;</span>
+						<span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"incorrect"</span><span class="nt">&gt;</span><span class="cp">&lt;?php echo $_GET['incorrect'] ; ?&gt;</span><span class="nt">&lt;/p&gt;</span>
+                	<span class="cp">&lt;?php } ?&gt;</span>
+				<span class="nt">&lt;/div&gt;</span>
+                
+                ------------   
+                #아이디
+                <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"input-box"</span><span class="nt">&gt;</span> 
+                    <span class="nt">&lt;i</span> <span class="na">class=</span><span class="s">'bx bxs-user'</span><span class="nt">&gt;&lt;/i&gt;</span>
+                    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">name=</span><span class="s">"id"</span> <span class="na">required</span><span class="nt">&gt;</span>
+                    <span class="nt">&lt;label</span> <span class="nt">&gt;</span>Username<span class="nt">&lt;/label&gt;</span>
+                <span class="nt">&lt;/div&gt;</span>
+                ------------
+                #비밀번호
+                <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"input-box"</span><span class="nt">&gt;</span>
+                    <span class="nt">&lt;i</span> <span class="na">class=</span><span class="s">'bx bxs-lock-alt'</span> <span class="nt">&gt;&lt;/i&gt;</span>
+                    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"password"</span> <span class="na">name=</span><span class="s">"password"</span> <span class="na">required</span><span class="nt">&gt;</span>
+                    <span class="nt">&lt;label</span> <span class="nt">&gt;</span>Password<span class="nt">&lt;/label&gt;</span>
+                <span class="nt">&lt;/div&gt;</span>
+                ------------
+                #밑에 추가 사항
+                <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"remember-forgot"</span><span class="nt">&gt;</span>
+                    <span class="nt">&lt;label&gt;&lt;input</span> <span class="na">type=</span><span class="s">"checkbox"</span><span class="nt">&gt;</span>Remember me<span class="nt">&lt;/label&gt;</span>
+                    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>Forgot password?<span class="nt">&lt;/a&gt;</span>
+                <span class="nt">&lt;/div&gt;</span>
+                    <span class="nt">&lt;div&gt;</span>
+                        <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">class=</span><span class="s">"btn"</span><span class="nt">&gt;</span>Login<span class="nt">&lt;/button&gt;</span>
+                    <span class="nt">&lt;/div&gt;</span>
+                <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"Sign-up-link"</span><span class="nt">&gt;</span>
+                    <span class="nt">&lt;p&gt;</span>Don't have an account?<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>Sign up<span class="nt">&lt;/a&gt;&lt;/p&gt;</span>
+                <span class="nt">&lt;/div&gt;</span> 
+            <span class="nt">&lt;/form&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>  
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h1 id="113-css">1.1.3 css</h1>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">#폰트</span>
+<span class="k">@import</span> <span class="sx">url('https://fonts.googleapis.com/css2?family=Play:wght@400;700&amp;family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap')</span><span class="p">;</span>
+
+<span class="nf">#모든</span> <span class="nt">지정</span>
+<span class="o">*</span> <span class="p">{</span>
+    <span class="nl">margin</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+    <span class="nl">padding</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>  <span class="err">#마진과</span> <span class="err">패딩</span> <span class="err">모두</span> <span class="err">0값으로</span> <span class="err">하고,</span> <span class="err">필요에</span> <span class="err">따라</span> <span class="err">나중에</span> <span class="err">각각</span> <span class="err">지정해도됌.</span>
+    <span class="nl">box-sizing</span><span class="p">:</span> <span class="n">border-box</span><span class="p">;</span> <span class="err">#border값에</span> <span class="err">따라</span> <span class="err">박스크기가</span> <span class="err">제각각이</span> <span class="err">될수</span> <span class="err">있으므로</span> <span class="err">크기지정시</span> <span class="err">같은</span> <span class="err">크기를</span> <span class="err">볼수있음.</span>
+    <span class="nl">font-family</span><span class="p">:</span> <span class="s1">"Play"</span> <span class="p">,</span><span class="nb">sans-serif</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">body</span> <span class="p">{</span>
+    <span class="nl">display</span><span class="p">:</span> <span class="n">flex</span><span class="p">;</span> <span class="err">#화면을</span> <span class="err">박스형태로</span> <span class="err">보기</span>
+    <span class="nl">justify-content</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span> <span class="err">#</span> <span class="err">수평정렬</span>
+    <span class="nl">align-items</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span> <span class="err">#수직정렬</span>
+    <span class="nl">min-height</span><span class="p">:</span> <span class="m">100vh</span><span class="p">;</span> <span class="err">#최소크기를</span> <span class="err">vh(view</span> <span class="err">height,view</span> <span class="err">port)의</span> <span class="err">전체크기로</span> <span class="err">지정.</span>
+<span class="p">}</span>
+<span class="nf">#로그인박스</span>
+<span class="nc">.wrapper</span> <span class="p">{</span>
+    <span class="nl">width</span><span class="p">:</span> <span class="m">420px</span><span class="p">;</span>
+    <span class="nl">background</span><span class="p">:</span> <span class="nb">transparent</span><span class="p">;</span> <span class="err">#투명</span>
+    <span class="py">backdrop-filter</span><span class="p">:</span> <span class="n">blur</span><span class="p">(</span><span class="m">5px</span><span class="p">);</span> <span class="err">#배경효과</span>
+    <span class="nl">border</span><span class="p">:</span> <span class="m">2px</span> <span class="nb">solid</span> <span class="n">rgba</span><span class="p">(</span><span class="m">255</span><span class="p">,</span><span class="m">255</span><span class="p">,</span><span class="m">255</span><span class="p">,</span> <span class="m">.2</span><span class="p">);</span> 
+    <span class="nl">box-shadow</span><span class="p">:</span> <span class="m">0</span> <span class="m">0</span> <span class="m">10px</span> <span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">0</span><span class="p">,</span><span class="m">0</span><span class="p">,</span><span class="m">.2</span><span class="p">);</span>
+    <span class="nl">color</span><span class="p">:</span> <span class="m">#fff</span><span class="p">;</span>
+    <span class="nl">border-radius</span><span class="p">:</span> <span class="m">10px</span><span class="p">;</span> <span class="err">#둥글게</span>
+    <span class="nl">padding</span><span class="p">:</span> <span class="m">30px</span> <span class="m">40px</span><span class="p">;</span>
+    <span class="nl">position</span><span class="p">:</span><span class="nb">relative</span><span class="p">;</span> <span class="err">#박스</span> <span class="err">내에서</span> <span class="err">자유롭게</span> <span class="err">움직이기</span>
+<span class="p">}</span>
+<span class="nf">#로그인</span> <span class="nt">글씨</span>
+<span class="nc">.wrapper</span> <span class="nt">h1</span><span class="p">{</span>
+    <span class="nl">font-size</span><span class="p">:</span> <span class="m">36px</span><span class="p">;</span>
+    <span class="nl">text-align</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nf">#아이디</span><span class="o">,</span><span class="nt">비밀번호</span> <span class="nt">박스의</span> <span class="nt">위치</span>
+<span class="nc">.wrapper</span> <span class="nc">.input-box</span><span class="p">{</span>
+    <span class="nl">position</span><span class="p">:</span> <span class="nb">relative</span><span class="p">;</span>
+    <span class="nl">width</span><span class="p">:</span> <span class="m">100%</span><span class="p">;</span>
+    <span class="nl">height</span><span class="p">:</span> <span class="m">50px</span><span class="p">;</span>
+    <span class="nl">margin</span><span class="p">:</span> <span class="m">30px</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nf">#아이디</span><span class="o">,</span><span class="nt">비밀번호</span> <span class="nt">박스의</span> <span class="nt">input</span>
+<span class="nc">.input-box</span> <span class="nt">input</span> <span class="p">{</span>
+    <span class="nl">width</span><span class="p">:</span> <span class="m">100%</span><span class="p">;</span>
+    <span class="nl">height</span><span class="p">:</span> <span class="m">100%</span><span class="p">;</span>
+    <span class="nl">background</span><span class="p">:</span> <span class="nb">transparent</span><span class="p">;</span>
+    <span class="nl">border</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
+    <span class="nl">outline</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
+    <span class="nl">border</span><span class="p">:</span> <span class="m">2px</span> <span class="nb">solid</span> <span class="n">rgba</span><span class="p">(</span><span class="m">255</span><span class="p">,</span><span class="m">255</span><span class="p">,</span><span class="m">255</span><span class="p">,</span> <span class="m">.2</span><span class="p">);</span>
+    <span class="nl">border-radius</span><span class="p">:</span> <span class="m">40px</span><span class="p">;</span>
+    <span class="nl">font-size</span><span class="p">:</span> <span class="m">16px</span><span class="p">;</span>
+    <span class="nl">color</span><span class="p">:</span> <span class="m">#fff</span><span class="p">;</span>
+    <span class="nl">padding</span><span class="p">:</span> <span class="m">20px</span> <span class="m">20px</span> <span class="m">20px</span> <span class="m">45px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nf">#아이디</span><span class="o">,</span><span class="nt">비밀번호</span> <span class="nt">박스에</span> <span class="nt">들어간</span> <span class="nt">내용</span>
+<span class="nc">.input-box</span> <span class="nt">label</span><span class="p">{</span>
+    <span class="nl">position</span><span class="p">:</span> <span class="nb">absolute</span><span class="p">;</span>
+    <span class="nl">top</span><span class="p">:</span><span class="m">50%</span><span class="p">;</span>
+    <span class="nl">left</span><span class="p">:</span><span class="m">50px</span><span class="p">;</span>
+    <span class="nl">transform</span><span class="p">:</span> <span class="n">translateY</span><span class="p">(</span><span class="m">-53%</span><span class="p">);</span> <span class="err">#위치</span> <span class="err">옮기기</span>
+    <span class="nl">pointer-events</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span> <span class="err">#커서</span> <span class="err">모양바뀌는거</span> <span class="err">없애기</span>
+    <span class="nl">color</span><span class="p">:</span><span class="m">#fff</span><span class="p">;</span>
+    <span class="nl">transition</span><span class="p">:</span> <span class="m">.5s</span><span class="p">;</span> <span class="err">#움직임시간</span>
+    <span class="nl">background-color</span><span class="p">:</span> <span class="nb">transparent</span><span class="p">;</span>
+    
+<span class="p">}</span>
+<span class="nf">#아이디</span><span class="o">,</span><span class="nt">비밀번호</span> <span class="nt">박스가</span> <span class="nt">포커스</span> <span class="nt">되었을시</span>
+<span class="nc">.input-box</span> <span class="nt">input</span><span class="nd">:focus</span> <span class="p">{</span>
+    <span class="nl">border-color</span><span class="p">:</span> <span class="m">#18ffff</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="err">#</span> <span class="nt">아이디</span><span class="o">,</span><span class="nt">비밀번호</span> 
+  <span class="nt">박스에</span> <span class="nt">포커스</span> <span class="nt">되어있을때</span> <span class="nt">라벨과</span> <span class="nt">박스에</span> <span class="nt">값이</span> <span class="nt">있을때</span> <span class="nt">라벨</span> <span class="nt">모두의</span> <span class="nt">경우</span>
+<span class="nc">.input-box</span> <span class="nt">input</span><span class="nd">:focus</span><span class="o">~</span><span class="nt">label</span><span class="o">,</span>
+<span class="nc">.input-box</span> <span class="nt">input</span><span class="nd">:valid</span><span class="o">~</span><span class="nt">label</span> <span class="p">{</span>
+    <span class="nl">top</span><span class="p">:</span> <span class="m">-5px</span><span class="p">;</span>
+    <span class="nl">left</span><span class="p">:</span> <span class="m">20px</span><span class="p">;</span>
+    <span class="nl">font-size</span><span class="p">:</span> <span class="m">0.8rem</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="err">#</span> <span class="nt">아이디</span><span class="o">,</span> <span class="nt">비밀번호</span> <span class="nt">로고</span>
+<span class="nc">.input-box</span> <span class="nt">i</span> <span class="p">{</span>
+    <span class="nl">position</span><span class="p">:</span> <span class="nb">absolute</span><span class="p">;</span>
+    <span class="nl">top</span><span class="p">:</span> <span class="m">50%</span><span class="p">;</span>
+    <span class="nl">left</span><span class="p">:</span> <span class="m">20px</span><span class="p">;</span>
+    <span class="nl">transform</span><span class="p">:</span> <span class="n">translateY</span><span class="p">(</span><span class="m">-50%</span><span class="p">);</span>
+    <span class="nl">font-size</span><span class="p">:</span> <span class="m">20px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="err">#</span> <span class="nt">추가</span> <span class="nt">사항글</span>
+<span class="nc">.wrapper</span> <span class="nc">.remember-forgot</span> <span class="p">{</span>
+    <span class="nl">display</span><span class="p">:</span> <span class="n">flex</span><span class="p">;</span>
+    <span class="nl">justify-content</span><span class="p">:</span> <span class="n">space-between</span><span class="p">;</span>
+    <span class="nl">font-size</span><span class="p">:</span> <span class="m">14.5px</span><span class="p">;</span>
+    <span class="nl">margin</span><span class="p">:</span> <span class="m">-15px</span> <span class="m">0</span> <span class="m">15px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="err">#</span> <span class="nt">추가</span> <span class="nt">사항글</span> <span class="nt">중</span> <span class="nt">왼쪽</span> <span class="nt">박스</span>
+<span class="nc">.remember-forgot</span> <span class="nt">label</span> <span class="nt">input</span> <span class="p">{</span>
+    <span class="py">accent-color</span><span class="p">:</span> <span class="m">#fff</span><span class="p">;</span>
+    <span class="nl">margin-right</span><span class="p">:</span> <span class="m">3px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nf">#추가</span> <span class="nt">사항글</span> <span class="nt">중</span> <span class="nt">오른쪽</span> <span class="nt">글</span>
+<span class="nc">.remember-forgot</span> <span class="nt">a</span><span class="p">{</span>
+    <span class="nl">color</span><span class="p">:</span> <span class="m">#fff</span><span class="p">;</span>
+    <span class="nl">text-decoration</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span> <span class="err">#밑줄</span>
+<span class="p">}</span>
+<span class="nf">#추가</span> <span class="nt">사항글</span> <span class="nt">중</span> <span class="nt">오른쪽</span> <span class="nt">글</span><span class="o">,</span> <span class="nt">커서올렸을시</span>
+<span class="nc">.remember-forgot</span> <span class="nt">a</span><span class="nd">:hover</span> <span class="p">{</span>
+    <span class="nl">text-decoration</span><span class="p">:</span> <span class="nb">underline</span><span class="p">;</span> 
+<span class="p">}</span>
+<span class="nc">.wrapper</span>  <span class="nc">.btn</span> <span class="p">{</span>
+    <span class="nl">width</span><span class="p">:</span> <span class="m">100%</span><span class="p">;</span>
+    <span class="nl">height</span><span class="p">:</span> <span class="m">45px</span><span class="p">;</span>
+    <span class="nl">background</span><span class="p">:</span> <span class="m">#fff</span><span class="p">;</span>
+    <span class="nl">border</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
+    <span class="nl">outline</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
+    <span class="nl">border-radius</span><span class="p">:</span> <span class="m">40px</span><span class="p">;</span>
+    <span class="nl">box-shadow</span><span class="p">:</span> <span class="m">0</span> <span class="m">0</span> <span class="m">10px</span> <span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">0</span><span class="p">,</span><span class="m">0</span><span class="p">,</span><span class="m">.1</span><span class="p">);</span>
+    <span class="nl">cursor</span><span class="p">:</span> <span class="nb">pointer</span><span class="p">;</span>
+    <span class="nl">font-size</span><span class="p">:</span> <span class="m">16px</span><span class="p">;</span>
+    <span class="nl">color</span><span class="p">:</span> <span class="m">#333</span><span class="p">;</span>
+    <span class="nl">font-weight</span><span class="p">:</span> <span class="m">600</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nf">#로그인</span> <span class="nt">버튼</span>
+<span class="nc">.wrapper</span> <span class="nt">button</span> <span class="p">{</span>
+    <span class="nl">margin</span><span class="p">:</span> <span class="m">20px</span> <span class="m">0</span><span class="p">;</span>
+    <span class="nl">transform</span><span class="p">:</span> <span class="n">translateY</span><span class="p">(</span><span class="m">39%</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="nf">#로그인버튼</span> <span class="nt">밑에</span> <span class="nt">글</span> <span class="nt">전부</span>
+<span class="nc">.wrapper</span> <span class="nc">.Sign-up-link</span> <span class="p">{</span>
+    <span class="nl">font-size</span><span class="p">:</span> <span class="m">14.5px</span><span class="p">;</span>
+    <span class="nl">text-align</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+    <span class="nl">margin</span><span class="p">:</span> <span class="m">20px</span> <span class="m">0</span> <span class="m">5px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nf">#회원가입링크만</span>
+<span class="nc">.Sign-up-link</span> <span class="nt">p</span> <span class="nt">a</span> <span class="p">{</span>
+    <span class="nl">color</span><span class="p">:</span> <span class="m">#fff</span><span class="p">;</span>
+    <span class="nl">text-decoration</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
+    <span class="nl">font-weight</span><span class="p">:</span> <span class="m">600</span><span class="p">;</span>
+    <span class="nl">margin-left</span><span class="p">:</span> <span class="m">3px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nf">#회원가입링크만</span><span class="o">,</span><span class="nt">커서올렸을시</span>
+<span class="nc">.Sign-up-link</span> <span class="nt">p</span> <span class="nt">a</span><span class="nd">:hover</span> <span class="p">{</span>
+    <span class="nl">text-decoration</span><span class="p">:</span> <span class="nb">underline</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nf">#배경화면</span> <span class="nt">비디오</span>
+<span class="nc">.back</span> <span class="nt">video</span><span class="p">{</span>
+    <span class="nl">position</span><span class="p">:</span> <span class="nb">absolute</span><span class="p">;</span>
+    <span class="nl">right</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+    <span class="nl">bottom</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+    <span class="nl">z-index</span><span class="p">:</span> <span class="m">-1</span><span class="p">;</span> <span class="err">#배경</span> <span class="err">뒤로</span>
+<span class="p">}</span>
+<span class="nf">#배경화면</span> <span class="nt">비디오</span> <span class="nt">비율</span>
+<span class="k">@media</span><span class="p">(</span><span class="n">min-aspect-ratio</span><span class="p">:</span><span class="m">16</span><span class="p">/</span><span class="m">9</span><span class="p">){</span>
+    <span class="nc">.back</span> <span class="nt">video</span> <span class="p">{</span>
+        <span class="nl">width</span><span class="p">:</span> <span class="m">100%</span><span class="p">;</span>
+        <span class="nl">height</span><span class="p">:</span> <span class="nb">auto</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="nf">#로그인실패시</span> <span class="nt">문구</span>
+<span class="nc">.incorrect</span> <span class="p">{</span>
+    <span class="nl">background</span><span class="p">:</span> <span class="m">#f2dede</span><span class="p">;</span>
+    <span class="nl">color</span><span class="p">:</span> <span class="m">#A94442</span><span class="p">;</span>
+    <span class="nl">padding</span><span class="p">:</span> <span class="m">6px</span><span class="p">;</span>
+    <span class="nl">width</span><span class="p">:</span> <span class="m">100%</span><span class="p">;</span>
+    <span class="nl">border-radius</span><span class="p">:</span> <span class="m">5px</span><span class="p">;</span>
+    <span class="nl">position</span><span class="p">:</span> <span class="nb">relative</span><span class="p">;</span>
+    <span class="nl">transform</span><span class="p">:</span> <span class="n">translateY</span><span class="p">(</span><span class="m">44%</span><span class="p">);</span>
+    <span class="nl">font-weight</span><span class="p">:</span> <span class="m">300</span><span class="p">;</span>
+    <span class="nl">text-align</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+
+<span class="p">}</span>
+<span class="nf">#로그인실패시</span> <span class="nt">로고</span>
+ <span class="nc">.php</span> <span class="nt">i</span><span class="p">{</span>
+    <span class="nl">position</span><span class="p">:</span> <span class="nb">absolute</span><span class="p">;</span>
+    <span class="nl">top</span><span class="p">:</span> <span class="m">20%</span><span class="p">;</span>
+    <span class="nl">left</span><span class="p">:</span> <span class="m">73px</span><span class="p">;</span>
+    <span class="nl">z-index</span><span class="p">:</span> <span class="m">1</span><span class="p">;</span>
+    <span class="nl">color</span><span class="p">:</span><span class="m">#A94442</span><span class="p">;</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#project" class="page__taxonomy-item p-category" rel="tag">project</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2024-04-24T00:00:00+09:00">2024-04-24</time></p>
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=1%EC%A3%BC%EC%B0%A8+%EB%A1%9C%EA%B7%B8%EC%9D%B8%ED%8E%98%EC%9D%B4%EC%A7%80+%EB%A7%8C%EB%93%A4%EA%B8%B0%281%29%20http%3A%2F%2Flocalhost%3A4000%2Fproject%2F1%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fproject%2F1%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fproject%2F1%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/web/1/" class="pagination--pager" title="웹 서버 이해하기
+">이전</a>
+    
+    
+      <a href="/db/1/" class="pagination--pager" title="데이터 베이스(DB)
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h2 class="page__related-title">참고</h2>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/web/1/" rel="permalink">로그인의 식별과 인증 및 유지
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2024-05-03T00:00:00+09:00">2024-05-03</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/project/3/" rel="permalink">1주차 로그인페이지 만들기(2)
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2024-04-29T00:00:00+09:00">2024-04-29</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          최대 1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/project/2/" rel="permalink">2주차 DB연결해서 웹으로 데이터보기
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2024-04-27T00:00:00+09:00">2024-04-27</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          최대 1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">1. 코딩 작성 및 결과
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/sql/1/" rel="permalink">2주차 sql과 mysql사용방법
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2024-04-26T00:00:00+09:00">2024-04-26</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2024 코딩. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://localhost:4000/project/1/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/project/1"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://ethan.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>
