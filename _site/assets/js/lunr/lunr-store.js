@@ -40,4 +40,22 @@ var store = [{
         "tags": [],
         "url": "/web/1/",
         "teaser": null
+      },{
+        "title": "Burp suite 설치 및 사용법, 간단한 ctf 풀기",
+        "excerpt":"1. Burp suite 설치 및 기본 세팅 burp suite 홈페이지 들어가서 ▶ Products ▶ community Edition 들어가서 다운로드 받으시면 됩니다. 실행 이후에도 next를 계속 눌러 들어갑니다. 1.1 web proxy tool 개념 burp suite 은 대표적인 web proxy tool 입니다. web proxy tool의 역할은 다음 그림과 같습니다. 서버와 브라우저의 서로 오고...","categories": ["WEB"],
+        "tags": [],
+        "url": "/web/2/",
+        "teaser": null
+      },{
+        "title": "3주차 로그인의 식별과 인증, 해싱처리하기",
+        "excerpt":"1.로그인의 식별과 인증 4가지 만들기 로그인을 하기 위해서 식별과 인증을 해야 한다는 것을 배웠습니다. 이론적인 것은 간단한 로직으로 작성할 수 있고, 쉽게 찾아 볼 수 있기 때문에 제가 만든 로그인 폼의 식별과 인증을 살펴보도록 하겠습니다. 1.1 식별과 인증 동시에 진행 ▶1번 방식 &lt;?php session_start(); # 세션 파트에서 보았듯 로그인을 유지하기...","categories": ["project"],
+        "tags": [],
+        "url": "/project/4/",
+        "teaser": null
+      },{
+        "title": "4주차 키로거 만들기",
+        "excerpt":"1.키로거 만들기 키로거란? 사용자가 작성하는 글을 기록하고 전송하는 것을 말합니다. 즉 사용자의 입력의 데이터를 가져오는 것입니다. 키로거를 만든 것을 보여드리면서 코드를 설명하겠습니다. ▶ 글을 작성하니, 작성한 글이 txt파일에 저장되는 모습! 1.1 keylog.html 저는 기본적으로 작성할 텍스트 박스를 만들었고, 텍스트의 내용을 밑에 표시하고 싶었기 때문에 pre를 작성해두었습니다. 필요에 따라 밑에 표시하는...","categories": ["project"],
+        "tags": [],
+        "url": "/project/5/",
+        "teaser": null
       }]

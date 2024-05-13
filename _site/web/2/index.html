@@ -1,0 +1,710 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Burp suite 설치 및 사용법, 간단한 ctf 풀기 | 나의 코딩 공부</title>
+<meta name="description" content="">
+
+
+  <meta name="author" content="ethan">
+  
+  <meta property="article:author" content="ethan">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="나의 코딩 공부">
+<meta property="og:title" content="Burp suite 설치 및 사용법, 간단한 ctf 풀기">
+<meta property="og:url" content="http://localhost:4000/web/2/">
+
+
+  <meta property="og:description" content="">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2024-05-09T00:00:00+09:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/web/2/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "코딩",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+  <meta name="naver-site-verification" content="cda5169ee8858dc0fd65c97ed6247167558b5352">
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="나의 코딩 공부 Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/ethan.png" alt="나의 코딩 공부"></a>
+        
+        <a class="site-title" href="/">
+          나의 코딩 공부
+          <span class="site-subtitle">daily power</span>
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">Category</a>
+            </li><li class="masthead__menu-item">
+              <a href="/search/">Search</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="/" itemprop="item"><span itemprop="name">Home</span></a>
+
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="/categories/#web" itemprop="item"><span itemprop="name">Web</span></a>
+          <meta itemprop="position" content="2" />
+        </li>
+        <span class="sep">/</span>
+      
+    
+      
+      
+        <li class="current">Burp suite 설치 및 사용법, 간단한 ctf 풀기</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Burp suite 설치 및 사용법, 간단한 ctf 풀기">
+    <meta itemprop="description" content="">
+    <meta itemprop="datePublished" content="2024-05-09T00:00:00+09:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="http://localhost:4000/web/2/" class="u-url" itemprop="url">Burp suite 설치 및 사용법, 간단한 ctf 풀기
+</a>
+          </h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2024-05-09T00:00:00+09:00">2024-05-09</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 분 소요
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-fas fa-laptop-code"></i> 목차</h4></header>
+              <ul class="toc__menu"><li><a href="#1-burp-suite-설치-및-기본-세팅">1. Burp suite 설치 및 기본 세팅</a><ul><li><a href="#11-web-proxy-tool-개념">1.1 web proxy tool 개념</a></li><li><a href="#12-기본적인-세팅">1.2 기본적인 세팅</a></li></ul></li><li><a href="#2-burp-suite-일반적으로-자주-쓰는-키">2. Burp suite 일반적으로 자주 쓰는 키</a></li><li><a href="#3-간단한-ctf-풀기">3. 간단한 ctf 풀기</a><ul><li><a href="#1번-문제">1번 문제.</a></li><li><a href="#2번-문제">2번 문제.</a></li><li><a href="#3번-문제">3번 문제.</a></li><li><a href="#4번-문제">4번 문제.</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <p><br /></p>
+
+<h1 id="1-burp-suite-설치-및-기본-세팅"><span style="background:#000000; color:#ffffff">1. Burp suite 설치 및 기본 세팅</span></h1>
+
+<p><br /><img src="/images/2024-05-09-2/캡처_2024_05_09_22_32_55_991.png" alt="캡처_2024_05_09_22_32_55_991" style="zoom: 33%;" /></p>
+
+<p>burp suite 홈페이지 들어가서 ▶ Products ▶ community Edition 들어가서 다운로드 받으시면 됩니다. <br />
+실행 이후에도 next를 계속 눌러 들어갑니다.</p>
+
+<h2 id="11-web-proxy-tool-개념">1.1 web proxy tool 개념</h2>
+
+<p><br />burp suite 은 대표적인 web proxy tool 입니다. <br />
+web proxy tool의 역할은 다음 그림과 같습니다.</p>
+
+<p><img src="https://miro.medium.com/v2/resize:fit:1400/1*OrFHdkiN2RkFo9qfG39Q3w.png" alt="The Proxy API Is So Powerful That Every Web Developer Should Master It! |  by Bytefer | JavaScript in Plain English" style="zoom: 50%;" /></p>
+
+<p>서버와 브라우저의 서로 오고 가는 요청들을 대신 전달하는 일을 합니다.<br />
+그러면 어떤 장점이 있을까요?<br />
+실시간으로 주고 받는 패킷<sup>(1)</sup>을 볼 수 있고 조작하여 서버를 보내서 처리되는 방식을 테스트 할 수 있습니다.<br />
+이는 보안의 취약점을 식별하는데 중요한 역할을 합니다.</p>
+
+<p><span style="font-weight:bold">-단어 정리-</span></p>
+
+<p>패킷<sup>(1)</sup> : 효율적인 전송과 관리를 위해 데이터를 나눈 작은 데이터입니다. 네트워크에서 데이터 교환의 기본 단위.</p>
+
+<p>패킷은 헤더와 페이로드로 이루어져 있습니다. 헤더는 정확하게 정보가 처리되도록, 올바른 경로로 가도록 도움을 줍니다. <br />
+페이로드는 전송하고자 하는 데이터입니다.</p>
+
+<p>만약 택배로 물건을 보낸다고 생각한다면, 헤더는 올바르고 정확히 배달하는 기사님이고 / 페이로드는 배송하는 물건이 되겠네요.</p>
+
+<h2 id="12-기본적인-세팅">1.2 기본적인 세팅</h2>
+
+<p>burp suite를 설치했다면 가장 중요하게 생각해야 하는 것이 기본 세팅입니다.</p>
+
+<ol>
+  <li><span style="font-weight:bold">브라우저와 서버의 중간다리 역할을 하므로 proxy에 listener를 켜두어야하고, 사용하는 웹브라우저에서 수동 프록시 설정을 활성화 해야합니다. </span></li>
+</ol>
+
+<p><img src="/images/2024-05-09-2/2.PNG" alt="2" style="zoom: 50%;" /><img src="/images/2024-05-09-2/4.PNG" alt="4" style="zoom:50%;" /></p>
+
+<p>경로:&lt;burp → settings →proxy listeners&gt;</p>
+
+<p>경로 : &lt;웹브라우저 실행 → 설정 → 프록시 검색 → 프록시 설정&gt;</p>
+
+<p>주소는 127.0.0.1 이나 localhost이고,  포트 번호은 입력해야 합니다. (브라우저랑 listener가 같아야함.)</p>
+
+<ol>
+  <li>
+    <p><span style="font-weight:bold">다음은 한글 깨짐 현상을 발생하는 것을 방지하기 위한 설정입니다.</span><br />
+한글 지원되는 글꼴과 utf-8을 사용해야합니다.</p>
+
+    <p>경로 : &lt;setting→user→user interface→inspector and message editor&gt;</p>
+  </li>
+</ol>
+
+<p><img src="/images/2024-05-09-2/image-20240510034634007.png" alt="image-20240510034634007" style="zoom:50%;" /></p>
+
+<h1 id="2-burp-suite-일반적으로-자주-쓰는-키"><span style="background:#000000; color:#ffffff">2. Burp suite 일반적으로 자주 쓰는 키</span></h1>
+
+<p><br /></p>
+
+<p>① intercept on : 프록시에서 사용자의 요청을 잡아서 멈추게 합니다.  forward를 누르면 서버에 전송됩니다. 요청을 잡을 때 데이터를</p>
+
+<p>변경, 조작할 수 있습니다.</p>
+
+<p>② history : 주고 받는 웹 요청이 쌓인다. 브라우저에서 동작해보고 하나 하나 분석하기 좋다.</p>
+
+<p>③ Repeater : 보통 intercept on 으로 잡아서 forward로 전송하는데 이렇게 하나하나 조작하면서 보내는 게 번거롭다.<br />
+그래서 Repeater는 반복해서 보낼 수 있어서 조작해서 보내기 수월하다.</p>
+
+<p>④ decoder : 인코딩과 디코딩을 한다.</p>
+
+<p>⑤comparar : 두 개의 엄청 긴 페이로드를 비교해야할 때 유용하다. repeater와 같이 자주 활용한다.</p>
+
+<p>사용법은 ctf를 풀면서 보는게 좋을 것 같다.</p>
+
+<h1 id="3-간단한-ctf-풀기"><span style="background:#000000; color:#ffffff">3. 간단한 ctf 풀기</span></h1>
+
+<p><br /></p>
+
+<h2 id="1번-문제"><span style="font-weight:bold; font-size:25px">1번 문제.</span></h2>
+
+<p><img src="/images/2024-05-09-2/1.PNG" alt="1" style="zoom:50%;" /> <br />
+문제풀이 url입니다. 기본적인 세팅을 했다는 가정 하에 intercept on을 클릭하고, 브라우저 새로고침하면 패킷이 보이게 됩니다!</p>
+
+<p><img src="/images/2024-05-09-2/6.PNG" alt="6" /><br />
+서버에 보내서 어떤 페이로드가 보여지는지 봅시다.</p>
+
+<p><img src="/images/2024-05-09-2/7-1715284218987-8.PNG" alt="7" /></p>
+
+<p>해당 화면은 history 입니다. 주고 받은 웹 요청을 볼 수 있습니다. 서버에 지시 사항이 나타났네요. 데이터를 조작해야겠습니다.</p>
+
+<p><img src="/images/2024-05-09-2/8.PNG" alt="8" style="zoom:80%;" /></p>
+
+<p>조작은 intercept 나 repeater 에서 가능합니다.</p>
+
+<p><img src="/images/2024-05-09-2/9.PNG" alt="9" style="zoom: 67%;" /></p>
+
+<p>조작하고 서버에 다시 전송하니 flag가 나왔습니다. 지웠으니 스스로 해보시길 바랍니다.</p>
+
+<h2 id="2번-문제"><span style="font-weight:bold; font-size:25px">2번 문제.</span></h2>
+
+<p>1번 문제와 마찬가지로 진행해줍니다.</p>
+
+<p><img src="/images/2024-05-09-2/10.PNG" alt="10" style="zoom: 67%;" /></p>
+
+<p>그러면 서버의 페이로드를 확인해보니 a.html 과 b.html을 확인해야겠네요. 아마도 comparar를 통해 비교해서 다른 점을 찾는 것 같습니다.</p>
+
+<p><img src="/images/2024-05-09-2/11.PNG" alt="11" /></p>
+
+<p>조작하여 a.html 과 b.html로 변경하면 다음과 같이 데이터가 나옵니다.  a.html, b.html 두 패킷을 우클릭하고 comparar로 보내줍니다.</p>
+
+<p><img src="/images/2024-05-09-2/12.PNG" alt="12" /></p>
+
+<p>다음과 같이 나오고 words를 눌러 비교해줍니다.</p>
+
+<p><img src="/images/2024-05-09-2/13.PNG" alt="13" /></p>
+
+<p>stys view를 클릭해서 보면 동시에 움직이므로 적극적으로 사용해 줍시다! flag가 나왔네요 2번문제도 클리어입니다.</p>
+
+<h2 id="3번-문제"><span style="font-weight:bold; font-size:25px">3번 문제.</span></h2>
+
+<p><img src="/images/2024-05-09-2/캡처_2024_05_09_22_16_04_55.png" alt="캡처_2024_05_09_22_16_04_55" /></p>
+
+<p>3번 문제는 answer=1; 이 주어졌으므로, 조작해서 알아내는 방식인 것 같습니다. repeater로 보냅시다.</p>
+
+<p><img src="/images/2024-05-09-2/캡처_2024_05_09_22_16_31_13.png" alt="캡처_2024_05_09_22_16_31_13" /></p>
+
+<p>결국 계속 숫자를 올려서 조작하고 전송했더니 flag가 나왔습니다.</p>
+
+<h2 id="4번-문제"><span style="font-weight:bold; font-size:25px">4번 문제.</span></h2>
+
+<p><img src="/images/2024-05-09-2/캡처_2024_05_09_22_20_53_783.png" alt="캡처_2024_05_09_22_20_53_783" /></p>
+
+<p>드래그 해보니 디코딩한 것을 바로 보여줍니다. 현 상태가 user 라는 것을 알았습니다. 서버에서 마치 admin으로 접속하라고 유혹하고 있네요.</p>
+
+<p><img src="/images/2024-05-09-2/캡처_2024_05_09_22_21_23_443-1715285882919-22.png" alt="캡처_2024_05_09_22_21_23_443" /></p>
+
+<p>admin의 인코딩한 값이 필요하니 base64로 인코딩 해줍니다.</p>
+
+<p><img src="/images/2024-05-09-2/캡처_2024_05_09_22_21_32_659-1715286006102-28.png" alt="캡처_2024_05_09_22_21_32_659" /></p>
+
+<p>이런 값이 나왔네요. 바로 조작해서 변경합시다.</p>
+
+<p><img src="/images/2024-05-09-2/캡처_2024_05_09_22_22_17_594.png" alt="" /></p>
+
+<p>flag를 얻으려면 또 디코딩을 해야하네요. 드래그를 해서 오른쪽에 flag를 결국 찾았습니다.</p>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#web" class="page__taxonomy-item p-category" rel="tag">WEB</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2024-05-09T00:00:00+09:00">2024-05-09</time></p>
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=Burp+suite+%EC%84%A4%EC%B9%98+%EB%B0%8F+%EC%82%AC%EC%9A%A9%EB%B2%95%2C+%EA%B0%84%EB%8B%A8%ED%95%9C+ctf+%ED%92%80%EA%B8%B0%20http%3A%2F%2Flocalhost%3A4000%2Fweb%2F2%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fweb%2F2%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fweb%2F2%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/web/1/" class="pagination--pager" title="로그인의 식별과 인증 및 유지
+">이전</a>
+    
+    
+      <a href="/project/4/" class="pagination--pager" title="3주차 로그인의 식별과 인증, 해싱처리하기
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h2 class="page__related-title">참고</h2>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/project/5/" rel="permalink">4주차 키로거 만들기
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2024-05-14T00:00:00+09:00">2024-05-14</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          2 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/project/4/" rel="permalink">3주차 로그인의 식별과 인증, 해싱처리하기
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2024-05-11T00:00:00+09:00">2024-05-11</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/web/1/" rel="permalink">로그인의 식별과 인증 및 유지
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2024-05-03T00:00:00+09:00">2024-05-03</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/project/3/" rel="permalink">1주차 로그인페이지 만들기(2)
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2024-04-29T00:00:00+09:00">2024-04-29</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2024 코딩. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://localhost:4000/web/2/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/web/2"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://ethan.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>
