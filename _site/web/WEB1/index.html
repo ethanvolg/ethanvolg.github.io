@@ -9,7 +9,7 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>로그인의 식별과 인증 및 유지 | 나의 코딩 공부</title>
+<!-- begin _includes/seo.html --><title>웹 서버 이해하기 | 나의 코딩 공부</title>
 <meta name="description" content="">
 
 
@@ -22,8 +22,8 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="나의 코딩 공부">
-<meta property="og:title" content="로그인의 식별과 인증 및 유지">
-<meta property="og:url" content="http://localhost:4000/web/1/">
+<meta property="og:title" content="웹 서버 이해하기">
+<meta property="og:url" content="http://localhost:4000/web/WEB1/">
 
 
   <meta property="og:description" content="">
@@ -34,7 +34,7 @@
 
 
 
-  <meta property="article:published_time" content="2024-05-03T00:00:00+09:00">
+  <meta property="article:published_time" content="2024-04-17T00:00:00+09:00">
 
 
 
@@ -45,7 +45,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/web/1/">
+<link rel="canonical" href="http://localhost:4000/web/WEB1/">
 
 
 
@@ -172,7 +172,7 @@
     
       
       
-        <li class="current">로그인의 식별과 인증 및 유지</li>
+        <li class="current">웹 서버 이해하기</li>
       
     
   </ol>
@@ -186,16 +186,16 @@
 
 
   <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="로그인의 식별과 인증 및 유지">
+    <meta itemprop="headline" content="웹 서버 이해하기">
     <meta itemprop="description" content="">
-    <meta itemprop="datePublished" content="2024-05-03T00:00:00+09:00">
+    <meta itemprop="datePublished" content="2024-04-17T00:00:00+09:00">
     
 
     <div class="page__inner-wrap">
       
         <header>
           <h1 id="page-title" class="page__title p-name" itemprop="headline">
-            <a href="http://localhost:4000/web/1/" class="u-url" itemprop="url">로그인의 식별과 인증 및 유지
+            <a href="http://localhost:4000/web/WEB1/" class="u-url" itemprop="url">웹 서버 이해하기
 </a>
           </h1>
           
@@ -206,7 +206,7 @@
       <span class="page__meta-date">
         <i class="far fa-calendar-alt" aria-hidden="true"></i>
         
-        <time datetime="2024-05-03T00:00:00+09:00">2024-05-03</time>
+        <time datetime="2024-04-17T00:00:00+09:00">2024-04-17</time>
       </span>
     
 
@@ -219,7 +219,7 @@
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          1 분 소요
+          2 분 소요
         
       </span>
     
@@ -234,106 +234,104 @@
           <aside class="sidebar__right sticky">
             <nav class="toc">
               <header><h4 class="nav__title"><i class="fas fa-fas fa-laptop-code"></i> 목차</h4></header>
-              <ul class="toc__menu"><li><a href="#-1-로그인의-식별과-인증-"> 1. 로그인의 식별과 인증 </a><ul><li><a href="#11-식별과-인증을-하는-일반적인-방법4가지-과-hash-개념">1.1 식별과 인증을 하는 일반적인 방법(4가지) 과 hash 개념</a><ul><li><a href="#111-식별과-인증을-하는-4가지-방법">1.1.1 식별과 인증을 하는 4가지 방법</a></li><li><a href="#113-hash개념">1.1.3 hash개념</a></li></ul></li></ul></li><li><a href="#2-로그인-유지">2. 로그인 유지</a><ul><li><a href="#21-쿠키">2.1 쿠키</a></li><li><a href="#22-세션">2.2 세션</a></li></ul></li></ul>
+              <ul class="toc__menu"><li><a href="#1-웹-서버web-server">1. 웹 서버(Web server)</a><ul><li><a href="#11-클라이언트-와-서버-client-and-server">1.1 클라이언트 와 서버 (Client and server)</a></li><li><a href="#12-url-알아보기">1.2 URL 알아보기</a><ul><li><a href="#url-구성">URL 구성</a></li><li><a href="#url에서-생략된-부분">URL에서 생략된 부분</a></li></ul></li><li><a href="#13-웹서버-이해하기">1.3 웹서버 이해하기</a></li></ul></li></ul>
 
             </nav>
           </aside>
         
         <p><br /></p>
 
-<h1 id="-1-로그인의-식별과-인증-"><span style="background:#000000; color:#ffffff"> 1. 로그인의 식별과 인증 </span></h1>
+<h1 id="1-웹-서버web-server"><span style="background:#000000; color:#ffffff">1. 웹 서버(Web server)</span></h1>
+
+<h2 id="11-클라이언트-와-서버-client-and-server">1.1 클라이언트 와 서버 (Client and server)</h2>
+
+<p>먼저 웹 서버를 이해하기 전에 클라이언트와 서버가 무엇인지 알아야할 필요성이 있습니다.<br />
+클라이언트는 파일을 서버에 요청해서 사용하는 장치, 프로그램을 의미하고,<br />
+서버는 요청받은 파일을 전달하는 프로그램을 의미합니다.</p>
+
+<p>이해되기 쉽게 예를 들어보면,<br />
+클라이언트(장치: 사용자의 컴퓨터, 프로그램: 웹브라우저), 서버(프로그램: 웹서버)로 볼 수 있는데<br />
+사용자가 웹브라우저를 통해 URL에 입력하는 것은 요청하는 것에 해당하고, <br />
+웹서버는 URL에 입력된 요청을 전달하여 웹브라우저에 나타냅니다.</p>
+
+<p><img src="/images/2024-04-17-first/client-server-network.webp" alt="client-server-network" style="zoom: 25%;" /></p>
+
+<p>​							&lt;출처 :https://www.liquidweb.com/blog/client-server-architecture/&gt;</p>
+
+<h2 id="12-url-알아보기">1.2 URL 알아보기</h2>
 
 <p><br /></p>
 
-<p>로그인이란? 조건에 맞는 사람을 확인하는 작업입니다. <br />
-그러면 조건에 맞는 사람을 어떻게 확인할까요?</p>
+<h3 id="url-구성">URL 구성</h3>
 
-<p>바로 식별과 인증의  과정을 거칩니다.<br />
-식별 : 수많은 데이터 속에서 특정 데이터를 찾아내는 것. ▶ 식별 정보를 찾아냄. (예 ID : primary key)<br />
-식별 정보 특징 &gt; 오로지 하나의 id만 존재한다 , 노출되어도 위험이 없다.</p>
+<p>URL은 사용자가 서버에 요청하는 것이라고 알아보았습니다.<br />
+URL은 어떻게 구성되어 있을까요?  <br />
+[protocol]:// [ip주소 or 도메인 주소]:[포트]/[파일경로]입니다.</p>
 
-<p>인증 : 그  사람이 본인이 맞는지 확인하는 것. ▶ 인증 정보를 확인함.(예 비밀번호)<br />
-인증 정보 특징 &gt;  같은 비밀 번호가 존재할 수 있다, 노출되면 위험하다.</p>
+<p>간단히 설명하면,<br />
+●protocol : 국가간의 통신을 위한 약속된 언어(http, https 등)</p>
 
-<p>다음은 식별과 인증을 진행하는 4가지 방식을 알아보겠습니다.</p>
+<p>●ip주소 : 통신을 주고 받기 위한 할당된 주소</p>
 
-<p><br /></p>
+<p>●도메인 주소 : 편리성을 위해 만들어진 소유권있는 할당된 주소</p>
 
-<h2 id="11-식별과-인증을-하는-일반적인-방법4가지-과-hash-개념">1.1 식별과 인증을 하는 일반적인 방법(4가지) 과 hash 개념</h2>
+<p>●포트 : 여러 서버가 존재하는데 (web, email 등) 모든 서버의 파일을  주고 받는 것이 아니라<br />
+서버에 따라 포트 번호가 정해져 있어서 해당 서버에 파일을 주고 받을수 있도록 하는 역할을 담당</p>
 
-<p><br /></p>
+<h3 id="url에서-생략된-부분">URL에서 생략된 부분</h3>
 
-<h3 id="111-식별과-인증을-하는-4가지-방법">1.1.1 식별과 인증을 하는 4가지 방법</h3>
+<p>우리가 알고 있는 사이트와 비교해서 알아볼까요?<br />
+https://www.naver.com 를 알고 있을 겁니다.<br />
+하지만 위에서는 분명 포트번호와 파일 경로까지 있어야 URL이라고 생각했는데 여기서는 볼 수가 없습니다.<br />
+왜 그런 걸까요?</p>
 
-<p><br /></p>
+<p>먼저 포토 번호를 살펴보겠습니다.<br />
+사실 http, https 는 포트 번호가 있습니다.<br />
+http  =  80 포트</p>
 
-<ol>
-  <li>
-    <p>식별과 인증 동시에 진행하기</p>
-  </li>
-  <li>
-    <p>식별과 인증 분리해서 진행하기</p>
-  </li>
-  <li>
-    <p>hash 처리로 식별과 인증 동시에 진행하기</p>
-  </li>
-  <li>
-    <p>hash 처리로 식별과 인증 분리해서 진행하기</p>
+<p>https = 443 포트<br />
+그렇기 때문에 http://www.naver.com:443 에서 443을 생략할 수 있었습니다.</p>
 
-    <p>이렇게 4가지 방법이 존재합니다.</p>
+<p>하지만 http 나 https가 포트번호가 있다고 해서 뒤에 무조건 포트가 80 이나 443이 와야하는 것은 아닙니다.<br />
+무엇보다 사용자의 편리성이 중요합니다.  그래서 프로토콜과 같이 자주쓰는 포트를 생략하기 위해  사용되는 것입니다.<br />
+이용에 따라서 다른 포트를 이용해도 상관없습니다.</p>
 
-    <p>hash의 개념은 이다음에 설명하는 것으로 하고, 먼저 식별과 인증을 어떻게 동시에 하는지, 분리해서 진행하는지 간략하게 알아보겠습니다.</p>
+<p>다음은 파일경로에 대해서 알아보겠습니다.<br />
+포트와 마찬가지로 네이버는 파일경로가 나타나지 않고 생략되었다는 것을 유추할 수 있을 것 입니다.<br />
+파일경로를 생략하면 어떤 파일을 지칭하는 것일 까요?<br />
+바로 index.html 파일입니다.</p>
 
-    <p>●식별과 인증 동시</p>
-  </li>
-</ol>
+<p>파일 경로라면 잘 알고 계실겁니다. C:/Windows/System 형태를 많이 보셨죠? 폴더안에 폴더가 있고 폴더 안에 폴더나 파일이 있죠.<br />
+사실 index.html은 /var/www/html/index.html 의 경로입니다.<br />
+그렇지만 URL에선 /index.html을 web root 경로라고 하고 위의 상위 폴더가 더는 확인할 수 없는 형태입니다.<br />
+왜냐하면 모든 파일을 인터넷에 공유하는 것이 아니라 특정 파일을 공유하고 싶기 때문이죠.<br />
+그래서 웹사이트를 개설한다면 해당경로에 보여주고 싶은 파일을 만들면 됩니다.</p>
 
-<p>​       ●식별과 인증 분리</p>
+<h2 id="13-웹서버-이해하기">1.3 웹서버 이해하기</h2>
 
-<h3 id="113-hash개념">1.1.3 hash개념</h3>
+<p>웹서버란? 사용자가  URL을 입력해서 파일을 전송해주는 역할을 해준다는 것을 알았습니다.</p>
 
-<p><br />
-hash개념 알아보기</p>
+<p>그럼 웹브라우저는 무엇일까요? 대표적으로 chorm, Safari, Firefox 등이 있죠. <br />
+웹서버로 부터 파일을 받아 HTML 문서와 그림, 멀티미디어 파일을 해석해서 사이트에 보여주죠.<br />
+네이버와 같은 사이트도 마찬가지로 웹브라우저를 통해 파일이 해석되어 나타난 페이지입니다.</p>
 
-<p>hash :  클라이언트가 인증을 요청한 비밀번호가 다양한 알고리즘에 의해 긴 문자열로 변환되어 보여주어 보안에 유리하다고 설명할 수 있겠습니다.<br />
-▶ 특징 : 한 방향으로 변환되기 때문에 복구가 되지 않습니다. 그래서 보안에 유리하죠.</p>
+<p>이런 것을 정적 페이지라고 부릅니다. 모든 사람이 똑같은 화면을 볼 수 있죠.<br />
+하지만 사용자 각자 로그인을 하면 어떠할까요?<br />
+전부 다른 파일을 전송받아야 합니다.</p>
 
-<p>암호화(Encryption) :  어떤 데이터를 암호화된 데이터로 변환합니다.<br />
-▶ 특징 : 양방향으로 데이터를 변환할 수 있습니다, key 만 있다면 복구할 수 있습니다.</p>
+<p>그렇다면 전세계 사람들에게 각자 다른 파일을 전송해야 하는데 현실적으로 그 많은 파일을 관리하는 것은 어려움이 있습니다.<br />
+그래서 동적 페이지가 필요합니다.</p>
 
-<p>인코딩(Encoding) : 어떤 데이터를 데이터 전달에 용이하도록 변화합니다.<br />
-▶ 특징 : 양방향으로 데이터를 변환할 수 있습니다, key 가 없어도 복구할 수 있습니다.</p>
+<p>동적 페이지는 요청에 따라 데이터를 가공하여 각각에 맞는 결과를 출력합니다. 동적 페이지를 만들기 위해서는<br />
+WAS(Web Application Server) 와 DB(DataBase)가 필요합니다. DB는 데이터를 생성, 삭제, 수정, 읽는 역할을 하며,<br />
+WAS가 요청에 따라 데이터를 가공하는 역할을 합니다.</p>
 
-<p><img src="https://miro.medium.com/v2/resize:fit:803/1*JB84pvWGjSMG8LVzQLYgJQ.png" alt="img" /></p>
+<p>이렇게 정적 페이지를 만드는 과정을 프론트 엔드라고 하고 동적 페이지를 만드는 과정을 백 엔드라고 대략적으로 표현할 수 있습니다.<br />
+웹서버의 동작을 간단하게 그림으로 알아보고 마무리 하겠습니다.</p>
 
-<h1 id="2-로그인-유지"><span style="background:#000000; color:#ffffff">2. 로그인 유지</span></h1>
+<p><img src="/images/2024-04-17-first/images_green9930_post_08297dd4-ce30-4330-bd08-62d81569696a_image.png" alt="images_green9930_post_08297dd4-ce30-4330-bd08-62d81569696a_image" /></p>
 
-<p><br /></p>
-
-<h2 id="21-쿠키">2.1 쿠키</h2>
-
-<p><br /></p>
-
-<p>초기에는 로그인을 유지할 기능이 없어서 매번 로그인을 해야만 했습니다.<br />
-그러다가 쿠키라는 것을 사용하기 시작했습니다.<br />
-쿠키는 클라이언트가 서버에 파일을 요청할 때 로그인 정보도 함께 보내서 url이 달라져도 로그인이 될 수 있게 도움을 주었습니다.</p>
-
-<p>하지만 클라이언트가 서버에 파일을 요청하는 방식 때문에 이를 악용한 사람들이 다른 사람의 로그인 정보를 확인하고, 이를 사용하여 보안이 취약해지는 일이 발생했고, 세션이라는 것이 등장했습니다.</p>
-
-<h2 id="22-세션">2.2 세션</h2>
-
-<p><br /></p>
-
-<p>세션은 클라이언트가 로그인 정보를 주는 것이 아니라 서버 측에서 로그인 정보를 저장하는 방식입니다.<br />
-서버에서 정보들을 식별할 수 있는 식별값이 존재하고, 이것을 세션ID라고 합니다.</p>
-
-<p>동작 과정은 이렇습니다.</p>
-
-<p>로그인▶  세션ID 와 로그인 정보가 서버 측에 저장 ▶ 클라이언트 요청(쿠키(세션ID))  ▶  세션ID로 식별하여 로그인 인증함.  ▶로그아웃</p>
-
-<p>세션ID는 로그인할 때 랜덤 문자열로 주어지고, 로그아웃을 하면 로그인 정보와 함께 사라집니다.</p>
-
-<p><img src="https://youhavetosleep.dev/static/165cc0dae6c870f113dcf191ea853211/9f3a0/session-1.jpg" alt="Session | Blog" style="zoom: 33%;" /></p>
+<p>​							&lt;출처 : https://gmlwjd9405.github.io/2018/10/27/webserver-vs-was.html&gt;</p>
 
 
         
@@ -361,7 +359,7 @@ hash개념 알아보기</p>
 
         
 
-  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2024-05-03T00:00:00+09:00">2024-05-03</time></p>
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2024-04-17T00:00:00+09:00">2024-04-17</time></p>
 
       </footer>
 
@@ -370,22 +368,21 @@ hash개념 알아보기</p>
     <h4 class="page__share-title">공유하기</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?text=%EB%A1%9C%EA%B7%B8%EC%9D%B8%EC%9D%98+%EC%8B%9D%EB%B3%84%EA%B3%BC+%EC%9D%B8%EC%A6%9D+%EB%B0%8F+%EC%9C%A0%EC%A7%80%20http%3A%2F%2Flocalhost%3A4000%2Fweb%2F1%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=%EC%9B%B9+%EC%84%9C%EB%B2%84+%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0%20http%3A%2F%2Flocalhost%3A4000%2Fweb%2FWEB1%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fweb%2F1%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fweb%2FWEB1%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fweb%2F1%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fweb%2FWEB1%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
 </section>
 
 
       
   <nav class="pagination">
     
-      <a href="/project/3/" class="pagination--pager" title="1주차 로그인페이지 만들기(2)
-">이전</a>
+      <a href="#" class="pagination--pager disabled">이전</a>
     
     
-      <a href="/web/2/" class="pagination--pager" title="Burp suite 설치 및 사용법, 간단한 ctf 풀기
+      <a href="/project/Project1/" class="pagination--pager" title="1주차 로그인페이지 만들기(1)
 ">다음</a>
     
   </nav>
@@ -410,7 +407,7 @@ hash개념 알아보기</p>
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/project/5/" rel="permalink">4주차 키로거 만들기
+        <a href="/project/Project5/" rel="permalink">4주차 키로거 만들기
 </a>
       
     </h2>
@@ -457,7 +454,7 @@ hash개념 알아보기</p>
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/project/4/" rel="permalink">3주차 로그인의 식별과 인증, 해싱처리하기
+        <a href="/project/Project4/" rel="permalink">3주차 로그인의 식별과 인증, 해싱처리하기
 </a>
       
     </h2>
@@ -504,7 +501,7 @@ hash개념 알아보기</p>
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/web/2/" rel="permalink">Burp suite 설치 및 사용법, 간단한 ctf 풀기
+        <a href="/web/WEB3/" rel="permalink">Burp suite 설치 및 사용법, 간단한 ctf 풀기
 </a>
       
     </h2>
@@ -551,7 +548,7 @@ hash개념 알아보기</p>
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/project/3/" rel="permalink">1주차 로그인페이지 만들기(2)
+        <a href="/web/WEB2/" rel="permalink">로그인의 식별과 인증 및 유지
 </a>
       
     </h2>
@@ -563,7 +560,7 @@ hash개념 알아보기</p>
       <span class="page__meta-date">
         <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
         
-        <time datetime="2024-04-29T00:00:00+09:00">2024-04-29</time>
+        <time datetime="2024-05-03T00:00:00+09:00">2024-05-03</time>
       </span>
     
 
@@ -635,8 +632,8 @@ hash개념 알아보기</p>
     
   <script>
     var disqus_config = function () {
-      this.page.url = "http://localhost:4000/web/1/";  /* Replace PAGE_URL with your page's canonical URL variable */
-      this.page.identifier = "/web/1"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+      this.page.url = "http://localhost:4000/web/WEB1/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/web/WEB1"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
     };
     (function() { /* DON'T EDIT BELOW THIS LINE */
       var d = document, s = d.createElement('script');

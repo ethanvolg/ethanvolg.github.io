@@ -9,8 +9,8 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>데이터 베이스(DB) | 나의 코딩 공부</title>
-<meta name="description" content="1. 데이터 베이스란?">
+<!-- begin _includes/seo.html --><title>2주차 DB연결해서 웹으로 데이터보기 | 나의 코딩 공부</title>
+<meta name="description" content="1. 코딩 작성 및 결과">
 
 
   <meta name="author" content="ethan">
@@ -22,30 +22,30 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="나의 코딩 공부">
-<meta property="og:title" content="데이터 베이스(DB)">
-<meta property="og:url" content="http://localhost:4000/db/1/">
+<meta property="og:title" content="2주차 DB연결해서 웹으로 데이터보기">
+<meta property="og:url" content="http://localhost:4000/project/Project2/">
 
 
-  <meta property="og:description" content="1. 데이터 베이스란?">
-
-
-
-
-
-
-
-  <meta property="article:published_time" content="2024-04-25T00:00:00+09:00">
+  <meta property="og:description" content="1. 코딩 작성 및 결과">
 
 
 
 
 
-  
+
+
+  <meta property="article:published_time" content="2024-04-27T00:00:00+09:00">
+
+
+
+
 
   
 
+  
 
-<link rel="canonical" href="http://localhost:4000/db/1/">
+
+<link rel="canonical" href="http://localhost:4000/project/Project2/">
 
 
 
@@ -164,7 +164,7 @@
       
         
         <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <a href="/categories/#db" itemprop="item"><span itemprop="name">Db</span></a>
+          <a href="/categories/#project" itemprop="item"><span itemprop="name">Project</span></a>
           <meta itemprop="position" content="2" />
         </li>
         <span class="sep">/</span>
@@ -172,7 +172,7 @@
     
       
       
-        <li class="current">데이터 베이스(DB)</li>
+        <li class="current">2주차 DB연결해서 웹으로 데이터보기</li>
       
     
   </ol>
@@ -186,16 +186,16 @@
 
 
   <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="데이터 베이스(DB)">
-    <meta itemprop="description" content="1. 데이터 베이스란?">
-    <meta itemprop="datePublished" content="2024-04-25T00:00:00+09:00">
+    <meta itemprop="headline" content="2주차 DB연결해서 웹으로 데이터보기">
+    <meta itemprop="description" content="1. 코딩 작성 및 결과">
+    <meta itemprop="datePublished" content="2024-04-27T00:00:00+09:00">
     
 
     <div class="page__inner-wrap">
       
         <header>
           <h1 id="page-title" class="page__title p-name" itemprop="headline">
-            <a href="http://localhost:4000/db/1/" class="u-url" itemprop="url">데이터 베이스(DB)
+            <a href="http://localhost:4000/project/Project2/" class="u-url" itemprop="url">2주차 DB연결해서 웹으로 데이터보기
 </a>
           </h1>
           
@@ -206,7 +206,7 @@
       <span class="page__meta-date">
         <i class="far fa-calendar-alt" aria-hidden="true"></i>
         
-        <time datetime="2024-04-25T00:00:00+09:00">2024-04-25</time>
+        <time datetime="2024-04-27T00:00:00+09:00">2024-04-27</time>
       </span>
     
 
@@ -234,37 +234,31 @@
           <aside class="sidebar__right sticky">
             <nav class="toc">
               <header><h4 class="nav__title"><i class="fas fa-fas fa-laptop-code"></i> 목차</h4></header>
-              <ul class="toc__menu"><li><a href="#1-데이터-베이스란">1. 데이터 베이스란?</a></li><li><a href="#2-데이터베이스-구조">2. 데이터베이스 구조</a></li></ul>
+              <ul class="toc__menu"><li><a href="#1-코딩-작성-및-결과">1. 코딩 작성 및 결과</a></li></ul>
 
             </nav>
           </aside>
         
-        <h1 id="1-데이터-베이스란"><span style="background:#000000; color:#ffffff">1. 데이터 베이스란?</span></h1>
+        <h1 id="1-코딩-작성-및-결과"><span style="background:#000000; color:#ffffff">1. 코딩 작성 및 결과</span></h1>
 
-<p>정렬된 데이터 모음이라고 표현할 수 있습니다.<br />
-프로그램을 통해 데이터를 저장, 편집(수정), 불러오기, 삭제를 할 수 있는 것이 특징입니다.</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+		<span class="c1">#DB연결</span>
+        <span class="nv">$db_conn</span> <span class="o">=</span> <span class="nb">mysqli_connect</span><span class="p">(</span><span class="s1">'localhost'</span><span class="p">,</span><span class="s1">'admin'</span><span class="p">,</span><span class="s1">'student1234'</span><span class="p">,</span><span class="s1">'test'</span><span class="p">);</span>
+		
+		<span class="c1">#url에 적은 name값 변수에 지정</span>
+        <span class="nv">$name</span><span class="o">=</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">'name'</span><span class="p">];</span>
 
-<p>그렇다면 우리가 알고 있는 엑셀과 데이터 베이스는 무엇이 다를까요?<br />
-▶공통점 : 표의 형태로 데이터를 저장.<br />
-▶차이점 : 엑셀은 직관적으로 데이터 이용, 접근성 쉬움, 느려서 적은양의 데이터만 가능.<br />
-		    데이터베이스는 프로그램 언어사용, web과 연동가능, 많은 양의 데이터 가능.</p>
+		<span class="c1">#변수 name에 해당하는 score값 웹 화면에 띄우기</span>
+        <span class="nv">$sql</span><span class="o">=</span><span class="s2">"select SCORE from test_table WHERE NAME='</span><span class="nv">$name</span><span class="s2">'"</span><span class="p">;</span>
+        <span class="nv">$result</span><span class="o">=</span><span class="nf">mysqli_query</span><span class="p">(</span><span class="nv">$db_conn</span><span class="p">,</span><span class="nv">$sql</span><span class="p">);</span>
+        <span class="nv">$row</span><span class="o">=</span><span class="nf">mysqli_fetch_array</span><span class="p">(</span><span class="nv">$result</span><span class="p">);</span>
+        <span class="k">echo</span> <span class="nv">$name</span><span class="mf">.</span><span class="s2">"학생의 점수는"</span><span class="mf">.</span><span class="nv">$row</span><span class="p">[</span><span class="s1">'SCORE'</span><span class="p">]</span><span class="mf">.</span><span class="s2">"입니다."</span><span class="p">;</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
 
-<h1 id="2-데이터베이스-구조"><span style="background:#000000; color:#ffffff">2. 데이터베이스 구조</span></h1>
+<p><img src="/images/2024-04-28-1/image-20240428004752758.png" alt="image-20240428004752758" /></p>
 
-<p><img src="/images/2024-04-26-first/image.png" alt="image" /></p>
-
-<p>​										&lt;출처: https://nittaku.tistory.com/384&gt;</p>
-
-<p>▶데이터베이스  서버: 흔히 말하는 데이터베이스가 여기서 데이터베이스 서버입니다.<br />
-web에 연결하여 요청에 따라 데이터를 표현합니다.</p>
-
-<p>▶데이터베이스(=스키마): 성격에 맞게 그룹화된 데이터 모음을 뜻합니다. (연관된 table모음)</p>
-
-<p>▶table: 행과 열로 이루어진 데이터를 뜻합니다.</p>
-
-<p><img src="/images/2024-04-26-first/sql_table.png" alt="sql_table" style="zoom: 67%;" /></p>
-
-<p><span style="font-size:50%">&lt;출처 : https://hongong.hanbit.co.kr/%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0-databasedb-dbms-sql%EC%9D%98-%EA%B0%9C%EB%85%90/&gt;</span></p>
+<p>URL파라미터는 URL에서 ? 다음부터 나오는 값인데, 저는 DB에 name: LEE 가 저장되어 있으므로 name=LEE값을 지정해줬습니다.</p>
 
 
         
@@ -284,7 +278,7 @@ web에 연결하여 요청에 따라 데이터를 표현합니다.</p>
     <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
     <span itemprop="keywords">
     
-      <a href="/categories/#db" class="page__taxonomy-item p-category" rel="tag">DB</a>
+      <a href="/categories/#project" class="page__taxonomy-item p-category" rel="tag">project</a>
     
     </span>
   </p>
@@ -292,7 +286,7 @@ web에 연결하여 요청에 따라 데이터를 표현합니다.</p>
 
         
 
-  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2024-04-25T00:00:00+09:00">2024-04-25</time></p>
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2024-04-27T00:00:00+09:00">2024-04-27</time></p>
 
       </footer>
 
@@ -301,22 +295,22 @@ web에 연결하여 요청에 따라 데이터를 표현합니다.</p>
     <h4 class="page__share-title">공유하기</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?text=%EB%8D%B0%EC%9D%B4%ED%84%B0+%EB%B2%A0%EC%9D%B4%EC%8A%A4%28DB%29%20http%3A%2F%2Flocalhost%3A4000%2Fdb%2F1%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=2%EC%A3%BC%EC%B0%A8+DB%EC%97%B0%EA%B2%B0%ED%95%B4%EC%84%9C+%EC%9B%B9%EC%9C%BC%EB%A1%9C+%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B3%B4%EA%B8%B0%20http%3A%2F%2Flocalhost%3A4000%2Fproject%2FProject2%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fdb%2F1%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fproject%2FProject2%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fdb%2F1%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fproject%2FProject2%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
 </section>
 
 
       
   <nav class="pagination">
     
-      <a href="/project/1/" class="pagination--pager" title="1주차 로그인페이지 만들기(1)
+      <a href="/sql/Sql1/" class="pagination--pager" title="2주차 sql과 mysql사용방법
 ">이전</a>
     
     
-      <a href="/sql/1/" class="pagination--pager" title="2주차 sql과 mysql사용방법
+      <a href="/project/Project3/" class="pagination--pager" title="1주차 로그인페이지 만들기(2)
 ">다음</a>
     
   </nav>
@@ -341,7 +335,7 @@ web에 연결하여 요청에 따라 데이터를 표현합니다.</p>
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/project/5/" rel="permalink">4주차 키로거 만들기
+        <a href="/project/Project5/" rel="permalink">4주차 키로거 만들기
 </a>
       
     </h2>
@@ -388,7 +382,7 @@ web에 연결하여 요청에 따라 데이터를 표현합니다.</p>
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/project/4/" rel="permalink">3주차 로그인의 식별과 인증, 해싱처리하기
+        <a href="/project/Project4/" rel="permalink">3주차 로그인의 식별과 인증, 해싱처리하기
 </a>
       
     </h2>
@@ -435,7 +429,7 @@ web에 연결하여 요청에 따라 데이터를 표현합니다.</p>
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/web/2/" rel="permalink">Burp suite 설치 및 사용법, 간단한 ctf 풀기
+        <a href="/web/WEB3/" rel="permalink">Burp suite 설치 및 사용법, 간단한 ctf 풀기
 </a>
       
     </h2>
@@ -482,7 +476,7 @@ web에 연결하여 요청에 따라 데이터를 표현합니다.</p>
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/web/1/" rel="permalink">로그인의 식별과 인증 및 유지
+        <a href="/web/WEB2/" rel="permalink">로그인의 식별과 인증 및 유지
 </a>
       
     </h2>
@@ -566,8 +560,8 @@ web에 연결하여 요청에 따라 데이터를 표현합니다.</p>
     
   <script>
     var disqus_config = function () {
-      this.page.url = "http://localhost:4000/db/1/";  /* Replace PAGE_URL with your page's canonical URL variable */
-      this.page.identifier = "/db/1"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+      this.page.url = "http://localhost:4000/project/Project2/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/project/Project2"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
     };
     (function() { /* DON'T EDIT BELOW THIS LINE */
       var d = document, s = d.createElement('script');
