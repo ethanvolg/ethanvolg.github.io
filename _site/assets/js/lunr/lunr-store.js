@@ -58,4 +58,10 @@ var store = [{
         "tags": [],
         "url": "/project/Project5/",
         "teaser": null
+      },{
+        "title": "4주차 쿠키 탈취 만들기",
+        "excerpt":"1.쿠키 탈취 만들기 http상태 200 으로 양호하고, user = normaltic 이라는 쿠키를 담고 있습니다. 이 쿠키를 탈취해봅시다. 1.1 Cookie Hijacking.html &lt;!DOCTYPE html&gt; &lt;html lang=\"en\"&gt; &lt;head&gt; &lt;meta charset=\"UTF-8\"&gt; &lt;title&gt;Security Test Page&lt;/title&gt; &lt;/head&gt; &lt;body&gt; &lt;h1&gt;Cookie Hijacking 테스트 하기&lt;/h1&gt; &lt;script src=\"Cookie Hijacking.js\"&gt;&lt;/script&gt; &lt;/body&gt; &lt;/html&gt; 1.2 Cookie Hijacking.js window.onload = function() { # http요청이...","categories": ["project"],
+        "tags": [],
+        "url": "/project/Project6/",
+        "teaser": null
       }]
