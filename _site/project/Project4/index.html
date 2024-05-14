@@ -287,13 +287,13 @@
 <span class="k">include</span> <span class="s1">'db.php'</span><span class="p">;</span> 		<span class="c1"># 데이터베이스 연결 파일을 포함</span>
 
 <span class="k">if</span> <span class="p">(</span><span class="nv">$_SERVER</span><span class="p">[</span><span class="s2">"REQUEST_METHOD"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"POST"</span><span class="p">)</span> <span class="p">{</span> 		<span class="c1"># post방식인 것만 진행(확인하는 용도)</span>
-    <span class="nv">$id</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">'id'</span><span class="p">];</span> 							<span class="c1"># 로그인 폼에 사용자가 입력한 id</span>
-    <span class="nv">$password</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">'password'</span><span class="p">];</span> 				<span class="c1"># 로그인 폼에 사용자가 입력한 password</span>
+    <span class="nv">$id</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">'id'</span><span class="p">];</span> 				<span class="c1"># 로그인 폼에 사용자가 입력한 id</span>
+    <span class="nv">$password</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">'password'</span><span class="p">];</span> 			<span class="c1"># 로그인 폼에 사용자가 입력한 password</span>
 
     
     <span class="c1">#db로부터 사용자가 작성한 id password 둘다 맞는 데이터를 찾음(식별과 인증이 동시에 들어감) </span>
     <span class="nv">$sql</span> <span class="o">=</span> <span class="s2">"SELECT id FROM data WHERE id = '</span><span class="nv">$id</span><span class="s2">' AND psw = '</span><span class="nv">$password</span><span class="s2">'"</span><span class="p">;</span> 
-    <span class="nv">$result</span> <span class="o">=</span> <span class="nf">mysqli_query</span><span class="p">(</span><span class="nv">$conn</span><span class="p">,</span><span class="nv">$sql</span><span class="p">);</span> 		 <span class="c1"># 쿼리실행, 다른방법은$conn-&gt;query($sql); </span>
+    <span class="nv">$result</span> <span class="o">=</span> <span class="nf">mysqli_query</span><span class="p">(</span><span class="nv">$conn</span><span class="p">,</span><span class="nv">$sql</span><span class="p">);</span> 		<span class="c1"># 쿼리실행, 다른방법은$conn-&gt;query($sql); </span>
 
     <span class="k">if</span> <span class="p">(</span><span class="nv">$result</span><span class="o">-&gt;</span><span class="n">num_rows</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span> 			<span class="c1"># 일치하는 사용자가 하나 이상 있는 경우</span>
         <span class="nv">$user</span> <span class="o">=</span> <span class="nv">$result</span><span class="o">-&gt;</span><span class="nf">fetch_assoc</span><span class="p">();</span> 		<span class="c1"># db로 id 정보 가져옴.fetch_assoc은 배열이 아닌 정보만 가져옴.</span>
@@ -356,7 +356,7 @@
     
     <span class="c1">#db로부터 사용자가 작성한 id password 둘다 맞는 데이터를 찾음(식별과 인증이 동시에 들어감) </span>
     <span class="nv">$sql</span> <span class="o">=</span> <span class="s2">"SELECT id FROM data WHERE id = '</span><span class="nv">$id</span><span class="s2">' AND psw = '</span><span class="nv">$hased_password</span><span class="s2">'"</span><span class="p">;</span> 
-    <span class="nv">$result</span> <span class="o">=</span> <span class="nf">mysqli_query</span><span class="p">(</span><span class="nv">$conn</span><span class="p">,</span><span class="nv">$sql</span><span class="p">);</span> 			<span class="c1"># 쿼리실행, 다른방법은$conn-&gt;query($sql); </span>
+    <span class="nv">$result</span> <span class="o">=</span> <span class="nf">mysqli_query</span><span class="p">(</span><span class="nv">$conn</span><span class="p">,</span><span class="nv">$sql</span><span class="p">);</span> 		<span class="c1"># 쿼리실행, 다른방법은$conn-&gt;query($sql); </span>
 
     <span class="k">if</span> <span class="p">(</span><span class="nv">$result</span><span class="o">-&gt;</span><span class="n">num_rows</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span> 			<span class="c1"># 일치하는 사용자가 하나 이상 있는 경우</span>
         <span class="nv">$user</span> <span class="o">=</span> <span class="nv">$result</span><span class="o">-&gt;</span><span class="nf">fetch_assoc</span><span class="p">();</span> 		<span class="c1"># db로 id 정보 가져옴.fetch_assoc은 배열이 아닌 정보만 가져옴.</span>
