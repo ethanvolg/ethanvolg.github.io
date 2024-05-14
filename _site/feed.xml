@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-05-14T18:16:40+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">나의 코딩 공부</title><subtitle>ethan의 블로그</subtitle><author><name>ethan</name></author><entry><title type="html">4주차 키로거 만들기</title><link href="http://localhost:4000/project/Project5/" rel="alternate" type="text/html" title="4주차 키로거 만들기" /><published>2024-05-14T00:00:00+09:00</published><updated>2024-05-14T00:00:00+09:00</updated><id>http://localhost:4000/project/Project5</id><content type="html" xml:base="http://localhost:4000/project/Project5/"><![CDATA[<p><br /></p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-05-14T18:30:23+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">나의 코딩 공부</title><subtitle>ethan의 블로그</subtitle><author><name>ethan</name></author><entry><title type="html">4주차 키로거 만들기</title><link href="http://localhost:4000/project/Project5/" rel="alternate" type="text/html" title="4주차 키로거 만들기" /><published>2024-05-14T00:00:00+09:00</published><updated>2024-05-14T00:00:00+09:00</updated><id>http://localhost:4000/project/Project5</id><content type="html" xml:base="http://localhost:4000/project/Project5/"><![CDATA[<p><br /></p>
 
 <h1 id="1키로거-만들기"><span style="background:#000000; color:#ffffff">1.키로거 만들기</span></h1>
 
@@ -146,20 +146,20 @@
 <p>▶<span style="font-weight:bold; font-size:20px">1번 방식</span></p>
 
 <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
-<span class="nb">session_start</span><span class="p">();</span>		<span class="c1"># 세션 파트에서 보았듯 로그인을 유지하기 위해 사용.</span>
-<span class="k">include</span> <span class="s1">'db.php'</span><span class="p">;</span>		<span class="c1"># db.php db를 연결한 스크립트를 현재 스크립트에 포함시킴.(db를 이용하기위함)</span>
+<span class="nb">session_start</span><span class="p">();</span>					<span class="c1"># 세션 파트에서 보았듯 로그인을 유지하기 위해 사용.</span>
+<span class="k">include</span> <span class="s1">'db.php'</span><span class="p">;</span>					<span class="c1"># db.php db를 연결한 스크립트를 현재 스크립트에 포함시킴.(db를 이용하기위함)</span>
 
 <span class="k">if</span> <span class="p">(</span><span class="nv">$_SERVER</span><span class="p">[</span><span class="s2">"REQUEST_METHOD"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"POST"</span><span class="p">)</span> <span class="p">{</span>		<span class="c1">#요청받은 방식이 post일때만 진행 # if의()는 true를 뜻한다.  </span>
-  <span class="nv">$id</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">'id'</span><span class="p">];</span>							<span class="c1">#로그인 폼에 사용자가 입력한 id</span>
-  <span class="nv">$password</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">'password'</span><span class="p">];</span>				<span class="c1">#로그인 폼에 사용자가 입력한 password</span>
+  <span class="nv">$id</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">'id'</span><span class="p">];</span>					<span class="c1">#로그인 폼에 사용자가 입력한 id</span>
+  <span class="nv">$password</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">'password'</span><span class="p">];</span>			<span class="c1">#로그인 폼에 사용자가 입력한 password</span>
   
   <span class="c1">#db로부터 사용자가 작성한 id password 둘다 맞는 데이터를 찾음(식별과 인증이 동시에 들어감)</span>
   <span class="nv">$sqls</span> <span class="o">=</span> <span class="s2">"SELECT * FROM DATA WHERE id='</span><span class="nv">$id</span><span class="s2">' AND psw='</span><span class="nv">$password</span><span class="s2">'"</span><span class="p">;</span>											   
-  <span class="nv">$result</span> <span class="o">=</span> <span class="nf">mysqli_query</span><span class="p">(</span><span class="nv">$conn</span><span class="p">,</span><span class="nv">$sqls</span><span class="p">);</span>		<span class="c1">#그 데이터에 대한 쿼리를 실행</span>
-  <span class="nv">$row</span> <span class="o">=</span> <span class="nf">mysqli_fetch_array</span><span class="p">(</span><span class="nv">$result</span><span class="p">);</span>		<span class="c1">#그 결과를 배열형식으로 가져옴</span>
+  <span class="nv">$result</span> <span class="o">=</span> <span class="nf">mysqli_query</span><span class="p">(</span><span class="nv">$conn</span><span class="p">,</span><span class="nv">$sqls</span><span class="p">);</span>			<span class="c1">#그 데이터에 대한 쿼리를 실행</span>
+  <span class="nv">$row</span> <span class="o">=</span> <span class="nf">mysqli_fetch_array</span><span class="p">(</span><span class="nv">$result</span><span class="p">);</span>			<span class="c1">#그 결과를 배열형식으로 가져옴</span>
     
-  <span class="k">if</span> <span class="p">(</span><span class="k">isset</span><span class="p">(</span><span class="nv">$row</span><span class="p">[</span><span class="s1">'id'</span><span class="p">])){</span>					<span class="c1">#그 결과의 id가 존재하면 로그인 성공페이지로, 아니면 실패페이지로 각각보냄.</span>
-    <span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">'Username'</span><span class="p">]</span><span class="o">=</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">'id'</span><span class="p">];</span>		<span class="c1">#로그인을 성공했을때 id를 세션에 저장하여, 로그인 유지 </span>
+  <span class="k">if</span> <span class="p">(</span><span class="k">isset</span><span class="p">(</span><span class="nv">$row</span><span class="p">[</span><span class="s1">'id'</span><span class="p">])){</span>				<span class="c1">#그 결과의 id가 존재하면 로그인 성공페이지로, 아니면 실패페이지로 각각보냄.</span>
+    <span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">'Username'</span><span class="p">]</span><span class="o">=</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">'id'</span><span class="p">];</span>			<span class="c1">#로그인을 성공했을때 id를 세션에 저장하여, 로그인 유지 </span>
     <span class="nb">header</span><span class="p">(</span><span class="s1">'Location: /login_success.php'</span><span class="p">);</span>
     <span class="k">exit</span><span class="p">();</span>
   <span class="p">}</span><span class="k">else</span><span class="p">{</span>
@@ -183,10 +183,10 @@
     
     <span class="c1">#db로부터 사용자가 작성한 id password 둘다 맞는 데이터를 찾음(식별과 인증이 동시에 들어감) </span>
     <span class="nv">$sql</span> <span class="o">=</span> <span class="s2">"SELECT id FROM data WHERE id = '</span><span class="nv">$id</span><span class="s2">' AND psw = '</span><span class="nv">$password</span><span class="s2">'"</span><span class="p">;</span> 
-    <span class="nv">$result</span> <span class="o">=</span> <span class="nf">mysqli_query</span><span class="p">(</span><span class="nv">$conn</span><span class="p">,</span><span class="nv">$sql</span><span class="p">);</span> 			<span class="c1"># 쿼리실행, 다른방법은$conn-&gt;query($sql); </span>
+    <span class="nv">$result</span> <span class="o">=</span> <span class="nf">mysqli_query</span><span class="p">(</span><span class="nv">$conn</span><span class="p">,</span><span class="nv">$sql</span><span class="p">);</span> 		 <span class="c1"># 쿼리실행, 다른방법은$conn-&gt;query($sql); </span>
 
-    <span class="k">if</span> <span class="p">(</span><span class="nv">$result</span><span class="o">-&gt;</span><span class="n">num_rows</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span> 					<span class="c1"># 일치하는 사용자가 하나 이상 있는 경우</span>
-        <span class="nv">$user</span> <span class="o">=</span> <span class="nv">$result</span><span class="o">-&gt;</span><span class="nf">fetch_assoc</span><span class="p">();</span> 			<span class="c1"># db로 id 정보 가져옴.fetch_assoc은 배열이 아닌 정보만 가져옴.</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nv">$result</span><span class="o">-&gt;</span><span class="n">num_rows</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span> 			<span class="c1"># 일치하는 사용자가 하나 이상 있는 경우</span>
+        <span class="nv">$user</span> <span class="o">=</span> <span class="nv">$result</span><span class="o">-&gt;</span><span class="nf">fetch_assoc</span><span class="p">();</span> 		<span class="c1"># db로 id 정보 가져옴.fetch_assoc은 배열이 아닌 정보만 가져옴.</span>
         <span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">'user_id'</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$user</span><span class="p">[</span><span class="s1">'id'</span><span class="p">];</span> 		<span class="c1"># id정보 세션에 저장</span>
         <span class="nb">header</span><span class="p">(</span><span class="s2">"Location: login_success.php"</span><span class="p">);</span> 
     <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
@@ -201,20 +201,20 @@
 <p><br /></p>
 
 <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
-<span class="nb">session_start</span><span class="p">();</span> 		<span class="c1"># 세션을 시작</span>
-<span class="k">include</span> <span class="s1">'db.php'</span><span class="p">;</span> 		<span class="c1"># 데이터베이스 연결 파일을 포함</span>
+<span class="nb">session_start</span><span class="p">();</span> 					<span class="c1"># 세션을 시작</span>
+<span class="k">include</span> <span class="s1">'db.php'</span><span class="p">;</span> 					<span class="c1"># 데이터베이스 연결 파일을 포함</span>
 
 <span class="k">if</span> <span class="p">(</span><span class="nv">$_SERVER</span><span class="p">[</span><span class="s2">"REQUEST_METHOD"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"POST"</span><span class="p">)</span> <span class="p">{</span> 		<span class="c1"># post방식인 것만 진행(확인하는 용도)</span>
-    <span class="nv">$id</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">'id'</span><span class="p">];</span> 							<span class="c1"># 로그인 폼에 사용자가 입력한 id</span>
+    <span class="nv">$id</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">'id'</span><span class="p">];</span> 				<span class="c1"># 로그인 폼에 사용자가 입력한 id</span>
 
     
     <span class="c1">#db로부터 사용자가 작성한 id와 같은 데이터를 찾음(식별만 진행) </span>
     <span class="nv">$sql</span> <span class="o">=</span> <span class="s2">"SELECT id,psw FROM data WHERE id = '</span><span class="nv">$id</span><span class="s2">'"</span><span class="p">;</span> 		
-    <span class="nv">$result</span> <span class="o">=</span> <span class="nf">mysqli_query</span><span class="p">(</span><span class="nv">$conn</span><span class="p">,</span><span class="nv">$sql</span><span class="p">);</span> 			<span class="c1">#쿼리실행</span>
+    <span class="nv">$result</span> <span class="o">=</span> <span class="nf">mysqli_query</span><span class="p">(</span><span class="nv">$conn</span><span class="p">,</span><span class="nv">$sql</span><span class="p">);</span> 		<span class="c1">#쿼리실행</span>
 
-    <span class="k">if</span> <span class="p">(</span><span class="nv">$result</span><span class="o">-&gt;</span><span class="n">num_rows</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span> 					<span class="c1"># 일치하는 사용자가 하나 이상 있는 경우</span>
-        <span class="nv">$password</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">'password'</span><span class="p">];</span> 			<span class="c1"># 로그인 폼에 사용자가 입력한 password</span>
-        <span class="nv">$user</span> <span class="o">=</span> <span class="nv">$result</span><span class="o">-&gt;</span><span class="nf">fetch_assoc</span><span class="p">();</span> 			<span class="c1"># db로부터 id,password 정보 가져옴. </span>
+    <span class="k">if</span> <span class="p">(</span><span class="nv">$result</span><span class="o">-&gt;</span><span class="n">num_rows</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span> 			<span class="c1"># 일치하는 사용자가 하나 이상 있는 경우</span>
+        <span class="nv">$password</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">'password'</span><span class="p">];</span> 		<span class="c1"># 로그인 폼에 사용자가 입력한 password</span>
+        <span class="nv">$user</span> <span class="o">=</span> <span class="nv">$result</span><span class="o">-&gt;</span><span class="nf">fetch_assoc</span><span class="p">();</span> 		<span class="c1"># db로부터 id,password 정보 가져옴. </span>
        
         <span class="c1"># db로부터 가져온 password가 사용자가 작성한 password와 같은지 확인. 맞으면 성공페이지,틀리면 실패페이지로 이동</span>
         <span class="k">if</span><span class="p">(</span><span class="nv">$user</span><span class="p">[</span><span class="s1">'psw'</span><span class="p">]</span><span class="o">==</span><span class="s1">'$password'</span><span class="p">){</span>				
@@ -236,20 +236,20 @@
 <p>위와 마찬가지로 거의 같지만 해싱처리된 비밀번호를 확인하는 과정을 거친다.</p>
 
 <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
-<span class="nb">session_start</span><span class="p">();</span> 		<span class="c1"># 세션을 시작</span>
-<span class="k">include</span> <span class="s1">'db.php'</span><span class="p">;</span> 		<span class="c1"># 데이터베이스 연결 파일을 포함</span>
+<span class="nb">session_start</span><span class="p">();</span> 					<span class="c1"># 세션을 시작</span>
+<span class="k">include</span> <span class="s1">'db.php'</span><span class="p">;</span> 					<span class="c1"># 데이터베이스 연결 파일을 포함</span>
 
 <span class="k">if</span> <span class="p">(</span><span class="nv">$_SERVER</span><span class="p">[</span><span class="s2">"REQUEST_METHOD"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"POST"</span><span class="p">)</span> <span class="p">{</span> 		<span class="c1"># post방식인 것만 진행(확인하는 용도)</span>
-    <span class="nv">$id</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">'id'</span><span class="p">];</span> 							<span class="c1"># 로그인 폼에 사용자가 입력한 id</span>
-    <span class="nv">$password</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">'password'</span><span class="p">];</span> 				<span class="c1"># 로그인 폼에 사용자가 입력한 password</span>
+    <span class="nv">$id</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">'id'</span><span class="p">];</span> 				<span class="c1"># 로그인 폼에 사용자가 입력한 id</span>
+    <span class="nv">$password</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">'password'</span><span class="p">];</span> 			<span class="c1"># 로그인 폼에 사용자가 입력한 password</span>
     <span class="nv">$hased_password</span> <span class="o">=</span> <span class="nb">password_hash</span><span class="p">(</span><span class="nv">$password</span><span class="p">,</span> <span class="no">PASSWORD_DEFAULT</span><span class="p">);</span> <span class="c1">#해싱처리된 입력한 비밀번호</span>
     
     <span class="c1">#db로부터 사용자가 작성한 id password 둘다 맞는 데이터를 찾음(식별과 인증이 동시에 들어감) </span>
     <span class="nv">$sql</span> <span class="o">=</span> <span class="s2">"SELECT id FROM data WHERE id = '</span><span class="nv">$id</span><span class="s2">' AND psw = '</span><span class="nv">$hased_password</span><span class="s2">'"</span><span class="p">;</span> 
     <span class="nv">$result</span> <span class="o">=</span> <span class="nf">mysqli_query</span><span class="p">(</span><span class="nv">$conn</span><span class="p">,</span><span class="nv">$sql</span><span class="p">);</span> 			<span class="c1"># 쿼리실행, 다른방법은$conn-&gt;query($sql); </span>
 
-    <span class="k">if</span> <span class="p">(</span><span class="nv">$result</span><span class="o">-&gt;</span><span class="n">num_rows</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span> 					<span class="c1"># 일치하는 사용자가 하나 이상 있는 경우</span>
-        <span class="nv">$user</span> <span class="o">=</span> <span class="nv">$result</span><span class="o">-&gt;</span><span class="nf">fetch_assoc</span><span class="p">();</span> 			<span class="c1"># db로 id 정보 가져옴.fetch_assoc은 배열이 아닌 정보만 가져옴.</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nv">$result</span><span class="o">-&gt;</span><span class="n">num_rows</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span> 			<span class="c1"># 일치하는 사용자가 하나 이상 있는 경우</span>
+        <span class="nv">$user</span> <span class="o">=</span> <span class="nv">$result</span><span class="o">-&gt;</span><span class="nf">fetch_assoc</span><span class="p">();</span> 		<span class="c1"># db로 id 정보 가져옴.fetch_assoc은 배열이 아닌 정보만 가져옴.</span>
         <span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">'user_id'</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$user</span><span class="p">[</span><span class="s1">'id'</span><span class="p">];</span> 		<span class="c1"># id정보 세션에 저장</span>
         <span class="nb">header</span><span class="p">(</span><span class="s2">"Location: login_success.php"</span><span class="p">);</span> 
     <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
