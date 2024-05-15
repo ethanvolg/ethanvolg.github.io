@@ -1,7 +1,7 @@
 ---
 layout: single
 title:  "SQL injection이란?"
-categories: SQLinjection
+categories: SQL-injection
 typora-root-url: ..\
 author_profile: false
 ---

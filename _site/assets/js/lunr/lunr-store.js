@@ -66,8 +66,8 @@ var store = [{
         "teaser": null
       },{
         "title": "SQL injection이란?",
-        "excerpt":"1.SQL injection ※ 주의 사항 : 1. 교육 목적으로만 이용 해주세요. 2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다. 3. 개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. 1.1 개념 먼저 용어에 대해서 살펴봅시다. sql은 db에 요청하는 언어 이고, injection은 영어 뜻으로 주입하다,...","categories": ["SQLinjection"],
+        "excerpt":"1.SQL injection ※ 주의 사항 : 1. 교육 목적으로만 이용 해주세요. 2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다. 3. 개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. 1.1 개념 먼저 용어에 대해서 살펴봅시다. sql은 db에 요청하는 언어 이고, injection은 영어 뜻으로 주입하다,...","categories": ["SQL-injection"],
         "tags": [],
-        "url": "/sqlinjection/SQLinjection1/",
+        "url": "/sql-injection/SQLinjection1/",
         "teaser": null
       }]
