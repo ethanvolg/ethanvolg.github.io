@@ -53,7 +53,7 @@ sql injection은 빈칸에 적게 되는 id 나 password에 sql문의 취약한 
 
 
 
-<img src="/images/2024-05-16-SQLinjection1/image-20240516032610710.png" alt="image-20240516032610710" style="display: flex; justify-content: center;" />
+<img src="/images/2024-05-16-SQLinjection1/image-20240516032610710.png" alt="image-20240516032610710" style="display: block; margin: 0 auto;" />
 
 실제 제 로그인 페이지와 연결한 db입니다. 2개의 행 데이터가 존재합니다.   
 문제를 통해 방법을 알아봅시다.

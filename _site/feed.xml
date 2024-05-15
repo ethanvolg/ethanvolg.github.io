@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-05-16T04:08:00+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">나의 코딩 공부</title><subtitle>ethan의 블로그</subtitle><author><name>ethan</name></author><entry><title type="html">SQL injection이란?</title><link href="http://localhost:4000/sql-injection/SQLinjection1/" rel="alternate" type="text/html" title="SQL injection이란?" /><published>2024-05-16T00:00:00+09:00</published><updated>2024-05-16T00:00:00+09:00</updated><id>http://localhost:4000/sql-injection/SQLinjection1</id><content type="html" xml:base="http://localhost:4000/sql-injection/SQLinjection1/"><![CDATA[<p><br /></p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-05-16T04:10:52+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">나의 코딩 공부</title><subtitle>ethan의 블로그</subtitle><author><name>ethan</name></author><entry><title type="html">SQL injection이란?</title><link href="http://localhost:4000/sql-injection/SQLinjection1/" rel="alternate" type="text/html" title="SQL injection이란?" /><published>2024-05-16T00:00:00+09:00</published><updated>2024-05-16T00:00:00+09:00</updated><id>http://localhost:4000/sql-injection/SQLinjection1</id><content type="html" xml:base="http://localhost:4000/sql-injection/SQLinjection1/"><![CDATA[<p><br /></p>
 
 <h1 id="1sql-injection"><span style="background:#000000; color:#ffffff">1.SQL injection</span></h1>
 
@@ -39,7 +39,7 @@
 
 <p>그렇습니다. 안에 알맞은 문법과 값을 넣는다면 아무 문제없이 작동될 것이고, 비틀어서 원하는 정보를 얻기도 합니다.</p>
 
-<p><img src="/images/2024-05-16-SQLinjection1/image-20240516032610710.png" alt="image-20240516032610710" style="display: flex; justify-content: center;" /></p>
+<p><img src="/images/2024-05-16-SQLinjection1/image-20240516032610710.png" alt="image-20240516032610710" style="display: block; margin: 0 auto;" /></p>
 
 <p>실제 제 로그인 페이지와 연결한 db입니다. 2개의 행 데이터가 존재합니다. <br />
 문제를 통해 방법을 알아봅시다.</p>
