@@ -1,4 +1,93 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-05-14T20:38:39+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">나의 코딩 공부</title><subtitle>ethan의 블로그</subtitle><author><name>ethan</name></author><entry><title type="html">4주차 키로거 만들기</title><link href="http://localhost:4000/project/Project5/" rel="alternate" type="text/html" title="4주차 키로거 만들기" /><published>2024-05-14T00:00:00+09:00</published><updated>2024-05-14T00:00:00+09:00</updated><id>http://localhost:4000/project/Project5</id><content type="html" xml:base="http://localhost:4000/project/Project5/"><![CDATA[<p><br /></p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-05-16T04:00:50+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">나의 코딩 공부</title><subtitle>ethan의 블로그</subtitle><author><name>ethan</name></author><entry><title type="html">SQL injection이란?</title><link href="http://localhost:4000/sqlinjection/SQLinjection1/" rel="alternate" type="text/html" title="SQL injection이란?" /><published>2024-05-16T00:00:00+09:00</published><updated>2024-05-16T00:00:00+09:00</updated><id>http://localhost:4000/sqlinjection/SQLinjection1</id><content type="html" xml:base="http://localhost:4000/sqlinjection/SQLinjection1/"><![CDATA[<p><br /></p>
+
+<h1 id="1sql-injection"><span style="background:#000000; color:#ffffff">1.SQL injection</span></h1>
+
+<p><br /><span style="font-weight:bold; font-size:15px"> ※ 주의 사항 :</span></p>
+
+<p><span style="font-weight:bold; font-size:15px">1. 교육 목적으로만 이용 해주세요.</span>
+<span style="font-weight:bold; font-size:15px">2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다.</span>
+<span style="font-weight:bold; font-size:15px">3.  개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. </span></p>
+
+<h2 id="11-개념">1.1 개념</h2>
+
+<p><br /></p>
+
+<p>먼저 용어에 대해서 살펴봅시다. sql은 db에 요청하는 언어 이고, injection은 영어 뜻으로 <br />
+주입하다, 투입하다 라는 뜻이 있습니다. 그러면 SQL injection의 말은 “sql이라는 db언어로 투입하다” 가 되겠네요.</p>
+
+<p>즉, 사용자가 db와 관련된 프로그램의 허점을 이용하는 것으로 특정 sql 쿼리를 작성하여, 데이터 베이스를 공격하는 것이라고<br />
+보면 됩니다.</p>
+
+<p><br /></p>
+
+<p>예를 들어, 로그인 페이지가 있다고 가정해봅시다. 그러면 회원 가입을 한 이용자의 데이터를 불러와서 이용자의 id, password가<br />
+맞는지 대조해보는 작업을 하는데 이때 데이터를 불러오는 과정에서 sql쿼리를 사용하게 됩니다.</p>
+
+<p>사용자가 id, password 입력<br />
+▶ post 방식으로 서버로 데이터 전송 <br />
+▶ 준비된 select * from table where id = ‘<strong>__</strong>__’  와 같은 sql문에 빈칸에 id 나 password를 넣어 찾게 되는 과정</p>
+
+<p>sql injection은 빈칸에 적게 되는 id 나 password에 sql문의 취약한 부분을 공략해서 로그인이 가능하기도 합니다.<br />
+다음은 방법을 통해 더 이해해 보도록 합시다.</p>
+
+<h2 id="12-방법">1.2 방법</h2>
+
+<p><br /></p>
+
+<p>select * from login where id = ‘<strong>__</strong>__’   빈칸에 ‘를 넣어본다고 하면, 어떻게 될까요? 오류가 날 것입니다. <br />
+문법이 틀렸기 때문이죠.</p>
+
+<p>그렇습니다. 안에 알맞은 문법과 값을 넣는다면 아무 문제없이 작동될 것이고, 비틀어서 원하는 정보를 얻기도 합니다.</p>
+
+<p><img src="/images/2024-05-16-SQLinjection1/image-20240516032610710.png" alt="image-20240516032610710" /></p>
+
+<p>실제 제 로그인 페이지와 연결한 db입니다. 2개의 행 데이터가 존재합니다. <br />
+문제를 통해 방법을 알아봅시다.</p>
+
+<p><span style="font-weight:bold; font-size:15px">1. select * from table where id = ‘<strong>__</strong>__’ </span><br />
+<span style="font-weight:bold; font-size:15px">빈칸에 kim’ and ‘1’=’1 을 넣으면 어떻게 될까요?</span></p>
+
+<p><span style="font-weight:bold; font-size:15px">답은</span></p>
+
+<p><img src="/images/2024-05-16-SQLinjection1/image-20240516033046974.png" alt="image-20240516033046974" /></p>
+
+<p>and 는 왼쪽 구문과 오른쪽 구문이 서로 존재해야 나타납니다. 그런데 ‘1’=’1’ 은 참이면서 kim인 데이터가 존재하므로<br />
+이와 같은 데이터가 나오게 됩니다.</p>
+
+<p><span style="font-weight:bold; font-size:15px">2. select * from table where id = ‘<strong>__</strong>__’ </span><br />
+<span style="font-weight:bold; font-size:15px">빈칸에 kim’ or ‘1’=’1 을 넣으면 어떻게 될까요?</span></p>
+
+<p><span style="font-weight:bold; font-size:15px">답은</span></p>
+
+<p><img src="/images/2024-05-16-SQLinjection1/image-20240516033718568.png" alt="image-20240516033718568" /></p>
+
+<p>or 은 왼쪽 구문과 오른쪽 구문이 하나라도 존재하면 나타납니다. 그런데 ‘1’=’1’ 이 참이므로 참인 모든 데이터가 나오게<br />
+됩니다.</p>
+
+<p><span style="font-weight:bold; font-size:15px">3. select * from table where id = ‘<strong>__</strong>__’ and passoword = ‘5678’</span> <br />
+<span style="font-weight:bold; font-size:15px">빈칸에 kim’ # 을 넣으면 어떻게 될까요?</span></p>
+
+<p><span style="font-weight:bold; font-size:15px">답은</span></p>
+
+<p><img src="/images/2024-05-16-SQLinjection1/image-20240516034314892.png" alt="image-20240516034314892" /></p>
+
+<p>어째서 이런 답이 나왔는지 궁금하실 겁니다.  mysql에서 #은 주석입니다. 그렇기 때문에 # 로 뒤로 오는 구문은<br />
+사실상 의미가 없고, kim만 선택해서 출력하라는 명령만 됩니다.</p>
+
+<p><span style="font-weight:bold; font-size:15px">4. select * from table where id = ‘<strong>__</strong>__’ and passoword = ‘5678’</span> <br />
+<span style="font-weight:bold; font-size:15px">빈칸에 kim’ or ’1’ =’1 을 넣으면 어떻게 될까요?</span></p>
+
+<p><span style="font-weight:bold; font-size:15px">답은</span></p>
+
+<p><img src="/images/2024-05-16-SQLinjection1/image-20240516035152070.png" alt="image-20240516035152070" /></p>
+
+<p>1+3*2는 뭐가 답일 까요? 답은 7입니다. 곱하기를 먼저 계산하고, 1을 나중에 더하죠.<br />
+이와 마찬가지로 and를 * 로 생각하고 or 덧셈으로 생각해야 합니다.</p>
+
+<p>select * from table where id = ‘kim’ or (‘1’ =’1’ and passoword = ‘5678’) 이렇게 보면<br />
+id가 kim이거나 password가 5678인 데이터가 출력하게 됩니다.</p>
+
+<p>다음엔 sql injection에 관련된 문제를 풀어보도록 하겠습니다.</p>]]></content><author><name>ethan</name></author><category term="SQLinjection" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">4주차 키로거 만들기</title><link href="http://localhost:4000/project/Project5/" rel="alternate" type="text/html" title="4주차 키로거 만들기" /><published>2024-05-14T00:00:00+09:00</published><updated>2024-05-14T00:00:00+09:00</updated><id>http://localhost:4000/project/Project5</id><content type="html" xml:base="http://localhost:4000/project/Project5/"><![CDATA[<p><br /></p>
 
 <h1 id="1키로거-만들기"><span style="background:#000000; color:#ffffff">1.키로거 만들기</span></h1>
 
@@ -895,286 +984,4 @@ web에 연결하여 요청에 따라 데이터를 표현합니다.</p>
 
 <p><img src="/images/2024-04-26-first/sql_table.png" alt="sql_table" style="zoom: 67%;" /></p>
 
-<p><span style="font-size:50%">&lt;출처 : https://hongong.hanbit.co.kr/%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0-databasedb-dbms-sql%EC%9D%98-%EA%B0%9C%EB%85%90/&gt;</span></p>]]></content><author><name>ethan</name></author><category term="DB" /><summary type="html"><![CDATA[1. 데이터 베이스란?]]></summary></entry><entry><title type="html">1주차 로그인페이지 만들기(1)</title><link href="http://localhost:4000/project/Project1/" rel="alternate" type="text/html" title="1주차 로그인페이지 만들기(1)" /><published>2024-04-24T00:00:00+09:00</published><updated>2024-04-24T00:00:00+09:00</updated><id>http://localhost:4000/project/Project1</id><content type="html" xml:base="http://localhost:4000/project/Project1/"><![CDATA[<h1 id="1-로그인-페이지"><span style="background:#000000; color:#ffffff">1. 로그인 페이지</span></h1>
-
-<p>다음 조건으로 로그인 페이지를 만들어보도록 하겠습니다.</p>
-
-<ol>
-  <li>
-    <p>html, css, php 만으로 작성하기</p>
-  </li>
-  <li>
-    <p>아이디: admin, 비밀번호 : admin1234 로 로그인 할수 있게 하기</p>
-  </li>
-  <li>
-    <p>잘못된 정보로 로그인 했을 시, 경고문 띄우기</p>
-  </li>
-  <li>
-    <p>로그인 된 화면에서 로그아웃하면 본래 로그인화면으로 돌아가기</p>
-
-    <p>밑에 동영상과 같은 시나리오입니다.</p>
-  </li>
-</ol>
-
-<p><img src="/images/2024-04-24-first/video3-ezgif.com-video-to-gif-converter.gif" alt="video3-ezgif.com-video-to-gif-converter" /></p>
-
-<h1 id="11-html-문구-작성파일이름-indexphp">1.1 html 문구 작성<span style="font-size:50%">(파일이름: index.php)</span></h1>
-
-<p><br /></p>
-
-<h2 id="111-head">1.1.1 head</h2>
-
-<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
-<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"en"</span><span class="nt">&gt;</span>
-<span class="nt">&lt;head&gt;</span>
-    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">"X-UA-Compatible"</span> <span class="na">content=</span><span class="s">"IE=edge"</span><span class="nt">&gt;</span> ### 모든 익스플로러에서 호환성보기 무시
-    <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"viewport"</span> <span class="na">content=</span><span class="s">"width=device-width, initial-scale=1.0"</span><span class="nt">&gt;</span> 
-    ### width=device-width :기기에 따라 화면 너비에 따르기,initial-scale :브라우저 페이지 처음로드 할때 초기 크기 수준
-    
-    <span class="nt">&lt;title&gt;</span>Document<span class="nt">&lt;/title&gt;</span>
-    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"style.css"</span><span class="nt">&gt;</span> #css
-    <span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">'https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'</span> <span class="na">rel=</span><span class="s">'stylesheet'</span><span class="nt">&gt;</span> #아이콘 
-<span class="nt">&lt;/head&gt;</span>
-</code></pre></div></div>
-
-<p><br /></p>
-
-<h2 id="112-body">1.1.2 body</h2>
-
-<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span> #모양마다 class를 지정해주면 css를 보다 편하게 작업할 수 있다. #가독성이 좋게 설명구간 별로 --- 표시
- 
- 	#background를 이미지가 아니라 동영상으로 보이기
-    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"back"</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;video</span> <span class="na">autoplay</span> <span class="na">loop</span> <span class="na">muted</span> <span class="na">plays-inline</span><span class="nt">&gt;</span>
-            <span class="nt">&lt;source</span> <span class="na">src=</span><span class="s">"video1.mp4"</span> <span class="na">type=</span><span class="s">"video/mp4"</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;/video&gt;</span>
-        -------------------------------------------
-        #로그인창
-        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"wrapper"</span><span class="nt">&gt;</span>
-            <span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">"login.php"</span> <span class="na">method=</span><span class="s">"post"</span><span class="nt">&gt;</span> # form, post방식을 사용해서 url은 표시 안되지만 요청정보를 보냄
-                <span class="nt">&lt;h1&gt;</span>Login<span class="nt">&lt;/h1&gt;</span> #로그인
-                #로그인 실패시 밑에 incorrect 글귀,login.php에서 로그인 실패시 url이동하는데 그때 파라미터 글귀로 가져옴 
-				<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"php"</span><span class="nt">&gt;</span> 
-					<span class="cp">&lt;?php if (isset($_GET['incorrect'])) { ?&gt;</span>
-						<span class="nt">&lt;i</span> <span class="na">class=</span><span class="s">'bx bxs-error'</span><span class="nt">&gt;&lt;/i&gt;</span>
-						<span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"incorrect"</span><span class="nt">&gt;</span><span class="cp">&lt;?php echo $_GET['incorrect'] ; ?&gt;</span><span class="nt">&lt;/p&gt;</span>
-                	<span class="cp">&lt;?php } ?&gt;</span>
-				<span class="nt">&lt;/div&gt;</span>
-                
-                ------------   
-                #아이디
-                <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"input-box"</span><span class="nt">&gt;</span> 
-                    <span class="nt">&lt;i</span> <span class="na">class=</span><span class="s">'bx bxs-user'</span><span class="nt">&gt;&lt;/i&gt;</span>
-                    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">name=</span><span class="s">"id"</span> <span class="na">required</span><span class="nt">&gt;</span>
-                    <span class="nt">&lt;label</span> <span class="nt">&gt;</span>Username<span class="nt">&lt;/label&gt;</span>
-                <span class="nt">&lt;/div&gt;</span>
-                ------------
-                #비밀번호
-                <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"input-box"</span><span class="nt">&gt;</span>
-                    <span class="nt">&lt;i</span> <span class="na">class=</span><span class="s">'bx bxs-lock-alt'</span> <span class="nt">&gt;&lt;/i&gt;</span>
-                    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"password"</span> <span class="na">name=</span><span class="s">"password"</span> <span class="na">required</span><span class="nt">&gt;</span>
-                    <span class="nt">&lt;label</span> <span class="nt">&gt;</span>Password<span class="nt">&lt;/label&gt;</span>
-                <span class="nt">&lt;/div&gt;</span>
-                ------------
-                #밑에 추가 사항
-                <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"remember-forgot"</span><span class="nt">&gt;</span>
-                    <span class="nt">&lt;label&gt;&lt;input</span> <span class="na">type=</span><span class="s">"checkbox"</span><span class="nt">&gt;</span>Remember me<span class="nt">&lt;/label&gt;</span>
-                    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>Forgot password?<span class="nt">&lt;/a&gt;</span>
-                <span class="nt">&lt;/div&gt;</span>
-                    <span class="nt">&lt;div&gt;</span>
-                        <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">class=</span><span class="s">"btn"</span><span class="nt">&gt;</span>Login<span class="nt">&lt;/button&gt;</span>
-                    <span class="nt">&lt;/div&gt;</span>
-                <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"Sign-up-link"</span><span class="nt">&gt;</span>
-                    <span class="nt">&lt;p&gt;</span>Don't have an account?<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>Sign up<span class="nt">&lt;/a&gt;&lt;/p&gt;</span>
-                <span class="nt">&lt;/div&gt;</span> 
-            <span class="nt">&lt;/form&gt;</span>
-        <span class="nt">&lt;/div&gt;</span>
-    <span class="nt">&lt;/div&gt;</span>  
-<span class="nt">&lt;/body&gt;</span>
-</code></pre></div></div>
-
-<p><br /></p>
-
-<h1 id="113-css">1.1.3 css</h1>
-
-<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">#폰트</span>
-<span class="k">@import</span> <span class="sx">url('https://fonts.googleapis.com/css2?family=Play:wght@400;700&amp;family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap')</span><span class="p">;</span>
-
-<span class="nf">#모든</span> <span class="nt">지정</span>
-<span class="o">*</span> <span class="p">{</span>
-    <span class="nl">margin</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
-    <span class="nl">padding</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>  <span class="err">#마진과</span> <span class="err">패딩</span> <span class="err">모두</span> <span class="err">0값으로</span> <span class="err">하고,</span> <span class="err">필요에</span> <span class="err">따라</span> <span class="err">나중에</span> <span class="err">각각</span> <span class="err">지정해도됌.</span>
-    <span class="nl">box-sizing</span><span class="p">:</span> <span class="n">border-box</span><span class="p">;</span> <span class="err">#border값에</span> <span class="err">따라</span> <span class="err">박스크기가</span> <span class="err">제각각이</span> <span class="err">될수</span> <span class="err">있으므로</span> <span class="err">크기지정시</span> <span class="err">같은</span> <span class="err">크기를</span> <span class="err">볼수있음.</span>
-    <span class="nl">font-family</span><span class="p">:</span> <span class="s1">"Play"</span> <span class="p">,</span><span class="nb">sans-serif</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="nt">body</span> <span class="p">{</span>
-    <span class="nl">display</span><span class="p">:</span> <span class="n">flex</span><span class="p">;</span> <span class="err">#화면을</span> <span class="err">박스형태로</span> <span class="err">보기</span>
-    <span class="nl">justify-content</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span> <span class="err">#</span> <span class="err">수평정렬</span>
-    <span class="nl">align-items</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span> <span class="err">#수직정렬</span>
-    <span class="nl">min-height</span><span class="p">:</span> <span class="m">100vh</span><span class="p">;</span> <span class="err">#최소크기를</span> <span class="err">vh(view</span> <span class="err">height,view</span> <span class="err">port)의</span> <span class="err">전체크기로</span> <span class="err">지정.</span>
-<span class="p">}</span>
-<span class="nf">#로그인박스</span>
-<span class="nc">.wrapper</span> <span class="p">{</span>
-    <span class="nl">width</span><span class="p">:</span> <span class="m">420px</span><span class="p">;</span>
-    <span class="nl">background</span><span class="p">:</span> <span class="nb">transparent</span><span class="p">;</span> <span class="err">#투명</span>
-    <span class="py">backdrop-filter</span><span class="p">:</span> <span class="n">blur</span><span class="p">(</span><span class="m">5px</span><span class="p">);</span> <span class="err">#배경효과</span>
-    <span class="nl">border</span><span class="p">:</span> <span class="m">2px</span> <span class="nb">solid</span> <span class="n">rgba</span><span class="p">(</span><span class="m">255</span><span class="p">,</span><span class="m">255</span><span class="p">,</span><span class="m">255</span><span class="p">,</span> <span class="m">.2</span><span class="p">);</span> 
-    <span class="nl">box-shadow</span><span class="p">:</span> <span class="m">0</span> <span class="m">0</span> <span class="m">10px</span> <span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">0</span><span class="p">,</span><span class="m">0</span><span class="p">,</span><span class="m">.2</span><span class="p">);</span>
-    <span class="nl">color</span><span class="p">:</span> <span class="m">#fff</span><span class="p">;</span>
-    <span class="nl">border-radius</span><span class="p">:</span> <span class="m">10px</span><span class="p">;</span> <span class="err">#둥글게</span>
-    <span class="nl">padding</span><span class="p">:</span> <span class="m">30px</span> <span class="m">40px</span><span class="p">;</span>
-    <span class="nl">position</span><span class="p">:</span><span class="nb">relative</span><span class="p">;</span> <span class="err">#박스</span> <span class="err">내에서</span> <span class="err">자유롭게</span> <span class="err">움직이기</span>
-<span class="p">}</span>
-<span class="nf">#로그인</span> <span class="nt">글씨</span>
-<span class="nc">.wrapper</span> <span class="nt">h1</span><span class="p">{</span>
-    <span class="nl">font-size</span><span class="p">:</span> <span class="m">36px</span><span class="p">;</span>
-    <span class="nl">text-align</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="nf">#아이디</span><span class="o">,</span><span class="nt">비밀번호</span> <span class="nt">박스의</span> <span class="nt">위치</span>
-<span class="nc">.wrapper</span> <span class="nc">.input-box</span><span class="p">{</span>
-    <span class="nl">position</span><span class="p">:</span> <span class="nb">relative</span><span class="p">;</span>
-    <span class="nl">width</span><span class="p">:</span> <span class="m">100%</span><span class="p">;</span>
-    <span class="nl">height</span><span class="p">:</span> <span class="m">50px</span><span class="p">;</span>
-    <span class="nl">margin</span><span class="p">:</span> <span class="m">30px</span> <span class="m">0</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="nf">#아이디</span><span class="o">,</span><span class="nt">비밀번호</span> <span class="nt">박스의</span> <span class="nt">input</span>
-<span class="nc">.input-box</span> <span class="nt">input</span> <span class="p">{</span>
-    <span class="nl">width</span><span class="p">:</span> <span class="m">100%</span><span class="p">;</span>
-    <span class="nl">height</span><span class="p">:</span> <span class="m">100%</span><span class="p">;</span>
-    <span class="nl">background</span><span class="p">:</span> <span class="nb">transparent</span><span class="p">;</span>
-    <span class="nl">border</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
-    <span class="nl">outline</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
-    <span class="nl">border</span><span class="p">:</span> <span class="m">2px</span> <span class="nb">solid</span> <span class="n">rgba</span><span class="p">(</span><span class="m">255</span><span class="p">,</span><span class="m">255</span><span class="p">,</span><span class="m">255</span><span class="p">,</span> <span class="m">.2</span><span class="p">);</span>
-    <span class="nl">border-radius</span><span class="p">:</span> <span class="m">40px</span><span class="p">;</span>
-    <span class="nl">font-size</span><span class="p">:</span> <span class="m">16px</span><span class="p">;</span>
-    <span class="nl">color</span><span class="p">:</span> <span class="m">#fff</span><span class="p">;</span>
-    <span class="nl">padding</span><span class="p">:</span> <span class="m">20px</span> <span class="m">20px</span> <span class="m">20px</span> <span class="m">45px</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="nf">#아이디</span><span class="o">,</span><span class="nt">비밀번호</span> <span class="nt">박스에</span> <span class="nt">들어간</span> <span class="nt">내용</span>
-<span class="nc">.input-box</span> <span class="nt">label</span><span class="p">{</span>
-    <span class="nl">position</span><span class="p">:</span> <span class="nb">absolute</span><span class="p">;</span>
-    <span class="nl">top</span><span class="p">:</span><span class="m">50%</span><span class="p">;</span>
-    <span class="nl">left</span><span class="p">:</span><span class="m">50px</span><span class="p">;</span>
-    <span class="nl">transform</span><span class="p">:</span> <span class="n">translateY</span><span class="p">(</span><span class="m">-53%</span><span class="p">);</span> <span class="err">#위치</span> <span class="err">옮기기</span>
-    <span class="nl">pointer-events</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span> <span class="err">#커서</span> <span class="err">모양바뀌는거</span> <span class="err">없애기</span>
-    <span class="nl">color</span><span class="p">:</span><span class="m">#fff</span><span class="p">;</span>
-    <span class="nl">transition</span><span class="p">:</span> <span class="m">.5s</span><span class="p">;</span> <span class="err">#움직임시간</span>
-    <span class="nl">background-color</span><span class="p">:</span> <span class="nb">transparent</span><span class="p">;</span>
-    
-<span class="p">}</span>
-<span class="nf">#아이디</span><span class="o">,</span><span class="nt">비밀번호</span> <span class="nt">박스가</span> <span class="nt">포커스</span> <span class="nt">되었을시</span>
-<span class="nc">.input-box</span> <span class="nt">input</span><span class="nd">:focus</span> <span class="p">{</span>
-    <span class="nl">border-color</span><span class="p">:</span> <span class="m">#18ffff</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="err">#</span> <span class="nt">아이디</span><span class="o">,</span><span class="nt">비밀번호</span> 
-  <span class="nt">박스에</span> <span class="nt">포커스</span> <span class="nt">되어있을때</span> <span class="nt">라벨과</span> <span class="nt">박스에</span> <span class="nt">값이</span> <span class="nt">있을때</span> <span class="nt">라벨</span> <span class="nt">모두의</span> <span class="nt">경우</span>
-<span class="nc">.input-box</span> <span class="nt">input</span><span class="nd">:focus</span><span class="o">~</span><span class="nt">label</span><span class="o">,</span>
-<span class="nc">.input-box</span> <span class="nt">input</span><span class="nd">:valid</span><span class="o">~</span><span class="nt">label</span> <span class="p">{</span>
-    <span class="nl">top</span><span class="p">:</span> <span class="m">-5px</span><span class="p">;</span>
-    <span class="nl">left</span><span class="p">:</span> <span class="m">20px</span><span class="p">;</span>
-    <span class="nl">font-size</span><span class="p">:</span> <span class="m">0.8rem</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="err">#</span> <span class="nt">아이디</span><span class="o">,</span> <span class="nt">비밀번호</span> <span class="nt">로고</span>
-<span class="nc">.input-box</span> <span class="nt">i</span> <span class="p">{</span>
-    <span class="nl">position</span><span class="p">:</span> <span class="nb">absolute</span><span class="p">;</span>
-    <span class="nl">top</span><span class="p">:</span> <span class="m">50%</span><span class="p">;</span>
-    <span class="nl">left</span><span class="p">:</span> <span class="m">20px</span><span class="p">;</span>
-    <span class="nl">transform</span><span class="p">:</span> <span class="n">translateY</span><span class="p">(</span><span class="m">-50%</span><span class="p">);</span>
-    <span class="nl">font-size</span><span class="p">:</span> <span class="m">20px</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="err">#</span> <span class="nt">추가</span> <span class="nt">사항글</span>
-<span class="nc">.wrapper</span> <span class="nc">.remember-forgot</span> <span class="p">{</span>
-    <span class="nl">display</span><span class="p">:</span> <span class="n">flex</span><span class="p">;</span>
-    <span class="nl">justify-content</span><span class="p">:</span> <span class="n">space-between</span><span class="p">;</span>
-    <span class="nl">font-size</span><span class="p">:</span> <span class="m">14.5px</span><span class="p">;</span>
-    <span class="nl">margin</span><span class="p">:</span> <span class="m">-15px</span> <span class="m">0</span> <span class="m">15px</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="err">#</span> <span class="nt">추가</span> <span class="nt">사항글</span> <span class="nt">중</span> <span class="nt">왼쪽</span> <span class="nt">박스</span>
-<span class="nc">.remember-forgot</span> <span class="nt">label</span> <span class="nt">input</span> <span class="p">{</span>
-    <span class="py">accent-color</span><span class="p">:</span> <span class="m">#fff</span><span class="p">;</span>
-    <span class="nl">margin-right</span><span class="p">:</span> <span class="m">3px</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="nf">#추가</span> <span class="nt">사항글</span> <span class="nt">중</span> <span class="nt">오른쪽</span> <span class="nt">글</span>
-<span class="nc">.remember-forgot</span> <span class="nt">a</span><span class="p">{</span>
-    <span class="nl">color</span><span class="p">:</span> <span class="m">#fff</span><span class="p">;</span>
-    <span class="nl">text-decoration</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span> <span class="err">#밑줄</span>
-<span class="p">}</span>
-<span class="nf">#추가</span> <span class="nt">사항글</span> <span class="nt">중</span> <span class="nt">오른쪽</span> <span class="nt">글</span><span class="o">,</span> <span class="nt">커서올렸을시</span>
-<span class="nc">.remember-forgot</span> <span class="nt">a</span><span class="nd">:hover</span> <span class="p">{</span>
-    <span class="nl">text-decoration</span><span class="p">:</span> <span class="nb">underline</span><span class="p">;</span> 
-<span class="p">}</span>
-<span class="nc">.wrapper</span>  <span class="nc">.btn</span> <span class="p">{</span>
-    <span class="nl">width</span><span class="p">:</span> <span class="m">100%</span><span class="p">;</span>
-    <span class="nl">height</span><span class="p">:</span> <span class="m">45px</span><span class="p">;</span>
-    <span class="nl">background</span><span class="p">:</span> <span class="m">#fff</span><span class="p">;</span>
-    <span class="nl">border</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
-    <span class="nl">outline</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
-    <span class="nl">border-radius</span><span class="p">:</span> <span class="m">40px</span><span class="p">;</span>
-    <span class="nl">box-shadow</span><span class="p">:</span> <span class="m">0</span> <span class="m">0</span> <span class="m">10px</span> <span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">0</span><span class="p">,</span><span class="m">0</span><span class="p">,</span><span class="m">.1</span><span class="p">);</span>
-    <span class="nl">cursor</span><span class="p">:</span> <span class="nb">pointer</span><span class="p">;</span>
-    <span class="nl">font-size</span><span class="p">:</span> <span class="m">16px</span><span class="p">;</span>
-    <span class="nl">color</span><span class="p">:</span> <span class="m">#333</span><span class="p">;</span>
-    <span class="nl">font-weight</span><span class="p">:</span> <span class="m">600</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="nf">#로그인</span> <span class="nt">버튼</span>
-<span class="nc">.wrapper</span> <span class="nt">button</span> <span class="p">{</span>
-    <span class="nl">margin</span><span class="p">:</span> <span class="m">20px</span> <span class="m">0</span><span class="p">;</span>
-    <span class="nl">transform</span><span class="p">:</span> <span class="n">translateY</span><span class="p">(</span><span class="m">39%</span><span class="p">);</span>
-<span class="p">}</span>
-<span class="nf">#로그인버튼</span> <span class="nt">밑에</span> <span class="nt">글</span> <span class="nt">전부</span>
-<span class="nc">.wrapper</span> <span class="nc">.Sign-up-link</span> <span class="p">{</span>
-    <span class="nl">font-size</span><span class="p">:</span> <span class="m">14.5px</span><span class="p">;</span>
-    <span class="nl">text-align</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
-    <span class="nl">margin</span><span class="p">:</span> <span class="m">20px</span> <span class="m">0</span> <span class="m">5px</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="nf">#회원가입링크만</span>
-<span class="nc">.Sign-up-link</span> <span class="nt">p</span> <span class="nt">a</span> <span class="p">{</span>
-    <span class="nl">color</span><span class="p">:</span> <span class="m">#fff</span><span class="p">;</span>
-    <span class="nl">text-decoration</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
-    <span class="nl">font-weight</span><span class="p">:</span> <span class="m">600</span><span class="p">;</span>
-    <span class="nl">margin-left</span><span class="p">:</span> <span class="m">3px</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="nf">#회원가입링크만</span><span class="o">,</span><span class="nt">커서올렸을시</span>
-<span class="nc">.Sign-up-link</span> <span class="nt">p</span> <span class="nt">a</span><span class="nd">:hover</span> <span class="p">{</span>
-    <span class="nl">text-decoration</span><span class="p">:</span> <span class="nb">underline</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="nf">#배경화면</span> <span class="nt">비디오</span>
-<span class="nc">.back</span> <span class="nt">video</span><span class="p">{</span>
-    <span class="nl">position</span><span class="p">:</span> <span class="nb">absolute</span><span class="p">;</span>
-    <span class="nl">right</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
-    <span class="nl">bottom</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
-    <span class="nl">z-index</span><span class="p">:</span> <span class="m">-1</span><span class="p">;</span> <span class="err">#배경</span> <span class="err">뒤로</span>
-<span class="p">}</span>
-<span class="nf">#배경화면</span> <span class="nt">비디오</span> <span class="nt">비율</span>
-<span class="k">@media</span><span class="p">(</span><span class="n">min-aspect-ratio</span><span class="p">:</span><span class="m">16</span><span class="p">/</span><span class="m">9</span><span class="p">){</span>
-    <span class="nc">.back</span> <span class="nt">video</span> <span class="p">{</span>
-        <span class="nl">width</span><span class="p">:</span> <span class="m">100%</span><span class="p">;</span>
-        <span class="nl">height</span><span class="p">:</span> <span class="nb">auto</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-<span class="nf">#로그인실패시</span> <span class="nt">문구</span>
-<span class="nc">.incorrect</span> <span class="p">{</span>
-    <span class="nl">background</span><span class="p">:</span> <span class="m">#f2dede</span><span class="p">;</span>
-    <span class="nl">color</span><span class="p">:</span> <span class="m">#A94442</span><span class="p">;</span>
-    <span class="nl">padding</span><span class="p">:</span> <span class="m">6px</span><span class="p">;</span>
-    <span class="nl">width</span><span class="p">:</span> <span class="m">100%</span><span class="p">;</span>
-    <span class="nl">border-radius</span><span class="p">:</span> <span class="m">5px</span><span class="p">;</span>
-    <span class="nl">position</span><span class="p">:</span> <span class="nb">relative</span><span class="p">;</span>
-    <span class="nl">transform</span><span class="p">:</span> <span class="n">translateY</span><span class="p">(</span><span class="m">44%</span><span class="p">);</span>
-    <span class="nl">font-weight</span><span class="p">:</span> <span class="m">300</span><span class="p">;</span>
-    <span class="nl">text-align</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
-
-<span class="p">}</span>
-<span class="nf">#로그인실패시</span> <span class="nt">로고</span>
- <span class="nc">.php</span> <span class="nt">i</span><span class="p">{</span>
-    <span class="nl">position</span><span class="p">:</span> <span class="nb">absolute</span><span class="p">;</span>
-    <span class="nl">top</span><span class="p">:</span> <span class="m">20%</span><span class="p">;</span>
-    <span class="nl">left</span><span class="p">:</span> <span class="m">73px</span><span class="p">;</span>
-    <span class="nl">z-index</span><span class="p">:</span> <span class="m">1</span><span class="p">;</span>
-    <span class="nl">color</span><span class="p">:</span><span class="m">#A94442</span><span class="p">;</span>
-
-<span class="p">}</span>
-</code></pre></div></div>]]></content><author><name>ethan</name></author><category term="project" /><summary type="html"><![CDATA[1. 로그인 페이지]]></summary></entry></feed>
+<p><span style="font-size:50%">&lt;출처 : https://hongong.hanbit.co.kr/%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0-databasedb-dbms-sql%EC%9D%98-%EA%B0%9C%EB%85%90/&gt;</span></p>]]></content><author><name>ethan</name></author><category term="DB" /><summary type="html"><![CDATA[1. 데이터 베이스란?]]></summary></entry></feed>
