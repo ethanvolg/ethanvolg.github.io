@@ -12,8 +12,8 @@ author_profile: false
 
 <br><span style='font-weight:bold; font-size:15px'> ※ 주의 사항 :</span>   
 
-<span style='font-weight:bold; font-size:15px'>1. 교육 목적으로만 이용 해주세요.</span>
-<span style='font-weight:bold; font-size:15px'>2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다.</span>
+<span style='font-weight:bold; font-size:15px'>1. 교육 목적으로만 이용 해주세요.</span><br>
+<span style='font-weight:bold; font-size:15px'>2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다.</span><br>
 <span style='font-weight:bold; font-size:15px'>3.  개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. </span>
 
 ## 1.1 개념
@@ -53,7 +53,7 @@ sql injection은 빈칸에 적게 되는 id 나 password에 sql문의 취약한 
 
 
 
-![image-20240516032610710](/images/2024-05-16-SQLinjection1/image-20240516032610710.png)
+<img src="/images/2024-05-16-SQLinjection1/image-20240516032610710.png" alt="image-20240516032610710" style="text-align:center" />
 
 실제 제 로그인 페이지와 연결한 db입니다. 2개의 행 데이터가 존재합니다.   
 문제를 통해 방법을 알아봅시다.
