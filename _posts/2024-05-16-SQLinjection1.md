@@ -110,3 +110,4 @@ select * from table where id = 'kim' or ('1' ='1' and passoword = '5678') 이렇
 id가 kim이거나 password가 5678인 데이터가 출력하게 됩니다.
 
 다음엔 sql injection에 관련된 문제를 풀어보도록 하겠습니다.
+
