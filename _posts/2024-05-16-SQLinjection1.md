@@ -16,7 +16,7 @@ author_profile: false
 <span style='font-weight:bold; font-size:15px'>2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다.</span><br>
 <span style='font-weight:bold; font-size:15px'>3.  개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. </span>
 
-## 1.1 개념
+## <span style="background:#696969; color:#ffffff">1.1 개념</span>
 
 <br>
 
@@ -42,7 +42,7 @@ sql injection은 빈칸에 적게 되는 id 나 password에 sql문의 취약한 
 
 
 
-## 1.2 방법
+## <span style="background:#696969; color:#ffffff">1.2 인증 우회 방법</span>
 
 <br>
 
