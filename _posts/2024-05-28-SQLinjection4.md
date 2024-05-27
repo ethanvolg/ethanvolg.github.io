@@ -111,7 +111,7 @@ flag_table 의 컬럼은 flag네요.
 
 <br>
 
-### <span style="background:#A9A9A9; color:#ffffff">1.1.1 sql injection 포인트 찾기</span>
+### <span style="background:#A9A9A9; color:#ffffff">1.2.1 sql injection 포인트 찾기</span>
 
 ***
 
@@ -127,7 +127,7 @@ normaltic이라고 검색할 때는 정보가 나오는데, n 만 검색했을 �
 
 sql injection이 가능하네요.
 
-### <br><span style="background:#A9A9A9; color:#ffffff">1.1.2 column 개수 찾기</span>
+### <br><span style="background:#A9A9A9; color:#ffffff">1.2.2 column 개수 찾기</span>
 
 ***
 
@@ -137,7 +137,7 @@ sql injection이 가능하네요.
 
 7 이상부터 정보가 안 나오니 칼럼 수는 6 개 입니다.
 
-### <br><span style="background:#A9A9A9; color:#ffffff">1.1.3 출력되는 column 위치 찾기</span>
+### <br><span style="background:#A9A9A9; color:#ffffff">1.2.3 출력되는 column 위치 찾기</span>
 
 ***
 
@@ -149,7 +149,7 @@ sql injection이 가능하네요.
 
 <br>
 
-### <span style="background:#A9A9A9; color:#ffffff">1.1.4 DB이름 확인하기</span>
+### <span style="background:#A9A9A9; color:#ffffff">1.2.4 DB이름 확인하기</span>
 
 ***
 
@@ -159,7 +159,7 @@ sql injection이 가능하네요.
 
 
 
-### <br><span style="background:#A9A9A9; color:#ffffff">1.1.5 table이름 확인하기</span>
+### <br><span style="background:#A9A9A9; color:#ffffff">1.2.5 table이름 확인하기</span>
 
 ***
 
@@ -167,7 +167,7 @@ sql injection이 가능하네요.
 
 <img src="/images/2024-05-28-SQLinjection4/image-20240528022745304.png" alt="image-20240528022745304" style="zoom:50%;" />
 
-### <br><span style="background:#A9A9A9; color:#ffffff">1.1.6 column 이름 확인하기</span>
+### <br><span style="background:#A9A9A9; color:#ffffff">1.2.6 column 이름 확인하기</span>
 
 ***
 
@@ -177,7 +177,7 @@ sql injection이 가능하네요.
 
 <br>
 
-### <span style="background:#A9A9A9; color:#ffffff">1.1.7 data 추출하기</span>
+### <span style="background:#A9A9A9; color:#ffffff">1.2.7 data 추출하기</span>
 
 ***
 
