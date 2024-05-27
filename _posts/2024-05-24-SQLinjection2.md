@@ -18,6 +18,8 @@ author_profile: false
 <span style='font-weight:bold; font-size:15px'>2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다.</span><br>
 <span style='font-weight:bold; font-size:15px'>3.  개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. </span>
 
+<br>
+
 ## <span style="background:#696969; color:#ffffff">1.1 개요</span>
 
 <br>
@@ -52,9 +54,13 @@ db의 이름, table의 이름, column의 이름을 알지 않는 한 불가능�
 
 그래서 알아야 할 두 가지의  sql 쿼리 문이 있습니다. ① union 과 ②order by 입니다.
 
+<br>
 
+<br>
 
 <span style='font-weight:bold; font-size:25px'>①UNION</span>
+
+<br>
 
 <span style='font-size:20px'>1) 일반적인 select</span>
 
@@ -65,7 +71,7 @@ db의 이름, table의 이름, column의 이름을 알지 않는 한 불가능�
 
 <br>
 
-
+<br>
 
 <span style='font-size:20px'>2) union을 사용한 select</span>
 
@@ -77,7 +83,7 @@ union은 select 문을 2 개 이상 결합시켜서 나타낼 때 사용합니�
 여기서 select로 1,2 와 3,4를 나타낸 것은 테이블의 데이터를 불러온 것이 아니라 값만 출력한 것임을  
 유념해야 합니다.
 
-
+<br>
 
 ▶ union all  vs  union  
 
@@ -89,7 +95,7 @@ union : 겹치는 값이 존재하면 그 중 하나만 출력합니다.
 
 (union all)![image-20240525001254806](/images/2024-05-24-SQLinjection2/image-20240525001254806.png)(union)![image-20240525001138029](/images/2024-05-24-SQLinjection2/image-20240525001138029.png)
 
-
+<br>
 
 <span style='font-weight:bold; font-size:25px'>②OREDER BY</span>
 
@@ -104,15 +110,15 @@ SELECT username, password FROM users ORDER BY 1; ▶ 1이므로 username으로 �
 
 SELECT username, password FROM users ORDER BY 2; ▶ 2 이므로 password으로 정렬합니다.
 
-
+<br>
 
 ## <span style="background:#696969; color:#ffffff">1.3 데이터 추출의 필수 과정<span style="font-size:50%">(DB데이터를 화면에서 볼 수 있을때)</span></span>
 
+<br>
 
+<span style='font-weight:bold; font-size:20px'><union 과 order by를 이용한 sql injection pocess></span>
 
-<span style='font-weight:bold; font-size:20px'><*union 과 order by를 이용한 sql injection pocess></span>
-
-
+<br>
 
 <span style='font-weight:bold; font-size:15px'>1. sql injection 포인트 찾기 (sql injection이 가능한지 확인하고, 어떤 로직으로 구성했을까? 예측하기)</span>
 
@@ -130,17 +136,23 @@ SELECT username, password FROM users ORDER BY 2; ▶ 2 이므로 password으로 
 
    예제에 따라 해당 절차를 시행해보면서 설명해보겠습니다.
 
-
+<br>
 
 ### <span style="background:#A9A9A9; color:#ffffff">1.3.1 sql injection 포인트 찾기</span>
+
+<br>
 
 <img src="/images/2024-05-24-SQLinjection2/image-20240525013022486.png" alt="1" style="zoom:50%;" />
 
 게임 이름을 검색하면 그 이름과 스코어 제작사 이름이 나오는 구조인 것 같습니다.
 
+<br>
+
 <img src="/images/2024-05-24-SQLinjection2/image-20240525013104123.png" alt="image-20240525013104123" style="zoom: 50%;" />
 
 하지만 over만 쳐도 나오는 것으로 보아 like '%글자%' 구문으로 한 글자만 일치하더라도 출력하는 구조 입니다.
+
+<br>
 
 <img src="/images/2024-05-24-SQLinjection2/image-20240525013221239.png" alt="image-20240525013221239" style="zoom:50%;" />
 
@@ -156,11 +168,15 @@ sql 인젝션이 가능하다는 것을 확인할 수 있죠.
 
 ### <br><span style="background:#A9A9A9; color:#ffffff">1.3.2 column 개수 찾기</span>
 
+<br>
+
 <img src="/images/2024-05-24-SQLinjection2/image-20240525013448020.png" style="zoom:50%;" />
 
 위에서 살펴본 order by 특성에 따라 order by 1은 첫 번째 칼럼으로 정렬한 것입니다.
 
 order by 1/ order by 2 / order by 3 ..... 순차적으로 늘려가면 에러가 발생합니다.
+
+<br>
 
 <img src="/images/2024-05-24-SQLinjection2/image-20240525013407465.png" alt="image-20240525013407465" style="zoom: 33%;" />
 
@@ -171,6 +187,8 @@ order by 1/ order by 2 / order by 3 ..... 순차적으로 늘려가면 에러가
 
 
 ### <br><span style="background:#A9A9A9; color:#ffffff">1.3.3 출력되는 column 위치 찾기</span>
+
+<br>
 
 <img src="/images/2024-05-24-SQLinjection2/image-20240525014303487.png" alt="image-20240525014303487" style="zoom:50%;" />
 
@@ -184,6 +202,8 @@ union select를 이용해서 표현하면, db에서 불러온 데이터와 1,2,3
 
 ### <span style="background:#A9A9A9; color:#ffffff">1.3.4 DB이름 확인하기</span>
 
+<br>
+
 <img src="/images/2024-05-24-SQLinjection2/image-20240525014348702.png" alt="image-20240525014348702" style="zoom:50%;" />
 
 DB이름 ▶ database()로 확인할 수 있습니다. 그래서 출력이 가능한 2,3,4 위치에 값을 넣어 확인해 볼 수 있겠습니다.
@@ -191,6 +211,8 @@ DB이름 ▶ database()로 확인할 수 있습니다. 그래서 출력이 가�
 
 
 ### <br><span style="background:#A9A9A9; color:#ffffff">1.3.5 table이름 확인하기</span>
+
+<br>
 
 <img src="/images/2024-05-24-SQLinjection2/image-20240525015343016.png" alt="image-20240525015343016" style="zoom:50%;" />
 
@@ -204,6 +226,8 @@ table_shema 로 DB이름을 지정하지 않으면 모든 table이름이 나와�
 
 ### <br><span style="background:#A9A9A9; color:#ffffff">1.3.6 column 이름 확인하기</span>
 
+<br>
+
 <img src="/images/2024-05-24-SQLinjection2/image-20240525015555601.png" alt="image-20240525015555601" style="zoom:50%;" />
 
 ![image-20240525022920840](/images/2024-05-24-SQLinjection2/image-20240525022920840.png)
@@ -213,6 +237,8 @@ column 이름 ▶  select column_name from information_schema.columns where tabl
 <br>
 
 ### <span style="background:#A9A9A9; color:#ffffff">1.3.7 data 추출하기</span>
+
+<br>
 
 <img src="/images/2024-05-24-SQLinjection2/image-20240525015730186.png" alt="image-20240525015730186" style="zoom:50%;" />
 
