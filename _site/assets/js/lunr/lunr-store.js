@@ -70,4 +70,22 @@ var store = [{
         "tags": [],
         "url": "/sql-injection/SQLinjection1/",
         "teaser": null
+      },{
+        "title": "SQL injection 데이터 추출(1)",
+        "excerpt":"1.SQL injection 데이터 추출(1) ※ 주의 사항 : 1. 교육 목적으로만 이용 해주세요. 2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다. 3. 개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. 1.1 개요 ① 인증 우회 - 로그인 하기 ② 데이터 추출 간단하게 두...","categories": ["SQL-injection"],
+        "tags": [],
+        "url": "/sql-injection/SQLinjection2/",
+        "teaser": null
+      },{
+        "title": "SQL injection 데이터 추출(2)",
+        "excerpt":"1.SQL injection 데이터 추출(2) ※ 주의 사항 : 1. 교육 목적으로만 이용 해주세요. 2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다. 3. 개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. 1.1 문제풀이 ▶ 목표 : 아이디가 doldol인 데이터만 출력하기!!! 1.1.1 sql injection 포인트...","categories": ["SQL-injection"],
+        "tags": [],
+        "url": "/sql-injection/SQLinjection3/",
+        "teaser": null
+      },{
+        "title": "SQL injection 데이터 추출(문제풀이)",
+        "excerpt":"1.SQL injection 데이터 추출(문제풀이) ※ 주의 사항 : 1. 교육 목적으로만 이용 해주세요. 2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다. 3. 개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. 1.1  1번 문제 본 글은 문제풀이 과정만 나타냈기에, 과정에서 이해가 안되면 이전 글을...","categories": ["SQL-injection"],
+        "tags": [],
+        "url": "/sql-injection/SQLinjection4/",
+        "teaser": null
       }]

@@ -140,6 +140,8 @@ SELECT username, password FROM users ORDER BY 2; ▶ 2 이므로 password으로 
 
 ### <span style="background:#A9A9A9; color:#ffffff">1.3.1 sql injection 포인트 찾기</span>
 
+***
+
 <br>
 
 <img src="/images/2024-05-24-SQLinjection2/image-20240525013022486.png" alt="1" style="zoom:50%;" />
@@ -168,6 +170,8 @@ sql 인젝션이 가능하다는 것을 확인할 수 있죠.
 
 ### <br><span style="background:#A9A9A9; color:#ffffff">1.3.2 column 개수 찾기</span>
 
+***
+
 <br>
 
 <img src="/images/2024-05-24-SQLinjection2/image-20240525013448020.png" style="zoom:50%;" />
@@ -188,6 +192,8 @@ order by 1/ order by 2 / order by 3 ..... 순차적으로 늘려가면 에러가
 
 ### <br><span style="background:#A9A9A9; color:#ffffff">1.3.3 출력되는 column 위치 찾기</span>
 
+***
+
 <br>
 
 <img src="/images/2024-05-24-SQLinjection2/image-20240525014303487.png" alt="image-20240525014303487" style="zoom:50%;" />
@@ -202,6 +208,8 @@ union select를 이용해서 표현하면, db에서 불러온 데이터와 1,2,3
 
 ### <span style="background:#A9A9A9; color:#ffffff">1.3.4 DB이름 확인하기</span>
 
+***
+
 <br>
 
 <img src="/images/2024-05-24-SQLinjection2/image-20240525014348702.png" alt="image-20240525014348702" style="zoom:50%;" />
@@ -211,6 +219,8 @@ DB이름 ▶ database()로 확인할 수 있습니다. 그래서 출력이 가�
 
 
 ### <br><span style="background:#A9A9A9; color:#ffffff">1.3.5 table이름 확인하기</span>
+
+***
 
 <br>
 
@@ -226,6 +236,8 @@ table_shema 로 DB이름을 지정하지 않으면 모든 table이름이 나와�
 
 ### <br><span style="background:#A9A9A9; color:#ffffff">1.3.6 column 이름 확인하기</span>
 
+***
+
 <br>
 
 <img src="/images/2024-05-24-SQLinjection2/image-20240525015555601.png" alt="image-20240525015555601" style="zoom:50%;" />
@@ -237,6 +249,8 @@ column 이름 ▶  select column_name from information_schema.columns where tabl
 <br>
 
 ### <span style="background:#A9A9A9; color:#ffffff">1.3.7 data 추출하기</span>
+
+***
 
 <br>
 

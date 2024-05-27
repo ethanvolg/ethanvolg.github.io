@@ -243,7 +243,9 @@
 
 <h1 id="1-웹-서버web-server"><span style="background:#000000; color:#ffffff">1. 웹 서버(Web server)</span></h1>
 
-<h2 id="11-클라이언트-와-서버-client-and-server">1.1 클라이언트 와 서버 (Client and server)</h2>
+<p><br /></p>
+
+<h2 id="11-클라이언트-와-서버-client-and-server"><span style="background:#696969; color:#ffffff">1.1 클라이언트 와 서버 (Client and server)</span></h2>
 
 <p>먼저 웹 서버를 이해하기 전에 클라이언트와 서버가 무엇인지 알아야할 필요성이 있습니다.<br />
 클라이언트는 파일을 서버에 요청해서 사용하는 장치, 프로그램을 의미하고,<br />
@@ -258,7 +260,9 @@
 
 <p>​							&lt;출처 :https://www.liquidweb.com/blog/client-server-architecture/&gt;</p>
 
-<h2 id="12-url-알아보기">1.2 URL 알아보기</h2>
+<p><br /></p>
+
+<h2 id="12-url-알아보기"><span style="background:#696969; color:#ffffff">1.2 URL 알아보기</span></h2>
 
 <p><br /></p>
 
@@ -278,12 +282,16 @@ URL은 어떻게 구성되어 있을까요?  <br />
 <p>●포트 : 여러 서버가 존재하는데 (web, email 등) 모든 서버의 파일을  주고 받는 것이 아니라<br />
 서버에 따라 포트 번호가 정해져 있어서 해당 서버에 파일을 주고 받을수 있도록 하는 역할을 담당</p>
 
+<p><br /></p>
+
 <h3 id="url에서-생략된-부분">URL에서 생략된 부분</h3>
 
 <p>우리가 알고 있는 사이트와 비교해서 알아볼까요?<br />
 https://www.naver.com 를 알고 있을 겁니다.<br />
 하지만 위에서는 분명 포트번호와 파일 경로까지 있어야 URL이라고 생각했는데 여기서는 볼 수가 없습니다.<br />
 왜 그런 걸까요?</p>
+
+<p><br /></p>
 
 <p>먼저 포토 번호를 살펴보겠습니다.<br />
 사실 http, https 는 포트 번호가 있습니다.<br />
@@ -296,10 +304,14 @@ http  =  80 포트</p>
 무엇보다 사용자의 편리성이 중요합니다.  그래서 프로토콜과 같이 자주쓰는 포트를 생략하기 위해  사용되는 것입니다.<br />
 이용에 따라서 다른 포트를 이용해도 상관없습니다.</p>
 
+<p><br /></p>
+
 <p>다음은 파일경로에 대해서 알아보겠습니다.<br />
 포트와 마찬가지로 네이버는 파일경로가 나타나지 않고 생략되었다는 것을 유추할 수 있을 것 입니다.<br />
 파일경로를 생략하면 어떤 파일을 지칭하는 것일 까요?<br />
 바로 index.html 파일입니다.</p>
+
+<p><br /></p>
 
 <p>파일 경로라면 잘 알고 계실겁니다. C:/Windows/System 형태를 많이 보셨죠? 폴더안에 폴더가 있고 폴더 안에 폴더나 파일이 있죠.<br />
 사실 index.html은 /var/www/html/index.html 의 경로입니다.<br />
@@ -307,24 +319,38 @@ http  =  80 포트</p>
 왜냐하면 모든 파일을 인터넷에 공유하는 것이 아니라 특정 파일을 공유하고 싶기 때문이죠.<br />
 그래서 웹사이트를 개설한다면 해당경로에 보여주고 싶은 파일을 만들면 됩니다.</p>
 
-<h2 id="13-웹서버-이해하기">1.3 웹서버 이해하기</h2>
+<p><br /></p>
+
+<h2 id="13-웹서버-이해하기"><span style="background:#696969; color:#ffffff">1.3 웹서버 이해하기</span></h2>
+
+<p><br /></p>
 
 <p>웹서버란? 사용자가  URL을 입력해서 파일을 전송해주는 역할을 해준다는 것을 알았습니다.</p>
+
+<p><br /></p>
 
 <p>그럼 웹브라우저는 무엇일까요? 대표적으로 chorm, Safari, Firefox 등이 있죠. <br />
 웹서버로 부터 파일을 받아 HTML 문서와 그림, 멀티미디어 파일을 해석해서 사이트에 보여주죠.<br />
 네이버와 같은 사이트도 마찬가지로 웹브라우저를 통해 파일이 해석되어 나타난 페이지입니다.</p>
 
+<p><br /></p>
+
 <p>이런 것을 정적 페이지라고 부릅니다. 모든 사람이 똑같은 화면을 볼 수 있죠.<br />
 하지만 사용자 각자 로그인을 하면 어떠할까요?<br />
 전부 다른 파일을 전송받아야 합니다.</p>
 
+<p><br /></p>
+
 <p>그렇다면 전세계 사람들에게 각자 다른 파일을 전송해야 하는데 현실적으로 그 많은 파일을 관리하는 것은 어려움이 있습니다.<br />
 그래서 동적 페이지가 필요합니다.</p>
+
+<p><br /></p>
 
 <p>동적 페이지는 요청에 따라 데이터를 가공하여 각각에 맞는 결과를 출력합니다. 동적 페이지를 만들기 위해서는<br />
 WAS(Web Application Server) 와 DB(DataBase)가 필요합니다. DB는 데이터를 생성, 삭제, 수정, 읽는 역할을 하며,<br />
 WAS가 요청에 따라 데이터를 가공하는 역할을 합니다.</p>
+
+<p><br /></p>
 
 <p>이렇게 정적 페이지를 만드는 과정을 프론트 엔드라고 하고 동적 페이지를 만드는 과정을 백 엔드라고 대략적으로 표현할 수 있습니다.<br />
 웹서버의 동작을 간단하게 그림으로 알아보고 마무리 하겠습니다.</p>
@@ -407,6 +433,147 @@ WAS가 요청에 따라 데이터를 가공하는 역할을 합니다.</p>
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
+        <a href="/sql-injection/SQLinjection4/" rel="permalink">SQL injection 데이터 추출(문제풀이)
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2024-05-28T00:00:00+09:00">2024-05-28</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/sql-injection/SQLinjection3/" rel="permalink">SQL injection 데이터 추출(2)
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2024-05-27T00:00:00+09:00">2024-05-27</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/sql-injection/SQLinjection2/" rel="permalink">SQL injection 데이터 추출(1)
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2024-05-24T00:00:00+09:00">2024-05-24</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          3 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
         <a href="/sql-injection/SQLinjection1/" rel="permalink">SQL injection이란?
 </a>
       
@@ -433,147 +600,6 @@ WAS가 요청에 따라 데이터를 가공하는 역할을 합니다.</p>
         <i class="far fa-fw fa-clock" aria-hidden="true"></i>
         
           2 분 소요
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">
-</p>
-  </article>
-</div>
-
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/project/Project6/" rel="permalink">4주차 쿠키 탈취 만들기
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-      
-      <span class="page__meta-date">
-        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
-        
-        <time datetime="2024-05-14T00:00:00+09:00">2024-05-14</time>
-      </span>
-    
-
-    <span class="page__meta-sep"></span>
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
-        
-          최대 1 분 소요
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">
-</p>
-  </article>
-</div>
-
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/project/Project5/" rel="permalink">4주차 키로거 만들기
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-      
-      <span class="page__meta-date">
-        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
-        
-        <time datetime="2024-05-14T00:00:00+09:00">2024-05-14</time>
-      </span>
-    
-
-    <span class="page__meta-sep"></span>
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
-        
-          2 분 소요
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">
-</p>
-  </article>
-</div>
-
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/project/Project4/" rel="permalink">3주차 로그인의 식별과 인증, 해싱처리하기
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-      
-      <span class="page__meta-date">
-        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
-        
-        <time datetime="2024-05-11T00:00:00+09:00">2024-05-11</time>
-      </span>
-    
-
-    <span class="page__meta-sep"></span>
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
-        
-          1 분 소요
         
       </span>
     

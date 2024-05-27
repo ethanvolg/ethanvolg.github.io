@@ -62,10 +62,10 @@ sql injection은 빈칸에 적게 되는 id 나 password에 sql문의 취약한 
 
 <br>
 
-<span style='font-weight:bold; font-size:15px'>1. select * from table where id = '________' </span>  
-<span style='font-weight:bold; font-size:15px'>빈칸에 kim' and '1'='1 을 넣으면 어떻게 될까요?</span>
+<span style='font-weight:bold; font-size:20px'>1. select * from table where id = '________' </span>  
+<span style='font-weight:bold; font-size:20px'>빈칸에 kim' and '1'='1 을 넣으면 어떻게 될까요?</span>
 
-<span style='font-weight:bold; font-size:15px'>답은</span>
+<span style='font-weight:bold; font-size:20px'>답은</span>
 
 ![image-20240516033046974](/images/2024-05-16-SQLinjection1/image-20240516033046974.png)
 
@@ -74,10 +74,10 @@ and 는 왼쪽 구문과 오른쪽 구문이 서로 존재해야 나타납니다
 
 <br>
 
-<span style='font-weight:bold; font-size:15px'>2. select * from table where id = '________' </span>  
-<span style='font-weight:bold; font-size:15px'>빈칸에 kim' or '1'='1 을 넣으면 어떻게 될까요?</span>
+<span style='font-weight:bold; font-size:20px'>2. select * from table where id = '________' </span>  
+<span style='font-weight:bold; font-size:20px'>빈칸에 kim' or '1'='1 을 넣으면 어떻게 될까요?</span>
 
-<span style='font-weight:bold; font-size:15px'>답은</span>
+<span style='font-weight:bold; font-size:20px'>답은</span>
 
 ![image-20240516033718568](/images/2024-05-16-SQLinjection1/image-20240516033718568.png)
 
@@ -86,10 +86,10 @@ or 은 왼쪽 구문과 오른쪽 구문이 하나라도 존재하면 나타납�
 
 <br>
 
-<span style='font-weight:bold; font-size:15px'>3. select * from table where id = '________' and passoword = '5678'</span>   
-<span style='font-weight:bold; font-size:15px'>빈칸에 kim' # 을 넣으면 어떻게 될까요?</span>
+<span style='font-weight:bold; font-size:20px'>3. select * from table where id = '________' and passoword = '5678'</span>   
+<span style='font-weight:bold; font-size:20px'>빈칸에 kim' # 을 넣으면 어떻게 될까요?</span>
 
-<span style='font-weight:bold; font-size:15px'>답은</span>
+<span style='font-weight:bold; font-size:20px'>답은</span>
 
 ![image-20240516034314892](/images/2024-05-16-SQLinjection1/image-20240516034314892.png)
 
@@ -98,10 +98,10 @@ or 은 왼쪽 구문과 오른쪽 구문이 하나라도 존재하면 나타납�
 
 <br>
 
-<span style='font-weight:bold; font-size:15px'>4. select * from table where id = '________' and passoword = '5678'</span>   
-<span style='font-weight:bold; font-size:15px'>빈칸에 kim' or '1' ='1 을 넣으면 어떻게 될까요?</span>
+<span style='font-weight:bold; font-size:20px'>4. select * from table where id = '________' and passoword = '5678'</span>   
+<span style='font-weight:bold; font-size:20px'>빈칸에 kim' or '1' ='1 을 넣으면 어떻게 될까요?</span>
 
-<span style='font-weight:bold; font-size:15px'>답은</span>
+<span style='font-weight:bold; font-size:20px'>답은</span>
 
 ![image-20240516035152070](/images/2024-05-16-SQLinjection1/image-20240516035152070.png)
 
