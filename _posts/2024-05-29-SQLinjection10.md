@@ -48,7 +48,9 @@ author_profile: false
 or 했을 때, 만약 로그인이 되었다면 식별/인증이 분리겠지만 여기서는 로그인 실패했으므로   
 식별/인증이 동시일 수도 있고, 분리일 가능성이 있습니다.  
 
-<img src="/images/2024-05-29-SQLinjection10/4.PNG" alt="4" style="zoom:60%;" /> 
+<img src="/images/2024-05-29-SQLinjection10/4.PNG" alt="4" style="zoom:60%;"/>
+
+ 
 
 #주석을 처리한 결과는 또한 로그인이 되네요. 이걸로 아직 알기엔 정보가 부족합니다.
 

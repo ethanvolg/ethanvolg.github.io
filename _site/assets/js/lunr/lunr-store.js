@@ -83,9 +83,45 @@ var store = [{
         "url": "/sql-injection/SQLinjection3/",
         "teaser": null
       },{
-        "title": "SQL injection 데이터 추출(문제풀이)",
-        "excerpt":"1.SQL injection 데이터 추출(문제풀이) ※ 주의 사항 : 1. 교육 목적으로만 이용 해주세요. 2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다. 3. 개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. 1.1  1번 문제 본 글은 문제풀이 과정만 나타냈기에, 과정에서 이해가 안되면 이전 글을...","categories": ["SQL-injection"],
+        "title": "6주차 SQL injection 데이터 추출(문제풀이)",
+        "excerpt":"1. 6주차 SQL injection 데이터 추출(문제풀이) ※ 주의 사항 : 1. 교육 목적으로만 이용 해주세요. 2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다. 3. 개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. 1.1  1번 문제 본 글은 문제풀이 과정만 나타냈기에, 과정에서 이해가 안되면...","categories": ["SQL-injection"],
         "tags": [],
         "url": "/sql-injection/SQLinjection4/",
+        "teaser": null
+      },{
+        "title": "5주차 SQL injection 인증우회 문제풀이(6)",
+        "excerpt":"1. 5주차 SQL injection 인증우회 문제풀이(6) ※ 주의 사항 : 1. 교육 목적으로만 이용 해주세요. 2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다. 3. 개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. 1.1  6번 문제 ▶ 목표 : normaltic2으로 로그인하기!!! 1.1.1 주어진 정보...","categories": ["SQL-injection"],
+        "tags": [],
+        "url": "/sql-injection/SQLinjection10/",
+        "teaser": null
+      },{
+        "title": "5주차 SQL injection 인증우회 문제풀이(1)",
+        "excerpt":"1. 5주차 SQL injection 인증우회 문제풀이(1) ※ 주의 사항 : 1. 교육 목적으로만 이용 해주세요. 2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다. 3. 개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. 1.1  1번 문제 ▶ 목표 : doldol 계정이 아닌 admin 계정으로...","categories": ["SQL-injection"],
+        "tags": [],
+        "url": "/sql-injection/SQLinjection5/",
+        "teaser": null
+      },{
+        "title": "5주차 SQL injection 인증우회 문제풀이(2)",
+        "excerpt":"1. 5주차 SQL injection 인증우회 문제풀이(2) ※ 주의 사항 : 1. 교육 목적으로만 이용 해주세요. 2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다. 3. 개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. 1.1  2번 문제 ▶ 목표 : 관리자 인증 우회하기!!! 1.1.1 주어진...","categories": ["SQL-injection"],
+        "tags": [],
+        "url": "/sql-injection/SQLinjection6/",
+        "teaser": null
+      },{
+        "title": "5주차 SQL injection 인증우회 문제풀이(3)",
+        "excerpt":"1. 5주차 SQL injection 인증우회 문제풀이(3) ※ 주의 사항 : 1. 교육 목적으로만 이용 해주세요. 2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다. 3. 개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. 1.1  3번 문제 ▶ 목표 : admin계정으로 로그인하기!!! 1.1.1 주어진 정보...","categories": ["SQL-injection"],
+        "tags": [],
+        "url": "/sql-injection/SQLinjection7/",
+        "teaser": null
+      },{
+        "title": "5주차 SQL injection 인증우회 문제풀이(4)",
+        "excerpt":"1. 5주차 SQL injection 인증우회 문제풀이(4) ※ 주의 사항 : 1. 교육 목적으로만 이용 해주세요. 2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다. 3. 개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. 1.1  4번 문제 ▶ 목표 : PIN Code 알아내기!!! 1.1.1 주어진...","categories": ["SQL-injection"],
+        "tags": [],
+        "url": "/sql-injection/SQLinjection8/",
+        "teaser": null
+      },{
+        "title": "5주차 SQL injection 인증우회 문제풀이(5)",
+        "excerpt":"1. 5주차 SQL injection 인증우회 문제풀이(5) ※ 주의 사항 : 1. 교육 목적으로만 이용 해주세요. 2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다. 3. 개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. 1.1  5번 문제 ▶ 목표 : normaltic1으로 로그인하기!!! 1.1.1 주어진 정보...","categories": ["SQL-injection"],
+        "tags": [],
+        "url": "/sql-injection/SQLinjection9/",
         "teaser": null
       }]

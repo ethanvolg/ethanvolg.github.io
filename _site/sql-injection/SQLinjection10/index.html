@@ -1,0 +1,632 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>5주차 SQL injection 인증우회 문제풀이(6) | 나의 코딩 공부</title>
+<meta name="description" content="">
+
+
+  <meta name="author" content="ethan">
+  
+  <meta property="article:author" content="ethan">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="나의 코딩 공부">
+<meta property="og:title" content="5주차 SQL injection 인증우회 문제풀이(6)">
+<meta property="og:url" content="http://localhost:4000/sql-injection/SQLinjection10/">
+
+
+  <meta property="og:description" content="">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2024-05-29T00:00:00+09:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/sql-injection/SQLinjection10/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "코딩",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+  <meta name="naver-site-verification" content="cda5169ee8858dc0fd65c97ed6247167558b5352">
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="나의 코딩 공부 Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/ethan.png" alt="나의 코딩 공부"></a>
+        
+        <a class="site-title" href="/">
+          나의 코딩 공부
+          <span class="site-subtitle">daily power</span>
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">Category</a>
+            </li><li class="masthead__menu-item">
+              <a href="/search/">Search</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="/" itemprop="item"><span itemprop="name">Home</span></a>
+
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="/categories/#sql-injection" itemprop="item"><span itemprop="name">Sql injection</span></a>
+          <meta itemprop="position" content="2" />
+        </li>
+        <span class="sep">/</span>
+      
+    
+      
+      
+        <li class="current">5주차 SQL injection 인증우회 문제풀이(6)</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="5주차 SQL injection 인증우회 문제풀이(6)">
+    <meta itemprop="description" content="">
+    <meta itemprop="datePublished" content="2024-05-29T00:00:00+09:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="http://localhost:4000/sql-injection/SQLinjection10/" class="u-url" itemprop="url">5주차 SQL injection 인증우회 문제풀이(6)
+</a>
+          </h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2024-05-29T00:00:00+09:00">2024-05-29</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          최대 1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-fas fa-laptop-code"></i> 목차</h4></header>
+              <ul class="toc__menu"><li><a href="#1-5주차-sql-injection-인증우회-문제풀이6">1. 5주차 SQL injection 인증우회 문제풀이(6)</a><ul><li><a href="#11-6번-문제">1.1  6번 문제</a><ul><li><a href="#111-주어진-정보-확인하기">1.1.1 주어진 정보 확인하기</a></li><li><a href="#112-로그인하기">1.1.2  로그인하기</a></li></ul></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <p><br /></p>
+
+<h1 id="1-5주차-sql-injection-인증우회-문제풀이6"><span style="background:#000000; color:#ffffff">1. 5주차 SQL injection 인증우회 문제풀이(6)</span></h1>
+
+<p><br /><span style="font-weight:bold; font-size:15px"> ※ 주의 사항 :</span></p>
+
+<p><span style="font-weight:bold; font-size:15px">1. 교육 목적으로만 이용 해주세요.</span><br />
+<span style="font-weight:bold; font-size:15px">2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다.</span><br />
+<span style="font-weight:bold; font-size:15px">3.  개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. </span></p>
+
+<p><br /></p>
+
+<h2 id="11-6번-문제"><span style="background:#696969; color:#ffffff">1.1  6번 문제</span></h2>
+
+<p><br /></p>
+
+<p><img src="/images/2024-05-29-SQLinjection10/1.PNG" alt="1" style="zoom:80%;" /></p>
+
+<p><br /></p>
+
+<p><span style="font-weight:bold; font-size:25px">▶ 목표 : normaltic2으로 로그인하기!!! </span></p>
+
+<p><br /></p>
+
+<h3 id="111-주어진-정보-확인하기"><span style="background:#A9A9A9; color:#ffffff">1.1.1 주어진 정보 확인하기</span></h3>
+
+<hr />
+
+<p><br /></p>
+
+<p><img src="/images/2024-05-29-SQLinjection10/2.PNG" alt="2" style="zoom:67%;" /></p>
+
+<p><img src="/images/2024-05-29-SQLinjection10/3.PNG" alt="3" style="zoom:60%;" /></p>
+
+<p>5번 문제와 마찬가지로 sql injection이 가능합니다.</p>
+
+<p><img src="/images/2024-05-29-SQLinjection10/5.PNG" alt="5" style="zoom:60%;" /></p>
+
+<p>or 했을 때, 만약 로그인이 되었다면 식별/인증이 분리겠지만 여기서는 로그인 실패했으므로 <br />
+식별/인증이 동시일 수도 있고, 분리일 가능성이 있습니다.</p>
+
+<p><img src="/images/2024-05-29-SQLinjection10/4.PNG" alt="4" style="zoom:60%;" /></p>
+
+<p>#주석을 처리한 결과는 또한 로그인이 되네요. 이걸로 아직 알기엔 정보가 부족합니다.</p>
+
+<p><br /></p>
+
+<p><img src="/images/2024-05-29-SQLinjection10/6.PNG" alt="6" style="zoom:60%;" /></p>
+
+<p>만약 비밀번호에 and 구문을 넣어서 로그인이 된다면, 그건 식별/ 인증 이 동시입니다.<br />
+왜냐하면 만약 분리라고 한다면 아이디 나 비밀번호 둘 중 하나는 sql구문이 아니라 그 문자가 맞는지 확인하는 <br />
+인증 절차만 거치기 때문에 sql injection을 사용할 수 없기 때문입니다. <br />
+그렇기에 여기서 둘 다 가능하므로 동시입니다.</p>
+
+<p><img src="/images/2024-05-29-SQLinjection10/7.PNG" alt="7" style="zoom:60%;" /></p>
+
+<p>하지만  비밀 번호에 or문을 넣으니 로그인이 안되는 걸로 보아 비밀번호가 오직 한 개만 가능한 식별/인증 동시 인 것 같습니다.</p>
+
+<h3 id="112-로그인하기"><br /><span style="background:#A9A9A9; color:#ffffff">1.1.2  로그인하기</span></h3>
+
+<hr />
+
+<p><br /></p>
+
+<p><img src="/images/2024-05-29-SQLinjection10/8.PNG" alt="8" style="zoom:60%;" /></p>
+
+<p>그래서 뒤의 비밀번호를 무력화 시키는 주석을 달아서 로그인을 하면 됩니다!!!</p>
+
+<p><img src="/images/2024-05-29-SQLinjection10/9.PNG" alt="9" style="zoom: 67%;" /></p>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#sql-injection" class="page__taxonomy-item p-category" rel="tag">SQL-injection</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2024-05-29T00:00:00+09:00">2024-05-29</time></p>
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=5%EC%A3%BC%EC%B0%A8+SQL+injection+%EC%9D%B8%EC%A6%9D%EC%9A%B0%ED%9A%8C+%EB%AC%B8%EC%A0%9C%ED%92%80%EC%9D%B4%286%29%20http%3A%2F%2Flocalhost%3A4000%2Fsql-injection%2FSQLinjection10%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fsql-injection%2FSQLinjection10%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fsql-injection%2FSQLinjection10%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/sql-injection/SQLinjection4/" class="pagination--pager" title="6주차 SQL injection 데이터 추출(문제풀이)
+">이전</a>
+    
+    
+      <a href="/sql-injection/SQLinjection5/" class="pagination--pager" title="5주차 SQL injection 인증우회 문제풀이(1)
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h2 class="page__related-title">참고</h2>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/sql-injection/SQLinjection9/" rel="permalink">5주차 SQL injection 인증우회 문제풀이(5)
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2024-05-29T00:00:00+09:00">2024-05-29</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          최대 1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/sql-injection/SQLinjection8/" rel="permalink">5주차 SQL injection 인증우회 문제풀이(4)
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2024-05-29T00:00:00+09:00">2024-05-29</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          최대 1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/sql-injection/SQLinjection7/" rel="permalink">5주차 SQL injection 인증우회 문제풀이(3)
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2024-05-29T00:00:00+09:00">2024-05-29</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          최대 1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/sql-injection/SQLinjection6/" rel="permalink">5주차 SQL injection 인증우회 문제풀이(2)
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2024-05-29T00:00:00+09:00">2024-05-29</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          최대 1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2024 코딩. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://localhost:4000/sql-injection/SQLinjection10/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/sql-injection/SQLinjection10"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://ethan.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>
