@@ -1,6 +1,6 @@
 ---
 layout: single
-title:  "SQL injection 데이터 추출(문제풀이)"
+title:  "6주차 SQL injection 데이터 추출(문제풀이)"
 categories: SQL-injection
 typora-root-url: ..\
 author_profile: false
@@ -9,7 +9,7 @@ author_profile: false
 
 <br>
 
-# <span style="background:#000000; color:#ffffff">1.SQL injection 데이터 추출<span style="font-size:50%">(문제풀이)</span></span>
+# <span style="background:#000000; color:#ffffff">1. 6주차 SQL injection 데이터 추출<span style="font-size:50%">(문제풀이)</span></span>
 
 <br>
 
