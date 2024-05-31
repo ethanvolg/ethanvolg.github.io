@@ -81,5 +81,5 @@ SQL에러는 SQL쿼리에서 발생하는 에러를 뜻합니다.
 
 
 
-![1](/images/2024-06-01-SQLinjection15/1.png)
+![image-20240601023835764](/images/2024-06-01-SQLinjection15/image-20240601023835764.png)
 
