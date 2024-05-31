@@ -56,13 +56,18 @@ Error Based SQl Injection은 무엇일까요?
 
 -조건-
 
-1) 로직 에러 
-2) SQL 에러
-
+```mermaid graph LR B --> C{SQL 에러}    C --> D[문법 에러]    C --> E[로직 에러]```
 
 
 문법에러 / 로직에러가 있는데 
 
-문법에러 
 
-![image-20240531011543522](/images/2024-05-30-SQLinjection15/image-20240531011543522.png)
+
+<문법에러>
+
+
+
+
+
+![1](/images/2024-05-30-SQLinjection15/1.png)
+

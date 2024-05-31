@@ -1,4 +1,66 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-05-29T06:19:18+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">나의 코딩 공부</title><subtitle>ethan의 블로그</subtitle><author><name>ethan</name></author><entry><title type="html">5주차 SQL injection 인증우회 문제풀이(5)</title><link href="http://localhost:4000/sql-injection/SQLinjection9/" rel="alternate" type="text/html" title="5주차 SQL injection 인증우회 문제풀이(5)" /><published>2024-05-29T00:00:00+09:00</published><updated>2024-05-29T00:00:00+09:00</updated><id>http://localhost:4000/sql-injection/SQLinjection9</id><content type="html" xml:base="http://localhost:4000/sql-injection/SQLinjection9/"><![CDATA[<p><br /></p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-05-31T22:12:33+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">나의 코딩 공부</title><subtitle>ethan의 블로그</subtitle><author><name>ethan</name></author><entry><title type="html">SQL injection 데이터 추출(3)</title><link href="http://localhost:4000/sql-injection/SQLinjection15/" rel="alternate" type="text/html" title="SQL injection 데이터 추출(3)" /><published>2024-05-30T00:00:00+09:00</published><updated>2024-05-30T00:00:00+09:00</updated><id>http://localhost:4000/sql-injection/SQLinjection15</id><content type="html" xml:base="http://localhost:4000/sql-injection/SQLinjection15/"><![CDATA[<p><br /></p>
+
+<h1 id="1-sql-injection-데이터-추출3"><span style="background:#000000; color:#ffffff">1. SQL injection 데이터 추출(3)</span></h1>
+
+<p><br /><span style="font-weight:bold; font-size:15px"> ※ 주의 사항 :</span></p>
+
+<p><span style="font-weight:bold; font-size:15px">1. 교육 목적으로만 이용 해주세요.</span><br />
+<span style="font-weight:bold; font-size:15px">2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다.</span><br />
+<span style="font-weight:bold; font-size:15px">3.  개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. </span></p>
+
+<p><br /></p>
+
+<h2 id="11-개요"><span style="background:#696969; color:#ffffff">1.1 개요 </span></h2>
+
+<p><br /></p>
+
+<p>저번 SQL injection 데이터 추출(2) 포스팅에서 DB데이터가 화면에 출력 될 때 SQL Injection을 해보았습니다.<br />
+사실 데이터 추출 방식에는 3 가지 방식이 있습니다.</p>
+
+<p><br /></p>
+
+<p><span style="font-weight:bold; font-size:15px">1. SQL 질의 문 결과가 화면에 출력 되는 경우(데이터추출(2)) =&gt; UNION SQL (로그인 or 게시판 등)</span></p>
+
+<p><span style="font-weight:bold; font-size:15px">2. 에러 메세지가 화면에 출력 되는 경우 =&gt; Error Based SQLi (에러 메세지 확인 가능 한 곳)</span></p>
+
+<p><span style="font-weight:bold; font-size:15px">3. 참과 거짓으로 출력 되는 경우 =&gt; Blind SQL Injection (로그인 or 아이디 중복 체크 등)</span></p>
+
+<p>와 같은 방식으로 해결할 수 있습니다.</p>
+
+<p><br /></p>
+
+<p>이번 포스팅에서는 2, 3 번을 배워보도록 합시다.</p>
+
+<p><br /></p>
+
+<h2 id="12-error-based-sql-injection에러-메세지를-출력하여-화면에서-볼-수-있을때"><span style="background:#696969; color:#ffffff">1.2  Error Based SQL Injection<span style="font-size:50%">(에러 메세지를 출력하여 화면에서 볼 수 있을때)</span></span></h2>
+
+<p><br /></p>
+
+<h3 id="121-필요한-개념">1.2.1 필요한 개념</h3>
+
+<hr />
+
+<p>Error Based SQl Injection은 무엇일까요?<br />
+에러 메세지를 활용해서 데이터를 출력하는 방식입니다.</p>
+
+<p>활용하기 위해서는 조건이 필요합니다.</p>
+
+<p>-조건-</p>
+
+<p><code class="language-plaintext highlighter-rouge">mermaid graph LR B --&gt; C{SQL 에러}    C --&gt; D[문법 에러]    C --&gt; E[로직 에러]</code></p>
+
+<p>문법에러 / 로직에러가 있는데</p>
+
+<문법에러>
+
+
+
+
+
+![1](/images/2024-05-30-SQLinjection15/1.png)
+
+</문법에러>]]></content><author><name>ethan</name></author><category term="SQL-injection" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">5주차 SQL injection 인증우회 문제풀이(5)</title><link href="http://localhost:4000/sql-injection/SQLinjection9/" rel="alternate" type="text/html" title="5주차 SQL injection 인증우회 문제풀이(5)" /><published>2024-05-29T00:00:00+09:00</published><updated>2024-05-29T00:00:00+09:00</updated><id>http://localhost:4000/sql-injection/SQLinjection9</id><content type="html" xml:base="http://localhost:4000/sql-injection/SQLinjection9/"><![CDATA[<p><br /></p>
 
 <h1 id="1-5주차-sql-injection-인증우회-문제풀이5"><span style="background:#000000; color:#ffffff">1. 5주차 SQL injection 인증우회 문제풀이(5)</span></h1>
 
@@ -373,9 +435,9 @@ doldol’ and ‘1’=’1 시도 해본 결과, 302 Found로 리다이렉션이
 
 <p><img src="/images/2024-05-29-SQLinjection5/6-1716914942595-19.PNG" alt="6" style="zoom:60%;" /></p>
 
-<p>cookie의 doldol를 admin으로 조작하고, 서버의 반응 값을 보니 flag가 나타나네요.</p>]]></content><author><name>ethan</name></author><category term="SQL-injection" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">5주차 SQL injection 인증우회 문제풀이(6)</title><link href="http://localhost:4000/sql-injection/SQLinjection10/" rel="alternate" type="text/html" title="5주차 SQL injection 인증우회 문제풀이(6)" /><published>2024-05-29T00:00:00+09:00</published><updated>2024-05-29T00:00:00+09:00</updated><id>http://localhost:4000/sql-injection/SQLinjection10</id><content type="html" xml:base="http://localhost:4000/sql-injection/SQLinjection10/"><![CDATA[<p><br /></p>
+<p>cookie의 doldol를 admin으로 조작하고, 서버의 반응 값을 보니 flag가 나타나네요.</p>]]></content><author><name>ethan</name></author><category term="SQL-injection" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">5주차 SQL injection 인증우회 문제풀이(10)</title><link href="http://localhost:4000/sql-injection/SQLinjection14/" rel="alternate" type="text/html" title="5주차 SQL injection 인증우회 문제풀이(10)" /><published>2024-05-29T00:00:00+09:00</published><updated>2024-05-29T00:00:00+09:00</updated><id>http://localhost:4000/sql-injection/SQLinjection14</id><content type="html" xml:base="http://localhost:4000/sql-injection/SQLinjection14/"><![CDATA[<p><br /></p>
 
-<h1 id="1-5주차-sql-injection-인증우회-문제풀이6"><span style="background:#000000; color:#ffffff">1. 5주차 SQL injection 인증우회 문제풀이(6)</span></h1>
+<h1 id="1-5주차-sql-injection-인증우회-문제풀이10"><span style="background:#000000; color:#ffffff">1. 5주차 SQL injection 인증우회 문제풀이(10)</span></h1>
 
 <p><br /><span style="font-weight:bold; font-size:15px"> ※ 주의 사항 :</span></p>
 
@@ -385,609 +447,37 @@ doldol’ and ‘1’=’1 시도 해본 결과, 302 Found로 리다이렉션이
 
 <p><br /></p>
 
-<h2 id="11-6번-문제"><span style="background:#696969; color:#ffffff">1.1  6번 문제</span></h2>
+<h2 id="11-10번-문제"><span style="background:#696969; color:#ffffff">1.1  10번 문제</span></h2>
 
-<p><br /></p>
+<p><br /><img src="/images/2024-05-29-SQLinjection14/1.PNG" alt="1" /></p>
 
-<p><img src="/images/2024-05-29-SQLinjection10/1.PNG" alt="1" style="zoom:80%;" /></p>
+<p><img src="/images/2024-05-29-SQLinjection14/2.PNG" alt="2" /></p>
 
-<p><br /></p>
+<p><img src="/images/2024-05-29-SQLinjection14/3.PNG" alt="3" /></p>
 
-<p><span style="font-weight:bold; font-size:25px">▶ 목표 : normaltic2으로 로그인하기!!! </span></p>
+<p><img src="/images/2024-05-29-SQLinjection14/4.PNG" alt="4" /></p>
 
-<p><br /></p>
+<p><img src="/images/2024-05-29-SQLinjection14/5.PNG" alt="5" /></p>
 
-<h3 id="111-주어진-정보-확인하기"><span style="background:#A9A9A9; color:#ffffff">1.1.1 주어진 정보 확인하기</span></h3>
+<p><img src="/images/2024-05-29-SQLinjection14/6.PNG" alt="6" /></p>
 
-<hr />
+<p><img src="/images/2024-05-29-SQLinjection14/8.PNG" alt="8" /><img src="/images/2024-05-29-SQLinjection14/7.PNG" alt="7" /></p>
 
-<p><br /></p>
+<p><img src="/images/2024-05-29-SQLinjection14/9.PNG" alt="9" /></p>
 
-<p><img src="/images/2024-05-29-SQLinjection10/2.PNG" alt="2" style="zoom:67%;" /></p>
+<p><img src="/images/2024-05-29-SQLinjection14/10.PNG" alt="10" /></p>
 
-<p><img src="/images/2024-05-29-SQLinjection10/3.PNG" alt="3" style="zoom:60%;" /></p>
+<p><img src="/images/2024-05-29-SQLinjection14/11.PNG" alt="11" /></p>
 
-<p>5번 문제와 마찬가지로 sql injection이 가능합니다.</p>
+<p><img src="/images/2024-05-29-SQLinjection14/12.PNG" alt="12" /></p>
 
-<p><img src="/images/2024-05-29-SQLinjection10/5.PNG" alt="5" style="zoom:60%;" /></p>
+<p><img src="/images/2024-05-29-SQLinjection14/13.PNG" alt="13" /></p>
 
-<p>or 했을 때, 만약 로그인이 되었다면 식별/인증이 분리겠지만 여기서는 로그인 실패했으므로 <br />
-식별/인증이 동시일 수도 있고, 분리일 가능성이 있습니다.</p>
+<p><img src="/images/2024-05-29-SQLinjection14/14.PNG" alt="14" /></p>
 
-<p><img src="/images/2024-05-29-SQLinjection10/4.PNG" alt="4" style="zoom:60%;" /></p>
+<p><img src="/images/2024-05-29-SQLinjection14/15.PNG" alt="15" /></p>]]></content><author><name>ethan</name></author><category term="SQL-injection" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">5주차 SQL injection 인증우회 문제풀이(9)</title><link href="http://localhost:4000/sql-injection/SQLinjection13/" rel="alternate" type="text/html" title="5주차 SQL injection 인증우회 문제풀이(9)" /><published>2024-05-29T00:00:00+09:00</published><updated>2024-05-29T00:00:00+09:00</updated><id>http://localhost:4000/sql-injection/SQLinjection13</id><content type="html" xml:base="http://localhost:4000/sql-injection/SQLinjection13/"><![CDATA[<p><br /></p>
 
-<p>#주석을 처리한 결과는 또한 로그인이 되네요. 이걸로 아직 알기엔 정보가 부족합니다.</p>
-
-<p><br /></p>
-
-<p><img src="/images/2024-05-29-SQLinjection10/6.PNG" alt="6" style="zoom:60%;" /></p>
-
-<p>만약 비밀번호에 and 구문을 넣어서 로그인이 된다면, 그건 식별/ 인증 이 동시입니다.<br />
-왜냐하면 만약 분리라고 한다면 아이디 나 비밀번호 둘 중 하나는 sql구문이 아니라 그 문자가 맞는지 확인하는 <br />
-인증 절차만 거치기 때문에 sql injection을 사용할 수 없기 때문입니다. <br />
-그렇기에 여기서 둘 다 가능하므로 동시입니다.</p>
-
-<p><img src="/images/2024-05-29-SQLinjection10/7.PNG" alt="7" style="zoom:60%;" /></p>
-
-<p>하지만  비밀 번호에 or문을 넣으니 로그인이 안되는 걸로 보아 비밀번호가 오직 한 개만 가능한 식별/인증 동시 인 것 같습니다.</p>
-
-<h3 id="112-로그인하기"><br /><span style="background:#A9A9A9; color:#ffffff">1.1.2  로그인하기</span></h3>
-
-<hr />
-
-<p><br /></p>
-
-<p><img src="/images/2024-05-29-SQLinjection10/8.PNG" alt="8" style="zoom:60%;" /></p>
-
-<p>그래서 뒤의 비밀번호를 무력화 시키는 주석을 달아서 로그인을 하면 됩니다!!!</p>
-
-<p><img src="/images/2024-05-29-SQLinjection10/9.PNG" alt="9" style="zoom: 67%;" /></p>]]></content><author><name>ethan</name></author><category term="SQL-injection" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">6주차 SQL injection 데이터 추출(문제풀이)</title><link href="http://localhost:4000/sql-injection/SQLinjection4/" rel="alternate" type="text/html" title="6주차 SQL injection 데이터 추출(문제풀이)" /><published>2024-05-28T00:00:00+09:00</published><updated>2024-05-28T00:00:00+09:00</updated><id>http://localhost:4000/sql-injection/SQLinjection4</id><content type="html" xml:base="http://localhost:4000/sql-injection/SQLinjection4/"><![CDATA[<p><br /></p>
-
-<h1 id="1-6주차-sql-injection-데이터-추출문제풀이"><span style="background:#000000; color:#ffffff">1. 6주차 SQL injection 데이터 추출<span style="font-size:50%">(문제풀이)</span></span></h1>
-
-<p><br /></p>
-
-<p><span style="font-weight:bold; font-size:15px"> ※ 주의 사항 :</span></p>
-
-<p><span style="font-weight:bold; font-size:15px">1. 교육 목적으로만 이용 해주세요.</span><br />
-<span style="font-weight:bold; font-size:15px">2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다.</span><br />
-<span style="font-weight:bold; font-size:15px">3.  개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. </span></p>
-
-<p><br /></p>
-
-<h2 id="11-1번-문제"><span style="background:#696969; color:#ffffff">1.1  1번 문제</span></h2>
-
-<p><br /></p>
-
-<p>본 글은 문제풀이 과정만 나타냈기에, 과정에서 이해가 안되면 이전 글을 보고 오시면 좋습니다.</p>
-
-<h3 id="111-sql-injection-포인트-찾기"><span style="background:#A9A9A9; color:#ffffff">1.1.1 sql injection 포인트 찾기</span></h3>
-
-<hr />
-
-<p><br /><img src="/images/2024-05-28-SQLinjection4/image-20240528020605181.png" alt="image-20240528020605181" style="zoom:50%;" /></p>
-
-<p><img src="/images/2024-05-28-SQLinjection4/image-20240528021016000.png" alt="image-20240528021016000" style="zoom:50%;" /></p>
-
-<p><img src="/images/2024-05-28-SQLinjection4/image-20240528021131341.png" alt="image-20240528021131341" style="zoom:50%;" /></p>
-
-<p>nor 만 검색해도 normaltic이 출력되는 것으로 보아 like id  ‘%아이디%’ 로 구성되어 있다고 유추할 수 있습니다.</p>
-
-<h3 id="112-column-개수-찾기"><br /><span style="background:#A9A9A9; color:#ffffff">1.1.2 column 개수 찾기</span></h3>
-
-<hr />
-
-<p><br /></p>
-
-<p><img src="/images/2024-05-28-SQLinjection4/image-20240528021327522.png" alt="image-20240528021327522" style="zoom:50%;" /></p>
-
-<p>order by 1부터 순차적으로 숫자를 증가해서 넣었을 때 5 이상 부터는 출력되지 않으므로 컬럼 수는 4개입니다.</p>
-
-<h3 id="113-출력되는-column-위치-찾기"><br /><span style="background:#A9A9A9; color:#ffffff">1.1.3 출력되는 column 위치 찾기</span></h3>
-
-<hr />
-
-<p><br /></p>
-
-<p><img src="/images/2024-05-28-SQLinjection4/image-20240528021423237.png" alt="image-20240528021423237" style="zoom:50%;" /></p>
-
-<p>1,2,3,4 값을 출력했을 때 위치는 순서대로 컬럼이 배치되어 있음을 알 수 있습니다.</p>
-
-<p><br /></p>
-
-<h3 id="114-db이름-확인하기"><span style="background:#A9A9A9; color:#ffffff">1.1.4 DB이름 확인하기</span></h3>
-
-<hr />
-
-<p><br /></p>
-
-<p><img src="/images/2024-05-28-SQLinjection4/image-20240528021502384.png" alt="image-20240528021502384" style="zoom:50%;" /></p>
-
-<p>1,2,3,4 모두 출력되므로 그 중 하나에 database()를 넣어주며 이름을 확인한다.</p>
-
-<h3 id="115-table이름-확인하기"><br /><span style="background:#A9A9A9; color:#ffffff">1.1.5 table이름 확인하기</span></h3>
-
-<hr />
-
-<p><br /></p>
-
-<p><img src="/images/2024-05-28-SQLinjection4/image-20240528021648760.png" alt="image-20240528021648760" style="zoom:50%;" /></p>
-
-<p>flag_table 부터 확인합니다.</p>
-
-<h3 id="116-column-이름-확인하기"><br /><span style="background:#A9A9A9; color:#ffffff">1.1.6 column 이름 확인하기</span></h3>
-
-<hr />
-
-<p><br /></p>
-
-<p><img src="/images/2024-05-28-SQLinjection4/image-20240528021835356.png" alt="image-20240528021835356" style="zoom:50%;" /></p>
-
-<p>flag_table 의 컬럼은 flag네요.</p>
-
-<p><br /></p>
-
-<h3 id="117-data-추출하기"><span style="background:#A9A9A9; color:#ffffff">1.1.7 data 추출하기</span></h3>
-
-<hr />
-
-<p><br /></p>
-
-<p><img src="/images/2024-05-28-SQLinjection4/image-20240528022006574.png" alt="image-20240528022006574" style="zoom:50%;" /></p>
-
-<p><br /></p>
-
-<h2 id="12-2번-문제"><span style="background:#696969; color:#ffffff">1.2  2번 문제</span></h2>
-
-<p><br /></p>
-
-<h3 id="121-sql-injection-포인트-찾기"><span style="background:#A9A9A9; color:#ffffff">1.2.1 sql injection 포인트 찾기</span></h3>
-
-<hr />
-
-<p><br /></p>
-
-<p><img src="/images/2024-05-28-SQLinjection4/image-20240528022255869.png" alt="image-20240528022255869" style="zoom:50%;" /></p>
-
-<p><img src="/images/2024-05-28-SQLinjection4/image-20240528022322458.png" alt="image-20240528022322458" style="zoom:50%;" /></p>
-
-<p>normaltic이라고 검색할 때는 정보가 나오는데, n 만 검색했을 때는 나오지 않고 검색한 단어 전체를 검색해야 정보가 뜹니다.</p>
-
-<p><img src="/images/2024-05-28-SQLinjection4/image-20240528022358841.png" alt="image-20240528022358841" style="zoom:50%;" /></p>
-
-<p>sql injection이 가능하네요.</p>
-
-<h3 id="122-column-개수-찾기"><br /><span style="background:#A9A9A9; color:#ffffff">1.2.2 column 개수 찾기</span></h3>
-
-<hr />
-
-<p><br /></p>
-
-<p><img src="/images/2024-05-28-SQLinjection4/image-20240528022454579.png" alt="image-20240528022454579" style="zoom:50%;" /></p>
-
-<p>7 이상부터 정보가 안 나오니 칼럼 수는 6 개 입니다.</p>
-
-<h3 id="123-출력되는-column-위치-찾기"><br /><span style="background:#A9A9A9; color:#ffffff">1.2.3 출력되는 column 위치 찾기</span></h3>
-
-<hr />
-
-<p><br /></p>
-
-<p><img src="/images/2024-05-28-SQLinjection4/image-20240528022613341.png" alt="image-20240528022613341" style="zoom:50%;" /></p>
-
-<p>6 값 만 정보에 뜨므로 이후에 필요한 정보는 6 위치에 작성하면 됩니다.</p>
-
-<p><br /></p>
-
-<h3 id="124-db이름-확인하기"><span style="background:#A9A9A9; color:#ffffff">1.2.4 DB이름 확인하기</span></h3>
-
-<hr />
-
-<p><br /></p>
-
-<p><img src="/images/2024-05-28-SQLinjection4/image-20240528022640388.png" alt="image-20240528022640388" style="zoom:50%;" /></p>
-
-<h3 id="125-table이름-확인하기"><br /><span style="background:#A9A9A9; color:#ffffff">1.2.5 table이름 확인하기</span></h3>
-
-<hr />
-
-<p><br /></p>
-
-<p><img src="/images/2024-05-28-SQLinjection4/image-20240528022745304.png" alt="image-20240528022745304" style="zoom:50%;" /></p>
-
-<h3 id="126-column-이름-확인하기"><br /><span style="background:#A9A9A9; color:#ffffff">1.2.6 column 이름 확인하기</span></h3>
-
-<hr />
-
-<p><br /></p>
-
-<p><img src="/images/2024-05-28-SQLinjection4/image-20240528022855395.png" alt="image-20240528022855395" style="zoom:50%;" /></p>
-
-<p><br /></p>
-
-<h3 id="127-data-추출하기"><span style="background:#A9A9A9; color:#ffffff">1.2.7 data 추출하기</span></h3>
-
-<hr />
-
-<p><br /></p>
-
-<p><img src="/images/2024-05-28-SQLinjection4/image-20240528022951224.png" alt="image-20240528022951224" style="zoom:50%;" /></p>
-
-<p>데이터를 출력했는데 ‘not here’ 이라고 뜨네요 ㅠㅠ 다른 곳을 찾아야 할 것 같습니다.</p>
-
-<p><img src="/images/2024-05-28-SQLinjection4/image-20240528023040440.png" alt="image-20240528023040440" style="zoom:50%;" /></p>
-
-<p>우선 이 데이터에서 여러 개인데 맨 위에 것 만 표시되어 밑에 있는 데이터가 안보일 수 도 있다는 가정 하에 order by 를 봤는데 없네요.</p>
-
-<p><img src="/images/2024-05-28-SQLinjection4/image-20240528023245129.png" alt="image-20240528023245129" style="zoom:50%;" /></p>
-
-<p>다른 컬럼 이름 도 찾아봤는데 없었습니다.</p>
-
-<p><img src="/images/2024-05-28-SQLinjection4/image-20240528023431897.png" alt="image-20240528023431897" style="zoom:50%;" /></p>
-
-<p>다른 테이블 이름이 존재했네요.</p>
-
-<p><img src="/images/2024-05-28-SQLinjection4/image-20240528023533026.png" alt="image-20240528023533026" style="zoom:50%;" /></p>
-
-<p><img src="/images/2024-05-28-SQLinjection4/image-20240528023659672.png" alt="image-20240528023659672" style="zoom:50%;" /></p>
-
-<p>다른 테이블로 들어가서 데이터를 보니 플래그 값이 있었습니다!</p>]]></content><author><name>ethan</name></author><category term="SQL-injection" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">SQL injection 데이터 추출(2)</title><link href="http://localhost:4000/sql-injection/SQLinjection3/" rel="alternate" type="text/html" title="SQL injection 데이터 추출(2)" /><published>2024-05-27T00:00:00+09:00</published><updated>2024-05-27T00:00:00+09:00</updated><id>http://localhost:4000/sql-injection/SQLinjection3</id><content type="html" xml:base="http://localhost:4000/sql-injection/SQLinjection3/"><![CDATA[<p><br /></p>
-
-<h1 id="1sql-injection-데이터-추출2"><span style="background:#000000; color:#ffffff">1.SQL injection 데이터 추출(2)</span></h1>
-
-<p><br /></p>
-
-<p><span style="font-weight:bold; font-size:15px"> ※ 주의 사항 :</span></p>
-
-<p><span style="font-weight:bold; font-size:15px">1. 교육 목적으로만 이용 해주세요.</span><br />
-<span style="font-weight:bold; font-size:15px">2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다.</span><br />
-<span style="font-weight:bold; font-size:15px">3.  개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. </span></p>
-
-<p><br /></p>
-
-<h2 id="11-문제풀이"><span style="background:#696969; color:#ffffff">1.1 문제풀이</span></h2>
-
-<p><br /></p>
-
-<p><span style="font-weight:bold; font-size:25px">▶ 목표 : 아이디가 doldol인 데이터만 출력하기!!! </span></p>
-
-<p><br /></p>
-
-<h3 id="111-sql-injection-포인트-찾기"><span style="background:#A9A9A9; color:#ffffff">1.1.1 sql injection 포인트 찾기</span></h3>
-
-<hr />
-
-<p><br /></p>
-
-<p><img src="/images/2024-05-27-SQLinjection3/image-20240528002406036.png" alt="image-20240528002406036" style="zoom:50%;" /></p>
-
-<p>패스워드가 1234 인 데이터를 검색하면 normaltic에 대한 데이터가 나오네요.</p>
-
-<p><img src="/images/2024-05-27-SQLinjection3/image-20240528002507967.png" alt="image-20240528002507967" style="zoom:50%;" /></p>
-
-<p>이 검색 값이 sql injection이 가능한지 확인합니다. pass 의 값 만으로 다른 컬럼도 출력되는 것으로 보아 어떤 구조인지 예측이 갑니다.</p>
-
-<h3 id="112-column-개수-찾기"><br /><span style="background:#A9A9A9; color:#ffffff">1.1.2 column 개수 찾기</span></h3>
-
-<hr />
-
-<p><br /></p>
-
-<p><img src="/images/2024-05-27-SQLinjection3/image-20240528002608611.png" alt="image-20240528002608611" style="zoom:50%;" /></p>
-
-<p>order by 값을 1씩 증가하여 칼럼의 개수가 몇 개인지 셀 수 있습니다.<br />
-5에서 에러가 나는 것으로 보아 4개의 컬럼이 존재하는 것을 확인했습니다.</p>
-
-<h3 id="113-출력되는-column-위치-찾기"><br /><span style="background:#A9A9A9; color:#ffffff">1.1.3 출력되는 column 위치 찾기</span></h3>
-
-<hr />
-
-<p><br /></p>
-
-<p><img src="/images/2024-05-27-SQLinjection3/image-20240528003718074.png" alt="image-20240528003718074" style="zoom:50%;" /></p>
-
-<p>union select 를 이용하여 출력되는 자리에 어떤 값이 나오는 가를 확인한 결과,  <br />
-1,2,3,4 차례대로 나오네요.</p>
-
-<p><br /></p>
-
-<h3 id="114-db이름-확인하기"><span style="background:#A9A9A9; color:#ffffff">1.1.4 DB이름 확인하기</span></h3>
-
-<hr />
-
-<p><br /></p>
-
-<p><img src="/images/2024-05-27-SQLinjection3/image-20240528003751388.png" alt="image-20240528003751388" style="zoom:50%;" /></p>
-
-<p>1,2,3,4 위치에도 데이터가 출력되어 나오기 때문에 그 중 하나에 database()를 넣어 데이터베이스 이름을 확인했습니다.</p>
-
-<h3 id="115-table이름-확인하기"><br /><span style="background:#A9A9A9; color:#ffffff">1.1.5 table이름 확인하기</span></h3>
-
-<hr />
-
-<p><br /></p>
-
-<p><img src="/images/2024-05-27-SQLinjection3/image-20240528003852958.png" alt="image-20240528003852958" style="zoom:50%;" /></p>
-
-<p><img src="/images/2024-05-27-SQLinjection3/image-20240528003922888.png" alt="image-20240528003922888" style="zoom: 67%;" /></p>
-
-<p>table 이름 중 memeber 에 doldol의 데이터가 있기 때문에 member를 사용합니다.</p>
-
-<h3 id="116-column-이름-확인하기"><br /><span style="background:#A9A9A9; color:#ffffff">1.1.6 column 이름 확인하기</span></h3>
-
-<hr />
-
-<p><br /></p>
-
-<p><img src="/images/2024-05-27-SQLinjection3/image-20240528005434953.png" alt="image-20240528005434953" style="zoom:50%;" /></p>
-
-<p><img src="/images/2024-05-27-SQLinjection3/image-20240528005457625.png" alt="image-20240528005457625" /></p>
-
-<p>맨 위의 데이터를 보아 필요한 칼럼은 순서대로 id, pass, email, info 인 것이 확인됩니다.</p>
-
-<p><br /></p>
-
-<h3 id="117-data-추출하기"><span style="background:#A9A9A9; color:#ffffff">1.1.7 data 추출하기</span></h3>
-
-<hr />
-
-<p><br /></p>
-
-<p><img src="/images/2024-05-27-SQLinjection3/image-20240528004203347.png" alt="image-20240528004203347" style="zoom:50%;" /></p>
-
-<p><img src="/images/2024-05-27-SQLinjection3/image-20240528004248335.png" alt="image-20240528004248335" style="zoom: 60%;" /></p>
-
-<p><img src="/images/2024-05-27-SQLinjection3/image-20240528004328568.png" alt="image-20240528004328568" style="zoom:50%;" /></p>
-
-<p><img src="/images/2024-05-27-SQLinjection3/image-20240528004350815.png" alt="image-20240528004350815" style="zoom: 60%;" /></p>
-
-<p>doldol의 데이터 하나만 나오도록 출력했습니다.</p>]]></content><author><name>ethan</name></author><category term="SQL-injection" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">SQL injection 데이터 추출(1)</title><link href="http://localhost:4000/sql-injection/SQLinjection2/" rel="alternate" type="text/html" title="SQL injection 데이터 추출(1)" /><published>2024-05-24T00:00:00+09:00</published><updated>2024-05-24T00:00:00+09:00</updated><id>http://localhost:4000/sql-injection/SQLinjection2</id><content type="html" xml:base="http://localhost:4000/sql-injection/SQLinjection2/"><![CDATA[<p><br /></p>
-
-<h1 id="1sql-injection-데이터-추출1"><span style="background:#000000; color:#ffffff">1.SQL injection 데이터 추출(1)</span></h1>
-
-<p><br /></p>
-
-<p><span style="font-weight:bold; font-size:15px"> ※ 주의 사항 :</span></p>
-
-<p><span style="font-weight:bold; font-size:15px">1. 교육 목적으로만 이용 해주세요.</span><br />
-<span style="font-weight:bold; font-size:15px">2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다.</span><br />
-<span style="font-weight:bold; font-size:15px">3.  개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. </span></p>
-
-<p><br /></p>
-
-<h2 id="11-개요"><span style="background:#696969; color:#ffffff">1.1 개요</span></h2>
-
-<p><br /></p>
-
-<p>① 인증 우회 - 로그인 하기<br />
-② 데이터 추출</p>
-
-<p>간단하게 두 가지로 나눠 볼 수 있습니다.</p>
-
-<p>저번에 인증 우회에 대해 다뤘다면 <br />
-이번에는 데이터 추출을 어떻게 하는지에 대해 알아보겠습니다.</p>
-
-<p>데이터 추출은 어떤 게 있을까요?  일단 DB를 통해 데이터를 불러오는 쿼리 문을 쓰는 곳에서 사용할 수 있습니다.<br />
-예를 들면 로그인 폼이나 게시판 등이 있겠네요.</p>
-
-<p>로그인 폼 같은 경우는 작성하면 어떤 데이터가 불러오는 것인지 눈으로 확인할 수 없고,  맞고 틀렸는지만 확인이 가능합니다.<br />
-<span style="font-weight:bold; font-size:15px">그러나 게시판의 검색 기능 같은 경우를 생각해보면 작성을 할 시에 어떤 데이터를 불러오는 지 눈으로 확인이 가능합니다.   </span></p>
-
-<p>이번에는 비교적 난이도가 쉬운,  후자에 대해서 살펴보도록 하겠습니다.</p>
-
-<p><br /></p>
-
-<h2 id="12-데이터-추출에-필요한-개념-알아보기"><span style="background:#696969; color:#ffffff">1.2 데이터 추출에 필요한 개념 알아보기</span></h2>
-
-<p><br /></p>
-
-<p>일단 게시판에 관한 db의 sql 쿼리는 게시판의 관한 내용만 포함되어 있기 때문에, <br />
-개인정보를 빼내려는 목적에 부합하지 않습니다.</p>
-
-<p>따라서 sql문을 조작하여 개인정보를 추출해야 한다는 것인데,<br />
-db의 이름, table의 이름, column의 이름을 알지 않는 한 불가능합니다.</p>
-
-<p>그래서 알아야 할 두 가지의  sql 쿼리 문이 있습니다. ① union 과 ②order by 입니다.</p>
-
-<p><br /></p>
-
-<p><br /></p>
-
-<p><span style="font-weight:bold; font-size:25px">①UNION</span></p>
-
-<p><br /></p>
-
-<p><span style="font-size:20px">1) 일반적인 select</span></p>
-
-<p>보통 데이터를 불러올 때 select를 사용하죠. <br />
-로그인이라고 한다면 ,예) select username, password from table;   table에 모든 username, password를 불러옵니다.</p>
-
-<p>예) <img src="/images/2024-05-24-SQLinjection2/image-20240524064155575.png" alt="image-20240524064155575" /></p>
-
-<p><br /></p>
-
-<p><br /></p>
-
-<p><span style="font-size:20px">2) union을 사용한 select</span></p>
-
-<p>union은 select 문을 2 개 이상 결합시켜서 나타낼 때 사용합니다. <br />
-예) <span style="font-weight:bold; font-size:15px">select</span> username, password from table union<span style="font-weight:bold; font-size:15px"> select</span> 1, 2 union <span style="font-weight:bold; font-size:15px">select</span> 3,4; (테이블 없이 작성하면, 칼럼 위치에 값을 배치합니다.)</p>
-
-<p>예)<img src="/images/2024-05-24-SQLinjection2/image-20240524070844964.png" alt="image-20240524070844964" /></p>
-
-<p>여기서 select로 1,2 와 3,4를 나타낸 것은 테이블의 데이터를 불러온 것이 아니라 값만 출력한 것임을<br />
-유념해야 합니다.</p>
-
-<p><br /></p>
-
-<p>▶ union all  vs  union</p>
-
-<p>union all : 겹치는 값이 존재 하더라도 전부 출력합니다.</p>
-
-<p>union : 겹치는 값이 존재하면 그 중 하나만 출력합니다.</p>
-
-<p>예)  위의 마지막 데이터 값을  3,4가 아닌 1,2를 작성하여 같은 값으로 표현해보겠습니다.</p>
-
-<p>(union all)<img src="/images/2024-05-24-SQLinjection2/image-20240525001254806.png" alt="image-20240525001254806" />(union)<img src="/images/2024-05-24-SQLinjection2/image-20240525001138029.png" alt="image-20240525001138029" /></p>
-
-<p><br /></p>
-
-<p><span style="font-weight:bold; font-size:25px">②OREDER BY</span></p>
-
-<p>order by : 데이터를 정렬하는 역할을 합니다.</p>
-
-<p>SELECT * FROM Products ORDER BY Price(정리할 컬럼명)  ASC(오름차순)/DESC(내림차순);</p>
-
-<p>이렇게 원래는 정리할 컬럼명에 컬럼명을 작성해야합니다.<br />
-다만 컬럼 index 번호(위치)에 따라 숫자를 대신해서 작성하여도, 같은 역할을 수행합니다.</p>
-
-<p>SELECT username, password FROM users ORDER BY 1; ▶ 1이므로 username으로 정렬합니다. (defalt로 오름차순)</p>
-
-<p>SELECT username, password FROM users ORDER BY 2; ▶ 2 이므로 password으로 정렬합니다.</p>
-
-<p><br /></p>
-
-<h2 id="13-데이터-추출의-필수-과정db데이터를-화면에서-볼-수-있을때"><span style="background:#696969; color:#ffffff">1.3 데이터 추출의 필수 과정<span style="font-size:50%">(DB데이터를 화면에서 볼 수 있을때)</span></span></h2>
-
-<p><br /></p>
-
-<p><span style="font-weight:bold; font-size:20px"><union 과="" order="" by를="" 이용한="" sql="" injection="" pocess="">&lt;/span&gt;</union></span></p>
-
-<p><br /></p>
-
-<p><span style="font-weight:bold; font-size:15px">1. sql injection 포인트 찾기 (sql injection이 가능한지 확인하고, 어떤 로직으로 구성했을까? 예측하기)</span></p>
-
-<p><span style="font-weight:bold; font-size:15px">2. column 개수 찾기</span></p>
-
-<p><span style="font-weight:bold; font-size:15px">3.  출력되는 column 위치 찾기</span></p>
-
-<p><span style="font-weight:bold; font-size:15px">4. DB이름 확인하기</span></p>
-
-<p><span style="font-weight:bold; font-size:15px">5. table이름 확인하기</span></p>
-
-<p><span style="font-weight:bold; font-size:15px">6. column 이름 확인하기</span></p>
-
-<p><span style="font-weight:bold; font-size:15px">7. data 추출하기</span></p>
-
-<p>예제에 따라 해당 절차를 시행해보면서 설명해보겠습니다.</p>
-
-<p><br /></p>
-
-<h3 id="131-sql-injection-포인트-찾기"><span style="background:#A9A9A9; color:#ffffff">1.3.1 sql injection 포인트 찾기</span></h3>
-
-<hr />
-
-<p><br /></p>
-
-<p><img src="/images/2024-05-24-SQLinjection2/image-20240525013022486.png" alt="1" style="zoom:50%;" /></p>
-
-<p>게임 이름을 검색하면 그 이름과 스코어 제작사 이름이 나오는 구조인 것 같습니다.</p>
-
-<p><br /></p>
-
-<p><img src="/images/2024-05-24-SQLinjection2/image-20240525013104123.png" alt="image-20240525013104123" style="zoom: 50%;" /></p>
-
-<p>하지만 over만 쳐도 나오는 것으로 보아 like ‘%글자%’ 구문으로 한 글자만 일치하더라도 출력하는 구조 입니다.</p>
-
-<p><br /></p>
-
-<p><img src="/images/2024-05-24-SQLinjection2/image-20240525013221239.png" alt="image-20240525013221239" style="zoom:50%;" /></p>
-
-<p><img src="/images/2024-05-24-SQLinjection2/image-20240525020302308.png" alt="image-20240525020302308" style="zoom:50%;" /></p>
-
-<p>over%’ and ‘1%’=’1는 sql 인젝션이 가능한가를 살펴보기 위해서 사용했습니다.<br />
-sql 문을 사용했다면, and 에 양변이 같은 형식을 취한 구조는 항상 같은 결과가 나오기 때문에 <br />
-sql 인젝션이 가능하다는 것을 확인할 수 있죠.</p>
-
-<p>밑에 구문은 실제 구문인데, 왜 over%’ and ‘1%’=’1 를 썼는가에 대해 이해가 가지 않으시면 보시기 바랍니다.</p>
-
-<h3 id="132-column-개수-찾기"><br /><span style="background:#A9A9A9; color:#ffffff">1.3.2 column 개수 찾기</span></h3>
-
-<hr />
-
-<p><br /></p>
-
-<p><img src="/images/2024-05-24-SQLinjection2/image-20240525013448020.png" style="zoom:50%;" /></p>
-
-<p>위에서 살펴본 order by 특성에 따라 order by 1은 첫 번째 칼럼으로 정렬한 것입니다.</p>
-
-<p>order by 1/ order by 2 / order by 3 ….. 순차적으로 늘려가면 에러가 발생합니다.</p>
-
-<p><br /></p>
-
-<p><img src="/images/2024-05-24-SQLinjection2/image-20240525013407465.png" alt="image-20240525013407465" style="zoom: 33%;" /></p>
-
-<p>여기에서는 order by 5에서 에러가 발생했습니다. 왜냐하면 불러온 데이터의 칼럼의 수가 5 개 이상은 없기 때문입니다.</p>
-
-<p>그래서 칼럼의 개수는 4 개라는 사실을 알 수 있습니다.</p>
-
-<h3 id="133-출력되는-column-위치-찾기"><br /><span style="background:#A9A9A9; color:#ffffff">1.3.3 출력되는 column 위치 찾기</span></h3>
-
-<hr />
-
-<p><br /></p>
-
-<p><img src="/images/2024-05-24-SQLinjection2/image-20240525014303487.png" alt="image-20240525014303487" style="zoom:50%;" /></p>
-
-<p>union select를 이용해서 표현하면, db에서 불러온 데이터와 1,2,3,4의 값이 같이 보여지게 됩니다.</p>
-
-<p>그런데 보시는 바와 같이 2,3,4만 나왔습니다. 불러온 데이터는 4 개의 칼럼이지만 3 개의 칼럼만 보이는 형태이네요.</p>
-
-<p>따라서 1에는 데이터 값을 작성해도 보이지 않으니 2,3,4 위치에 값을 작성하여 활용하는 것이 좋겠습니다.</p>
-
-<p><br /></p>
-
-<h3 id="134-db이름-확인하기"><span style="background:#A9A9A9; color:#ffffff">1.3.4 DB이름 확인하기</span></h3>
-
-<hr />
-
-<p><br /></p>
-
-<p><img src="/images/2024-05-24-SQLinjection2/image-20240525014348702.png" alt="image-20240525014348702" style="zoom:50%;" /></p>
-
-<p>DB이름 ▶ database()로 확인할 수 있습니다. 그래서 출력이 가능한 2,3,4 위치에 값을 넣어 확인해 볼 수 있겠습니다.</p>
-
-<h3 id="135-table이름-확인하기"><br /><span style="background:#A9A9A9; color:#ffffff">1.3.5 table이름 확인하기</span></h3>
-
-<hr />
-
-<p><br /></p>
-
-<p><img src="/images/2024-05-24-SQLinjection2/image-20240525015343016.png" alt="image-20240525015343016" style="zoom:50%;" /></p>
-
-<p><img src="/images/2024-05-24-SQLinjection2/image-20240525022345330.png" alt="image-20240525022345330" /></p>
-
-<p>table 이름 ▶ select table_name from information_schema.tables where table_schema=’DB이름’ 로 확인 가능합니다.</p>
-
-<p>table_shema 로 DB이름을 지정하지 않으면 모든 table이름이 나와서 불필요한 것 까지 확인하시게 됩니다.</p>
-
-<h3 id="136-column-이름-확인하기"><br /><span style="background:#A9A9A9; color:#ffffff">1.3.6 column 이름 확인하기</span></h3>
-
-<hr />
-
-<p><br /></p>
-
-<p><img src="/images/2024-05-24-SQLinjection2/image-20240525015555601.png" alt="image-20240525015555601" style="zoom:50%;" /></p>
-
-<p><img src="/images/2024-05-24-SQLinjection2/image-20240525022920840.png" alt="image-20240525022920840" /></p>
-
-<p>column 이름 ▶  select column_name from information_schema.columns where table_name=’table이름’</p>
-
-<p><br /></p>
-
-<h3 id="137-data-추출하기"><span style="background:#A9A9A9; color:#ffffff">1.3.7 data 추출하기</span></h3>
-
-<hr />
-
-<p><br /></p>
-
-<p><img src="/images/2024-05-24-SQLinjection2/image-20240525015730186.png" alt="image-20240525015730186" style="zoom:50%;" /></p>
-
-<p><img src="/images/2024-05-24-SQLinjection2/image-20240525023059257.png" alt="image-20240525023059257" style="zoom:67%;" /></p>
-
-<p>결국 개인정보 데이터 추출에 성공했네요. ~~~</p>]]></content><author><name>ethan</name></author><category term="SQL-injection" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">SQL injection이란?</title><link href="http://localhost:4000/sql-injection/SQLinjection1/" rel="alternate" type="text/html" title="SQL injection이란?" /><published>2024-05-16T00:00:00+09:00</published><updated>2024-05-16T00:00:00+09:00</updated><id>http://localhost:4000/sql-injection/SQLinjection1</id><content type="html" xml:base="http://localhost:4000/sql-injection/SQLinjection1/"><![CDATA[<p><br /></p>
-
-<h1 id="1sql-injection"><span style="background:#000000; color:#ffffff">1.SQL injection</span></h1>
+<h1 id="1-5주차-sql-injection-인증우회-문제풀이9"><span style="background:#000000; color:#ffffff">1. 5주차 SQL injection 인증우회 문제풀이(9)</span></h1>
 
 <p><br /><span style="font-weight:bold; font-size:15px"> ※ 주의 사항 :</span></p>
 
@@ -997,97 +487,62 @@ sql 인젝션이 가능하다는 것을 확인할 수 있죠.</p>
 
 <p><br /></p>
 
-<h2 id="11-개념"><span style="background:#696969; color:#ffffff">1.1 개념</span></h2>
+<h2 id="11-9번-문제"><span style="background:#696969; color:#ffffff">1.1  9번 문제</span></h2>
+
+<p><br /><img src="/images/2024-05-29-SQLinjection13/1.PNG" alt="1" /></p>
+
+<p><img src="/images/2024-05-29-SQLinjection13/2.PNG" alt="2" /></p>
+
+<p><img src="/images/2024-05-29-SQLinjection13/3.PNG" alt="3" /></p>
+
+<p><img src="/images/2024-05-29-SQLinjection13/4.PNG" alt="4" /></p>]]></content><author><name>ethan</name></author><category term="SQL-injection" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">5주차 SQL injection 인증우회 문제풀이(8)</title><link href="http://localhost:4000/sql-injection/SQLinjection12/" rel="alternate" type="text/html" title="5주차 SQL injection 인증우회 문제풀이(8)" /><published>2024-05-29T00:00:00+09:00</published><updated>2024-05-29T00:00:00+09:00</updated><id>http://localhost:4000/sql-injection/SQLinjection12</id><content type="html" xml:base="http://localhost:4000/sql-injection/SQLinjection12/"><![CDATA[<p><br /></p>
+
+<h1 id="1-5주차-sql-injection-인증우회-문제풀이8"><span style="background:#000000; color:#ffffff">1. 5주차 SQL injection 인증우회 문제풀이(8)</span></h1>
+
+<p><br /><span style="font-weight:bold; font-size:15px"> ※ 주의 사항 :</span></p>
+
+<p><span style="font-weight:bold; font-size:15px">1. 교육 목적으로만 이용 해주세요.</span><br />
+<span style="font-weight:bold; font-size:15px">2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다.</span><br />
+<span style="font-weight:bold; font-size:15px">3.  개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. </span></p>
 
 <p><br /></p>
 
-<p>먼저 용어에 대해서 살펴봅시다. sql은 db에 요청하는 언어 이고, injection은 영어 뜻으로 <br />
-주입하다, 투입하다 라는 뜻이 있습니다. 그러면 SQL injection의 말은 “sql이라는 db언어로 투입하다” 가 되겠네요.</p>
-
-<p>즉, 사용자가 db와 관련된 프로그램의 허점을 이용하는 것으로 특정 sql 쿼리를 작성하여, 데이터 베이스를 공격하는 것이라고<br />
-보면 됩니다.</p>
+<h2 id="11-8번-문제"><span style="background:#696969; color:#ffffff">1.1  8번 문제</span></h2>
 
 <p><br /></p>
 
-<p>예를 들어, 로그인 페이지가 있다고 가정해봅시다. 그러면 회원 가입을 한 이용자의 데이터를 불러와서 이용자의 id, password가<br />
-맞는지 대조해보는 작업을 하는데 이때 데이터를 불러오는 과정에서 sql쿼리를 사용하게 됩니다.</p>
+<p><img src="/images/2024-05-29-SQLinjection12/1.PNG" alt="1" /></p>
 
-<p>사용자가 id, password 입력<br />
-▶ post 방식으로 서버로 데이터 전송 <br />
-▶ 준비된 select * from table where id = ‘<strong>__</strong>__’  와 같은 sql문에 빈칸에 id 나 password를 넣어 찾게 되는 과정</p>
+<p><img src="/images/2024-05-29-SQLinjection12/2.PNG" alt="2" /></p>
 
-<p>sql injection은 빈칸에 적게 되는 id 나 password에 sql문의 취약한 부분을 공략해서 로그인이 가능하기도 합니다.<br />
-다음은 방법을 통해 더 이해해 보도록 합시다.</p>
+<p><img src="/images/2024-05-29-SQLinjection12/3.PNG" alt="3" /></p>
 
-<p><br /></p>
+<p><img src="/images/2024-05-29-SQLinjection12/4.PNG" alt="4" /></p>
 
-<p><br /></p>
+<p><img src="/images/2024-05-29-SQLinjection12/5.PNG" alt="5" /></p>]]></content><author><name>ethan</name></author><category term="SQL-injection" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">5주차 SQL injection 인증우회 문제풀이(7)</title><link href="http://localhost:4000/sql-injection/SQLinjection11/" rel="alternate" type="text/html" title="5주차 SQL injection 인증우회 문제풀이(7)" /><published>2024-05-29T00:00:00+09:00</published><updated>2024-05-29T00:00:00+09:00</updated><id>http://localhost:4000/sql-injection/SQLinjection11</id><content type="html" xml:base="http://localhost:4000/sql-injection/SQLinjection11/"><![CDATA[<p><br /></p>
 
-<h2 id="12-인증-우회-방법"><span style="background:#696969; color:#ffffff">1.2 인증 우회 방법</span></h2>
+<h1 id="1-5주차-sql-injection-인증우회-문제풀이7"><span style="background:#000000; color:#ffffff">1. 5주차 SQL injection 인증우회 문제풀이(7)</span></h1>
 
-<p><br /></p>
+<p><br /><span style="font-weight:bold; font-size:15px"> ※ 주의 사항 :</span></p>
 
-<p>select * from login where id = ‘<strong>__</strong>__’   빈칸에 ‘를 넣어본다고 하면, 어떻게 될까요? 오류가 날 것입니다. <br />
-문법이 틀렸기 때문이죠.</p>
-
-<p>그렇습니다. 안에 알맞은 문법과 값을 넣는다면 아무 문제없이 작동될 것이고, 비틀어서 원하는 정보를 얻기도 합니다.</p>
+<p><span style="font-weight:bold; font-size:15px">1. 교육 목적으로만 이용 해주세요.</span><br />
+<span style="font-weight:bold; font-size:15px">2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다.</span><br />
+<span style="font-weight:bold; font-size:15px">3.  개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. </span></p>
 
 <p><br /></p>
 
-<p><img src="/images/2024-05-16-SQLinjection1/image-20240516032610710.png" alt="image-20240516032610710" /></p>
+<h2 id="11-7번-문제"><span style="background:#696969; color:#ffffff">1.1  7번 문제</span></h2>
 
-<p>실제 제 로그인 페이지와 연결한 db입니다. 2개의 행 데이터가 존재합니다. <br />
-문제를 통해 방법을 알아봅시다.</p>
+<p><br /><img src="/images/2024-05-29-SQLinjection11/1.PNG" alt="1" /></p>
 
-<p><br /></p>
+<p><img src="/images/2024-05-29-SQLinjection11/2.PNG" alt="2" /></p>
 
-<p><span style="font-weight:bold; font-size:20px">1. select * from table where id = ‘<strong>__</strong>__’ </span><br />
-<span style="font-weight:bold; font-size:20px">빈칸에 kim’ and ‘1’=’1 을 넣으면 어떻게 될까요?</span></p>
+<p><img src="/images/2024-05-29-SQLinjection11/3.PNG" alt="3" /></p>
 
-<p><span style="font-weight:bold; font-size:20px">답은</span></p>
+<p><img src="/images/2024-05-29-SQLinjection11/4.PNG" alt="4" /></p>
 
-<p><img src="/images/2024-05-16-SQLinjection1/image-20240516033046974.png" alt="image-20240516033046974" /></p>
+<p><img src="/images/2024-05-29-SQLinjection11/5.PNG" alt="5" /></p>
 
-<p>and 는 왼쪽 구문과 오른쪽 구문이 서로 존재해야 나타납니다. 그런데 ‘1’=’1’ 은 참이면서 kim인 데이터가 존재하므로<br />
-이와 같은 데이터가 나오게 됩니다.</p>
+<p><img src="/images/2024-05-29-SQLinjection11/6.PNG" alt="6" /></p>
 
-<p><br /></p>
-
-<p><span style="font-weight:bold; font-size:20px">2. select * from table where id = ‘<strong>__</strong>__’ </span><br />
-<span style="font-weight:bold; font-size:20px">빈칸에 kim’ or ‘1’=’1 을 넣으면 어떻게 될까요?</span></p>
-
-<p><span style="font-weight:bold; font-size:20px">답은</span></p>
-
-<p><img src="/images/2024-05-16-SQLinjection1/image-20240516033718568.png" alt="image-20240516033718568" /></p>
-
-<p>or 은 왼쪽 구문과 오른쪽 구문이 하나라도 존재하면 나타납니다. 그런데 ‘1’=’1’ 이 참이므로 참인 모든 데이터가 나오게<br />
-됩니다.</p>
-
-<p><br /></p>
-
-<p><span style="font-weight:bold; font-size:20px">3. select * from table where id = ‘<strong>__</strong>__’ and passoword = ‘5678’</span> <br />
-<span style="font-weight:bold; font-size:20px">빈칸에 kim’ # 을 넣으면 어떻게 될까요?</span></p>
-
-<p><span style="font-weight:bold; font-size:20px">답은</span></p>
-
-<p><img src="/images/2024-05-16-SQLinjection1/image-20240516034314892.png" alt="image-20240516034314892" /></p>
-
-<p>어째서 이런 답이 나왔는지 궁금하실 겁니다.  mysql에서 #은 주석입니다. 그렇기 때문에 # 로 뒤로 오는 구문은<br />
-사실상 의미가 없고, kim만 선택해서 출력하라는 명령만 됩니다.</p>
-
-<p><br /></p>
-
-<p><span style="font-weight:bold; font-size:20px">4. select * from table where id = ‘<strong>__</strong>__’ and passoword = ‘5678’</span> <br />
-<span style="font-weight:bold; font-size:20px">빈칸에 kim’ or ’1’ =’1 을 넣으면 어떻게 될까요?</span></p>
-
-<p><span style="font-weight:bold; font-size:20px">답은</span></p>
-
-<p><img src="/images/2024-05-16-SQLinjection1/image-20240516035152070.png" alt="image-20240516035152070" /></p>
-
-<p>1+3*2는 뭐가 답일 까요? 답은 7입니다. 곱하기를 먼저 계산하고, 1을 나중에 더하죠.<br />
-이와 마찬가지로 and를 * 로 생각하고 or 덧셈으로 생각해야 합니다.</p>
-
-<p>select * from table where id = ‘kim’ or (‘1’ =’1’ and passoword = ‘5678’) 이렇게 보면<br />
-id가 kim이거나 password가 5678인 데이터가 출력하게 됩니다.</p>
-
-<p>다음엔 sql injection에 관련된 문제를 풀어보도록 하겠습니다.</p>]]></content><author><name>ethan</name></author><category term="SQL-injection" /><summary type="html"><![CDATA[]]></summary></entry></feed>
+<p><img src="/images/2024-05-29-SQLinjection11/7.PNG" alt="7" /></p>]]></content><author><name>ethan</name></author><category term="SQL-injection" /><summary type="html"><![CDATA[]]></summary></entry></feed>
