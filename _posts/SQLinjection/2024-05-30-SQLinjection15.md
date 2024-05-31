@@ -54,27 +54,32 @@ Error Based SQl Injection은 무엇일까요?
 
 활용하기 위해서는 조건이 필요합니다.
 
--조건-
+
 
 ```mermaid
-graph LR 
-C(SQL 에러)    
-    C --> D[문법 에러]    
-    C --> E[로직 에러]
+---
+title : 〈조건〉
+---
+%%{init: {"flowchart": {"curve":"basis"}}}%%
+flowchart LR 	
+    C(SQL 에러)    
+        C ---> D[문법 에러]   
+        C ---> E[로직 에러]
+classDef default fill:#ffd700,stroke:#ffff00;
+
+
 ```
 
 
 
+먼저 SQL에러가 무엇일까요?  
+SQL에러는 SQL쿼리에서 발생하는 에러를 뜻합니다.
 
-문법에러 / 로직에러가 있는데 
+그렇다면 문법 에러와 로직 에러가 어떤 점이 다른 지 살펴보겠습니다.
 
 
 
 <문법에러>
 
-
-
-
-
-![1](/images/2024-05-30-SQLinjection15/1.png)
+![1](/images/2024-05-30-SQLinjection15/1-1717171330445-3.png)
 

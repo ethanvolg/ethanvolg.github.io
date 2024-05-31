@@ -287,23 +287,27 @@
 
 <p>활용하기 위해서는 조건이 필요합니다.</p>
 
-<p>-조건-</p>
+<pre><code class="language-mermaid">---
+title : 〈조건〉
+---
+%%{init: {"flowchart": {"curve":"basis"}}}%%
+flowchart LR 	
+    C(SQL 에러)    
+        C ---&gt; D[문법 에러]   
+        C ---&gt; E[로직 에러]
+classDef default fill:#ffd700,stroke:#ffff00;
 
-<pre><code class="language-mermaid">graph LR 
-C(SQL 에러)    
-    C --&gt; D[문법 에러]    
-    C --&gt; E[로직 에러]
+
 </code></pre>
 
-<p>문법에러 / 로직에러가 있는데</p>
+<p>먼저 SQL에러가 무엇일까요?<br />
+SQL에러는 SQL쿼리에서 발생하는 에러를 뜻합니다.</p>
+
+<p>그렇다면 문법 에러와 로직 에러가 어떤 점이 다른 지 살펴보겠습니다.</p>
 
 <문법에러>
 
-
-
-
-
-![1](/images/2024-05-30-SQLinjection15/1.png)
+![1](/images/2024-05-30-SQLinjection15/1-1717171330445-3.png)
 
 </문법에러>
 
