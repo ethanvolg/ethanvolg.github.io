@@ -56,7 +56,14 @@ Error Based SQl Injection은 무엇일까요?
 
 -조건-
 
-```mermaid graph LR B --> C{SQL 에러}    C --> D[문법 에러]    C --> E[로직 에러]```
+```mermaid
+graph LR 
+C(SQL 에러)    
+    C --> D[문법 에러]    
+    C --> E[로직 에러]
+```
+
+
 
 
 문법에러 / 로직에러가 있는데 
