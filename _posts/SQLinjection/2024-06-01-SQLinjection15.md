@@ -66,8 +66,6 @@ flowchart LR
         C ---> D[문법 에러]   
         C ---> E[로직 에러]
 classDef default fill:#ffd700,stroke:#ffff00;
-
-
 ```
 
 
@@ -81,5 +79,7 @@ SQL에러는 SQL쿼리에서 발생하는 에러를 뜻합니다.
 
 <문법에러>
 
-![1](/images/2024-05-30-SQLinjection15/1-1717171330445-3.png)
+
+
+![1](/images/2024-06-01-SQLinjection15/1.png)
 

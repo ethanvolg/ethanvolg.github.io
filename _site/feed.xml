@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-06-01T01:03:45+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">나의 코딩 공부</title><subtitle>ethan의 블로그</subtitle><author><name>ethan</name></author><entry><title type="html">SQL injection 데이터 추출(3)</title><link href="http://localhost:4000/sql-injection/SQLinjection15/" rel="alternate" type="text/html" title="SQL injection 데이터 추출(3)" /><published>2024-05-30T00:00:00+09:00</published><updated>2024-05-30T00:00:00+09:00</updated><id>http://localhost:4000/sql-injection/SQLinjection15</id><content type="html" xml:base="http://localhost:4000/sql-injection/SQLinjection15/"><![CDATA[<p><br /></p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-06-01T02:27:41+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">나의 코딩 공부</title><subtitle>ethan의 블로그</subtitle><author><name>ethan</name></author><entry><title type="html">SQL injection 데이터 추출(3)</title><link href="http://localhost:4000/sql-injection/SQLinjection15/" rel="alternate" type="text/html" title="SQL injection 데이터 추출(3)" /><published>2024-06-01T00:00:00+09:00</published><updated>2024-06-01T00:00:00+09:00</updated><id>http://localhost:4000/sql-injection/SQLinjection15</id><content type="html" xml:base="http://localhost:4000/sql-injection/SQLinjection15/"><![CDATA[<p><br /></p>
 
 <h1 id="1-sql-injection-데이터-추출3"><span style="background:#000000; color:#ffffff">1. SQL injection 데이터 추출(3)</span></h1>
 
@@ -55,8 +55,6 @@ flowchart LR
         C ---&gt; D[문법 에러]   
         C ---&gt; E[로직 에러]
 classDef default fill:#ffd700,stroke:#ffff00;
-
-
 </code></pre>
 
 <p>먼저 SQL에러가 무엇일까요?<br />
@@ -66,7 +64,9 @@ SQL에러는 SQL쿼리에서 발생하는 에러를 뜻합니다.</p>
 
 <문법에러>
 
-![1](/images/2024-05-30-SQLinjection15/1-1717171330445-3.png)
+
+
+![1](/images/2024-06-01-SQLinjection15/1.png)
 
 </문법에러>]]></content><author><name>ethan</name></author><category term="SQL-injection" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">5주차 SQL injection 인증우회 문제풀이(5)</title><link href="http://localhost:4000/sql-injection/SQLinjection9/" rel="alternate" type="text/html" title="5주차 SQL injection 인증우회 문제풀이(5)" /><published>2024-05-29T00:00:00+09:00</published><updated>2024-05-29T00:00:00+09:00</updated><id>http://localhost:4000/sql-injection/SQLinjection9</id><content type="html" xml:base="http://localhost:4000/sql-injection/SQLinjection9/"><![CDATA[<p><br /></p>
 
