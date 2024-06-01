@@ -27,11 +27,11 @@ author_profile: false
 
 <br>
 
-<span style='font-weight:bold; font-size:15px'>1. SQL 질의 문 결과가 화면에 출력 되는 경우(데이터추출(2)) => UNION SQL (로그인 or 게시판 등)</span>
+<span style='font-weight:bold; font-size:15px'>1. SQL 질의 문 결과가 화면에 출력 되는 경우(데이터추출(2)) => UNION SQLi (로그인 or 게시판 등)</span>
 
 <span style='font-weight:bold; font-size:15px'>2. 에러 메세지가 화면에 출력 되는 경우 => Error Based SQLi (에러 메세지 확인 가능 한 곳)</span>
 
-<span style='font-weight:bold; font-size:15px'>3. 참과 거짓으로 출력 되는 경우 => Blind SQL Injection (로그인 or 아이디 중복 체크 등)</span>
+<span style='font-weight:bold; font-size:15px'>3. 참과 거짓으로 출력 되는 경우 => Blind SQLi (로그인 or 아이디 중복 체크 등)</span>
 
    와 같은 방식으로 해결할 수 있습니다. 
 
@@ -54,32 +54,127 @@ Error Based SQl Injection은 무엇일까요?
 
 활용하기 위해서는 조건이 필요합니다.
 
+<br>
 
+<img src="/images/2024-06-01-SQLinjection15/image-20240601034401789.png" alt="image-20240601034401789" style="zoom: 67%;" />
 
-```mermaid
----
-title : 〈조건〉
----
-%%{init: {"flowchart": {"curve":"basis"}}}%%
-flowchart LR 	
-    C(SQL 에러)    
-        C ---> D[문법 에러]   
-        C ---> E[로직 에러]
-classDef default fill:#ffd700,stroke:#ffff00;
-```
-
-
+<br>
 
 먼저 SQL에러가 무엇일까요?  
 SQL에러는 SQL쿼리에서 발생하는 에러를 뜻합니다.
 
 그렇다면 문법 에러와 로직 에러가 어떤 점이 다른 지 살펴보겠습니다.
 
+<br>
+
+<br>
+
+ <span style='font-weight:bold; font-size:22px'> 〈문법 에러〉 </span>
 
 
-<문법에러>
+
+<img src="/images/2024-06-01-SQLinjection15/image-20240601023835764.png" alt="image-20240601023835764" style="zoom: 60%;" />
+
+문법 에러란 ?  sql 쿼리 문이 제대로 된 문법으로 작성되어서 sql에서 요구하는 언어적 문제가 있는지 없는지 보는 것입니다.   
+만약 문법 에러가 난다면, 위와 같은 이미지처럼 SQL syntax라고 뜨며, SQL 요청이 거부되어 실행조차 될 수 없습니다.   
+Error based SQLi (sql injection)는 sql이 작동하면서, 에러 메세지를 통해 데이터를 추출해내는 기법이므로 문법 에러가  
+뜨지 않도록 주의해야 합니다.
+
+<br>
+
+<br>
+
+<span style='font-weight:bold; font-size:22px'> 〈로직 에러〉 </span>
+
+<img src="/images/2024-06-01-SQLinjection15/image-20240601025713759.png" alt="image-20240601025713759" style="zoom:80%;" />
+
+위의 이미지처럼 작성한다면, 문법적으로 위배되지 않습니다. 하지만 text라는 column , hi 라는 값은 존재하지 않습니다.  
+이처럼 제대로 된 지정된 값을 사용하지 않으면, 로직 에러가 나타나게 됩니다.   
+<br>
+
+그치만 위와 같이 쓴다면, 오류 메세지를 확인하는 것은 가능하나 데이터를 추출할 수 없습니다.
+
+<br>
 
 
 
-![image-20240601023835764](/images/2024-06-01-SQLinjection15/image-20240601023835764.png)
+<span style='font-weight:bold; font-size:20px'>😊extractvalue()함수를  <span style='text-decoration: red wavy underline'>사용하는 이유:</span>😊</span>
 
+`extractvalue ()` 함수는 XML 문자열에서 지정된 XPath 표현식에 해당하는 데이터를 추출하는 데 사용됩니다.
+
+따라서 에러 메세지가 발생하면, XPath 표현식에 해당하는 데이터를 추출하면서 오류 메세지가 나타나기 때문에  
+Error based SQLi에 사용하기 적합합니다.
+
+<br>
+
+<span style='font-weight:bold; font-size:20px'>😊extractvalue()함수를 <span style='text-decoration: red wavy underline'>사용하는 법:</span>😊</span>   
+<br>
+
+■<span style='font-weight:bold; font-size:20px'>[</span><span style= "font-size:19px">기본적인 함수 사용법</span><span style='font-weight:bold; font-size:18px'>]</span> (<span style= "color:red">참고</span>) 
+
+<details>
+<summary style="font-size:15px">접기/펼치기</summary>
+<div markdown="1">
+<br>extractvalue('xml 데이터', 'xml 표현식')<br>
+`idx` 칼럼에 다음과 같은 XML 데이터가 저장되어 있다고 합시다:
+
+```xml
+<user>
+<name>LEE</name>
+<email>LEE@example.com</email>
+</user>
+```
+
+```sql
+SELECT EXTRACTVALUE(idx, '/user/name') FROM tableName;
+```
+
+이 쿼리는 `tableName`에서 `idx` 칼럼에 저장된 XML 데이터 중 `<user>` 태그의 하위 `<name>` 태그에 해당하는 값을 추출하여 `name`이라는 이름으로 반환합니다.     
+`idx` 는 또한 ' 〈user〉 〈name〉 LEE 〈/name〉 〈email〉 LEE@example.com 〈/email〉 〈/user〉 '로 표현 가능.
+
+```diff
++-----------+
+|    name   |
++-----------+
+|    LEE    |
++-----------+
+```
+
+열 제목은 'name'으로, 추출된 값은 "LEE"입니다.  
+이러한 방식으로 LEE라는 데이터를 추출해 냅니다.
+
+</div>
+</details>
+<br>
+
+■<span style='font-weight:bold; font-size:19px'>[</span><span style= "font-size:19px">SQLi에서 함수 사용법</span><span style='font-weight:bold; font-size:18px'>]</span>  
+<br>
+
+<span style='font-size:17px ;line-height:20px; word-spacing:5px;letter-spacing : 3px'>※알아야 할 개념※</span>
+
+<br>
+
+👉<span style='font-size:17px'> `XPATH syntax error`가  발생하는 특수 문자</span>  
+
+ <img src="/images/2024-06-01-SQLinjection15/image-20240601081057098.png" alt="image-20240601081057098" style="zoom:67%;" />
+
+
+
+위 이미지처럼 xml 데이터는 상관없고, xml 표현 식에 : , ! , # , % 등등 특수 문자를 앞에 넣게 되면   
+xpath syntax error가 뜨면서 해당 자리의 값이 추출하는 특징을 갖고 있습니다.  
+이 데이터를 추출되는 것을 이용하여, select문을 삽입하여 db데이터를 추출하는 방법을 이용할 것입니다.
+
+<br>
+
+<span style='font-size:17px'> 👉`concat()`함수 </span>
+
+concat('a','b') -----> ab  
+concat('0x3a', 'test') ------> :test
+
+ex)   : 의 16진수는 0x3a , !의 16진수는 0x21, #의 16진수는 0x23........
+
+<br>
+
+### 1.2.2 
+
+***

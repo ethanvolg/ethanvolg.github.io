@@ -112,7 +112,7 @@ SELECT username, password FROM users ORDER BY 2; ▶ 2 이므로 password으로 
 
 <br>
 
-## <span style="background:#696969; color:#ffffff">1.3 데이터 추출의 필수 과정<span style="font-size:50%">(DB데이터를 화면에서 볼 수 있을때)</span></span>
+## <span style="background:#696969; color:#ffffff">1.3 데이터 추출의 과정<span style="font-size:50%">(DB데이터를 화면에서 볼 수 있을때)</span></span>
 
 <br>
 
