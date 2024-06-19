@@ -160,4 +160,118 @@ var store = [{
         "tags": [],
         "url": "/sql-injection/SQLinjection16/",
         "teaser": null
+      },{
+        "title": "SQL injection 데이터 추출 총 정리",
+        "excerpt":"1. SQL injection 데이터 추출 총 정리 ※ 주의 사항 : 1. 교육 목적으로만 이용 해주세요. 2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다. 3. 개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. 1.1 개요  SQL injection 데이터 추출 방식에는 3 가지 방식이...","categories": ["SQL-injection"],
+        "tags": [],
+        "url": "/sql-injection/SQLinjection17/",
+        "teaser": null
+      },{
+        "title": "7 주차 SQL injection 데이터 추출 문제 풀이(1)",
+        "excerpt":"1. 7 주차 SQL injection 데이터 추출 문제 풀이(1) ※ 주의 사항 : 1. 교육 목적으로만 이용 해주세요. 2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다. 3. 개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. 1.1 개요  SQL injection 데이터 추출 방식에는 3...","categories": ["SQL-injection"],
+        "tags": [],
+        "url": "/sql-injection/SQLinjection18/",
+        "teaser": null
+      },{
+        "title": "7 주차 SQL injection 데이터 추출 문제 풀이(2)",
+        "excerpt":"1. 7 주차 SQL injection 데이터 추출 문제 풀이(2) ※ 주의 사항 : 1. 교육 목적으로만 이용 해주세요. 2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다. 3. 개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. 1.1 개요  SQL injection 데이터 추출 방식에는 3...","categories": ["SQL-injection"],
+        "tags": [],
+        "url": "/sql-injection/SQLinjection19/",
+        "teaser": null
+      },{
+        "title": "7 주차 SQL injection 데이터 추출 문제 풀이(3)",
+        "excerpt":"1. 7 주차 SQL injection 데이터 추출 문제 풀이(3) ※ 주의 사항 : 1. 교육 목적으로만 이용 해주세요. 2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다. 3. 개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. 1.1   SQL injection normatitc 아이디로 로그인이 되는 지...","categories": ["SQL-injection"],
+        "tags": [],
+        "url": "/sql-injection/SQLinjection20/",
+        "teaser": null
+      },{
+        "title": "7 주차 SQL injection 데이터 추출 문제 풀이(4)",
+        "excerpt":"1. 7 주차 SQL injection 데이터 추출 문제 풀이(4) ※ 주의 사항 : 1. 교육 목적으로만 이용 해주세요. 2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다. 3. 개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. 1.1   SQL injection 3번 풀이와 같다 normatitc 아이디로...","categories": ["SQL-injection"],
+        "tags": [],
+        "url": "/sql-injection/SQLinjection21/",
+        "teaser": null
+      },{
+        "title": "7 주차 SQL injection 데이터 추출 문제 풀이(5)",
+        "excerpt":"1. 7 주차 SQL injection 데이터 추출 문제 풀이(5) ※ 주의 사항 : 1. 교육 목적으로만 이용 해주세요. 2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다. 3. 개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. 1.1   SQL injection 3번 풀이와 같다 normatitc 아이디로...","categories": ["SQL-injection"],
+        "tags": [],
+        "url": "/sql-injection/SQLinjection22/",
+        "teaser": null
+      },{
+        "title": "7 주차 SQL injection 데이터 추출 문제 풀이(6)",
+        "excerpt":"1. 7 주차 SQL injection 데이터 추출 문제 풀이(6) ※ 주의 사항 : 1. 교육 목적으로만 이용 해주세요. 2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다. 3. 개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. 1.1   SQL injection 3번 풀이와 같다 normatitc 아이디로...","categories": ["SQL-injection"],
+        "tags": [],
+        "url": "/sql-injection/SQLinjection23/",
+        "teaser": null
+      },{
+        "title": "SQL injection 데이터 추출(실전편)",
+        "excerpt":"1. SQL injection 데이터 추출 (실전편) ※ 주의 사항 : 1. 교육 목적으로만 이용 해주세요. 2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다. 3. 개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. 1.1 개요  그동안 주어진 페이지에서 데이터를 추출하는 연습을 하다 보니, 실제...","categories": ["SQL-injection"],
+        "tags": [],
+        "url": "/sql-injection/SQLinjection24/",
+        "teaser": null
+      },{
+        "title": "8 주차 SQL injection 데이터 추출 문제 풀이(1)",
+        "excerpt":"1. 8 주차 SQL injection 데이터 추출 문제 풀이(1) ※ 주의 사항 : 1. 교육 목적으로만 이용 해주세요. 2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다. 3. 개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. 1.1  SQLi Point 1 문제  1.1.1 sql injection...","categories": ["SQL-injection"],
+        "tags": [],
+        "url": "/sql-injection/SQLinjection25/",
+        "teaser": null
+      },{
+        "title": "8 주차 SQL injection 데이터 추출 문제 풀이(2)",
+        "excerpt":"1. 8 주차 SQL injection 데이터 추출 문제 풀이(2) ※ 주의 사항 : 1. 교육 목적으로만 이용 해주세요. 2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다. 3. 개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. 1.1  SQLi Point 2 문제  1.1.1 sql injection...","categories": ["SQL-injection"],
+        "tags": [],
+        "url": "/sql-injection/SQLinjection26/",
+        "teaser": null
+      },{
+        "title": "8 주차 SQL injection 데이터 추출 문제 풀이(3)",
+        "excerpt":"1. 8 주차 SQL injection 데이터 추출 문제 풀이(3) ※ 주의 사항 : 1. 교육 목적으로만 이용 해주세요. 2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다. 3. 개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. 1.1  SQLi Point 3 문제  1.1.1 sql injection...","categories": ["SQL-injection"],
+        "tags": [],
+        "url": "/sql-injection/SQLinjection27/",
+        "teaser": null
+      },{
+        "title": "8 주차 SQL injection 데이터 추출 문제 풀이(4)",
+        "excerpt":"1. 8 주차 SQL injection 데이터 추출 문제 풀이(4) ※ 주의 사항 : 1. 교육 목적으로만 이용 해주세요. 2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다. 3. 개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. 1.1  SQLi Point 4 문제  1.1.1 sql injection...","categories": ["SQL-injection"],
+        "tags": [],
+        "url": "/sql-injection/SQLinjection28/",
+        "teaser": null
+      },{
+        "title": "XSS 이란?(1)",
+        "excerpt":"1. XSS(1) ※ 주의 사항 : 1. 교육 목적으로만 이용 해주세요. 2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다. 3. 개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. 1.1 개념  XSS (Cross-Site scripting)은 공격자가 악성 스크립트를 삽입해서 이용자의 브라우저에서 실행되도록 조작하는 기술입니다. 이번...","categories": ["XSS"],
+        "tags": [],
+        "url": "/xss/XSS1/",
+        "teaser": null
+      },{
+        "title": "XSS 취약점 찾기(1)",
+        "excerpt":"1. XSS 취약점 찾기(1) ※ 주의 사항 : 1. 교육 목적으로만 이용 해주세요. 2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다. 3. 개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. 1.1 XSS 1 문제 게시판에 먼저 들어가서 글을 작성하여 어떻게 나타나는지 확인 하였다....","categories": ["XSS"],
+        "tags": [],
+        "url": "/xss/XSS2/",
+        "teaser": null
+      },{
+        "title": "XSS 취약점 찾기(2)",
+        "excerpt":"    1. XSS 취약점 찾기(2)     ※ 주의 사항 :   1. 교육 목적으로만 이용 해주세요.  2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다.  3.  개인적인 테스트 환경을 구축해서 실습하시길 바랍니다.        1.1 XSS 2 문제       ","categories": ["XSS"],
+        "tags": [],
+        "url": "/xss/XSS3/",
+        "teaser": null
+      },{
+        "title": "XSS 취약점 찾기(3)",
+        "excerpt":"1. XSS 취약점 찾기(3) ※ 주의 사항 : 1. 교육 목적으로만 이용 해주세요. 2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다. 3. 개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. 1.1 XSS 3 문제 이번에는 마이페이지에서 확인하려고 한다. GET 메서드로 파라미터가 1234 인데,...","categories": ["XSS"],
+        "tags": [],
+        "url": "/xss/XSS4/",
+        "teaser": null
+      },{
+        "title": "XSS 취약점 찾기(4)",
+        "excerpt":"    1. XSS 취약점 찾기(4)     ※ 주의 사항 :   1. 교육 목적으로만 이용 해주세요.  2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다.  3.  개인적인 테스트 환경을 구축해서 실습하시길 바랍니다.        1.1 XSS 4 문제                             ![(/images/2024-06-18-XSS5/image-20240618022256780.png)               ","categories": ["XSS"],
+        "tags": [],
+        "url": "/xss/XSS5/",
+        "teaser": null
+      },{
+        "title": "XSS 취약점 찾기(5)",
+        "excerpt":"    1. XSS 취약점 찾기(5)     ※ 주의 사항 :   1. 교육 목적으로만 이용 해주세요.  2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다.  3.  개인적인 테스트 환경을 구축해서 실습하시길 바랍니다.        1.1 XSS 5 문제                                     ","categories": ["XSS"],
+        "tags": [],
+        "url": "/xss/XSS6/",
+        "teaser": null
+      },{
+        "title": "XSS 취약점 찾기(6)",
+        "excerpt":"    1. XSS 취약점 찾기(6)     ※ 주의 사항 :   1. 교육 목적으로만 이용 해주세요.  2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다.  3.  개인적인 테스트 환경을 구축해서 실습하시길 바랍니다.        1.1 XSS 6 문제          ","categories": ["XSS"],
+        "tags": [],
+        "url": "/xss/XSS7/",
+        "teaser": null
       }]
