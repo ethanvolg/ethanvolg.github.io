@@ -185,6 +185,14 @@
 <lastmod>2024-06-18T00:00:00+09:00</lastmod>
 </url>
 <url>
+<loc>http://localhost:4000/xss/XSS8/</loc>
+<lastmod>2024-06-21T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/report/report/</loc>
+<lastmod>2024-06-21T00:00:00+09:00</lastmod>
+</url>
+<url>
 <loc>http://localhost:4000/categories/</loc>
 </url>
 <url>

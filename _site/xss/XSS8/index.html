@@ -9,7 +9,7 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>5주차 SQL injection 인증우회 문제풀이(10) | 나의 코딩 공부</title>
+<!-- begin _includes/seo.html --><title>XSS 이란(2)? | 나의 코딩 공부</title>
 <meta name="description" content="">
 
 
@@ -22,8 +22,8 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="나의 코딩 공부">
-<meta property="og:title" content="5주차 SQL injection 인증우회 문제풀이(10)">
-<meta property="og:url" content="http://localhost:4000/sql-injection/SQLinjection14/">
+<meta property="og:title" content="XSS 이란(2)?">
+<meta property="og:url" content="http://localhost:4000/xss/XSS8/">
 
 
   <meta property="og:description" content="">
@@ -34,7 +34,7 @@
 
 
 
-  <meta property="article:published_time" content="2024-05-29T00:00:00+09:00">
+  <meta property="article:published_time" content="2024-06-21T00:00:00+09:00">
 
 
 
@@ -45,7 +45,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/sql-injection/SQLinjection14/">
+<link rel="canonical" href="http://localhost:4000/xss/XSS8/">
 
 
 
@@ -164,7 +164,7 @@
       
         
         <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <a href="/categories/#sql-injection" itemprop="item"><span itemprop="name">Sql injection</span></a>
+          <a href="/categories/#xss" itemprop="item"><span itemprop="name">Xss</span></a>
           <meta itemprop="position" content="2" />
         </li>
         <span class="sep">/</span>
@@ -172,7 +172,7 @@
     
       
       
-        <li class="current">5주차 SQL injection 인증우회 문제풀이(10)</li>
+        <li class="current">XSS 이란(2)?</li>
       
     
   </ol>
@@ -186,16 +186,16 @@
 
 
   <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="5주차 SQL injection 인증우회 문제풀이(10)">
+    <meta itemprop="headline" content="XSS 이란(2)?">
     <meta itemprop="description" content="">
-    <meta itemprop="datePublished" content="2024-05-29T00:00:00+09:00">
+    <meta itemprop="datePublished" content="2024-06-21T00:00:00+09:00">
     
 
     <div class="page__inner-wrap">
       
         <header>
           <h1 id="page-title" class="page__title p-name" itemprop="headline">
-            <a href="http://localhost:4000/sql-injection/SQLinjection14/" class="u-url" itemprop="url">5주차 SQL injection 인증우회 문제풀이(10)
+            <a href="http://localhost:4000/xss/XSS8/" class="u-url" itemprop="url">XSS 이란(2)?
 </a>
           </h1>
           
@@ -206,7 +206,7 @@
       <span class="page__meta-date">
         <i class="far fa-calendar-alt" aria-hidden="true"></i>
         
-        <time datetime="2024-05-29T00:00:00+09:00">2024-05-29</time>
+        <time datetime="2024-06-21T00:00:00+09:00">2024-06-21</time>
       </span>
     
 
@@ -221,14 +221,14 @@
           <aside class="sidebar__right sticky">
             <nav class="toc">
               <header><h4 class="nav__title"><i class="fas fa-fas fa-laptop-code"></i> 목차</h4></header>
-              <ul class="toc__menu"><li><a href="#1-5주차-sql-injection-인증우회-문제풀이10">1. 5주차 SQL injection 인증우회 문제풀이(10)</a><ul><li><a href="#11-10번-문제">1.1  10번 문제</a></li></ul></li></ul>
+              <ul class="toc__menu"><li><a href="#1-xss2">1. XSS(2)</a><ul><li><a href="#11-개요">1.1 개요 </a></li><li><a href="#12-dom-based-xss">1.2 DOM Based XSS </a></li></ul></li></ul>
 
             </nav>
           </aside>
         
         <p><br /></p>
 
-<h1 id="1-5주차-sql-injection-인증우회-문제풀이10"><span style="background:#000000; color:#ffffff">1. 5주차 SQL injection 인증우회 문제풀이(10)</span></h1>
+<h1 id="1-xss2"><span style="background:#000000; color:#ffffff">1. XSS(2)</span></h1>
 
 <p><br /><span style="font-weight:bold; font-size:15px"> ※ 주의 사항 :</span></p>
 
@@ -238,35 +238,16 @@
 
 <p><br /></p>
 
-<h2 id="11-10번-문제"><span style="background:#696969; color:#ffffff">1.1  10번 문제</span></h2>
+<h2 id="11-개요"><span style="background:#696969; color:#ffffff">1.1 개요 </span></h2>
 
-<p><br /><img src="/images/2024-05-29-SQLinjection14/1.PNG" alt="1" /></p>
+<p><br /></p>
 
-<p><img src="/images/2024-05-29-SQLinjection14/2.PNG" alt="2" /></p>
+<p><br /></p>
 
-<p><img src="/images/2024-05-29-SQLinjection14/3.PNG" alt="3" /></p>
+<h2 id="12-dom-based-xss"><span style="background:#696969; color:#ffffff">1.2 DOM Based XSS </span></h2>
 
-<p><img src="/images/2024-05-29-SQLinjection14/4.PNG" alt="4" /></p>
+<p><br /></p>
 
-<p><img src="/images/2024-05-29-SQLinjection14/5.PNG" alt="5" /></p>
-
-<p><img src="/images/2024-05-29-SQLinjection14/6.PNG" alt="6" /></p>
-
-<p><img src="/images/2024-05-29-SQLinjection14/8.PNG" alt="8" /><img src="/images/2024-05-29-SQLinjection14/7.PNG" alt="7" /></p>
-
-<p><img src="/images/2024-05-29-SQLinjection14/9.PNG" alt="9" /></p>
-
-<p><img src="/images/2024-05-29-SQLinjection14/10.PNG" alt="10" /></p>
-
-<p><img src="/images/2024-05-29-SQLinjection14/11.PNG" alt="11" /></p>
-
-<p><img src="/images/2024-05-29-SQLinjection14/12.PNG" alt="12" /></p>
-
-<p><img src="/images/2024-05-29-SQLinjection14/13.PNG" alt="13" /></p>
-
-<p><img src="/images/2024-05-29-SQLinjection14/14.PNG" alt="14" /></p>
-
-<p><img src="/images/2024-05-29-SQLinjection14/15.PNG" alt="15" /></p>
 
         
       </section>
@@ -285,7 +266,7 @@
     <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
     <span itemprop="keywords">
     
-      <a href="/categories/#sql-injection" class="page__taxonomy-item p-category" rel="tag">SQL-injection</a>
+      <a href="/categories/#xss" class="page__taxonomy-item p-category" rel="tag">XSS</a>
     
     </span>
   </p>
@@ -293,7 +274,7 @@
 
         
 
-  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2024-05-29T00:00:00+09:00">2024-05-29</time></p>
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2024-06-21T00:00:00+09:00">2024-06-21</time></p>
 
       </footer>
 
@@ -302,22 +283,22 @@
     <h4 class="page__share-title">공유하기</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?text=5%EC%A3%BC%EC%B0%A8+SQL+injection+%EC%9D%B8%EC%A6%9D%EC%9A%B0%ED%9A%8C+%EB%AC%B8%EC%A0%9C%ED%92%80%EC%9D%B4%2810%29%20http%3A%2F%2Flocalhost%3A4000%2Fsql-injection%2FSQLinjection14%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=XSS+%EC%9D%B4%EB%9E%80%282%29%3F%20http%3A%2F%2Flocalhost%3A4000%2Fxss%2FXSS8%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fsql-injection%2FSQLinjection14%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fxss%2FXSS8%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fsql-injection%2FSQLinjection14%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fxss%2FXSS8%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
 </section>
 
 
       
   <nav class="pagination">
     
-      <a href="/sql-injection/SQLinjection13/" class="pagination--pager" title="5주차 SQL injection 인증우회 문제풀이(9)
+      <a href="/xss/XSS7/" class="pagination--pager" title="XSS 취약점 찾기(6)
 ">이전</a>
     
     
-      <a href="/sql-injection/SQLinjection5/" class="pagination--pager" title="5주차 SQL injection 인증우회 문제풀이(1)
+      <a href="/report/report/" class="pagination--pager" title="모의해킹 보고서 작성법
 ">다음</a>
     
   </nav>
@@ -343,40 +324,6 @@
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
         <a href="/report/report/" rel="permalink">모의해킹 보고서 작성법
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-      
-      <span class="page__meta-date">
-        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
-        
-        <time datetime="2024-06-21T00:00:00+09:00">2024-06-21</time>
-      </span>
-    
-
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">
-</p>
-  </article>
-</div>
-
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/xss/XSS8/" rel="permalink">XSS 이란(2)?
 </a>
       
     </h2>
@@ -469,6 +416,40 @@
 </div>
 
         
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/xss/XSS5/" rel="permalink">XSS 취약점 찾기(4)
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2024-06-18T00:00:00+09:00">2024-06-18</time>
+      </span>
+    
+
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+</p>
+  </article>
+</div>
+
+        
       </div>
     </div>
   
@@ -515,8 +496,8 @@
     
   <script>
     var disqus_config = function () {
-      this.page.url = "http://localhost:4000/sql-injection/SQLinjection14/";  /* Replace PAGE_URL with your page's canonical URL variable */
-      this.page.identifier = "/sql-injection/SQLinjection14"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+      this.page.url = "http://localhost:4000/xss/XSS8/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/xss/XSS8"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
     };
     (function() { /* DON'T EDIT BELOW THIS LINE */
       var d = document, s = d.createElement('script');

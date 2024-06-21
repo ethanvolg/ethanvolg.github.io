@@ -233,7 +233,7 @@ var store = [{
         "url": "/sql-injection/SQLinjection28/",
         "teaser": null
       },{
-        "title": "XSS 이란?(1)",
+        "title": "XSS 이란(1)?",
         "excerpt":"1. XSS(1) ※ 주의 사항 : 1. 교육 목적으로만 이용 해주세요. 2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다. 3. 개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. 1.1 개념  XSS (Cross-Site scripting)은 공격자가 악성 스크립트를 삽입해서 이용자의 브라우저에서 실행되도록 조작하는 기술입니다. 이번...","categories": ["XSS"],
         "tags": [],
         "url": "/xss/XSS1/",
@@ -273,5 +273,17 @@ var store = [{
         "excerpt":"    1. XSS 취약점 찾기(6)     ※ 주의 사항 :   1. 교육 목적으로만 이용 해주세요.  2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다.  3.  개인적인 테스트 환경을 구축해서 실습하시길 바랍니다.        1.1 XSS 6 문제          ","categories": ["XSS"],
         "tags": [],
         "url": "/xss/XSS7/",
+        "teaser": null
+      },{
+        "title": "XSS 이란(2)?",
+        "excerpt":"    1. XSS(2)     ※ 주의 사항 :   1. 교육 목적으로만 이용 해주세요.  2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다.  3.  개인적인 테스트 환경을 구축해서 실습하시길 바랍니다.        1.1 개요            1.2 DOM Based XSS        ","categories": ["XSS"],
+        "tags": [],
+        "url": "/xss/XSS8/",
+        "teaser": null
+      },{
+        "title": "모의해킹 보고서 작성법",
+        "excerpt":"1. 모의 해킹 보고서 작성법 1.1 개요  Microsoft word를 사용하는 이유 보고서는 한글 프로그램 보다 Microsoft word를 이용하는 게 좋다. 한글 프로그램은 한글만 이용, 정부와 같이 문서 보안이 중요할 때는 사용하겠지만, Microsoft word가 파일 간 호환성이 더 뛰어나고, 다양한 기능과 언어를 지원하기 때문에 업무상 더 적합하다. 보고서를 이쁘게 작성해야 하는...","categories": ["Report"],
+        "tags": [],
+        "url": "/report/report/",
         "teaser": null
       }]
