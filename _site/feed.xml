@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-06-24T18:46:32+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">나의 코딩 공부</title><subtitle>ethan의 블로그</subtitle><author><name>ethan</name></author><entry><title type="html">XSS 이란(2)?</title><link href="http://localhost:4000/xss/XSS8/" rel="alternate" type="text/html" title="XSS 이란(2)?" /><published>2024-06-21T00:00:00+09:00</published><updated>2024-06-21T00:00:00+09:00</updated><id>http://localhost:4000/xss/XSS8</id><content type="html" xml:base="http://localhost:4000/xss/XSS8/"><![CDATA[<p><br /></p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-06-24T23:54:38+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">나의 코딩 공부</title><subtitle>ethan의 블로그</subtitle><author><name>ethan</name></author><entry><title type="html">XSS 이란(2)?</title><link href="http://localhost:4000/xss/XSS8/" rel="alternate" type="text/html" title="XSS 이란(2)?" /><published>2024-06-21T00:00:00+09:00</published><updated>2024-06-21T00:00:00+09:00</updated><id>http://localhost:4000/xss/XSS8</id><content type="html" xml:base="http://localhost:4000/xss/XSS8/"><![CDATA[<p><br /></p>
 
 <h1 id="1-xss2"><span style="background:#000000; color:#ffffff">1. XSS(2)</span></h1>
 
@@ -74,13 +74,13 @@ XSS 공격은 일반적으로 세 가지 유형으로 나뉜다 : <code class="l
 <p><br /></p>
 
 <blockquote>
-  <p><span style="font-weight:bold; font-size:18px">Microsoft word를 사용하는 이유</span></p>
+  <p><span style="font-weight:bold; font-size:18px;background-color:#f0ffff">Microsoft word를 사용하는 이유</span></p>
 </blockquote>
 
 <p>보고서는 한글 프로그램 보다 Microsoft word를 이용하는 게 좋다.  한글 프로그램은 한글만 이용, 정부와 같이 문서 보안이 중요할 때는 사용하겠지만, Microsoft word가 파일 간 호환성이 더 뛰어나고, 다양한 기능과 언어를 지원하기 때문에 업무상 더 적합하다.</p>
 
 <blockquote>
-  <p><span style="font-weight:bold; font-size:18px">보고서를 이쁘게 작성해야 하는 이유</span></p>
+  <p><span style="font-weight:bold; font-size:18px;background-color:#f0ffff">보고서를 이쁘게 작성해야 하는 이유</span></p>
 </blockquote>
 
 <p>모의 해킹의 주된 목적은 보안 정도를 평가하고 관계자들에게 해당 보안 취약점을 인식시켜 필요한 조치를 취할 수 있도록 돕는 것이다. <br />
