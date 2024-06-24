@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-06-21T05:41:04+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">나의 코딩 공부</title><subtitle>ethan의 블로그</subtitle><author><name>ethan</name></author><entry><title type="html">XSS 이란(2)?</title><link href="http://localhost:4000/xss/XSS8/" rel="alternate" type="text/html" title="XSS 이란(2)?" /><published>2024-06-21T00:00:00+09:00</published><updated>2024-06-21T00:00:00+09:00</updated><id>http://localhost:4000/xss/XSS8</id><content type="html" xml:base="http://localhost:4000/xss/XSS8/"><![CDATA[<p><br /></p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-06-24T05:54:09+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">나의 코딩 공부</title><subtitle>ethan의 블로그</subtitle><author><name>ethan</name></author><entry><title type="html">XSS 이란(2)?</title><link href="http://localhost:4000/xss/XSS8/" rel="alternate" type="text/html" title="XSS 이란(2)?" /><published>2024-06-21T00:00:00+09:00</published><updated>2024-06-21T00:00:00+09:00</updated><id>http://localhost:4000/xss/XSS8</id><content type="html" xml:base="http://localhost:4000/xss/XSS8/"><![CDATA[<p><br /></p>
 
 <h1 id="1-xss2"><span style="background:#000000; color:#ffffff">1. XSS(2)</span></h1>
 
@@ -14,11 +14,56 @@
 
 <p><br /></p>
 
+<p><span style="font-weight:bold; font-size:20px;background-color:#7fffd4">✔XSS 간단 요약</span></p>
+
+<p><span style="font-weight:bold; font-size:20px">xss :</span> <span style="text-decoration: red wavy underline">클라이언트 측 브라우저에 발생하는 코드</span>를 조작 및 변경하여, 악성 스크립트를 실행시키고 정보를 탈취하는 공격 기법이다.<br />
+XSS 공격은 일반적으로 세 가지 유형으로 나뉜다 : <code class="language-plaintext highlighter-rouge">Stored XSS</code>, <code class="language-plaintext highlighter-rouge">Reflected XSS</code>, <code class="language-plaintext highlighter-rouge">DOM-based XSS</code>.</p>
+
+<blockquote>
+  <p><span style="font-weight:bold; font-size:20px">Stored XSS :</span> 서버에 임의의 스크립트를 삽입하여, 그 스크립트가 담긴 페이지를 생성한다. 이후 이  페이지에 접근하는 모든 클라이언트의 정보를 가져오는 방법이다.</p>
+
+  <p><span style="font-weight:bold; font-size:20px">Reflected XSS :</span> URL의 파라미터에 임의의 스크립트를 삽입하여, 그 링크를 클릭한 클라이언트가 그 스크립트를 실행할 수 있도록 하는 방법이다. 일반적으로 파라미터 값이 HTTP 응답에 그대로 출력 된다.</p>
+</blockquote>
+
 <p><br /></p>
 
 <h2 id="12-dom-based-xss"><span style="background:#696969; color:#ffffff">1.2 DOM Based XSS </span></h2>
 
-<p><br /></p>]]></content><author><name>ethan</name></author><category term="XSS" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">모의해킹 보고서 작성법</title><link href="http://localhost:4000/report/report/" rel="alternate" type="text/html" title="모의해킹 보고서 작성법" /><published>2024-06-21T00:00:00+09:00</published><updated>2024-06-21T00:00:00+09:00</updated><id>http://localhost:4000/report/report</id><content type="html" xml:base="http://localhost:4000/report/report/"><![CDATA[<p><br /></p>
+<p><br /></p>
+
+<p><span style="font-weight:bold; font-size:20px;background-color:#7fffd4"><span style="font-weight:bold; font-size:20px">DOM의 개념</span></span></p>
+
+<p>DOM(document object model) 는 <span style="text-decoration: red wavy underline">웹 페이지를 동적으로 조작하고 변경할 수 있는 기술이다.</span></p>
+
+<p>이를 통해 JavaScript와 같은 프로그래밍 언어로 HTML 요소를 동적으로 변경할 수 있다.<br />
+웹 페이지에서 보여지는 시각적인 이미지는 모두 정적이고, HTML 요소로 이루어져 있다.</p>
+
+<p>DOM은 클릭했을 때 임의의 동작을 하게 만들고, 검색 창에 텍스트를 작성했을 때 목록이 나타나는 등<br />
+많은 요소들이 동작할 수 있도록 도와준다.</p>
+
+<p><br /></p>
+
+<p><span style="font-weight:bold; font-size:20px;background-color:#7fffd4">DOM Based XSS 의 개념 및 원리</span></p>
+
+<p>DOM Based XSS 는 웹페이지의 DOM을 이용하여 스크립트를 조작할 수 있게 하는 공격 기법이다. <br />
+예를 들어, 이용자가 검색 창에 텍스트를 입력하면 검색한 글이 페이지 화면에 출력이 된다고 가정해 보자.<br />
+이러한 경우, 악의적인 사용자는 검색어에 임의의 스크립트를 삽입하여 클라이언트에게 영향을 미칠 수 있다.</p>
+
+<p>▶<span style="font-weight:bold; font-size:17px;background-color:#f0ffff">Reflected XSS와 같은 점</span></p>
+
+<p>URL의 파라미터에 임의의 스크립트를 삽입하여, 그 링크를 클릭한 클라이언트가 그 스크립트를 실행할 수 있도록 하는 방법이다.</p>
+
+<p>▶<span style="font-weight:bold; font-size:17px;background-color:#f0ffff">Reflected XSS와 다른 점</span></p>
+
+<p>DOM Based XSS는 파라미터가 <span style="color:red;font-weight:bold">HTTP 응답에 그대로 출력 되는 것이 아니다.</span>  대신, 클라이언트 측에서 동적으로 스크립트에 의해 페	이지에 작성되는 것이다.</p>
+
+<p><br /></p>
+
+<p>▶ <span style="font-weight:bold; font-size:17px;background-color:#f0ffff">DOM Based XSS 찾기</span></p>
+
+<p>즉, DOM Based XSS 는 특정 동작에 출력하므로 발견하기 어려울 수 있다.<br />
+하지만 분명한 것은 XSS 공격이 발생하려면 스크립트가 삽입되어야만 할 수 있다는 사실이다.<br />
+이를 통해 공격자들은 주로  <code class="language-plaintext highlighter-rouge">document.write</code> 나 <code class="language-plaintext highlighter-rouge">innerHTML</code> 등의 메서드를 이용한다. 따라서 이러한 메서드를 이용하는 코드를 주의 깊게 점검하면 취약한 코드를 발견할 수 있다.</p>]]></content><author><name>ethan</name></author><category term="XSS" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">모의해킹 보고서 작성법</title><link href="http://localhost:4000/report/report/" rel="alternate" type="text/html" title="모의해킹 보고서 작성법" /><published>2024-06-21T00:00:00+09:00</published><updated>2024-06-21T00:00:00+09:00</updated><id>http://localhost:4000/report/report</id><content type="html" xml:base="http://localhost:4000/report/report/"><![CDATA[<p><br /></p>
 
 <h1 id="1-모의-해킹-보고서-작성법"><span style="background:#000000; color:#ffffff">1. 모의 해킹 보고서 작성법</span></h1>
 
@@ -80,7 +125,7 @@
     <p>발견된 취약점의 위치(url or 경로) 명시하기.</p>
   </li>
   <li>
-    <p>결과를 작성할 때 그림에 담긴 결과를 그대로 설명하기 보다는 해킹 피해자 측 피해 경로와 같이 설명하기.</p>
+    <p>결과를 작성할 때 그림에 담긴 결과를 그대로 설명하기 보다는 해킹 피해자 측 발생할 수 있는 피해 경로와 같이 설명하기.</p>
 
     <p>예) alert(1) 발생! (X) ▶ 스크립트가 삽입된 게시글에 접근 시 의도한 임의의 스크립트가 실행되어, 클라이언트의 정보가 탈취 될 가능성이 있음</p>
   </li>
