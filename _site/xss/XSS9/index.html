@@ -1,0 +1,716 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>XSS에 대응하는 방법 | 나의 코딩 공부</title>
+<meta name="description" content="">
+
+
+  <meta name="author" content="ethan">
+  
+  <meta property="article:author" content="ethan">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="나의 코딩 공부">
+<meta property="og:title" content="XSS에 대응하는 방법">
+<meta property="og:url" content="http://localhost:4000/xss/XSS9/">
+
+
+  <meta property="og:description" content="">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2024-06-26T00:00:00+09:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/xss/XSS9/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "코딩",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+  <meta name="naver-site-verification" content="cda5169ee8858dc0fd65c97ed6247167558b5352">
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="나의 코딩 공부 Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/ethan.png" alt="나의 코딩 공부"></a>
+        
+        <a class="site-title" href="/">
+          나의 코딩 공부
+          <span class="site-subtitle">daily study</span>
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">Category</a>
+            </li><li class="masthead__menu-item">
+              <a href="/search/">Search</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="/" itemprop="item"><span itemprop="name">Home</span></a>
+
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="/categories/#xss" itemprop="item"><span itemprop="name">Xss</span></a>
+          <meta itemprop="position" content="2" />
+        </li>
+        <span class="sep">/</span>
+      
+    
+      
+      
+        <li class="current">XSS에 대응하는 방법</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="XSS에 대응하는 방법">
+    <meta itemprop="description" content="">
+    <meta itemprop="datePublished" content="2024-06-26T00:00:00+09:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="http://localhost:4000/xss/XSS9/" class="u-url" itemprop="url">XSS에 대응하는 방법
+</a>
+          </h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2024-06-26T00:00:00+09:00">2024-06-26</time>
+      </span>
+    
+
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-fas fa-laptop-code"></i> 목차</h4></header>
+              <ul class="toc__menu"><li><a href="#1-xss3">1. XSS(3)</a><ul><li><a href="#11-개요">1.1 개요 </a></li><li><a href="#12-스크립트-작성-자체를-방지하기">1.2 스크립트 작성 자체를 방지하기 </a><ul><li><a href="#121-필터링">1.2.1 필터링</a></li></ul></li><li><a href="#13-스크립트를-작성할-수-있지만-실행을-차단하기">1.3 스크립트를 작성할 수 있지만 실행을 차단하기 </a><ul><li><a href="#131-html-entity">1.3.1 HTML Entity </a></li><li><a href="#132-content-security-policycsp-설정-">1.3.2 Content Security Policy(CSP) 설정 </a></li><li><a href="#133-httponly-및-secure-속성-설정-">1.3.3 HttpOnly 및 Secure 속성 설정 </a></li></ul></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <p><br /></p>
+
+<h1 id="1-xss3"><span style="background:#000000; color:#ffffff">1. XSS(3)</span></h1>
+
+<p><br /><span style="font-weight:bold; font-size:15px"> ※ 주의 사항 :</span></p>
+
+<p><span style="font-weight:bold; font-size:15px">1. 교육 목적으로만 이용 해주세요.</span><br />
+<span style="font-weight:bold; font-size:15px">2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다.</span><br />
+<span style="font-weight:bold; font-size:15px">3.  개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. </span></p>
+
+<p><br /></p>
+
+<h2 id="11-개요"><span style="background:#696969; color:#ffffff">1.1 개요 </span></h2>
+
+<p><br /></p>
+
+<p>이전에 XSS의 공격 기법 3 가지에 대해 알아보았다.  <code class="language-plaintext highlighter-rouge">Stored XSS</code>, <code class="language-plaintext highlighter-rouge">flected XSS</code>, <code class="language-plaintext highlighter-rouge">DOM Based XSS</code>  <br />
+그렇다면 어떻게 이러한 공격을 막을 수 있을까. 스크립트를 작성할 수 없도록 차단하는 법, <br />
+스크립트를 작성할 수 있지만 차단하는 법을 소개하겠다.<br /></p>
+
+<h2 id="12-스크립트-작성-자체를-방지하기"><span style="background:#696969; color:#ffffff">1.2 스크립트 작성 자체를 방지하기 </span></h2>
+
+<h3 id="121-필터링"><span style="font-weight:bold; font-size:22px;background-color:#7fffd4">1.2.1 필터링</span><br /></h3>
+
+<p>필터링에는 2 가지의 필터링 방법이 있다. <code class="language-plaintext highlighter-rouge">블랙 리스트</code>, <code class="language-plaintext highlighter-rouge">화이트 리스트</code> 이다. <br />
+<code class="language-plaintext highlighter-rouge">블랙 리스트</code>는  특정 단어나 패턴을 금지하는 방법이고,   <code class="language-plaintext highlighter-rouge">화이트 리스트</code>는 허용된 단어나 패턴만 사용할 수 있게 하는 방법이다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">화이트 리스트</code>는 스크립트 작성 자체를 방지하기 위해 사용되지는 않는다. <br />
+이 방식은 매우 안전하고 강력한 보안을 제공하지만 사용자가 입력할 수 있는 범위가 제한되어 불편함을 느낄 수 있다. 특히, 다양한 입력이 필요한 애플리케이션에서는 적용하기 어렵다.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// [화이트 리스트 예시, hi 와 hello 만 쓸 수 있도록 작성] //</span>
+
+<span class="kd">function</span> <span class="nf">whitelist</span><span class="p">(</span><span class="nx">input</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">list</span> <span class="o">=</span> <span class="p">[</span><span class="dl">'</span><span class="s1">hi</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">hello</span><span class="dl">'</span><span class="p">];</span>
+    <span class="c1">//toLowercase: 모두 소문자로 바꾸기, includes: 포함된 글자가 있으면 true 없으면 false</span>
+    <span class="k">if </span><span class="p">(</span><span class="nx">list</span><span class="p">.</span><span class="nf">includes</span><span class="p">(</span><span class="nx">input</span><span class="p">.</span><span class="nf">toLowerCase</span><span class="p">()))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">input</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="dl">''</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">userInput1</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">hi</span><span class="dl">"</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">userInput2</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">hello</span><span class="dl">"</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">userInput3</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">hey</span><span class="dl">"</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">userInput4</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">HELLO</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nf">whitelist</span><span class="p">(</span><span class="nx">userInput1</span><span class="p">));</span> <span class="c1">// "hi"</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nf">whitelist</span><span class="p">(</span><span class="nx">userInput2</span><span class="p">));</span> <span class="c1">// "hello"</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nf">whitelist</span><span class="p">(</span><span class="nx">userInput3</span><span class="p">));</span> <span class="c1">// ""</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nf">whitelist</span><span class="p">(</span><span class="nx">userInput4</span><span class="p">));</span> <span class="c1">// "HELLO"</span>
+</code></pre></div></div>
+
+<p><br />그러한 이유로  <code class="language-plaintext highlighter-rouge">블랙 리스트</code> 필터링 방식을 많이 사용한다. 금지할 단어나 패턴을 미리 정의하고, 사용자가 정의한 내용을 입력하면 차단한다. 이러한 방식은 사용자에게 더 많은 입력의 자유를 제공하면서도 XSS 공격을 차단할 수 있는 장점이 있다.  그러나 새로운 공격 방법이 생겨날 때 마다 <code class="language-plaintext highlighter-rouge">블랙 리스트</code>를 지속적으로 업데이트를 해야 하고 우회 될 가능성이 있다는 단점이 존재한다.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// [블랙 리스트 예시, 우회하기] //</span>
+
+<span class="cm">/* 1. Script를 차단 하는 경우 */</span>
+
+<span class="c1">// 1.1 글자 수를 제한하여 차단!! 이용자도 불편하다.ㅠㅠ ,하지만 외부 스크립트 파일을 가져와서 우회 가능 </span>
+		<span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span><span class="nx">글자</span> <span class="nx">수</span> <span class="nx">제한</span><span class="o">&lt;</span><span class="sr">/script</span><span class="err">&gt;
+</span>		<span class="o">&lt;</span><span class="nx">script</span> <span class="nx">scr</span><span class="o">=</span> <span class="dl">"</span><span class="s2">http://우회/js</span><span class="dl">"</span> <span class="o">&gt;&lt;</span><span class="sr">/script&gt;</span><span class="err"> 
+</span>
+
+<span class="c1">// 1.2 그러면 문제가 있는 script 단어 차단!!, 우회 가능 </span>
+		<span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span> <span class="o">=&gt;</span> <span class="o">&lt;&gt;</span>
+    
+    		<span class="c1">//대소문자 혼용//</span>
+   	 	<span class="o">&lt;</span><span class="nx">ScRipT</span><span class="o">&gt;&lt;</span><span class="sr">/ScrIpt</span><span class="err">&gt;
+</span>
+		<span class="c1">//분할 작성//</span>
+		<span class="o">&lt;</span><span class="nx">scrscriptipt</span><span class="o">&gt;&lt;</span><span class="sr">/scrscriptipt</span><span class="err">&gt;
+</span>    
+<span class="c1">// 1.3 그러면 대소문자를 포함에서 특정 문자를 다른 문자로 바꿔서 차단, 우회 가능  </span>
+    		<span class="o">&lt;</span><span class="nx">xript</span><span class="o">&gt;&lt;</span><span class="sr">/xript</span><span class="err">&gt;
+</span><span class="c1">//scr에 파일이 없으면 404에러 나타나는 것을 이용,onerror onload onclick... 이벤트 핸들러를 차단할 것// </span>
+		<span class="o">&lt;</span><span class="nx">img</span> <span class="nx">src</span><span class="o">=</span><span class="nx">우회</span> <span class="nx">onerror</span><span class="o">=</span><span class="dl">'</span><span class="s1">alert(1)</span><span class="dl">'</span><span class="o">&gt;</span> 
+    
+            
+            
+<span class="cm">/* 2.그외 태그에서 */</span>
+        
+<span class="c1">// href 주소창의 역할을 이용한 우회, javascript: alert(1)를 작성 가능하다. 차단할 것.</span>
+        <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="dl">"</span><span class="s2">javascript:alert(1)</span><span class="dl">"</span><span class="o">&gt;&lt;</span><span class="sr">/a</span><span class="err">&gt;
+</span>
+<span class="c1">// input 이벤트 핸들러를 이용한 우회, value에 꺽쇠를 차단 했을 경우에 이벤트 핸들러도 같이 차단할 것.</span>
+	<span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="dl">"</span><span class="s2">text</span><span class="dl">"</span> <span class="nx">onmouseover</span><span class="o">=</span><span class="dl">"</span><span class="s2">alert(1)</span><span class="dl">"</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="dl">"</span><span class="s2">text</span><span class="dl">"</span> <span class="nx">onfocus</span><span class="o">=</span><span class="dl">"</span><span class="s2">alert(1)</span><span class="dl">"</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="dl">"</span><span class="s2">text</span><span class="dl">"</span> <span class="nx">autofocus</span> <span class="nx">onfocus</span><span class="o">=</span><span class="dl">"</span><span class="s2">alert(1)</span><span class="dl">"</span><span class="o">&gt;</span>
+</code></pre></div></div>
+
+<p>위의 우회 또한 일부이며, 우회할 수 있는 방법은 무수히 많이 존재한다. <code class="language-plaintext highlighter-rouge">블랙 리스트</code>는 모든 공격을 완벽히 막을 수 없다는 한계를 가지고 있기 때문에 이후에 ‘스크립트를 작성할 수 있지만 실행 차단하는 방법’ 에 대해 알아볼 것이다.</p>
+
+<p><br /></p>
+
+<h2 id="13-스크립트를-작성할-수-있지만-실행을-차단하기"><span style="background:#696969; color:#ffffff">1.3 스크립트를 작성할 수 있지만 실행을 차단하기 </span></h2>
+
+<p><br /></p>
+
+<h3 id="131-html-entity"><span style="font-weight:bold; font-size:22px;background-color:#7fffd4">1.3.1 HTML Entity </span></h3>
+
+<p>XSS 방지하는 데 확실하고 필수적인 방법이다. 이는 HTML에서 특수 문자를 치환하는 방식으로, 필터링과는 다르다. 필터링이 특정 문자의 사용을 금지하는 것이라면, HTML 엔티티는 사용자가 특수 문자를 자유롭게 입력하고 그 문자를 안전하게 표시할 수 있게 한다. 예를 들어, 다음과 같이 표시한다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">결과</th>
+      <th style="text-align: center">설명</th>
+      <th style="text-align: center">이름 </th>
+      <th style="text-align: center">숫자 </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">공백</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">&amp;nbsp;</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">&amp;#160;</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center">&lt;</td>
+      <td style="text-align: center">보다 작은</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">&amp;lt;</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">&amp;#60;</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center">&gt;</td>
+      <td style="text-align: center">보다 큰</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">&amp;gt;</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">&amp;#62;</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center">&amp;</td>
+      <td style="text-align: center">앰퍼샌드</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">&amp;amp;</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">&amp;#38;</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center">”</td>
+      <td style="text-align: center">큰 따옴표</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">&amp;quot;</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">&amp;#34;</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center">’</td>
+      <td style="text-align: center">작은 따옴표</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">&amp;apos;</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">&amp;#39;</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><img src="/images/2024-06-26-XSS9/image-20240630032336205.png" alt="image-20240630032336205" /></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">[그림 1-1]</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="132-content-security-policycsp-설정-"><span style="font-weight:bold; font-size:22px;background-color:#7fffd4">1.3.2 Content Security Policy(CSP) 설정 </span></h3>
+
+<p>스크립트, 스타일, 이미지 등 허용된 리소스만 사용하도록 설정하여 제한한다.  다양한 설정 방식이 존재하지만 중요한 설정을 위주로 소개하도록 하겠다.</p>
+
+<p><span style="font-weight:bold; font-size:20px"><code class="language-plaintext highlighter-rouge">default-src 'self'</code> :</span>  모든 외부 리소스 유형(스크립트, 스타일시트, 이미지 등)를 제한한다.<br />
+<span style="font-weight:bold; font-size:20px"><code class="language-plaintext highlighter-rouge">script-src 'self'</code> : </span> 외부 스크립트를 차단하며, <code class="language-plaintext highlighter-rouge">default-src 'self'</code>의 범주 안에 포함되지만, 추가적인 정책을 사용하려면 별도로 작성해야 한다.</p>
+
+<p>앞선 정책들은 외부 스크립트를 제한한다. 하지만 Reflected xss를 시도하는 경우는 외부 스크립트가 아닌 내부 스크립트에 의해 파라미터의 내용이 페이지에 나타나는 것을 이용하므로 인라인 스크립트를 삽입을 방지해야 한다.</p>
+
+<p><span style="font-weight:bold; font-size:18px;background-color:#f0ffff">▶추가 정책 : Reflected XSS의 인라인 스크립트를 방지 </span></p>
+
+<p><span style="font-weight:bold; font-size:20px"><code class="language-plaintext highlighter-rouge">nonce</code> : </span> 시시각각 웹페이지가 변하는 동작을 구사할 때 이용되며, 서버가 매 요청마다 새롭게 <code class="language-plaintext highlighter-rouge">nonce</code>값을 생성하여 csp에 포함한다.  다른 <code class="language-plaintext highlighter-rouge">nonce</code>값을 적은 스크립트를 작성하면 제한한다.</p>
+
+<p>=&gt; <code class="language-plaintext highlighter-rouge">nonce</code> 값을 개발자 도구(페이지소스)에서 설정을 보고 그대로 넣어 스크립트를 작성할 수 있지 않느냐고 반문할 수 도 있다.  이를 방지하기 위해 <code class="language-plaintext highlighter-rouge">nonce</code> 값을 세션에 저장하고, 서버가 요청마다 검증할 수 있다.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// 간단 예시 (세션 저장 포함x)
+
+<span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">"Content-Security-Policy"</span> <span class="na">content=</span><span class="s">"default-src 'self'; script-src 'self' 'nonce-1234'"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">nonce=</span><span class="s">"1234"</span><span class="nt">&gt;</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">hi</span><span class="dl">'</span><span class="p">);</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>	
+</code></pre></div></div>
+
+<p><span style="font-weight:bold; font-size:20px"><code class="language-plaintext highlighter-rouge">hash</code> :</span> 스크립트 내용이 변경되지 않는 경우에 유용하며, 특정 스크립트 내용의 해시를 미리 정의하여 해당 스크립트만 실행되도록 한다. 다른 스크립트 내용을 적는다면 제한한다.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// 간단 예시
+
+<span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">"Content-Security-Policy"</span> <span class="na">content=</span><span class="s">"default-src 'self'; script-src 'self' 'sha256-V7Q9/DwmqvdPGQ4dy6ncNMsD52hvmuqtLSJ0fK6Mdr8='"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;script&gt;</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">hi</span><span class="dl">'</span><span class="p">);</span> <span class="c1">// 이 값이 위의 설정된 sha256으로 해시처리하고, base64로 인코딩한 값	</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>	
+</code></pre></div></div>
+
+<h3 id="133-httponly-및-secure-속성-설정-"><span style="font-weight:bold; font-size:22px;background-color:#7fffd4">1.3.3 HttpOnly 및 Secure 속성 설정 </span></h3>
+
+<p>둘 다 모두 쿠키의 보안을 강화하기 위해 설정한다. 좀 더 정확하게 설명하면 HttpOnly는 쿠키에 접근할 수 없게 제한하는 설정이고,<br />
+Secure은 쿠키가 HTTPS 의 연결을 통해서 만 전송되도록 하는 설정이다. 그리고 다음과 같이 설정한다.</p>
+
+<div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">Set-Cookie: sessionId=1234; HttpOnly; Secure
+</span></code></pre></div></div>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#xss" class="page__taxonomy-item p-category" rel="tag">XSS</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2024-06-26T00:00:00+09:00">2024-06-26</time></p>
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=XSS%EC%97%90+%EB%8C%80%EC%9D%91%ED%95%98%EB%8A%94+%EB%B0%A9%EB%B2%95%20http%3A%2F%2Flocalhost%3A4000%2Fxss%2FXSS9%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fxss%2FXSS9%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fxss%2FXSS9%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/report/report/" class="pagination--pager" title="모의해킹 보고서 작성법
+">이전</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h2 class="page__related-title">참고</h2>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/report/report/" rel="permalink">모의해킹 보고서 작성법
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2024-06-21T00:00:00+09:00">2024-06-21</time>
+      </span>
+    
+
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/xss/XSS8/" rel="permalink">XSS 이란(2)?
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2024-06-21T00:00:00+09:00">2024-06-21</time>
+      </span>
+    
+
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/xss/XSS7/" rel="permalink">XSS 취약점 찾기(6)
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2024-06-18T00:00:00+09:00">2024-06-18</time>
+      </span>
+    
+
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/xss/XSS6/" rel="permalink">XSS 취약점 찾기(5)
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2024-06-18T00:00:00+09:00">2024-06-18</time>
+      </span>
+    
+
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2024 코딩. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://localhost:4000/xss/XSS9/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/xss/XSS9"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://ethan.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

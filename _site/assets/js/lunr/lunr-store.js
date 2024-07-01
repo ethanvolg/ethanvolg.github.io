@@ -286,4 +286,10 @@ var store = [{
         "tags": [],
         "url": "/report/report/",
         "teaser": null
+      },{
+        "title": "XSS에 대응하는 방법",
+        "excerpt":"1. XSS(3) ※ 주의 사항 : 1. 교육 목적으로만 이용 해주세요. 2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다. 3. 개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. 1.1 개요  이전에 XSS의 공격 기법 3 가지에 대해 알아보았다. Stored XSS, flected XSS, DOM...","categories": ["XSS"],
+        "tags": [],
+        "url": "/xss/XSS9/",
+        "teaser": null
       }]

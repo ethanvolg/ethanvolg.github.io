@@ -5,10 +5,11 @@
 table {
   margin-bottom: 1em;
   font-family: $global-font-family;
-  font-size: $type-size-6;
+  font-size: 11pt;
   border-collapse: collapse;
   overflow-x: auto;
   margin:auto;
+  width: 100%;
   
 
   & + table {
