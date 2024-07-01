@@ -452,8 +452,8 @@
 
 <h3 id="133-httponly-및-secure-속성-설정-"><span style="font-weight:bold; font-size:22px;background-color:#7fffd4">1.3.3 HttpOnly 및 Secure 속성 설정 </span></h3>
 
-<p>둘 다 모두 쿠키의 보안을 강화하기 위해 설정한다. 좀 더 정확하게 설명하면 HttpOnly는 클라이언트 측 스크립트가 쿠키에 접근할 수 없게 제한하는 설정이고 따라서 XSS 방지에 유용하다.<br />
-Secure은 쿠키가 HTTPS 의 연결을 통해서 만 전송되도록 하는 설정이다. 그리고 다음과 같이 설정한다.</p>
+<p>둘 다 모두 쿠키의 보안을 강화하기 위해 설정한다. 좀 더 정확하게 설명하면 <code class="language-plaintext highlighter-rouge">HttpOnly</code>는 클라이언트 측 스크립트가 쿠키에 접근할 수 없게 제한하는 설정이고<br />
+<code class="language-plaintext highlighter-rouge">Secure</code>은 쿠키가 HTTPS 의 연결을 통해서 만 전송되도록 하는 설정이다. 그리고 다음과 같이 설정한다.</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">res</span><span class="p">.</span><span class="nf">cookie</span><span class="p">(</span><span class="dl">'</span><span class="s1">sessionId</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">1234</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span> <span class="na">httpOnly</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="na">secure</span><span class="p">:</span> <span class="kc">true</span><span class="p">});</span>
 </code></pre></div></div>
