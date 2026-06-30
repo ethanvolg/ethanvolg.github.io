@@ -1,0 +1,29 @@
+/* Post pages use .post, not .content — mirror poison.css color rules */
+
+.post code {
+    color: var(--code-color) !important;
+    background-color: var(--code-background-color) !important;
+}
+
+.post a code {
+    color: var(--link-color) !important;
+}
+
+.post pre {
+    color: var(--code-color);
+    background-color: var(--code-background-color);
+}
+
+.post pre code {
+    background-color: transparent !important;
+    color: inherit;
+}
+
+.post a {
+    transition: color 0.2s ease, text-decoration 0.2s ease;
+    border-bottom: 1px solid transparent;
+}
+
+.post a:hover {
+    border-bottom: 1px solid var(--link-color);
+}

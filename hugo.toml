@@ -15,8 +15,6 @@ brand_image = '/images/ethan.png'
 author = 'ethan'
 github_url = 'https://github.com/ethanvolg'
 og_image = 'images/ethan.png'
-publisher_icon = '/images/favicon.png'
-favicon = '/images/favicon.png'
 description = '웹 해킹, 네트워크 보안, 모의해킹 등 보안 학습 내용을 기록하는 블로그입니다.'
 dark_mode = true
 mainSections = ['posts']
@@ -66,7 +64,7 @@ code_color_dark = '#86efac'
 code_background_color_dark = '#1a2e1a'
 
 [params.meta]
-favicon = true
+favicon = false
 
 [taxonomies]
 series = 'series'
