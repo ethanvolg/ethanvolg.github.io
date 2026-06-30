@@ -1,0 +1,809 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>CSRF 개념 | 나의 코딩 공부</title>
+<meta name="description" content="">
+
+
+  <meta name="author" content="ethan">
+  
+  <meta property="article:author" content="ethan">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="나의 코딩 공부">
+<meta property="og:title" content="CSRF 개념">
+<meta property="og:url" content="http://localhost:4000/csrf/CSRF1/">
+
+
+  <meta property="og:description" content="">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2024-07-04T00:00:00+09:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/csrf/CSRF1/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "코딩",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+  <meta name="naver-site-verification" content="cda5169ee8858dc0fd65c97ed6247167558b5352">
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="나의 코딩 공부 Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/ethan.png" alt="나의 코딩 공부"></a>
+        
+        <a class="site-title" href="/">
+          나의 코딩 공부
+          <span class="site-subtitle">daily study</span>
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">Category</a>
+            </li><li class="masthead__menu-item">
+              <a href="/search/">Search</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="/" itemprop="item"><span itemprop="name">Home</span></a>
+
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="/categories/#csrf" itemprop="item"><span itemprop="name">Csrf</span></a>
+          <meta itemprop="position" content="2" />
+        </li>
+        <span class="sep">/</span>
+      
+    
+      
+      
+        <li class="current">CSRF 개념</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="CSRF 개념">
+    <meta itemprop="description" content="">
+    <meta itemprop="datePublished" content="2024-07-04T00:00:00+09:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="http://localhost:4000/csrf/CSRF1/" class="u-url" itemprop="url">CSRF 개념
+</a>
+          </h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2024-07-04T00:00:00+09:00">2024-07-04</time>
+      </span>
+    
+
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-fas fa-laptop-code"></i> 목차</h4></header>
+              <ul class="toc__menu"><li><a href="#1csrf1">1.CSRF(1) </a><ul><li><a href="#11-개념">1.1 개념 </a></li><li><a href="#12-csrf-vs-xss">1.2 CSRF vs XSS</a></li><li><a href="#13-csrf-featxss">1.3 CSRF (feat.XSS)</a></li><li><a href="#14-csrf-발생하는-곳">1.4 CSRF 발생하는 곳</a></li><li><a href="#15-csrf가-중요한-이유">1.5 CSRF가 중요한 이유</a></li><li><a href="#16-csrf-실습">1.6 CSRF 실습</a><ul><li><a href="#-csrf만-이용한-공격">-CSRF만 이용한 공격</a></li><li><a href="#-csrf-와-xss-모두-이용한-공격">-CSRF 와 XSS 모두 이용한 공격</a></li></ul></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <p><br /></p>
+
+<h1 id="1csrf1"><span style="background:#000000; color:#ffffff">1.CSRF(1) </span></h1>
+
+<p><br /><span style="font-weight:bold; font-size:15px"> ※ 주의 사항 :</span></p>
+
+<p><span style="font-weight:bold; font-size:15px">1. 교육 목적으로만 이용 해주세요.</span><br />
+<span style="font-weight:bold; font-size:15px">2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다.</span><br />
+<span style="font-weight:bold; font-size:15px">3.  개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. </span></p>
+
+<p><br /></p>
+
+<h2 id="11-개념"><span style="background:#696969; color:#ffffff">1.1 개념 </span></h2>
+
+<p><br /></p>
+
+<blockquote>
+  <p><span style="font-weight:bold; font-size:20px;background-color:#f0ffff">CSRF(Cross-Site Requset Forgery)가 무엇인가?</span></p>
+</blockquote>
+
+<p>공격자가 피해자를 하여금 서버로 임의의 요청을 하게 만드는 웹 보안 취약점이다. 예를 들어, 피해자가 로그인한 상태에서 CSRF 링크를 클릭하면, <br />
+링크에 담긴 요청이 실제 피해자가 한 것으로 인식되어 요청을 정상적으로 처리한다. 이러한 공격을 통해 공격자는 피해자의 계정으로 정보를 <br />
+변경하거나 결제, 이체 등을 수행할 수 있다. 이는 피해자가 심각한 금전적 손실을 보거나 계정을 완전히 탈취당할 위험이 있는 공격이다.</p>
+
+<h2 id="12-csrf-vs-xss"><span style="background:#696969; color:#ffffff">1.2 CSRF vs XSS</span></h2>
+
+<blockquote>
+  <p><span style="font-weight:bold; font-size:20px;background-color:#f0ffff">공통점</span></p>
+</blockquote>
+
+<p>두 공격 모두 클라이언트 측 공격이고, 링크를 클릭하도록 피해자를 유도하는 방법을 이용한다. 그렇지만 공격하는 목표와 과정이  다르다는 것을 명심해야 한다.</p>
+
+<blockquote>
+  <p><span style="font-weight:bold; font-size:20px;background-color:#f0ffff">차이점</span></p>
+</blockquote>
+
+<p><span style="font-weight:1000; font-size:17px">1. 취약점의 공격 적용 범위</span></p>
+
+<ul>
+  <li>
+    <p>CSRF는 주로 사용자가 할 수 있는 특정한 행동에만 영향을 준다. 예를 들면, 비밀번호를 변경하거나 돈을 이체하는 등의 특정 요청을 보낸다.</p>
+  </li>
+  <li>
+    <p>XSS는 사용자가 할 수 있는 모든 행동에 영향을 미칠 수 있다. 예를 들면 세션을 탈취하거나 데이터 변조를 변조하고, 사용자의 권한으로 임의의 <br />
+작업을 수행할 수 있다.</p>
+  </li>
+</ul>
+
+<p><span style="font-weight:1000; font-size:17px">2. 요청과 응답</span></p>
+
+<ul>
+  <li>
+    <p>CSRF는 공격자가 피해자를 하여금 HTTP 요청을 보내게 할 수 있지만, 그 요청에 대한 응답은 확인 할 수 없다. 즉, 공격자는 피해자가 요청하게 <br />
+만들 수는 있지만 결과는 볼 수 없다.</p>
+  </li>
+  <li>
+    <p>XSS는 공격자는 삽입된 스크립트로 임의의 요청을 보낼 수 있으며, 그 응답을 읽어 낼 수 있다. 그 예로 외부 도메인으로 데이터 유출이 가능하다.</p>
+  </li>
+</ul>
+
+<h2 id="13-csrf-featxss"><span style="background:#696969; color:#ffffff">1.3 CSRF (feat.XSS)</span></h2>
+
+<p>일반적으로 CSRF는 공격자가 피해자에게 링크를 전달하고, 피해자가 링크를 클릭하면 임의의 요청을 하게 만드는 방식으로 설명된다. 그렇다면, XSS와<br />
+함께 사용된다면 어떤 일이 벌어질까?</p>
+
+<p>링크를 클릭하지 않더라도 XSS 취약점이 있는 페이지에 들어온 것만으로도 CSRF를 일으킬 수 있다. 이는 XSS를 통해 악성 스크립트를 작성하여 CSRF<br />
+요청을 자동으로 실행하게 만들기 때문이다. 이 결과는 잠시 뒤에 실습에서 후술하겠다.<br />
+<br /></p>
+
+<p><span style="font-weight:1000;color:orange;">⚠</span><span style="font-weight:1000; font-size:17px">주의</span><span style="font-weight:1000;color:orange;">⚠</span></p>
+
+<p>단순히 CSRF 공격 하나만 고려한다면, HTTP METHOD를 GET에서 POST로 변경하기만 해도 방지할 수 있다고 생각할 수 있다. 하지만 앞에서 살펴<br />
+보았듯이 XSS 공격과 결합한다면, form 태그를 이용해서 POST METHOD로 파라미터를 요청할 수 있기 때문에 HTTP METHOD를 GET에서 POST로<br />
+변경하는 것만으로 는 방지할 수 없다.</p>
+
+<h2 id="14-csrf-발생하는-곳"><span style="background:#696969; color:#ffffff">1.4 CSRF 발생하는 곳</span></h2>
+
+<table style="width:20%; justify-content:center;">
+  <tr>
+    <th>
+        <img src="/images/2024-07-04-CSRF1/모두가 인정하는 위치-1720192488959-7.png" style="display: flex;
+  justify-content: center;
+  align-items:center;
+  zoom:75%;" />
+    </th>
+  </tr>
+  <tr>
+    <td style="text-align:center;">[그림 1-1]</td>
+  </tr>
+</table>
+<p>일반적으로 CSRF 웹 보안 취약점은 피해자 계정의 정보를 변경하거나 금전적 손실을 초래할 수 있는 곳에 있다고 생각한다. 그런데 컨설턴트의 주관에<br />
+따라서 취약점의 범위가 더 넓어질 수 있다. 예를 들어, CSRF로 피해자에게 임의의 게시물을 작성하게 만들 수 있다. 어떤 컨설턴트는 익명이 보장되고<br />
+게시물을 삭제할 수 있으므로 취약점이 아니라고 주장할 수 있지만, 다른 컨설턴트는 신원 도용, 프라이버시 침해 등 개인정보 보호법 위반이라고 볼 수<br />
+있다.</p>
+
+<h2 id="15-csrf가-중요한-이유"><span style="background:#696969; color:#ffffff">1.5 CSRF가 중요한 이유</span></h2>
+
+<p>개발자들이 디자인, 실용성, 편의성 등을 중시하다 보면, 사용자 인증 과정 없이도 특정 행동이 가능하게 만드는 실수를 자주 하게 된다. 따라서 CSRF는<br />
+다른 취약점보다 쉽게 발견할 수 있다. 그렇기 때문에 CSRF의 보안 절차와 취약점에 대해 자세히 알면 이러한 공격을 예방하는 데 큰 도움이 된다.</p>
+
+<h2 id="16-csrf-실습"><span style="background:#696969; color:#ffffff">1.6 CSRF 실습</span></h2>
+<p><br /></p>
+<h3 id="-csrf만-이용한-공격">-<span style="font-weight:bold; font-size:22px;background-color:#f0ffff">CSRF만 이용한 공격</span><br /></h3>
+
+<p>다음은 DVWA에서 CSRF실습을 하는 과정이다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><img src="/images/2024-07-04-CSRF1/image-20240706065219647.png" alt="image-20240706065219647" /></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">[그림 2-1]</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>위의 [그림 2-1] 와 같이 CSRF의 실습을 진행한다. 새로 변경할 비밀번호를 적고, 요청을 보내는 식이다. 지금 화면에는 보이지 않지만 1234라는 <br />
+비밀번호로 제출했다. 이 요청이 어떤 파라미터의 데이터로 보내는 지 확인을 해야 CSRF인지 아닌지 알 수 있다. 따라서 Burp Suite으로 확인해보겠다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><img src="/images/2024-07-04-CSRF1/image-20240706072432936.png" alt="image-20240706072432936" /></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">[그림 2-2]</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>GET METHOD, /DVWA-master/vulnerablilites/csrf/?password_new=1234&amp;password_conf=1234&amp;Change=Change 요청(Request)을 <br />
+보내는 것을 알 수 있다. CSRF는 누군가를 이용하거나 피해를 줄 수 있는 상황에서 본인을 인증할 정보가 포함되지 않은 모든 요청이 취약점이 될 수 있다. <br />
+[그림 2-2]의 파라미터에는 변경할 비밀번호만 포함되어 있기 때문에, 공격자는 이를 이용하여 링크를 전달해서 피해자의 비밀번호를 변경할 수 있다.</p>
+
+<p><br /></p>
+
+<h3 id="-csrf-와-xss-모두-이용한-공격">-<span style="font-weight:bold; font-size:22px;background-color:#f0ffff">CSRF 와 XSS 모두 이용한 공격</span></h3>
+
+<ul>
+  <li><span style="font-weight:bold; font-size:18px;background-color:#fff0f5">XSS로 <code class="language-plaintext highlighter-rouge">&lt;form&gt;</code>  스크립트 작성하기</span></li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><img src="/images/2024-07-04-CSRF1/image-20240707041321298.png" alt="image-20240707041321298" /></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">[그림 3-1]</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>지금부터는 portswigger 사이트의 LAB: CSRF vulnerability with no defenses 이다. 포스팅을 보고 난 뒤에 스스로 해보길 바란다. 로그인을 하고<br />
+MY Account에 들어가 보면 다음과 같은 페이지가 나온다. 이메일을 변경하는 폼을 포함된 페이지이다. 이 동작은 개인 정보를 바꾸는 행위이므로, <br />
+인증 정보가 포함된 요청이 아니라면 CSRF 취약점이라고 할 수 있다. Burp Suite을 통해 자세히 살펴보자.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><img src="/images/2024-07-04-CSRF1/image-20240707060252982.png" alt="image-20240707060252982" /></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">[그림 3-2]</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>POST 방식으로 요청을 보내고 있고, 파라미터는 변경할 이메일만 작성되어 있다. 따라서 CSRF 취약점이 된다. 그렇지만 POST 방식이기 때문에, <br />
+링크를 보낼 url안에 파라미터가 없다. 이는 XSS취약점을 이용해서 다음과 같이 문제를 해결할 수 있다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><img src="/images/2024-07-04-CSRF1/image-20240707043037237.png" alt="image-20240707043037237" /></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">[그림 3-3]</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>아까 이메일을 변경할 수 있었던 화면에서 <code class="language-plaintext highlighter-rouge">Go to exploit sever</code> 버튼을 누르게 되면, [그림 3-3] 처럼 스크립트를 작성할 수 있는 페이지가 있다. <br />
+이제 <code class="language-plaintext highlighter-rouge">form</code> 태그를 이용하면 된다. <code class="language-plaintext highlighter-rouge">POST</code>방식으로, 보낼 URL은 이메일을 변경할 수 있는 페이지이고 <code class="language-plaintext highlighter-rouge">input</code> 박스에 변경할 이메일을 담아 제출하는 <br />
+스크립트를 작성했다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><img src="/images/2024-07-04-CSRF1/image-20240707043109762.png" alt="image-20240707043109762" /></th>
+      <th style="text-align: center"><img src="/images/2024-07-04-CSRF1/image-20240707043159671.png" alt="image-20240707043159671" /></th>
+      <th style="text-align: center"><img src="/images/2024-07-04-CSRF1/image-20240707042011749.png" alt="image-20240707042011749" /></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">[그림 3-4]</td>
+      <td style="text-align: center">[그림 3-5]</td>
+      <td style="text-align: center">[그림 3-6]</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>[그림 3-4]에 들어온 피해자가 제출을 누르게 되면, [그림 3-5]처럼 화면이 이동한다. 왜냐하면 이메일 변경 요청을 보냈기 때문에 그에 대한 반응 값이 <br />
+나타나기 때문이다.  [그림 3-6]은 submit 버튼을 누르자 burp suite에서 확인 할 수 있었던 요청이다. 지금까지 <code class="language-plaintext highlighter-rouge">form</code>으로 요청을 보낸 작업이 직접<br />
+이메일을 변경한 [그림 3-2]와 같으므로 두 결과가 같다는 사실을 알 수 있다. 이렇듯 XSS를 이용해서 CSRF공격을 시도했지만 [그림 3-4] 같은 공격을<br />
+한다면, 너무 어설픈 공격처럼 보여서 아무도 클릭을 누르지 않을 것이다. 다음 그림은 <code class="language-plaintext highlighter-rouge">input</code>박스를 안 보이게 숨기고, 페이지에 들어오기만 하면 바로<br />
+요청을 보내도록 설계했다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><img src="/images/2024-07-04-CSRF1/image-20240707055523591.png" alt="image-20240707055523591" /></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">[그림 3-7]</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><code class="language-plaintext highlighter-rouge">input</code> 태그 안에 type을 hidden 으로 바꾸면, 박스는 보이지 않는다. 그리고 <code class="language-plaintext highlighter-rouge">&lt;script&gt;</code> 를 작성해서 <code class="language-plaintext highlighter-rouge">form</code>개체의 속성을 submit한다고 작성하면 <br />
+원하는 모습이 된다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><img src="/images/2024-07-04-CSRF1/image-20240707055600629.png" alt="image-20240707055600629" /></th>
+      <th style="text-align: center"><img src="/images/2024-07-04-CSRF1/image-20240707044719704.png" alt="image-20240707044719704" /></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">[그림 3-8]</td>
+      <td style="text-align: center">[그림 3-9]</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>스크립트 페이지에 들어서자 마자 바로, [그림 3-8] 로 화면이 이동되었다. 데이터가 자동으로 제출되어 이메일을 변경했기 때문이다. 그 사실은 <br />
+[그림 3-9]를 통해 알 수 있다.<br /></p>
+
+<ul>
+  <li><span style="font-weight:bold; font-size:18px;background-color:#fff0f5">XSS로 <code class="language-plaintext highlighter-rouge">&lt;iframe&gt;</code>  스크립트 작성하기</span></li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><img src="/images/2024-07-04-CSRF1/image-20240707061052421.png" alt="image-20240707061052421" /></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">[그림 4-1]</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>스크립트가 있던 페이지에 들어서자 마자 바로 요청이 보내진 건 좋았지만 아직도 어설픈 점이 있다. 바로 요청을 보내자 이메일이 변경된 화면으로 <br />
+이동된다는 <br />
+점이다. 어떻게 해결해야 할까? 바로 [그림 4-1]처럼 <code class="language-plaintext highlighter-rouge">form</code>을 <code class="language-plaintext highlighter-rouge">iframe</code>안에 담으면 된다. <code class="language-plaintext highlighter-rouge">iframe</code>을 모르는 사람들을 위해 간단히 설명하자면, 현재 url이<br />
+아닌 다른 url의 페이지를 가져온다. 비유해보자면 다른 페이지를 포스트 잇에 담아서 가져온다. 실제로 어떤지 다음 그림을 통해 이해해보자.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><img src="/images/2024-07-04-CSRF1/image-20240707062136814.png" alt="image-20240707062136814" /></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">[그림 4-2]</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><code class="language-plaintext highlighter-rouge">iframe</code>을 이용하면 화면이 이동하지도 않고 이와 같이 XSS취약점이 존재하는 페이지에 들어선 것 만으로도 이렇게 피해자의 이메일을 변경될 수 있다. <br />
+마지막으로 <code class="language-plaintext highlighter-rouge">iframe</code>의 흔적이 안 보이게 설정하고, 자연스럽게 만들어 보자. 그러면 피해자가 아무런 의식도 못한 채 이메일이 변경될 것이다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><img src="/images/2024-07-04-CSRF1/image-20240707061404058.png" alt="image-20240707061404058" /></th>
+      <th style="text-align: center"><img src="/images/2024-07-04-CSRF1/image-20240707061422792.png" alt="image-20240707061422792" /></th>
+      <th style="text-align: center"><img src="/images/2024-07-04-CSRF1/image-20240707061507013.png" alt="image-20240707061507013" /></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">[그림 4-3]</td>
+      <td style="text-align: center">[그림 4-4]</td>
+      <td style="text-align: center">[그림 4-5]</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><code class="language-plaintext highlighter-rouge">iframe</code>의 스타일을 display:none으로 설정하고, 자연스럽게 글을 작성했다. 게시판이라고 생각한다면, 피해자는 게시판에서 글 만 읽었을 뿐인데, <br />
+개인 정보가 바뀌는 불상사가 발생했다. 따라서 인증 정보를 확인하고 검증하는 적절한 대책 마련이 중요하다.</p>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#csrf" class="page__taxonomy-item p-category" rel="tag">CSRF</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2024-07-04T00:00:00+09:00">2024-07-04</time></p>
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=CSRF+%EA%B0%9C%EB%85%90%20http%3A%2F%2Flocalhost%3A4000%2Fcsrf%2FCSRF1%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fcsrf%2FCSRF1%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fcsrf%2FCSRF1%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/xss/XSS10/" class="pagination--pager" title="XSS에 이용되는 Javascript 활용하기
+">이전</a>
+    
+    
+      <a href="/csrf/CSRF2/" class="pagination--pager" title="CSRF 방지
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h2 class="page__related-title">참고</h2>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/file/upload/File-Upload/" rel="permalink">File Upload 취약점
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2024-07-19T00:00:00+09:00">2024-07-19</time>
+      </span>
+    
+
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/csrf/CSRF2/" rel="permalink">CSRF 방지
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2024-07-04T00:00:00+09:00">2024-07-04</time>
+      </span>
+    
+
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/xss/XSS10/" rel="permalink">XSS에 이용되는 Javascript 활용하기
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2024-07-02T00:00:00+09:00">2024-07-02</time>
+      </span>
+    
+
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/xss/XSS9/" rel="permalink">XSS에 대응하는 방법
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2024-06-26T00:00:00+09:00">2024-06-26</time>
+      </span>
+    
+
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2024 코딩. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://localhost:4000/csrf/CSRF1/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/csrf/CSRF1"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://ethan.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,40 @@
+/* ==========================================================================
+   TABLES
+   ========================================================================== */
+
+table {
+  margin-bottom: 1em;
+  font-family: $global-font-family;
+  font-size: 11pt;
+  border-collapse: collapse;
+  overflow-x: auto;
+  margin:auto;
+  width: 100%;
+  
+
+  & + table {
+    margin-top: 1em;
+  }
+}
+
+thead {
+  background-color: $border-color;
+}
+
+th {
+  padding: 0.1em;
+  font-weight: bold;
+  text-align: left;
+  background-color:#808080;
+}
+
+td {
+  padding: 0.1em;
+ 
+}
+
+tr,
+td,
+th {
+  vertical-align: middle;
+}

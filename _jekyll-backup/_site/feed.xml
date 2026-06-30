@@ -1,0 +1,1075 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-07-23T02:57:25+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">나의 코딩 공부</title><subtitle>ethan의 블로그</subtitle><author><name>ethan</name></author><entry><title type="html">File Upload 취약점</title><link href="http://localhost:4000/file/upload/File-Upload/" rel="alternate" type="text/html" title="File Upload 취약점" /><published>2024-07-19T00:00:00+09:00</published><updated>2024-07-19T00:00:00+09:00</updated><id>http://localhost:4000/file/upload/File%20Upload</id><content type="html" xml:base="http://localhost:4000/file/upload/File-Upload/"><![CDATA[<p><br /></p>
+
+<h1 id="1file-upload-취약점1"><span style="background:#000000; color:#ffffff">1.File Upload 취약점(1) </span></h1>
+
+<p><br /><span style="font-weight:bold; font-size:15px"> ※ 주의 사항 :</span></p>
+
+<p><span style="font-weight:bold; font-size:15px">1. 교육 목적으로만 이용 해주세요.</span><br />
+<span style="font-weight:bold; font-size:15px">2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다.</span><br />
+<span style="font-weight:bold; font-size:15px">3.  개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. </span></p>
+
+<p><br /></p>
+
+<h2 id="11-file-upload-개념"><span style="background:#696969; color:#ffffff">1.1 File Upload 개념 </span></h2>
+
+<p><br /></p>
+
+<p>공격자가 자신이 원하는 임의의 파일을 서버에 업로드하는 공격이다.</p>
+<table style="width:60%; justify-content:center;">
+  <tr>
+    <th>
+        <img src="/images/2024-07-19-File Upload/image-20240719222359001.png" style="display: flex;
+  justify-content: center;
+  align-items:center;
+  " />
+    </th>
+  </tr>
+  <tr>
+    <td style="text-align:center;">[그림 1-1]</td>
+  </tr>
+</table>
+<p>개발자는 필요에 따라 웹 애플리케이션에 사용자가 파일을 업로드할 수 있는 기능을 넣기도 한다. 이러한 경우 파일의 검증, 검사를 거치지 않는 다면 서버에 악성 파일이 업로드할 수 있는 문제가 발생한다.</p>
+
+<p><br /></p>
+
+<h2 id="12-file-upload-공격-시나리오-유형"><span style="background:#696969; color:#ffffff">1.2 File Upload 공격 시나리오 유형 </span></h2>
+
+<p><br /></p>
+
+<ol>
+  <li>
+    <p>서버 측 실행 파일 업로드</p>
+
+    <p>공격자는 원하는 명령 코드가 담긴 악성 파일을 서버에 업로드 할 수 있다면 이 파일은 서버 측에서 실행된다.  목적에 따라 시스템을 장악하기도 하고 손상 시키기도 한다. 대표적으로 웹쉘</p>
+  </li>
+  <li>
+    <p>파일 이름 조작</p>
+  </li>
+</ol>
+
+<p>파일이름을 변조해서 다른 경로로 파일을 저장할 수 있고, 시스템 파일을 덮어쓸 수 있다.  대표적으로 deface 공격이 있는데 index.html 파일 이름을 변조해서 기존의 메인 페이지 파일을 덮어쓴다.</p>
+
+<ol>
+  <li>
+    <p>악성 콘텐츠 삽입</p>
+
+    <p>파일 내부에 악성 코드를 삽입하여 서버 측에 악성 코드를 실행시킨다. 서버 측 실행 파일 업로드 공격 방법과 목적이 조금 다르다. 악성 콘텐츠 삽입은 클라이언트 측 브라우저에 실행하여 정보를 탈취하려는 목적을 두고 있다.  예를 들어 Stored xss와 같이 악성스크립트를 업로드하거나 HTML 콘텐츠가 포함된 파일(login 폼 등)을 업로드하는 방법이 있다.</p>
+  </li>
+  <li>
+    <p>대형 파일 업로드</p>
+
+    <p>대용량 파일을 반복적으로 업로드해서 서버의 디스크 공간을 고갈시켜 DOS 상태를 유발한다.</p>
+  </li>
+</ol>
+
+<p><br /></p>
+
+<h2 id="13-웹쉘-공격"><span style="background:#696969; color:#ffffff">1.3 웹쉘 공격  </span></h2>
+
+<p><br /></p>
+
+<p>웹쉘 공격은 서버를 장악해서 다양한 활동에 용이하다. 그런 범용성이 넓다는 이유로 파일 업로드 공격을 통해 발생하는 보안 사고 중 상당 부분이 웹쉘 공격과 관련이 있다. 따라서 웹쉘 공격을 중점적으로 알아보려고 한다.</p>
+<table style="width:60%; justify-content:center;">
+  <tr>
+    <th>
+        <img src="/images/2024-07-19-File Upload/image-20240720191712567.png" style="display: flex;
+  justify-content: center;
+  align-items:center;
+  " />
+    </th>
+  </tr>
+  <tr>
+    <td style="text-align:center;">[그림 2-1]</td>
+  </tr>
+</table>
+
+<p>[그림 2-1]은 잘 알려진 Windows 운영체제의 텍스트 기반 쉘이다. 명령 프롬프트, CMD(command prompt)라고 부르기도 한다. 사용자는 CMD를 통해 명령어를 작성하고  시스템 작업을 수행할 수 있다. 이처럼 shell은 사용자의 명령어를 해석하여 원하는 작업을 운영체제에 전달하고 그 실행 결과를 보여 주는 역할이다.</p>
+
+<p>웹쉘은 command shell 처럼 운영체제에서 이루어지지는 것은 아니지만 웹 서버에서 작동한다는 환경만 다를 뿐 본질은 같다. 대신 웹쉘은 PHP, ASP, JSP, Python 등 웹 서버에서  실행 가능한 스크립트 언어로 작성된다.</p>
+
+<p>웹쉘 공격을 하기 위해서 2가지 전제 조건이 필요하다.</p>
+
+<ol>
+  <li>
+    <p>웹 서버 측 실행코드로 업로드 해야 한다.</p>
+  </li>
+  <li>
+    <p>업로드된 파일의 경로를 알아야한다.</p>
+
+    <p>1번 이유 웹 서버는 특정 스크립트 언어와 관련된 확장자 파일을 실행할 수 있도록 설정된다. 예를 들어 php 서버는 .php, jsp서버는 .jsp 파일을 실행할 수 있다.</p>
+
+    <p>설정에 따라 잘못된 확장자로 업로드된 파일은 서버에서 실행되지 않는다.</p>
+
+    <p>2번의 경우</p>
+  </li>
+</ol>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><img src="/images/2024-07-19-File Upload/image-20240721014813109.png" alt="image-20240721014813109" /></th>
+      <th style="text-align: center"><img src="/images/2024-07-19-File Upload/image-20240722175011767.png" alt="image-20240722175011767" /></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">[그림 2-1]</td>
+      <td style="text-align: center">[그림 2-2]</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>업로드 된 파일의 경로를 알아야 요청을 보내서 파일을 실행시킬 수 있기 때문이다.</p>
+
+<p>미리 서버에 실행 할 수 있는 확장자를 아는 방법 없나요?</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">HTTP/1.1 200 OK</span>
+<span class="na">Date</span><span class="pi">:</span> <span class="s">Mon, 01 Jan 2021 00:00:00 GMT</span>
+<span class="na">Server</span><span class="pi">:</span> <span class="s">Apache-Coyote/1.1</span>
+<span class="na">X-Powered-By</span><span class="pi">:</span> <span class="s">Spring</span>
+<span class="na">Content-Type</span><span class="pi">:</span> <span class="s">text/html;charset=UTF-8</span>
+</code></pre></div></div>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">HTTP/1.1 200 OK</span>
+<span class="na">Date</span><span class="pi">:</span> <span class="s">Mon, 01 Jan 2021 00:00:00 GMT</span>
+<span class="na">Server</span><span class="pi">:</span> <span class="s">Apache/2.4.29 (Ubuntu)</span>
+<span class="na">X-Powered-By</span><span class="pi">:</span> <span class="s">PHP/7.2.24</span>
+<span class="na">Content-Type</span><span class="pi">:</span> <span class="s">text/html; charset=UTF-8</span>
+</code></pre></div></div>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">HTTP/1.1 200 OK</span>
+<span class="na">Date</span><span class="pi">:</span> <span class="s">Mon, 01 Jan 2021 00:00:00 GMT</span>
+<span class="na">Server</span><span class="pi">:</span> <span class="s">Microsoft-IIS/10.0</span>
+<span class="na">X-Powered-By</span><span class="pi">:</span> <span class="s">ASP.NET</span>
+<span class="na">Content-Type</span><span class="pi">:</span> <span class="s">text/html</span>
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p><strong>Spring Framework</strong>: Spring을 사용하는 웹 애플리케이션은 일반적으로 <code class="language-plaintext highlighter-rouge">.jsp</code> 파일을 뷰 레이어로 사용합니다.</p>
+  </li>
+  <li>
+    <p><strong>IIS 서버</strong>: Microsoft IIS 서버는 일반적으로 <code class="language-plaintext highlighter-rouge">.asp</code>, <code class="language-plaintext highlighter-rouge">.aspx</code> 파일을 실행할 수 있습니다.</p>
+  </li>
+  <li>
+    <p><strong>Apache 서버</strong>: Apache 서버는 일반적으로 <code class="language-plaintext highlighter-rouge">.php</code>, <code class="language-plaintext highlighter-rouge">.cgi</code> 파일을 실행할 수 있습니다.</p>
+
+    <p>응답 값으로 어떤 서버를 이용하는지 유추는 가능하지만 응답 값에 나오지 않은 경우도 많으므로 여러 방법을 시도해서 정보를 얻어내는 것이 좋다.</p>
+  </li>
+</ul>
+
+<p>다음은 php web shell</p>
+
+<p><code class="language-plaintext highlighter-rouge">&lt;?php echo system($_GET['cmd']);?&gt;</code></p>]]></content><author><name>ethan</name></author><category term="File" /><category term="Upload" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">CSRF 개념</title><link href="http://localhost:4000/csrf/CSRF1/" rel="alternate" type="text/html" title="CSRF 개념" /><published>2024-07-04T00:00:00+09:00</published><updated>2024-07-04T00:00:00+09:00</updated><id>http://localhost:4000/csrf/CSRF1</id><content type="html" xml:base="http://localhost:4000/csrf/CSRF1/"><![CDATA[<p><br /></p>
+
+<h1 id="1csrf1"><span style="background:#000000; color:#ffffff">1.CSRF(1) </span></h1>
+
+<p><br /><span style="font-weight:bold; font-size:15px"> ※ 주의 사항 :</span></p>
+
+<p><span style="font-weight:bold; font-size:15px">1. 교육 목적으로만 이용 해주세요.</span><br />
+<span style="font-weight:bold; font-size:15px">2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다.</span><br />
+<span style="font-weight:bold; font-size:15px">3.  개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. </span></p>
+
+<p><br /></p>
+
+<h2 id="11-개념"><span style="background:#696969; color:#ffffff">1.1 개념 </span></h2>
+
+<p><br /></p>
+
+<blockquote>
+  <p><span style="font-weight:bold; font-size:20px;background-color:#f0ffff">CSRF(Cross-Site Requset Forgery)가 무엇인가?</span></p>
+</blockquote>
+
+<p>공격자가 피해자를 하여금 서버로 임의의 요청을 하게 만드는 웹 보안 취약점이다. 예를 들어, 피해자가 로그인한 상태에서 CSRF 링크를 클릭하면, <br />
+링크에 담긴 요청이 실제 피해자가 한 것으로 인식되어 요청을 정상적으로 처리한다. 이러한 공격을 통해 공격자는 피해자의 계정으로 정보를 <br />
+변경하거나 결제, 이체 등을 수행할 수 있다. 이는 피해자가 심각한 금전적 손실을 보거나 계정을 완전히 탈취당할 위험이 있는 공격이다.</p>
+
+<h2 id="12-csrf-vs-xss"><span style="background:#696969; color:#ffffff">1.2 CSRF vs XSS</span></h2>
+
+<blockquote>
+  <p><span style="font-weight:bold; font-size:20px;background-color:#f0ffff">공통점</span></p>
+</blockquote>
+
+<p>두 공격 모두 클라이언트 측 공격이고, 링크를 클릭하도록 피해자를 유도하는 방법을 이용한다. 그렇지만 공격하는 목표와 과정이  다르다는 것을 명심해야 한다.</p>
+
+<blockquote>
+  <p><span style="font-weight:bold; font-size:20px;background-color:#f0ffff">차이점</span></p>
+</blockquote>
+
+<p><span style="font-weight:1000; font-size:17px">1. 취약점의 공격 적용 범위</span></p>
+
+<ul>
+  <li>
+    <p>CSRF는 주로 사용자가 할 수 있는 특정한 행동에만 영향을 준다. 예를 들면, 비밀번호를 변경하거나 돈을 이체하는 등의 특정 요청을 보낸다.</p>
+  </li>
+  <li>
+    <p>XSS는 사용자가 할 수 있는 모든 행동에 영향을 미칠 수 있다. 예를 들면 세션을 탈취하거나 데이터 변조를 변조하고, 사용자의 권한으로 임의의 <br />
+작업을 수행할 수 있다.</p>
+  </li>
+</ul>
+
+<p><span style="font-weight:1000; font-size:17px">2. 요청과 응답</span></p>
+
+<ul>
+  <li>
+    <p>CSRF는 공격자가 피해자를 하여금 HTTP 요청을 보내게 할 수 있지만, 그 요청에 대한 응답은 확인 할 수 없다. 즉, 공격자는 피해자가 요청하게 <br />
+만들 수는 있지만 결과는 볼 수 없다.</p>
+  </li>
+  <li>
+    <p>XSS는 공격자는 삽입된 스크립트로 임의의 요청을 보낼 수 있으며, 그 응답을 읽어 낼 수 있다. 그 예로 외부 도메인으로 데이터 유출이 가능하다.</p>
+  </li>
+</ul>
+
+<h2 id="13-csrf-featxss"><span style="background:#696969; color:#ffffff">1.3 CSRF (feat.XSS)</span></h2>
+
+<p>일반적으로 CSRF는 공격자가 피해자에게 링크를 전달하고, 피해자가 링크를 클릭하면 임의의 요청을 하게 만드는 방식으로 설명된다. 그렇다면, XSS와<br />
+함께 사용된다면 어떤 일이 벌어질까?</p>
+
+<p>링크를 클릭하지 않더라도 XSS 취약점이 있는 페이지에 들어온 것만으로도 CSRF를 일으킬 수 있다. 이는 XSS를 통해 악성 스크립트를 작성하여 CSRF<br />
+요청을 자동으로 실행하게 만들기 때문이다. 이 결과는 잠시 뒤에 실습에서 후술하겠다.<br />
+<br /></p>
+
+<p><span style="font-weight:1000;color:orange;">⚠</span><span style="font-weight:1000; font-size:17px">주의</span><span style="font-weight:1000;color:orange;">⚠</span></p>
+
+<p>단순히 CSRF 공격 하나만 고려한다면, HTTP METHOD를 GET에서 POST로 변경하기만 해도 방지할 수 있다고 생각할 수 있다. 하지만 앞에서 살펴<br />
+보았듯이 XSS 공격과 결합한다면, form 태그를 이용해서 POST METHOD로 파라미터를 요청할 수 있기 때문에 HTTP METHOD를 GET에서 POST로<br />
+변경하는 것만으로 는 방지할 수 없다.</p>
+
+<h2 id="14-csrf-발생하는-곳"><span style="background:#696969; color:#ffffff">1.4 CSRF 발생하는 곳</span></h2>
+
+<table style="width:20%; justify-content:center;">
+  <tr>
+    <th>
+        <img src="/images/2024-07-04-CSRF1/모두가 인정하는 위치-1720192488959-7.png" style="display: flex;
+  justify-content: center;
+  align-items:center;
+  zoom:75%;" />
+    </th>
+  </tr>
+  <tr>
+    <td style="text-align:center;">[그림 1-1]</td>
+  </tr>
+</table>
+<p>일반적으로 CSRF 웹 보안 취약점은 피해자 계정의 정보를 변경하거나 금전적 손실을 초래할 수 있는 곳에 있다고 생각한다. 그런데 컨설턴트의 주관에<br />
+따라서 취약점의 범위가 더 넓어질 수 있다. 예를 들어, CSRF로 피해자에게 임의의 게시물을 작성하게 만들 수 있다. 어떤 컨설턴트는 익명이 보장되고<br />
+게시물을 삭제할 수 있으므로 취약점이 아니라고 주장할 수 있지만, 다른 컨설턴트는 신원 도용, 프라이버시 침해 등 개인정보 보호법 위반이라고 볼 수<br />
+있다.</p>
+
+<h2 id="15-csrf가-중요한-이유"><span style="background:#696969; color:#ffffff">1.5 CSRF가 중요한 이유</span></h2>
+
+<p>개발자들이 디자인, 실용성, 편의성 등을 중시하다 보면, 사용자 인증 과정 없이도 특정 행동이 가능하게 만드는 실수를 자주 하게 된다. 따라서 CSRF는<br />
+다른 취약점보다 쉽게 발견할 수 있다. 그렇기 때문에 CSRF의 보안 절차와 취약점에 대해 자세히 알면 이러한 공격을 예방하는 데 큰 도움이 된다.</p>
+
+<h2 id="16-csrf-실습"><span style="background:#696969; color:#ffffff">1.6 CSRF 실습</span></h2>
+<p><br /></p>
+<h3 id="-csrf만-이용한-공격">-<span style="font-weight:bold; font-size:22px;background-color:#f0ffff">CSRF만 이용한 공격</span><br /></h3>
+
+<p>다음은 DVWA에서 CSRF실습을 하는 과정이다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><img src="/images/2024-07-04-CSRF1/image-20240706065219647.png" alt="image-20240706065219647" /></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">[그림 2-1]</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>위의 [그림 2-1] 와 같이 CSRF의 실습을 진행한다. 새로 변경할 비밀번호를 적고, 요청을 보내는 식이다. 지금 화면에는 보이지 않지만 1234라는 <br />
+비밀번호로 제출했다. 이 요청이 어떤 파라미터의 데이터로 보내는 지 확인을 해야 CSRF인지 아닌지 알 수 있다. 따라서 Burp Suite으로 확인해보겠다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><img src="/images/2024-07-04-CSRF1/image-20240706072432936.png" alt="image-20240706072432936" /></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">[그림 2-2]</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>GET METHOD, /DVWA-master/vulnerablilites/csrf/?password_new=1234&amp;password_conf=1234&amp;Change=Change 요청(Request)을 <br />
+보내는 것을 알 수 있다. CSRF는 누군가를 이용하거나 피해를 줄 수 있는 상황에서 본인을 인증할 정보가 포함되지 않은 모든 요청이 취약점이 될 수 있다. <br />
+[그림 2-2]의 파라미터에는 변경할 비밀번호만 포함되어 있기 때문에, 공격자는 이를 이용하여 링크를 전달해서 피해자의 비밀번호를 변경할 수 있다.</p>
+
+<p><br /></p>
+
+<h3 id="-csrf-와-xss-모두-이용한-공격">-<span style="font-weight:bold; font-size:22px;background-color:#f0ffff">CSRF 와 XSS 모두 이용한 공격</span></h3>
+
+<ul>
+  <li><span style="font-weight:bold; font-size:18px;background-color:#fff0f5">XSS로 <code class="language-plaintext highlighter-rouge">&lt;form&gt;</code>  스크립트 작성하기</span></li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><img src="/images/2024-07-04-CSRF1/image-20240707041321298.png" alt="image-20240707041321298" /></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">[그림 3-1]</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>지금부터는 portswigger 사이트의 LAB: CSRF vulnerability with no defenses 이다. 포스팅을 보고 난 뒤에 스스로 해보길 바란다. 로그인을 하고<br />
+MY Account에 들어가 보면 다음과 같은 페이지가 나온다. 이메일을 변경하는 폼을 포함된 페이지이다. 이 동작은 개인 정보를 바꾸는 행위이므로, <br />
+인증 정보가 포함된 요청이 아니라면 CSRF 취약점이라고 할 수 있다. Burp Suite을 통해 자세히 살펴보자.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><img src="/images/2024-07-04-CSRF1/image-20240707060252982.png" alt="image-20240707060252982" /></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">[그림 3-2]</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>POST 방식으로 요청을 보내고 있고, 파라미터는 변경할 이메일만 작성되어 있다. 따라서 CSRF 취약점이 된다. 그렇지만 POST 방식이기 때문에, <br />
+링크를 보낼 url안에 파라미터가 없다. 이는 XSS취약점을 이용해서 다음과 같이 문제를 해결할 수 있다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><img src="/images/2024-07-04-CSRF1/image-20240707043037237.png" alt="image-20240707043037237" /></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">[그림 3-3]</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>아까 이메일을 변경할 수 있었던 화면에서 <code class="language-plaintext highlighter-rouge">Go to exploit sever</code> 버튼을 누르게 되면, [그림 3-3] 처럼 스크립트를 작성할 수 있는 페이지가 있다. <br />
+이제 <code class="language-plaintext highlighter-rouge">form</code> 태그를 이용하면 된다. <code class="language-plaintext highlighter-rouge">POST</code>방식으로, 보낼 URL은 이메일을 변경할 수 있는 페이지이고 <code class="language-plaintext highlighter-rouge">input</code> 박스에 변경할 이메일을 담아 제출하는 <br />
+스크립트를 작성했다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><img src="/images/2024-07-04-CSRF1/image-20240707043109762.png" alt="image-20240707043109762" /></th>
+      <th style="text-align: center"><img src="/images/2024-07-04-CSRF1/image-20240707043159671.png" alt="image-20240707043159671" /></th>
+      <th style="text-align: center"><img src="/images/2024-07-04-CSRF1/image-20240707042011749.png" alt="image-20240707042011749" /></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">[그림 3-4]</td>
+      <td style="text-align: center">[그림 3-5]</td>
+      <td style="text-align: center">[그림 3-6]</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>[그림 3-4]에 들어온 피해자가 제출을 누르게 되면, [그림 3-5]처럼 화면이 이동한다. 왜냐하면 이메일 변경 요청을 보냈기 때문에 그에 대한 반응 값이 <br />
+나타나기 때문이다.  [그림 3-6]은 submit 버튼을 누르자 burp suite에서 확인 할 수 있었던 요청이다. 지금까지 <code class="language-plaintext highlighter-rouge">form</code>으로 요청을 보낸 작업이 직접<br />
+이메일을 변경한 [그림 3-2]와 같으므로 두 결과가 같다는 사실을 알 수 있다. 이렇듯 XSS를 이용해서 CSRF공격을 시도했지만 [그림 3-4] 같은 공격을<br />
+한다면, 너무 어설픈 공격처럼 보여서 아무도 클릭을 누르지 않을 것이다. 다음 그림은 <code class="language-plaintext highlighter-rouge">input</code>박스를 안 보이게 숨기고, 페이지에 들어오기만 하면 바로<br />
+요청을 보내도록 설계했다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><img src="/images/2024-07-04-CSRF1/image-20240707055523591.png" alt="image-20240707055523591" /></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">[그림 3-7]</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><code class="language-plaintext highlighter-rouge">input</code> 태그 안에 type을 hidden 으로 바꾸면, 박스는 보이지 않는다. 그리고 <code class="language-plaintext highlighter-rouge">&lt;script&gt;</code> 를 작성해서 <code class="language-plaintext highlighter-rouge">form</code>개체의 속성을 submit한다고 작성하면 <br />
+원하는 모습이 된다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><img src="/images/2024-07-04-CSRF1/image-20240707055600629.png" alt="image-20240707055600629" /></th>
+      <th style="text-align: center"><img src="/images/2024-07-04-CSRF1/image-20240707044719704.png" alt="image-20240707044719704" /></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">[그림 3-8]</td>
+      <td style="text-align: center">[그림 3-9]</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>스크립트 페이지에 들어서자 마자 바로, [그림 3-8] 로 화면이 이동되었다. 데이터가 자동으로 제출되어 이메일을 변경했기 때문이다. 그 사실은 <br />
+[그림 3-9]를 통해 알 수 있다.<br /></p>
+
+<ul>
+  <li><span style="font-weight:bold; font-size:18px;background-color:#fff0f5">XSS로 <code class="language-plaintext highlighter-rouge">&lt;iframe&gt;</code>  스크립트 작성하기</span></li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><img src="/images/2024-07-04-CSRF1/image-20240707061052421.png" alt="image-20240707061052421" /></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">[그림 4-1]</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>스크립트가 있던 페이지에 들어서자 마자 바로 요청이 보내진 건 좋았지만 아직도 어설픈 점이 있다. 바로 요청을 보내자 이메일이 변경된 화면으로 <br />
+이동된다는 <br />
+점이다. 어떻게 해결해야 할까? 바로 [그림 4-1]처럼 <code class="language-plaintext highlighter-rouge">form</code>을 <code class="language-plaintext highlighter-rouge">iframe</code>안에 담으면 된다. <code class="language-plaintext highlighter-rouge">iframe</code>을 모르는 사람들을 위해 간단히 설명하자면, 현재 url이<br />
+아닌 다른 url의 페이지를 가져온다. 비유해보자면 다른 페이지를 포스트 잇에 담아서 가져온다. 실제로 어떤지 다음 그림을 통해 이해해보자.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><img src="/images/2024-07-04-CSRF1/image-20240707062136814.png" alt="image-20240707062136814" /></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">[그림 4-2]</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><code class="language-plaintext highlighter-rouge">iframe</code>을 이용하면 화면이 이동하지도 않고 이와 같이 XSS취약점이 존재하는 페이지에 들어선 것 만으로도 이렇게 피해자의 이메일을 변경될 수 있다. <br />
+마지막으로 <code class="language-plaintext highlighter-rouge">iframe</code>의 흔적이 안 보이게 설정하고, 자연스럽게 만들어 보자. 그러면 피해자가 아무런 의식도 못한 채 이메일이 변경될 것이다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><img src="/images/2024-07-04-CSRF1/image-20240707061404058.png" alt="image-20240707061404058" /></th>
+      <th style="text-align: center"><img src="/images/2024-07-04-CSRF1/image-20240707061422792.png" alt="image-20240707061422792" /></th>
+      <th style="text-align: center"><img src="/images/2024-07-04-CSRF1/image-20240707061507013.png" alt="image-20240707061507013" /></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">[그림 4-3]</td>
+      <td style="text-align: center">[그림 4-4]</td>
+      <td style="text-align: center">[그림 4-5]</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><code class="language-plaintext highlighter-rouge">iframe</code>의 스타일을 display:none으로 설정하고, 자연스럽게 글을 작성했다. 게시판이라고 생각한다면, 피해자는 게시판에서 글 만 읽었을 뿐인데, <br />
+개인 정보가 바뀌는 불상사가 발생했다. 따라서 인증 정보를 확인하고 검증하는 적절한 대책 마련이 중요하다.</p>]]></content><author><name>ethan</name></author><category term="CSRF" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">CSRF 방지</title><link href="http://localhost:4000/csrf/CSRF2/" rel="alternate" type="text/html" title="CSRF 방지" /><published>2024-07-04T00:00:00+09:00</published><updated>2024-07-04T00:00:00+09:00</updated><id>http://localhost:4000/csrf/CSRF2</id><content type="html" xml:base="http://localhost:4000/csrf/CSRF2/"><![CDATA[<p><br /></p>
+
+<h1 id="1csrf2"><span style="background:#000000; color:#ffffff">1.CSRF(2) </span></h1>
+
+<p><br /><span style="font-weight:bold; font-size:15px"> ※ 주의 사항 :</span></p>
+
+<p><span style="font-weight:bold; font-size:15px">1. 교육 목적으로만 이용 해주세요.</span><br />
+<span style="font-weight:bold; font-size:15px">2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다.</span><br />
+<span style="font-weight:bold; font-size:15px">3.  개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. </span></p>
+
+<p><br /></p>
+
+<h2 id="11-csrf-방지하는-법"><span style="background:#696969; color:#ffffff">1.1  CSRF 방지하는 법</span></h2>
+
+<p><br /></p>
+
+<p>csrf 방지하는 방법</p>
+
+<p>근본적인 방법</p>
+
+<ul>
+  <li>본인만 알 수 있는 인증정보를 작성하도록 해서 같이 제출하기</li>
+</ul>
+
+<p>csrf 는 모든 요청에서 일어날 수 있는데 전부 인증정보를 작성하게 만든다면
+사용자가 불편할 뿐만 아니라 개발에 어려움이 있다.
+그래서 주관적인 이지만 본인 이외의 다른 사람이 임의로 서버에 요청하면 문제를 일으킬 만한 곳은
+csrf 토큰과 referer 헤더 검증을 거친다.</p>
+
+<p>referer 헤더 검증에서 해당 경로가 아니면 서버 응답이 거절되는데, 이는 개발자가 사이트를 만들 때, 확장성 제한이 발생하는데</p>
+
+<p>보안 전문가로서 개발자가 확장성 문제로 Referer 헤더 검증을 느슨하게 설정하길 원할 때 개발자에게 보안 위험을 충분히 인식시키고, 
+가능한 대안을 제시한 후 최종 결정을 개발자와 비즈니스 이해관계자가 내리도록 하는 것이 중요합니다. 이 과정에서 보안과 확장성 사이의 균형을 맞추는 것이 핵심입니다.
+그리고 referer 헤더  검증이 개발자에 의해 우회가 되는 경우가 있는데,<code class="language-plaintext highlighter-rouge">&lt;meta name="referrer" content="no-referrer"&gt;</code> 를 써서 헤더가 없음에도 정상적으로 처리가 된다.</p>
+
+<p>sop same origin policy
+같은 출처의 자원에만 접근할 수있다. 개발자가 설정하는 게 아니라 웹 브라우저가 자동으로 적용하는 보안 정책이다.</p>
+
+<p>같은 출처
+-도메인
+-포트
+-스키마</p>
+
+<p>다른 출처의 자원에 접근하지 못하게 스크립트가 작동하지 않는다.</p>]]></content><author><name>ethan</name></author><category term="CSRF" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">XSS에 이용되는 Javascript 활용하기</title><link href="http://localhost:4000/xss/XSS10/" rel="alternate" type="text/html" title="XSS에 이용되는 Javascript 활용하기" /><published>2024-07-02T00:00:00+09:00</published><updated>2024-07-02T00:00:00+09:00</updated><id>http://localhost:4000/xss/XSS10</id><content type="html" xml:base="http://localhost:4000/xss/XSS10/"><![CDATA[<p><br /></p>
+
+<h1 id="1-xss4"><span style="background:#000000; color:#ffffff">1. XSS(4)</span></h1>
+
+<p><br /><span style="font-weight:bold; font-size:15px"> ※ 주의 사항 :</span></p>
+
+<p><span style="font-weight:bold; font-size:15px">1. 교육 목적으로만 이용 해주세요.</span><br />
+<span style="font-weight:bold; font-size:15px">2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다.</span><br />
+<span style="font-weight:bold; font-size:15px">3.  개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. </span></p>
+
+<p><br /></p>
+
+<h2 id="11-개요"><span style="background:#696969; color:#ffffff">1.1 개요 </span></h2>
+
+<p><br /></p>
+
+<p>page redirect</p>
+
+<p>location.href=”주소”</p>
+
+<p>location.replace(“주소”)</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><img src="/images/2024-07-02-XSS10/image-20240703195236291.png" alt="image-20240703195236291" /></th>
+      <th style="text-align: center"><img src="/images/2024-07-02-XSS10/image-20240703195337475.png" alt="image-20240703195337475" /></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">[그림 1-1]</td>
+      <td style="text-align: center">[그림 1-2]</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>주소창 변조</p>
+
+<p>history.pushState(null,null,’test’)</p>
+
+<p>DOM객체에 접근하기</p>
+
+<p>document</p>
+
+<p>document.getElementById(‘’)</p>
+
+<p>document.getElementsByClassName(‘’)[0]</p>
+
+<p>document.getElementsByClassName(‘’)[1]</p>
+
+<p>document.getElementsByClassName(‘’)[0].id</p>
+
+<p>document.getElementsByClassName(‘’)[0].className</p>
+
+<p>document.getElementsByClassName(‘’)[0].innerHTML</p>
+
+<p>예제를 통한 활용 더 알아보기</p>
+
+<ol>
+  <li>
+    <p>Dom 객체에 접근할 때,작성한 스크립트가  페이지가 로드되지 않았는데 실행될 때.</p>
+  </li>
+  <li>
+    <p>xss취약점이 발견된 곳에서 다른 페이지의 정보를 가져오고 싶을때.</p>
+
+    <p><code class="language-plaintext highlighter-rouge">&lt;iframe src=" "id=""&gt;&lt;/iframe&gt;</code></p>
+  </li>
+</ol>
+
+<p><code class="language-plaintext highlighter-rouge">&lt;script&gt;var targetTag=document.getElementById('targetFrame');var DOMData=targetTag.contentDocument;</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">DOMData.getElementById('')&lt;/script&gt;</code></p>]]></content><author><name>ethan</name></author><category term="XSS" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">XSS에 대응하는 방법</title><link href="http://localhost:4000/xss/XSS9/" rel="alternate" type="text/html" title="XSS에 대응하는 방법" /><published>2024-06-26T00:00:00+09:00</published><updated>2024-06-26T00:00:00+09:00</updated><id>http://localhost:4000/xss/XSS9</id><content type="html" xml:base="http://localhost:4000/xss/XSS9/"><![CDATA[<p><br /></p>
+
+<h1 id="1-xss3"><span style="background:#000000; color:#ffffff">1. XSS(3)</span></h1>
+
+<p><br /><span style="font-weight:bold; font-size:15px"> ※ 주의 사항 :</span></p>
+
+<p><span style="font-weight:bold; font-size:15px">1. 교육 목적으로만 이용 해주세요.</span><br />
+<span style="font-weight:bold; font-size:15px">2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다.</span><br />
+<span style="font-weight:bold; font-size:15px">3.  개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. </span></p>
+
+<p><br /></p>
+
+<h2 id="11-개요"><span style="background:#696969; color:#ffffff">1.1 개요 </span></h2>
+
+<p><br /></p>
+
+<p>이전에 XSS의 공격 기법 3 가지에 대해 알아보았다.  <code class="language-plaintext highlighter-rouge">Stored XSS</code>, <code class="language-plaintext highlighter-rouge">flected XSS</code>, <code class="language-plaintext highlighter-rouge">DOM Based XSS</code>  <br />
+그렇다면 어떻게 이러한 공격을 막을 수 있을까. 스크립트를 작성할 수 없도록 차단하는 법, <br />
+스크립트를 작성할 수 있지만 차단하는 법을 소개하겠다.<br /></p>
+
+<h2 id="12-스크립트-작성-자체를-방지하기"><span style="background:#696969; color:#ffffff">1.2 스크립트 작성 자체를 방지하기 </span></h2>
+
+<h3 id="121-필터링"><span style="font-weight:bold;background-color:#7fffd4">1.2.1 필터링</span><br /></h3>
+
+<p>필터링에는 2 가지의 필터링 방법이 있다. <code class="language-plaintext highlighter-rouge">블랙 리스트</code>, <code class="language-plaintext highlighter-rouge">화이트 리스트</code> 이다. <br />
+<code class="language-plaintext highlighter-rouge">블랙 리스트</code>는  특정 단어나 패턴을 금지하는 방법이고,   <code class="language-plaintext highlighter-rouge">화이트 리스트</code>는 허용된 단어나 패턴만 사용할 수 있게 하는 방법이다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">화이트 리스트</code>는 스크립트 작성 자체를 방지하기 위해 사용되지는 않는다. <br />
+이 방식은 매우 안전하고 강력한 보안을 제공하지만 사용자가 입력할 수 있는 범위가 제한되어 불편함을 느낄 수 있다. 특히, 다양한 입력이 필요한 애플리케이션에서는 적용하기 어렵다.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// [화이트 리스트 예시, hi 와 hello 만 쓸 수 있도록 작성] //</span>
+
+<span class="kd">function</span> <span class="nf">whitelist</span><span class="p">(</span><span class="nx">input</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">list</span> <span class="o">=</span> <span class="p">[</span><span class="dl">'</span><span class="s1">hi</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">hello</span><span class="dl">'</span><span class="p">];</span>
+    <span class="c1">//toLowercase: 모두 소문자로 바꾸기, includes: 포함된 글자가 있으면 true 없으면 false</span>
+    <span class="k">if </span><span class="p">(</span><span class="nx">list</span><span class="p">.</span><span class="nf">includes</span><span class="p">(</span><span class="nx">input</span><span class="p">.</span><span class="nf">toLowerCase</span><span class="p">()))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">input</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="dl">''</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">userInput1</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">hi</span><span class="dl">"</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">userInput2</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">hello</span><span class="dl">"</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">userInput3</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">hey</span><span class="dl">"</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">userInput4</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">HELLO</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nf">whitelist</span><span class="p">(</span><span class="nx">userInput1</span><span class="p">));</span> <span class="c1">// "hi"</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nf">whitelist</span><span class="p">(</span><span class="nx">userInput2</span><span class="p">));</span> <span class="c1">// "hello"</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nf">whitelist</span><span class="p">(</span><span class="nx">userInput3</span><span class="p">));</span> <span class="c1">// ""</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nf">whitelist</span><span class="p">(</span><span class="nx">userInput4</span><span class="p">));</span> <span class="c1">// "HELLO"</span>
+</code></pre></div></div>
+
+<p><br />그러한 이유로  <code class="language-plaintext highlighter-rouge">블랙 리스트</code> 필터링 방식을 많이 사용한다. 금지할 단어나 패턴을 미리 정의하고, 사용자가 정의한 내용을 입력하면 차단한다. 이러한 방식은 사용자에게 더 많은 입력의 자유를 제공하면서도 XSS 공격을 차단할 수 있는 장점이 있다.  그러나 새로운 공격 방법이 생겨날 때 마다 <code class="language-plaintext highlighter-rouge">블랙 리스트</code>를 지속적으로 업데이트를 해야 하고 우회 될 가능성이 있다는 단점이 존재한다.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// [블랙 리스트 예시, 우회하기] //</span>
+
+<span class="cm">/* 1. Script를 차단 하는 경우 */</span>
+
+<span class="c1">// 1.1 이용자의 입력칸 글자 수를 제한 하는 경우, 외부 스크립트를 가져오는 우회. </span>
+		<span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span><span class="nx">글자</span> <span class="nx">수</span> <span class="nx">제한</span><span class="o">&lt;</span><span class="sr">/script</span><span class="err">&gt;
+</span>		<span class="o">&lt;</span><span class="nx">script</span> <span class="nx">scr</span><span class="o">=</span> <span class="dl">"</span><span class="s2">http://우회/js</span><span class="dl">"</span> <span class="o">&gt;&lt;</span><span class="sr">/script&gt;</span><span class="err"> 
+</span>
+
+<span class="c1">// 1.2 스크립트 글자 자체를 제한하는 경우 </span>
+		<span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span> <span class="o">=&gt;</span> <span class="o">&lt;&gt;</span>
+    
+    		<span class="c1">//대소문자 혼용//</span>
+   	 	<span class="o">&lt;</span><span class="nx">ScRipT</span><span class="o">&gt;&lt;</span><span class="sr">/ScrIpt</span><span class="err">&gt;
+</span>
+		<span class="c1">//분할 작성//</span>
+		<span class="o">&lt;</span><span class="nx">scrscriptipt</span><span class="o">&gt;&lt;</span><span class="sr">/scrscriptipt</span><span class="err">&gt;
+</span>    
+<span class="c1">// 1.3 대소문자를 포함해서 여러 문자를 다른 문자로 바꿔서 제한한 경우</span>
+    		<span class="o">&lt;</span><span class="nx">xript</span><span class="o">&gt;&lt;</span><span class="sr">/xript</span><span class="err">&gt;
+</span><span class="c1">//scr에 파일이 없으면 404에러 나타나는 것을 이용, onerror onload onclick...와 같은 이벤트 핸들러를 차단할 것// </span>
+		<span class="o">&lt;</span><span class="nx">img</span> <span class="nx">src</span><span class="o">=</span><span class="nx">우회</span> <span class="nx">onerror</span><span class="o">=</span><span class="dl">'</span><span class="s1">alert(1)</span><span class="dl">'</span><span class="o">&gt;</span> 
+    
+            
+            
+<span class="cm">/* 2.그외 태그에서 */</span>
+        
+<span class="c1">// href 주소창의 역할을 이용한 우회, javascript: alert(1)를 작성 가능하다. 차단할 것.</span>
+        <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="dl">"</span><span class="s2">javascript:alert(1)</span><span class="dl">"</span><span class="o">&gt;&lt;</span><span class="sr">/a</span><span class="err">&gt;
+</span>
+<span class="c1">// input 이벤트 핸들러를 이용한 우회, value에 꺽쇠를 차단 했을 경우에 이벤트 핸들러도 같이 차단할 것.</span>
+	<span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="dl">"</span><span class="s2">text</span><span class="dl">"</span> <span class="nx">onmouseover</span><span class="o">=</span><span class="dl">"</span><span class="s2">alert(1)</span><span class="dl">"</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="dl">"</span><span class="s2">text</span><span class="dl">"</span> <span class="nx">onfocus</span><span class="o">=</span><span class="dl">"</span><span class="s2">alert(1)</span><span class="dl">"</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="dl">"</span><span class="s2">text</span><span class="dl">"</span> <span class="nx">autofocus</span> <span class="nx">onfocus</span><span class="o">=</span><span class="dl">"</span><span class="s2">alert(1)</span><span class="dl">"</span><span class="o">&gt;</span>
+</code></pre></div></div>
+
+<p>위의 우회 또한 일부이며, 우회할 수 있는 방법은 무수히 많이 존재한다. <code class="language-plaintext highlighter-rouge">블랙 리스트</code>는 모든 공격을 완벽히 막을 수 없다는 한계를 가지고 있기 때문에 이후에 ‘스크립트를 작성할 수 있지만 실행 차단하는 방법’ 에 대해 알아볼 것이다.</p>
+
+<p><br /></p>
+
+<h2 id="13-스크립트를-작성할-수-있지만-실행을-차단하기"><span style="background:#696969; color:#ffffff">1.3 스크립트를 작성할 수 있지만 실행을 차단하기 </span></h2>
+
+<p><br /></p>
+
+<h3 id="131-html-entity"><span style="font-weight:bold;background-color:#7fffd4">1.3.1 HTML Entity </span></h3>
+
+<p>XSS 방지하는 데 확실하고 필수적인 방법이다. 이는 HTML에서 특수 문자를 치환하는 방식으로, 필터링과는 다르다. 필터링이 특정 문자의 사용을 금지하는 것이라면, HTML 엔티티는 사용자가 특수 문자를 자유롭게 입력하고 그 문자를 안전하게 표시할 수 있게 한다. 예를 들어, 다음과 같이 표시한다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">결과</th>
+      <th style="text-align: center">설명</th>
+      <th style="text-align: center">이름 </th>
+      <th style="text-align: center">숫자 </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">공백</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">&amp;nbsp;</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">&amp;#160;</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center">&lt;</td>
+      <td style="text-align: center">보다 작은</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">&amp;lt;</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">&amp;#60;</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center">&gt;</td>
+      <td style="text-align: center">보다 큰</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">&amp;gt;</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">&amp;#62;</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center">&amp;</td>
+      <td style="text-align: center">앰퍼샌드</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">&amp;amp;</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">&amp;#38;</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center">”</td>
+      <td style="text-align: center">큰 따옴표</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">&amp;quot;</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">&amp;#34;</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center">’</td>
+      <td style="text-align: center">작은 따옴표</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">&amp;apos;</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">&amp;#39;</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><img src="/images/2024-06-26-XSS9/image-20240630032336205.png" alt="image-20240630032336205" /></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">[그림 1-1]</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><span style="font-weight:bold; font-size:19px;background-color:#fafad2">⚠ <code class="language-plaintext highlighter-rouge">HTML Editor</code>를 사용하는 웹페이지의 경우⚠</span></p>
+
+<p>간혹 웹페이지 중에 이용자가 직접 HTML을 이용해서 작성할 수 있도록 만든 사이트를 볼 수 있다. 이때는 <code class="language-plaintext highlighter-rouge">HTML Entity</code>를 적용할 수 없어서 보안 측면에서 매우 위험하다. <code class="language-plaintext highlighter-rouge">HTML Editor</code> 기능을 삭제하도록 권고하지만 만약 사용해야 한다면 다음과 같은 절차를 따라야 한다.</p>
+
+<ol>
+  <li>파라미터를 보내는 HTML 특수 문자들은 전부 <code class="language-plaintext highlighter-rouge">HTML Entity</code>로 치환한다.</li>
+  <li>꼭 필요한 기능을 선별하고 그 중 허용할 <code class="language-plaintext highlighter-rouge">Tag</code>를 정한다. 그리고 그 <code class="language-plaintext highlighter-rouge">Tag</code>를 <code class="language-plaintext highlighter-rouge">화이트 리스트</code> 필터링을 통해 다시 기능을 살린다.</li>
+  <li>살린 <code class="language-plaintext highlighter-rouge">Tag</code>내에 악의적인<code class="language-plaintext highlighter-rouge"> Event Handler</code>를 <code class="language-plaintext highlighter-rouge">블랙 리스트</code> 필터링로 제한한다.<br /></li>
+</ol>
+
+<h3 id="132-content-security-policycsp-설정-"><span style="font-weight:bold;background-color:#7fffd4">1.3.2 Content Security Policy(CSP) 설정 </span><br /></h3>
+
+<p>스크립트, 스타일, 이미지 등 허용된 리소스만 사용하도록 설정하여 제한한다.  다양한 설정 방식이 존재하지만 중요한 설정을 위주로 소개하도록 하겠다.</p>
+
+<p>＊<span style="font-weight:bold; font-size:20px"><code class="language-plaintext highlighter-rouge">default-src 'self'</code> :</span>  모든 외부 리소스 유형(스크립트, 스타일시트, 이미지 등)를 제한한다.<br />
+＊<span style="font-weight:bold; font-size:20px"><code class="language-plaintext highlighter-rouge">script-src 'self'</code> : </span> 외부 스크립트를 차단하며, <code class="language-plaintext highlighter-rouge">default-src 'self'</code>의 범주 안에 포함되지만, 추가적인 정책을 사용하려면 별도로 작성해야 한다.</p>
+
+<p>앞선 정책들은 외부 스크립트를 제한한다. 하지만 Reflected xss를 시도하는 경우는 외부 스크립트가 아닌 내부 스크립트에 의해 파라미터의 내용이 페이지에 나타나는 것을 이용하므로 인라인 스크립트를 삽입을 방지해야 한다.</p>
+
+<p><br /></p>
+
+<p><span style="font-weight:bold; font-size:18px;background-color:#f0ffff">▶추가 정책 : Reflected XSS의 인라인 스크립트를 방지 </span></p>
+
+<p>＊<span style="font-weight:bold; font-size:20px"><code class="language-plaintext highlighter-rouge">nonce</code> : </span> 시시각각 웹페이지가 변하는 동작을 구사할 때 이용되며, 서버가 매 요청마다 새롭게 <code class="language-plaintext highlighter-rouge">nonce</code>값을 생성하여 csp에 포함한다.  다른 <code class="language-plaintext highlighter-rouge">nonce</code>값을 적은 스크립트를 작성하면 제한한다.</p>
+
+<p>=&gt; <code class="language-plaintext highlighter-rouge">nonce</code> 값을 개발자 도구(페이지소스)에서 설정을 보고 그대로 넣어 스크립트를 작성할 수 있지 않느냐고 반문할 수 도 있다.  이를 방지하기 위해 <code class="language-plaintext highlighter-rouge">nonce</code> 값을 세션에 저장하고, 서버가 요청마다 검증할 수 있다.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// 간단 예시 (세션 저장 포함x)
+
+<span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">"Content-Security-Policy"</span> <span class="na">content=</span><span class="s">"default-src 'self'; script-src 'self' 'nonce-1234'"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">nonce=</span><span class="s">"1234"</span><span class="nt">&gt;</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">hi</span><span class="dl">'</span><span class="p">);</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>	
+</code></pre></div></div>
+
+<p>＊<span style="font-weight:bold; font-size:20px"><code class="language-plaintext highlighter-rouge">hash</code> :</span> 스크립트 내용이 변경되지 않는 경우에 유용하며, 특정 스크립트 내용의 해시를 미리 정의하여 해당 스크립트만 실행되도록 한다. 다른 스크립트 내용을 적는다면 제한한다.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// 간단 예시
+
+<span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">"Content-Security-Policy"</span> <span class="na">content=</span><span class="s">"default-src 'self'; script-src 'self' 'sha256-V7Q9/DwmqvdPGQ4dy6ncNMsD52hvmuqtLSJ0fK6Mdr8='"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;script&gt;</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">hi</span><span class="dl">'</span><span class="p">);</span> <span class="c1">// 이 값이 위의 설정된 sha256으로 해시처리하고, base64로 인코딩한 값	</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>	
+</code></pre></div></div>
+
+<h3 id="133-httponly-및-secure-속성-설정-"><span style="font-weight:bold;background-color:#7fffd4">1.3.3 HttpOnly 및 Secure 속성 설정 </span><br /></h3>
+
+<p>둘 다 모두 쿠키의 보안을 강화하기 위해 설정한다. 좀 더 정확하게 설명하면 <code class="language-plaintext highlighter-rouge">HttpOnly</code>는 클라이언트 측 스크립트가 쿠키에 접근할 수 없게 제한하는 설정이고<br />
+<code class="language-plaintext highlighter-rouge">Secure</code>은 쿠키가 HTTPS 의 연결을 통해서 만 전송되도록 하는 설정이다. 그리고 다음과 같이 설정한다.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">res</span><span class="p">.</span><span class="nf">cookie</span><span class="p">(</span><span class="dl">'</span><span class="s1">sessionId</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">1234</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span> <span class="na">httpOnly</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="na">secure</span><span class="p">:</span> <span class="kc">true</span><span class="p">});</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="14-결론"><span style="background:#696969; color:#ffffff">1.4 결론</span></h2>
+
+<p><br /></p>
+
+<p><span style="font-weight:bold; font-size:17px">1. 필수적으로 모든 HTML 특수 문자를 <code class="language-plaintext highlighter-rouge">HTML Entity</code>로 변환하여 출력한다.</span></p>
+
+<p><span style="font-weight:bold; font-size:17px">2.<code class="language-plaintext highlighter-rouge">CSP</code>설정을 통해 허용된 리소스만 삽입할 수 있도록 한다.</span></p>
+
+<p><span style="font-weight:bold; font-size:17px">3. <code class="language-plaintext highlighter-rouge">Httponly</code> , <code class="language-plaintext highlighter-rouge">Secure</code> 설정을 함으로서 클라이언트 측 쿠키를 보호한다.</span></p>
+
+<p><span style="font-weight:bold; font-size:17px">4. 필요에 따라 <code class="language-plaintext highlighter-rouge">블랙 리스트</code> 필터링을 적용해서 추가적인 보안을 적용한다.</span></p>]]></content><author><name>ethan</name></author><category term="XSS" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">XSS 이란(2)?</title><link href="http://localhost:4000/xss/XSS8/" rel="alternate" type="text/html" title="XSS 이란(2)?" /><published>2024-06-21T00:00:00+09:00</published><updated>2024-06-21T00:00:00+09:00</updated><id>http://localhost:4000/xss/XSS8</id><content type="html" xml:base="http://localhost:4000/xss/XSS8/"><![CDATA[<p><br /></p>
+
+<h1 id="1-xss2"><span style="background:#000000; color:#ffffff">1. XSS(2)</span></h1>
+
+<p><br /><span style="font-weight:bold; font-size:15px"> ※ 주의 사항 :</span></p>
+
+<p><span style="font-weight:bold; font-size:15px">1. 교육 목적으로만 이용 해주세요.</span><br />
+<span style="font-weight:bold; font-size:15px">2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다.</span><br />
+<span style="font-weight:bold; font-size:15px">3.  개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. </span></p>
+
+<p><br /></p>
+
+<h2 id="11-개요"><span style="background:#696969; color:#ffffff">1.1 개요 </span></h2>
+
+<p><br /></p>
+
+<p><span style="font-weight:bold; font-size:20px;background-color:#7fffd4">✔XSS 간단 요약</span></p>
+
+<p><span style="font-weight:bold; font-size:20px">xss :</span> <span style="text-decoration: red wavy underline;text-decoration-thickness: 1.8px;">클라이언트 측 브라우저에 발생하는 코드</span>를 조작 및 변경하여, 악성 스크립트를 실행시키고 정보를 탈취하는 공격 기법이다.<br />
+XSS 공격은 일반적으로 세 가지 유형으로 나뉜다 : <code class="language-plaintext highlighter-rouge">Stored XSS</code>, <code class="language-plaintext highlighter-rouge">Reflected XSS</code>, <code class="language-plaintext highlighter-rouge">DOM-based XSS</code>.</p>
+
+<blockquote>
+  <p><span style="font-weight:bold; font-size:20px">Stored XSS :</span> 서버에 임의의 스크립트를 삽입하여, 그 스크립트가 담긴 페이지를 생성한다. 이후 이  페이지에 접근하는 모든 클라이언트의 정보를 가져오는 방법이다.</p>
+
+  <p><span style="font-weight:bold; font-size:20px">Reflected XSS :</span> URL의 파라미터에 임의의 스크립트를 삽입하여, 그 링크를 클릭한 클라이언트가 그 스크립트를 실행할 수 있도록 하는 방법이다. 일반적으로 파라미터 값이 HTTP 응답에 그대로 출력 된다.</p>
+</blockquote>
+
+<p><br /></p>
+
+<h2 id="12-dom-based-xss"><span style="background:#696969; color:#ffffff">1.2 DOM Based XSS </span></h2>
+
+<p><br /></p>
+
+<p><span style="font-weight:bold; font-size:20px;background-color:#7fffd4"><span style="font-weight:bold; font-size:20px">DOM의 개념</span></span></p>
+
+<p>DOM(document object model) 는 웹 페이지를 <span style="border: 3px solid pink;border-radius: 50%;">동적</span>으로 <span style=";box-shadow:inset 0 -6px 0 pink;line-height:21px;">조작하고 변경</span>할 수 있는 기술이다.</p>
+
+<p>이를 통해 JavaScript와 같은 프로그래밍 언어로 HTML 요소를 동적으로 변경할 수 있다.<br />
+웹 페이지에서 보여지는 시각적인 이미지는 모두 정적이고, HTML 요소로 이루어져 있다.</p>
+
+<p>DOM은 클릭했을 때 임의의 동작을 하게 만들고, 검색 창에 텍스트를 작성했을 때 목록이 나타나는 등<br />
+많은 요소들이 동작할 수 있도록 도와준다.</p>
+
+<p><br /></p>
+
+<p><span style="font-weight:bold; font-size:20px;background-color:#7fffd4">DOM Based XSS 의 개념 및 원리</span></p>
+
+<p>DOM Based XSS 는 웹페이지의 DOM을 이용하여 스크립트를 조작할 수 있게 하는 공격 기법이다. <br />
+예를 들어, 이용자가 검색 창에 텍스트를 입력하면 검색한 글이 페이지 화면에 출력이 된다고 가정해 보자.<br />
+이러한 경우, 악의적인 사용자는 검색어에 임의의 스크립트를 삽입하여 클라이언트에게 영향을 미칠 수 있다.</p>
+
+<p>▶<span style="font-weight:bold; font-size:17px;background-color:#f0ffff">Reflected XSS와 같은 점</span></p>
+
+<p>URL의 <span style=";box-shadow:inset 0 -6px 0 pink;line-height:21px;">파라미터에 임의의 스크립트를 삽입하여</span>, 그 링크를 클릭한 클라이언트가 그 스크립트를 실행할 수 있도록 하는 방법이다.</p>
+
+<p>▶<span style="font-weight:bold; font-size:17px;background-color:#f0ffff">Reflected XSS와 다른 점</span></p>
+
+<p>DOM Based XSS는 파라미터가 <span style=";box-shadow:inset 0 -6px 0 pink;line-height:21px;">HTTP 응답에 그대로 출력 되는 것이 아니다.</span>  대신, 클라이언트 측에서 동적으로 스크립트에 의해 페	이지에 작성되는 것이다.</p>
+
+<p><br /></p>
+
+<p>▶ <span style="font-weight:bold; font-size:17px;background-color:#f0ffff">DOM Based XSS 찾기</span></p>
+
+<p>즉, DOM Based XSS 는 특정 동작에 출력하므로 발견하기 어려울 수 있다.<br />
+하지만 분명한 것은 XSS 공격이 발생하려면 스크립트가 삽입되어야만 할 수 있다는 사실이다.<br />
+이를 통해 공격자들은 <span style=";box-shadow:inset 0 -6px 0 pink;line-height:21px;">주로  <code class="language-plaintext highlighter-rouge">document.write</code> 나 <code class="language-plaintext highlighter-rouge">innerHTML</code> 등의 메서드</span>를 이용한다. 따라서 이러한 메서드를 이용하는 코드를 주의 깊게 점검하면 취약한 코드를 발견할 수 있다.</p>]]></content><author><name>ethan</name></author><category term="XSS" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">모의해킹 보고서 작성법</title><link href="http://localhost:4000/report/report/" rel="alternate" type="text/html" title="모의해킹 보고서 작성법" /><published>2024-06-21T00:00:00+09:00</published><updated>2024-06-21T00:00:00+09:00</updated><id>http://localhost:4000/report/report</id><content type="html" xml:base="http://localhost:4000/report/report/"><![CDATA[<p><br /></p>
+
+<h1 id="1-모의-해킹-보고서-작성법"><span style="background:#000000; color:#ffffff">1. 모의 해킹 보고서 작성법</span></h1>
+
+<p><br /></p>
+
+<h2 id="11-개요"><span style="background:#696969; color:#ffffff">1.1 개요 </span></h2>
+
+<p><br /></p>
+
+<blockquote>
+  <p><span style="font-weight:bold; font-size:18px;background-color:#f0ffff">Microsoft word를 사용하는 이유</span></p>
+</blockquote>
+
+<p>보고서는 한글 프로그램 보다 Microsoft word를 이용하는 게 좋다.  한글 프로그램은 한글만 이용, 정부와 같이 문서 보안이 중요할 때는 사용하겠지만, Microsoft word가 파일 간 호환성이 더 뛰어나고, 다양한 기능과 언어를 지원하기 때문에 업무상 더 적합하다.</p>
+
+<blockquote>
+  <p><span style="font-weight:bold; font-size:18px;background-color:#f0ffff">보고서를 이쁘게 작성해야 하는 이유</span></p>
+</blockquote>
+
+<p>모의 해킹의 주된 목적은 보안 정도를 평가하고 관계자들에게 해당 보안 취약점을 인식시켜 필요한 조치를 취할 수 있도록 돕는 것이다. <br />
+그렇기 때문에 보고서의 전달력이 매우 중요하다.  대부분 관계자들은 비전공자이기 때문에 충분히 이해하기 쉽도록 상세히 작성해야 한다. <br />
+보고서가 길어짐에 따라 오랫동안  보기 편해야  하는 것이 당연하다.  따라서 이쁘게 쓴 보고서는  업무 능력을 좌우하므로 중요하다.</p>
+
+<p><br /></p>
+
+<h2 id="12-표와-그림"><span style="background:#696969; color:#ffffff">1.2 표와 그림 </span></h2>
+
+<p><br /></p>
+
+<p>✅ <span style="font-weight:bold; font-size:18px">보기 좋은 표와 그림 형태</span></p>
+
+<ol>
+  <li>표와 그림 가로 크기 각각 동일하게 맞추기.</li>
+  <li>그림 테두리 적용해서 경계선 보이게 하기.</li>
+  <li>그림 안에 있는 글자와 본문에 있는 글자의 크기가 비슷하게 될 수 있도록 크기 맞추기.</li>
+  <li>공격 과정을 담기 위해 페이지 전체를 캡처해서 사용하기. (필요하다면, 크게 강조할 부분은 자르고 사용)</li>
+  <li>그림 되도록 많이 첨부해서 자세히 설명하기.</li>
+</ol>
+
+<p><br /></p>
+
+<h2 id="13-글"><span style="background:#696969; color:#ffffff">1.3 글 </span></h2>
+
+<p><br /></p>
+
+<p>✅ <span style="font-weight:bold; font-size:18px">전달력 좋은 글</span></p>
+
+<ol>
+  <li>
+    <p>말투는 상관 없지만 동일한 어투 사용하기.</p>
+  </li>
+  <li>
+    <p>그림과 해당 글의 간격을 좁혀서 설명하기.</p>
+  </li>
+  <li>
+    <p>사용된 해킹 공격에 대한 간단하게 설명하기.</p>
+  </li>
+  <li>
+    <p>발견된 취약점의 위치(url or 경로) 명시하기.</p>
+  </li>
+  <li>
+    <p>결과를 작성할 때 그림에 담긴 결과를 그대로 설명하기 보다는 해킹 피해자 측 발생할 수 있는 피해 경로와 같이 설명하기.</p>
+
+    <p>예) alert(1) 발생! (X) ▶ 스크립트가 삽입된 게시글에 접근 시 의도한 임의의 스크립트가 실행되어, 클라이언트의 정보가 탈취 될 가능성이 있음</p>
+  </li>
+</ol>
+
+<p><br /></p>]]></content><author><name>ethan</name></author><category term="Report" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">XSS 취약점 찾기(6)</title><link href="http://localhost:4000/xss/XSS7/" rel="alternate" type="text/html" title="XSS 취약점 찾기(6)" /><published>2024-06-18T00:00:00+09:00</published><updated>2024-06-18T00:00:00+09:00</updated><id>http://localhost:4000/xss/XSS7</id><content type="html" xml:base="http://localhost:4000/xss/XSS7/"><![CDATA[<p><br /></p>
+
+<h1 id="1-xss-취약점-찾기6"><span style="background:#000000; color:#ffffff">1. XSS 취약점 찾기(6)</span></h1>
+
+<p><br /><span style="font-weight:bold; font-size:15px"> ※ 주의 사항 :</span></p>
+
+<p><span style="font-weight:bold; font-size:15px">1. 교육 목적으로만 이용 해주세요.</span><br />
+<span style="font-weight:bold; font-size:15px">2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다.</span><br />
+<span style="font-weight:bold; font-size:15px">3.  개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. </span></p>
+
+<p><br /></p>
+
+<h2 id="11-xss-6-문제-"><span style="background:#696969; color:#ffffff">1.1 XSS 6 문제 </span></h2>
+
+<p><br /></p>
+
+<p><img src="/images/2024-06-18-XSS7/image-20240618023836967.png" alt="image-20240618023836967" style="zoom:50%;" /></p>]]></content><author><name>ethan</name></author><category term="XSS" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">XSS 취약점 찾기(5)</title><link href="http://localhost:4000/xss/XSS6/" rel="alternate" type="text/html" title="XSS 취약점 찾기(5)" /><published>2024-06-18T00:00:00+09:00</published><updated>2024-06-18T00:00:00+09:00</updated><id>http://localhost:4000/xss/XSS6</id><content type="html" xml:base="http://localhost:4000/xss/XSS6/"><![CDATA[<p><br /></p>
+
+<h1 id="1-xss-취약점-찾기5"><span style="background:#000000; color:#ffffff">1. XSS 취약점 찾기(5)</span></h1>
+
+<p><br /><span style="font-weight:bold; font-size:15px"> ※ 주의 사항 :</span></p>
+
+<p><span style="font-weight:bold; font-size:15px">1. 교육 목적으로만 이용 해주세요.</span><br />
+<span style="font-weight:bold; font-size:15px">2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다.</span><br />
+<span style="font-weight:bold; font-size:15px">3.  개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. </span></p>
+
+<p><br /></p>
+
+<h2 id="11-xss-5-문제-"><span style="background:#696969; color:#ffffff">1.1 XSS 5 문제 </span></h2>
+
+<p><br /></p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><img src="/images/2024-06-18-XSS6/image-20240618023008146.png" alt="image-20240618023008146" style="zoom: 67%;" /></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">[그림 1-1]</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><img src="/images/2024-06-18-XSS6/image-20240618023047258.png" alt="image-20240618023047258" style="zoom:60%;" /></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">[그림 1-2]</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><img src="/images/2024-06-18-XSS6/image-20240618023113434.png" alt="image-20240618023113434" style="zoom:80%;" /></p>
+
+<p><img src="/images/2024-06-18-XSS6/image-20240618023142818.png" alt="image-20240618023142818" style="zoom:60%;" /></p>
+
+<p><img src="/images/2024-06-18-XSS6/image-20240618023219265.png" alt="image-20240618023219265" style="zoom:80%;" /></p>
+
+<p><img src="/images/2024-06-18-XSS6/image-20240618023512982.png" alt="image-20240618023512982" style="zoom:60%;" /></p>
+
+<p><img src="/images/2024-06-18-XSS6/image-20240618023553647.png" alt="image-20240618023553647" style="zoom:80%;" /></p>
+
+<p><img src="/images/2024-06-18-XSS6/image-20240618023615557.png" alt="image-20240618023615557" style="zoom:60%;" /></p>
+
+<p><img src="/images/2024-06-18-XSS6/image-20240618023709797.png" alt="image-20240618023709797" style="zoom: 80%;" /></p>
+
+<p><img src="/images/2024-06-18-XSS6/image-20240618023637074.png" alt="image-20240618023637074" style="zoom:50%;" /></p>]]></content><author><name>ethan</name></author><category term="XSS" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">XSS 취약점 찾기(4)</title><link href="http://localhost:4000/xss/XSS5/" rel="alternate" type="text/html" title="XSS 취약점 찾기(4)" /><published>2024-06-18T00:00:00+09:00</published><updated>2024-06-18T00:00:00+09:00</updated><id>http://localhost:4000/xss/XSS5</id><content type="html" xml:base="http://localhost:4000/xss/XSS5/"><![CDATA[<p><br /></p>
+
+<h1 id="1-xss-취약점-찾기4"><span style="background:#000000; color:#ffffff">1. XSS 취약점 찾기(4)</span></h1>
+
+<p><br /><span style="font-weight:bold; font-size:15px"> ※ 주의 사항 :</span></p>
+
+<p><span style="font-weight:bold; font-size:15px">1. 교육 목적으로만 이용 해주세요.</span><br />
+<span style="font-weight:bold; font-size:15px">2. 무단 침입, 데이터 유출, 개인 정보 침해 등 불법적인 활동은 심각한 법적 결과를 초래할 수 있습니다.</span><br />
+<span style="font-weight:bold; font-size:15px">3.  개인적인 테스트 환경을 구축해서 실습하시길 바랍니다. </span></p>
+
+<p><br /></p>
+
+<h2 id="11-xss-4-문제-"><span style="background:#696969; color:#ffffff">1.1 XSS 4 문제 </span></h2>
+
+<p><br /></p>
+
+<p><img src="/images/2024-06-18-XSS5/image-20240618021814044.png" alt="image-20240618021814044" style="zoom: 67%;" /></p>
+
+<p><img src="/images/2024-06-18-XSS5/image-20240618021724196.png" alt="image-20240618021724196" style="zoom:60%;" /><img src="/images/2024-06-18-XSS5/image-20240618021900140.png" alt="image-20240618021900140" style="zoom:80%;" /></p>
+
+<p><img src="/images/2024-06-18-XSS5/image-20240618021947289.png" alt="image-20240618021947289" style="zoom:60%;" /></p>
+
+<p><img src="/images/2024-06-18-XSS5/image-20240618022023224.png" alt="image-20240618022023224" style="zoom:80%;" /></p>
+
+<p><img src="/images/2024-06-18-XSS5/image-20240618022101547.png" alt="image-20240618022101547" style="zoom:60%;" /></p>
+
+<p><img src="/images/2024-06-18-XSS5/image-20240618022139454.png" alt="image-20240618022139454" style="zoom:80%;" /></p>
+
+<p><img src="/images/2024-06-18-XSS5/image-20240618022822760.png" alt="image-20240618022822760" style="zoom:60%;" /></p>
+
+<p>![(/images/2024-06-18-XSS5/image-20240618022256780.png)</p>
+
+<p><img src="/images/2024-06-18-XSS5/image-20240618022740308.png" alt="image-20240618022740308" style="zoom:60%;" /></p>
+
+<p><img src="/images/2024-06-18-XSS5/image-20240618022927569.png" alt="image-20240618022927569" style="zoom:60%;" /></p>
+
+<p><img src="/images/2024-06-18-XSS5/image-20240618023805877.png" alt="image-20240618023805877" style="zoom:80%;" /></p>
+
+<p><img src="/images/2024-06-18-XSS5/image-20240618022859233.png" alt="image-20240618022859233" style="zoom:50%;" /></p>]]></content><author><name>ethan</name></author><category term="XSS" /><summary type="html"><![CDATA[]]></summary></entry></feed>
