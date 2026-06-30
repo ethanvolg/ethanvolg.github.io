@@ -1,0 +1,98 @@
+/* Home: intro banner vs post list */
+
+.home-hero--intro {
+    margin-bottom: 0;
+    border-left: 4px solid rgba(var(--accent-rgb), 0.85);
+    border-radius: 1.25rem;
+    background:
+        linear-gradient(135deg, rgba(var(--accent-rgb), 0.14) 0%, rgba(var(--accent-rgb), 0.04) 55%, transparent 100%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.06));
+    box-shadow: 0 12px 32px rgba(var(--accent-rgb), 0.1);
+}
+
+body.dark-theme .home-hero--intro {
+    background:
+        linear-gradient(135deg, rgba(var(--accent-rgb), 0.2) 0%, rgba(var(--accent-rgb), 0.06) 55%, transparent 100%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35);
+}
+
+.home-feed-section {
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    padding-top: clamp(1.75rem, 3vw, 2.25rem);
+    border-top: 1px solid rgba(var(--accent-rgb), 0.22);
+}
+
+body.dark-theme .home-feed-section {
+    border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+.home-feed-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.85rem;
+    border-bottom: 1px dashed rgba(var(--accent-rgb), 0.28);
+}
+
+body.dark-theme .home-feed-header {
+    border-bottom-color: rgba(255, 255, 255, 0.12);
+}
+
+.home-feed-title {
+    margin: 0;
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--link-color);
+}
+
+.home-feed-subtitle {
+    margin: 0;
+    font-size: 0.92rem;
+    color: var(--date-color);
+}
+
+.home-feed {
+    gap: 0.85rem;
+}
+
+.home-card-link {
+    padding: 1.15rem 1.25rem;
+    border-radius: 0.95rem;
+    border: 1px solid rgba(0, 0, 0, 0.07);
+    background: rgba(255, 255, 255, 0.55);
+    box-shadow: none;
+}
+
+body.dark-theme .home-card-link {
+    border-color: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.03);
+    box-shadow: none;
+}
+
+.home-card-link:hover {
+    transform: translateX(4px);
+    border-color: rgba(var(--accent-rgb), 0.45);
+    background: rgba(var(--accent-rgb), 0.06);
+    box-shadow: 0 8px 20px rgba(var(--accent-rgb), 0.08);
+}
+
+body.dark-theme .home-card-link:hover {
+    background: rgba(var(--accent-rgb), 0.1);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+}
+
+.home-card-title {
+    font-size: clamp(1.1rem, 1rem + 0.5vw, 1.35rem);
+}
+
+.home-card:first-child .home-card-link {
+    border-radius: 0.95rem;
+}
+
+.home-card:first-child .home-card-title {
+    font-size: clamp(1.1rem, 1rem + 0.5vw, 1.35rem);
+}
