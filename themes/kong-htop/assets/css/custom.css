@@ -1954,7 +1954,8 @@ body.dark-theme .clear-search {
 /* 文章内容标题优化 */
 .post h1,
 .post h2,
-.post h3 {
+.post h3,
+.post h4 {
     position: relative;
     padding-bottom: 0.5rem;
     margin-top: 2rem;
@@ -1962,15 +1963,39 @@ body.dark-theme .clear-search {
 }
 
 .post h2::after,
-.post h3::after {
+.post h3::after,
+.post h4::after {
     content: '';
     position: absolute;
     left: 0;
     bottom: 0;
-    width: 50px;
     height: 3px;
-    background: linear-gradient(90deg, var(--link-color), transparent);
     border-radius: 2px;
+}
+
+/* Match TOC hierarchy colors: green / teal / slate */
+.post h2::after {
+    width: 50px;
+    background: linear-gradient(90deg, var(--toc-level-1, var(--link-color)), transparent);
+}
+
+.post h3::after {
+    width: 42px;
+    background: linear-gradient(90deg, var(--toc-level-2, #0f766e), transparent);
+}
+
+.post h4::after {
+    width: 34px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--toc-level-3, #64748b), transparent);
+}
+
+body.dark-theme .post h3::after {
+    background: linear-gradient(90deg, var(--toc-level-2, #5eead4), transparent);
+}
+
+body.dark-theme .post h4::after {
+    background: linear-gradient(90deg, var(--toc-level-3, #94a3b8), transparent);
 }
 
 /* 代码块优化 */
@@ -2327,9 +2352,18 @@ body.dark-theme .next-post a:hover {
     }
 
     .post h2::after,
-    .post h3::after {
+    .post h3::after,
+    .post h4::after {
         width: 40px;
         height: 2px;
+    }
+
+    .post h3::after {
+        width: 32px;
+    }
+
+    .post h4::after {
+        width: 24px;
     }
 
     .post pre {
@@ -3362,7 +3396,7 @@ body.page-single.has-page-toc .toc-wrapper nav li {
     margin: 0.15rem 0;
 }
 
-body.page-single.has-page-toc {
+body.page-single {
     --toc-level-1: #15803d;
     --toc-level-2: #0f766e;
     --toc-level-3: #64748b;
@@ -3371,7 +3405,7 @@ body.page-single.has-page-toc {
     --toc-level-3-bg: rgba(100, 116, 139, 0.12);
 }
 
-body.dark-theme.page-single.has-page-toc {
+body.dark-theme.page-single {
     --toc-level-1: #4ade80;
     --toc-level-2: #5eead4;
     --toc-level-3: #94a3b8;
