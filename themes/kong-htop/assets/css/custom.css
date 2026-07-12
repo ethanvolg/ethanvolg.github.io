@@ -3362,110 +3362,84 @@ body.page-single.has-page-toc .toc-wrapper nav li {
     margin: 0.15rem 0;
 }
 
+body.page-single.has-page-toc {
+    --toc-level-1: #15803d;
+    --toc-level-2: #0f766e;
+    --toc-level-3: #64748b;
+    --toc-level-1-bg: rgba(22, 163, 74, 0.12);
+    --toc-level-2-bg: rgba(15, 118, 110, 0.12);
+    --toc-level-3-bg: rgba(100, 116, 139, 0.12);
+}
+
+body.dark-theme.page-single.has-page-toc {
+    --toc-level-1: #4ade80;
+    --toc-level-2: #5eead4;
+    --toc-level-3: #94a3b8;
+    --toc-level-1-bg: rgba(74, 222, 128, 0.14);
+    --toc-level-2-bg: rgba(94, 234, 212, 0.12);
+    --toc-level-3-bg: rgba(148, 163, 184, 0.12);
+}
+
 body.page-single.has-page-toc .post-toc-top a,
 body.page-single.has-page-toc .toc-wrapper nav a {
     display: block;
     padding: 0.45rem 0.7rem;
     border-radius: 0.8rem;
     text-decoration: none;
-    transition: color 0.2s ease, background-color 0.2s ease, transform 0.2s ease, padding-left 0.2s ease, opacity 0.2s ease;
+    transition: color 0.2s ease, background-color 0.2s ease, transform 0.2s ease, padding-left 0.2s ease;
 }
 
-/* Level 1 (H2): primary — brighter, heavier */
+/* H2 — brand green */
 body.page-single.has-page-toc .post-toc-top nav > ul > li > a,
 body.page-single.has-page-toc .toc-wrapper nav > ul > li > a {
-    color: var(--post-title-color);
-    opacity: 1;
+    color: var(--toc-level-1);
     font-weight: 600;
     font-size: 0.95em;
 }
 
-/* Level 2 (H3): secondary — muted gray, clearly softer */
+/* H3 — soft teal (adjacent hue, clearly different) */
 body.page-single.has-page-toc .post-toc-top nav > ul > li > ul > li > a,
 body.page-single.has-page-toc .toc-wrapper nav > ul > li > ul > li > a {
-    color: var(--date-color);
-    opacity: 1;
-    font-weight: 400;
-    font-size: 0.86em;
+    color: var(--toc-level-2);
+    font-weight: 500;
+    font-size: 0.88em;
 }
 
-/* Level 3+ (H4): tertiary */
+/* H4+ — muted slate */
 body.page-single.has-page-toc .post-toc-top nav > ul > li > ul > li > ul > li > a,
 body.page-single.has-page-toc .toc-wrapper nav > ul > li > ul > li > ul > li > a {
-    color: color-mix(in srgb, var(--date-color) 70%, transparent);
-    opacity: 1;
+    color: var(--toc-level-3);
     font-weight: 400;
-    font-size: 0.82em;
+    font-size: 0.84em;
 }
 
-body.dark-theme.page-single.has-page-toc .post-toc-top nav > ul > li > a,
-body.dark-theme.page-single.has-page-toc .toc-wrapper nav > ul > li > a {
-    color: rgba(255, 255, 255, 0.92);
-}
-
-body.dark-theme.page-single.has-page-toc .post-toc-top nav > ul > li > ul > li > a,
-body.dark-theme.page-single.has-page-toc .toc-wrapper nav > ul > li > ul > li > a {
-    color: rgba(255, 255, 255, 0.48);
-}
-
-body.dark-theme.page-single.has-page-toc .post-toc-top nav > ul > li > ul > li > ul > li > a,
-body.dark-theme.page-single.has-page-toc .toc-wrapper nav > ul > li > ul > li > ul > li > a {
-    color: rgba(255, 255, 255, 0.34);
-}
-
-/* Hover: green for H2, soft neutral for nested — same family feel, clear split */
 body.page-single.has-page-toc .post-toc-top nav > ul > li > a:hover,
-body.page-single.has-page-toc .toc-wrapper nav > ul > li > a:hover {
-    color: var(--link-color);
-    background: rgba(var(--accent-rgb), 0.14);
-    transform: translateX(2px);
-    padding-left: 0.85rem;
-}
-
-body.page-single.has-page-toc .post-toc-top nav > ul > li > ul > li > a:hover,
-body.page-single.has-page-toc .toc-wrapper nav > ul > li > ul > li > a:hover {
-    color: var(--list-color);
-    background: rgba(127, 127, 127, 0.12);
-    transform: translateX(2px);
-    padding-left: 0.85rem;
-}
-
-body.page-single.has-page-toc .post-toc-top nav > ul > li > ul > li > ul > li > a:hover,
-body.page-single.has-page-toc .toc-wrapper nav > ul > li > ul > li > ul > li > a:hover {
-    color: var(--date-color);
-    background: rgba(127, 127, 127, 0.08);
-    transform: translateX(2px);
-    padding-left: 0.85rem;
-}
-
-body.dark-theme.page-single.has-page-toc .post-toc-top nav > ul > li > ul > li > a:hover,
-body.dark-theme.page-single.has-page-toc .toc-wrapper nav > ul > li > ul > li > a:hover {
-    color: rgba(255, 255, 255, 0.78);
-    background: rgba(255, 255, 255, 0.08);
-}
-
-body.dark-theme.page-single.has-page-toc .post-toc-top nav > ul > li > ul > li > ul > li > a:hover,
-body.dark-theme.page-single.has-page-toc .toc-wrapper nav > ul > li > ul > li > ul > li > a:hover {
-    color: rgba(255, 255, 255, 0.58);
-    background: rgba(255, 255, 255, 0.05);
-}
-
-/* Active scroll highlight also respects depth */
+body.page-single.has-page-toc .toc-wrapper nav > ul > li > a:hover,
 body.page-single.has-page-toc .article-toc nav > ul > li.active > a {
-    color: var(--link-color);
-    background: rgba(var(--accent-rgb), 0.16);
+    color: var(--toc-level-1);
+    background: var(--toc-level-1-bg);
+    transform: translateX(2px);
+    padding-left: 0.85rem;
     font-weight: 700;
 }
 
+body.page-single.has-page-toc .post-toc-top nav > ul > li > ul > li > a:hover,
+body.page-single.has-page-toc .toc-wrapper nav > ul > li > ul > li > a:hover,
 body.page-single.has-page-toc .article-toc nav > ul > li > ul > li.active > a {
-    color: var(--list-color);
-    background: rgba(127, 127, 127, 0.14);
+    color: var(--toc-level-2);
+    background: var(--toc-level-2-bg);
+    transform: translateX(2px);
+    padding-left: 0.85rem;
     font-weight: 600;
 }
 
-body.dark-theme.page-single.has-page-toc .article-toc nav > ul > li > ul > li.active > a {
-    color: rgba(255, 255, 255, 0.82);
-    background: rgba(255, 255, 255, 0.1);
+body.page-single.has-page-toc .post-toc-top nav > ul > li > ul > li > ul > li > a:hover,
+body.page-single.has-page-toc .toc-wrapper nav > ul > li > ul > li > ul > li > a:hover,
+body.page-single.has-page-toc .article-toc nav > ul > li > ul > li > ul > li.active > a {
+    color: var(--toc-level-3);
+    background: var(--toc-level-3-bg);
+    transform: translateX(2px);
+    padding-left: 0.85rem;
 }
 
 body.page-single.has-page-toc .article-toc {
@@ -3505,7 +3479,7 @@ body.page-single.has-page-toc .toc-wrapper h4::before {
 }
 
 body.page-single.has-page-toc .article-toc li.inactive > a {
-    opacity: 0.72;
+    opacity: 0.85;
 }
 
 body.dark-theme.page-single.has-page-toc .article-toc nav > ul > li.active > a {
