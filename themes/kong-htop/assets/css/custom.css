@@ -1951,7 +1951,7 @@ body.dark-theme .clear-search {
     animation: fadeInUp 0.6s ease-out;
 }
 
-/* Heading hierarchy: left bars (clearer than short underlines) */
+/* Heading hierarchy: H2 left bar, H3/H4 underlines */
 .post h1,
 .post h2,
 .post h3,
@@ -1959,53 +1959,66 @@ body.dark-theme .clear-search {
     position: relative;
     margin-top: 2rem;
     margin-bottom: 1rem;
+}
+
+.post h2 {
+    padding-left: 0.9rem;
     padding-bottom: 0;
 }
 
-.post h2,
 .post h3,
 .post h4 {
-    padding-left: 0.9rem;
+    padding-left: 0;
+    padding-bottom: 0.5rem;
 }
 
-.post h2::before,
-.post h3::before,
-.post h4::before {
+.post h2::before {
     content: '';
     position: absolute;
     left: 0;
     top: 0.15em;
     bottom: 0.15em;
-    border-radius: 999px;
-}
-
-.post h2::after,
-.post h3::after,
-.post h4::after {
-    content: none;
-}
-
-.post h2::before {
     width: 4px;
+    border-radius: 999px;
     background: var(--toc-level-1, var(--link-color));
 }
 
-.post h3::before {
-    width: 3px;
-    background: var(--toc-level-2, #0f766e);
+.post h2::after {
+    content: none;
 }
 
+.post h3::before,
 .post h4::before {
-    width: 2px;
-    background: var(--toc-level-3, #64748b);
+    content: none;
 }
 
-body.dark-theme .post h3::before {
-    background: var(--toc-level-2, #5eead4);
+.post h3::after,
+.post h4::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    border-radius: 2px;
 }
 
-body.dark-theme .post h4::before {
-    background: var(--toc-level-3, #94a3b8);
+.post h3::after {
+    width: 50px;
+    background: linear-gradient(90deg, var(--toc-level-2, #0f766e), transparent);
+}
+
+.post h4::after {
+    width: 34px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--toc-level-3, #64748b), transparent);
+}
+
+body.dark-theme .post h3::after {
+    background: linear-gradient(90deg, var(--toc-level-2, #5eead4), transparent);
+}
+
+body.dark-theme .post h4::after {
+    background: linear-gradient(90deg, var(--toc-level-3, #94a3b8), transparent);
 }
 
 /* 代码块优化 */
@@ -2361,9 +2374,7 @@ body.dark-theme .next-post a:hover {
         padding: 0.3em 0.8em;
     }
 
-    .post h2,
-    .post h3,
-    .post h4 {
+    .post h2 {
         padding-left: 0.75rem;
     }
 
@@ -2371,12 +2382,14 @@ body.dark-theme .next-post a:hover {
         width: 3px;
     }
 
-    .post h3::before {
-        width: 2px;
+    .post h3::after {
+        width: 40px;
+        height: 2px;
     }
 
-    .post h4::before {
-        width: 2px;
+    .post h4::after {
+        width: 24px;
+        height: 2px;
     }
 
     .post pre {
