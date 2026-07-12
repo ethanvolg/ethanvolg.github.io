@@ -3379,11 +3379,30 @@ body.dark-theme.page-single.has-page-toc .post-toc-top a {
     color: rgba(255, 255, 255, 0.88);
 }
 
-body.page-single.has-page-toc .post-toc-top a:hover,
-body.page-single.has-page-toc .toc-wrapper nav a:hover {
+/* Hover: same family, softer by depth — readable but not loud */
+body.page-single.has-page-toc .post-toc-top nav > ul > li > a:hover,
+body.page-single.has-page-toc .toc-wrapper nav > ul > li > a:hover {
     color: var(--link-color);
     opacity: 1;
-    background: rgba(var(--accent-rgb), 0.12);
+    background: rgba(var(--accent-rgb), 0.14);
+    transform: translateX(2px);
+    padding-left: 0.85rem;
+}
+
+body.page-single.has-page-toc .post-toc-top nav > ul > li > ul > li > a:hover,
+body.page-single.has-page-toc .toc-wrapper nav > ul > li > ul > li > a:hover {
+    color: color-mix(in srgb, var(--link-color) 58%, var(--list-color));
+    opacity: 1;
+    background: rgba(var(--accent-rgb), 0.08);
+    transform: translateX(2px);
+    padding-left: 0.85rem;
+}
+
+body.page-single.has-page-toc .post-toc-top nav > ul > li > ul > li > ul > li > a:hover,
+body.page-single.has-page-toc .toc-wrapper nav > ul > li > ul > li > ul > li > a:hover {
+    color: color-mix(in srgb, var(--link-color) 32%, var(--date-color));
+    opacity: 1;
+    background: rgba(var(--accent-rgb), 0.05);
     transform: translateX(2px);
     padding-left: 0.85rem;
 }
