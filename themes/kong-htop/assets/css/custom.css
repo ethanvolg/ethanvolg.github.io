@@ -3367,23 +3367,56 @@ body.page-single.has-page-toc .toc-wrapper nav a {
     display: block;
     padding: 0.45rem 0.7rem;
     border-radius: 0.8rem;
-    color: var(--text-color);
-    opacity: 0.84;
-    font-weight: 500;
     text-decoration: none;
     transition: color 0.2s ease, background-color 0.2s ease, transform 0.2s ease, padding-left 0.2s ease, opacity 0.2s ease;
 }
 
-body.dark-theme.page-single.has-page-toc .toc-wrapper nav a,
-body.dark-theme.page-single.has-page-toc .post-toc-top a {
-    color: rgba(255, 255, 255, 0.88);
+/* Level 1 (H2): primary — brighter, heavier */
+body.page-single.has-page-toc .post-toc-top nav > ul > li > a,
+body.page-single.has-page-toc .toc-wrapper nav > ul > li > a {
+    color: var(--post-title-color);
+    opacity: 1;
+    font-weight: 600;
+    font-size: 0.95em;
 }
 
-/* Hover: same family, softer by depth — readable but not loud */
+/* Level 2 (H3): secondary — muted gray, clearly softer */
+body.page-single.has-page-toc .post-toc-top nav > ul > li > ul > li > a,
+body.page-single.has-page-toc .toc-wrapper nav > ul > li > ul > li > a {
+    color: var(--date-color);
+    opacity: 1;
+    font-weight: 400;
+    font-size: 0.86em;
+}
+
+/* Level 3+ (H4): tertiary */
+body.page-single.has-page-toc .post-toc-top nav > ul > li > ul > li > ul > li > a,
+body.page-single.has-page-toc .toc-wrapper nav > ul > li > ul > li > ul > li > a {
+    color: color-mix(in srgb, var(--date-color) 70%, transparent);
+    opacity: 1;
+    font-weight: 400;
+    font-size: 0.82em;
+}
+
+body.dark-theme.page-single.has-page-toc .post-toc-top nav > ul > li > a,
+body.dark-theme.page-single.has-page-toc .toc-wrapper nav > ul > li > a {
+    color: rgba(255, 255, 255, 0.92);
+}
+
+body.dark-theme.page-single.has-page-toc .post-toc-top nav > ul > li > ul > li > a,
+body.dark-theme.page-single.has-page-toc .toc-wrapper nav > ul > li > ul > li > a {
+    color: rgba(255, 255, 255, 0.48);
+}
+
+body.dark-theme.page-single.has-page-toc .post-toc-top nav > ul > li > ul > li > ul > li > a,
+body.dark-theme.page-single.has-page-toc .toc-wrapper nav > ul > li > ul > li > ul > li > a {
+    color: rgba(255, 255, 255, 0.34);
+}
+
+/* Hover: green for H2, soft neutral for nested — same family feel, clear split */
 body.page-single.has-page-toc .post-toc-top nav > ul > li > a:hover,
 body.page-single.has-page-toc .toc-wrapper nav > ul > li > a:hover {
     color: var(--link-color);
-    opacity: 1;
     background: rgba(var(--accent-rgb), 0.14);
     transform: translateX(2px);
     padding-left: 0.85rem;
@@ -3391,20 +3424,48 @@ body.page-single.has-page-toc .toc-wrapper nav > ul > li > a:hover {
 
 body.page-single.has-page-toc .post-toc-top nav > ul > li > ul > li > a:hover,
 body.page-single.has-page-toc .toc-wrapper nav > ul > li > ul > li > a:hover {
-    color: color-mix(in srgb, var(--link-color) 58%, var(--list-color));
-    opacity: 1;
-    background: rgba(var(--accent-rgb), 0.08);
+    color: var(--list-color);
+    background: rgba(127, 127, 127, 0.12);
     transform: translateX(2px);
     padding-left: 0.85rem;
 }
 
 body.page-single.has-page-toc .post-toc-top nav > ul > li > ul > li > ul > li > a:hover,
 body.page-single.has-page-toc .toc-wrapper nav > ul > li > ul > li > ul > li > a:hover {
-    color: color-mix(in srgb, var(--link-color) 32%, var(--date-color));
-    opacity: 1;
-    background: rgba(var(--accent-rgb), 0.05);
+    color: var(--date-color);
+    background: rgba(127, 127, 127, 0.08);
     transform: translateX(2px);
     padding-left: 0.85rem;
+}
+
+body.dark-theme.page-single.has-page-toc .post-toc-top nav > ul > li > ul > li > a:hover,
+body.dark-theme.page-single.has-page-toc .toc-wrapper nav > ul > li > ul > li > a:hover {
+    color: rgba(255, 255, 255, 0.78);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+body.dark-theme.page-single.has-page-toc .post-toc-top nav > ul > li > ul > li > ul > li > a:hover,
+body.dark-theme.page-single.has-page-toc .toc-wrapper nav > ul > li > ul > li > ul > li > a:hover {
+    color: rgba(255, 255, 255, 0.58);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Active scroll highlight also respects depth */
+body.page-single.has-page-toc .article-toc nav > ul > li.active > a {
+    color: var(--link-color);
+    background: rgba(var(--accent-rgb), 0.16);
+    font-weight: 700;
+}
+
+body.page-single.has-page-toc .article-toc nav > ul > li > ul > li.active > a {
+    color: var(--list-color);
+    background: rgba(127, 127, 127, 0.14);
+    font-weight: 600;
+}
+
+body.dark-theme.page-single.has-page-toc .article-toc nav > ul > li > ul > li.active > a {
+    color: rgba(255, 255, 255, 0.82);
+    background: rgba(255, 255, 255, 0.1);
 }
 
 body.page-single.has-page-toc .article-toc {
@@ -3443,18 +3504,11 @@ body.page-single.has-page-toc .toc-wrapper h4::before {
     content: none;
 }
 
-body.page-single.has-page-toc .article-toc li.active > a {
-    color: var(--link-color);
-    opacity: 1;
-    background: rgba(var(--accent-rgb), 0.16);
-    font-weight: 700;
-}
-
 body.page-single.has-page-toc .article-toc li.inactive > a {
-    opacity: 0.86;
+    opacity: 0.72;
 }
 
-body.dark-theme.page-single.has-page-toc .article-toc li.active > a {
+body.dark-theme.page-single.has-page-toc .article-toc nav > ul > li.active > a {
     background: rgba(var(--accent-rgb), 0.22);
 }
 
