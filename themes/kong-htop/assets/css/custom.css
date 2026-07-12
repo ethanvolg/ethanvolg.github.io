@@ -2003,12 +2003,12 @@ body.dark-theme .clear-search {
 }
 
 .post h3::after {
-    width: 50px;
+    width: 96px;
     background: linear-gradient(90deg, var(--toc-level-2, #0f766e), transparent);
 }
 
 .post h4::after {
-    width: 34px;
+    width: 72px;
     height: 2px;
     background: linear-gradient(90deg, var(--toc-level-3, #64748b), transparent);
 }
