@@ -2383,12 +2383,12 @@ body.dark-theme .next-post a:hover {
     }
 
     .post h3::after {
-        width: 40px;
+        width: 72px;
         height: 2px;
     }
 
     .post h4::after {
-        width: 24px;
+        width: 56px;
         height: 2px;
     }
 
