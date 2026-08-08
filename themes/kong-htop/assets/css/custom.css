@@ -4068,3 +4068,89 @@ body.dark-theme.page-listing .post-reading {
         font-size: 0.9rem;
     }
 }
+
+/* Inline glossary term — definition on hover/focus */
+.term-tip {
+    position: relative;
+    display: inline;
+    cursor: help;
+}
+
+.term-tip__label {
+    border-bottom: 1.5px dotted var(--link-color);
+    color: inherit;
+    font-weight: 600;
+}
+
+.term-tip__panel {
+    position: absolute;
+    left: 0;
+    top: calc(100% + 0.45rem);
+    z-index: 80;
+    width: min(22rem, 78vw);
+    padding: 0.85rem 1rem;
+    border-radius: 0.85rem;
+    border: 1px solid rgba(127, 127, 127, 0.22);
+    background: var(--bkg-color);
+    color: var(--text-color);
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.16);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(4px);
+    transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s ease;
+    font-weight: 400;
+    font-size: 0.9rem;
+    line-height: 1.55;
+    text-align: left;
+    white-space: normal;
+}
+
+.term-tip__panel::before {
+    content: "";
+    position: absolute;
+    left: 1rem;
+    top: -6px;
+    width: 10px;
+    height: 10px;
+    background: var(--bkg-color);
+    border-left: 1px solid rgba(127, 127, 127, 0.22);
+    border-top: 1px solid rgba(127, 127, 127, 0.22);
+    transform: rotate(45deg);
+}
+
+.term-tip__title {
+    display: block;
+    margin-bottom: 0.35rem;
+    color: var(--link-color);
+    font-size: 0.92rem;
+}
+
+.term-tip__body {
+    display: block;
+    color: var(--list-color);
+}
+
+body.dark-theme .term-tip__panel {
+    background: #1c1c1c;
+    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
+}
+
+body.dark-theme .term-tip__panel::before {
+    background: #1c1c1c;
+    border-color: rgba(255, 255, 255, 0.12);
+}
+
+body.dark-theme .term-tip__body {
+    color: rgba(255, 255, 255, 0.78);
+}
+
+.term-tip:hover .term-tip__panel,
+.term-tip:focus-within .term-tip__panel {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+

@@ -1,0 +1,3 @@
+{{- $label := .Get "label" -}}
+{{- $title := .Get "title" | default $label -}}
+<span class="term-tip" tabindex="0"><span class="term-tip__label">{{ $label }}</span><span class="term-tip__panel" role="tooltip"><strong class="term-tip__title">{{ $title }}</strong><span class="term-tip__body">{{ trim .Inner "\n\r " }}</span></span></span>
