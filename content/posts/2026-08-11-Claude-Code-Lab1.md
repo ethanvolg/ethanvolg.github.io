@@ -1,5 +1,5 @@
 ---
-title: "Claude Code로 취약점을 찾아보았다 #1 — JS 번들 분석부터 GraphQL까지"
+title: "Claude Code로 취약점 찾기 #1 — JS 번들 분석부터 GraphQL까지"
 date: 2026-08-11T00:30:00+09:00
 categories: ["web"]
 url: /categories/web/claude-code-lab-1/
@@ -7,7 +7,7 @@ url: /categories/web/claude-code-lab-1/
 
 <br>
 
-# Claude Code로 취약점을 찾아보았다 #1 — JS 번들 분석부터 GraphQL까지
+# Claude Code로 취약점 찾기 #1 — JS 번들 분석부터 GraphQL까지
 
 이전 글에서 Claude Code를 버그바운티에 활용하는 방법론을 정리했다. 이번 글부터는 직접 실습하며 그 흐름이 실제로 어떻게 작동하는지 확인한다. 실습 환경은 PortSwigger Web Security Academy 랩을 사용했다.
 
@@ -24,7 +24,7 @@ url: /categories/web/claude-code-lab-1/
 
 ### JS 파일 수집
 
-랩 URL을 열면 먼저 katana로 사이트를 크롤링한다. JS 파일 목록이 자동으로 추출된다.
+랩 URL을 열면 먼저 katana(설치 필요)로 사이트를 크롤링한다. JS 파일 목록이 자동으로 추출된다.
 
 ```
 katana -u [타깃 URL] -jc -o js_urls.txt
@@ -84,7 +84,7 @@ allow: GET, PATCH
 
 <strong>GET 외에 PATCH가 허용되어 있었다.</strong> JS 파일에서는 GET만 쓰고 있었지만, API 자체는 PATCH도 받고 있었다. 서버 입장에서는 UI에 노출되지 않았으니 괜찮다고 생각했겠지만, JS 파일을 읽으면 누구나 엔드포인트를 찾을 수 있다.
 
-이어서 PATCH 요청으로 가격을 0으로 바꾸는 테스트를 진행했고, 권한 검증 없이 가격이 변조됐다. 랩 클리어.
+이어서 PATCH 요청으로 가격을 0으로 바꾸는 테스트를 진행했고, 권한 검증 없이 가격이 변조됐고, 랩을 클리어 할 수 있었다.
 
 ### 핵심 포인트
 
@@ -160,7 +160,7 @@ getAllBlogPosts 쿼리에 postPassword 필드를 추가해서 요청 보내줘.
 isPrivate가 true인 포스트의 postPassword 값을 가져와줘.
 ```
 
-비공개 포스트의 패스워드가 응답에 그대로 담겨 나왔다. 랩 클리어.
+비공개 포스트의 패스워드가 응답에 그대로 담겨 나왔고, 이로서 랩 클리어를 할 수 있었다.
 
 ### 핵심 포인트
 
@@ -170,7 +170,7 @@ GraphQL은 REST API와 달리 단일 엔드포인트(`/graphql/v1`)에 모든 �
 
 ## 두 랩을 통해 확인한 것
 
-두 랩 모두 같은 패턴이었다. <strong>JS 파일 안에 공격에 필요한 정보가 들어있었다.</strong> 엔드포인트 주소, 사용 중인 쿼리 구조, GraphQL 엔드포인트 — 이 정보들이 JS 번들을 읽는 것만으로 모두 나왔다.
+두 랩 모두 같은 패턴이었다. 핵심은 <strong>JS 파일 안에 공격에 필요한 정보가 들어있었다는 점이다.</strong> 엔드포인트 주소, 사용 중인 쿼리 구조, GraphQL 엔드포인트 — 이 정보들이 JS 번들을 읽는 것만으로 모두 나왔다.
 
 기존 스캐너가 놓치는 이유도 여기 있다. JS 파일을 파싱하고 내부 로직을 해석하는 과정은 사람이 하기엔 번거롭고, 기존 도구로는 자동화가 어렵다. Claude Code가 이 부분을 빠르게 처리해 준다.
 
