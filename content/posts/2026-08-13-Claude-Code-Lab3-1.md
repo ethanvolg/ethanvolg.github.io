@@ -113,33 +113,6 @@ PATCH에서 email만 변경하는 게 확인됐으니, 다른 필드도 같이 �
 
 > "/api/ 자체에 접근하면 뭔가 나오지 않을까?"
 
-`/api/`에 GET 요청을 보냈다. 200 OK가 반환됐다.
-
-```
-GET /api/ → 200 OK (HTML 문서 페이지)
-GET /api/openapi.json → 200 OK (OpenAPI 3.0.0 스펙)
-```
-
-사이트 어디에도 링크되어 있지 않은 페이지였다. API 문서가 그대로 노출되어 있었다.
-
-<strong>`/api/` 문서 내용:</strong>
-
-| Verb | Endpoint | Response |
-|---|---|---|
-| GET | /user/[username] | User |
-| DELETE | /user/[username] | Result |
-| PATCH | /user/[username] | User |
-
-해당 섹션을 다시 작성해드릴게요. 기존 어투 유지합니다.
-
-------
-
-## 5단계: API 문서 탐색
-
-이미 `/api/user/wiener`라는 경로를 알고 있었다. 자연스러운 다음 판단은 상위 경로였다.
-
-> "/api/ 자체에 접근하면 뭔가 나오지 않을까?"
-
 `/api/`에 GET 요청을 보냈다. 200 OK가 반환됐다. 사이트 어디에도 링크되어 있지 않은 API 문서 페이지였다.
 
 | Verb   | Endpoint         | Response |
@@ -148,7 +121,7 @@ GET /api/openapi.json → 200 OK (OpenAPI 3.0.0 스펙)
 | DELETE | /user/[username] | Result   |
 | PATCH  | /user/[username] | User     |
 
-여기서 한 가지 추론을 했다. **이 HTML 페이지는 어딘가에 있는 원본 파일을 읽어서 렌더링한 결과물일 가능성이 높다.**
+여기서 한 가지 추론을 했다. <strong>이 HTML 페이지는 어딘가에 있는 원본 파일을 읽어서 렌더링한 결과물일 가능성이 높다.</strong>
 
 개발자들이 API 문서를 만드는 방식은 보통 이렇다. `openapi.json` 같은 원본 스펙 파일을 먼저 작성하고, Swagger UI나 ReDoc 같은 도구가 이 파일을 읽어서 사람이 보기 좋은 HTML 페이지로 자동 렌더링한다. HTML 문서는 결과물이고, 원본 파일이 어딘가 있다는 뜻이다.
 
@@ -174,7 +147,7 @@ SwaggerUIBundle({
 
 이 경우 `/api/openapi.json`을 시도했고 200이 반환됐다.
 
-**`/api/openapi.json`에서 추가로 확인된 것:**
+<strong>`/api/openapi.json`에서 추가로 확인된 것:</strong>
 
 - User 스키마: `username`, `email` 두 필드만 정의됨 — Mass Assignment 시도 시 다른 필드가 무시된 이유가 여기서 확인됨
 - `securitySchemes` 정의 없음 — 인증이 필요한지조차 문서에 명시되어 있지 않음
