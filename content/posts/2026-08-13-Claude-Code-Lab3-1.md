@@ -9,13 +9,13 @@ url: /categories/web/claude-code-lab-3-1/
 
 # Claude Code로 취약점 찾기 #3-1 — API 문서 노출과 BFLA
 
-이번 편에서는 API Testing 랩을 진행했다. 랩 이름도 모르고, 아무것도 모른다는 가정에서 시작했다. 이 글에서 중요한 건 취약점 자체보다 <strong>어떤 순서로 생각하고 판단했는가</strong>다. 실수도 포함해서 그대로 기록한다.
+이번 편에서는 API Testing 랩을 진행했다. 랩 이름도 모르고, 아무것도 모른다는 가정에서 시작했다. 이 글에서 중요한 건 취약점 자체보다 <strong>어떤 순서로 생각하고 판단했는가에 집중했다.</strong> 실수도 포함해서 그대로 기록한다.
 
 <br>
 
 ## 시작: 사이트를 둘러보며 파악하기
 
-Burp를 프록시로 켜놓고 `wiener:peter`로 로그인했다. 사이트를 전체적으로 둘러보며 어떤 기능이 있는지 파악했다.
+우선 Burp를 프록시로 켜놓고 사이트를 전체적으로 둘러보며 어떤 기능이 있는지 파악했다. 단지 로그인 기능 뿐이라서 사전에 랩에서 알려준 `wiener:peter` 로 로그인을 진행했고, 이후 추가 기능을 살펴보았다.
 
 확인된 기능은 하나였다. <strong>이메일 변경</strong>. Burp HTTP History에서 이메일 변경 요청을 확인했다.
 
@@ -130,12 +130,56 @@ GET /api/openapi.json → 200 OK (OpenAPI 3.0.0 스펙)
 | DELETE | /user/[username] | Result |
 | PATCH | /user/[username] | User |
 
-<strong>`/api/openapi.json` 추가 정보:</strong>
+해당 섹션을 다시 작성해드릴게요. 기존 어투 유지합니다.
 
-- User 스키마: `username`, `email` 두 필드만 정의 (Mass Assignment 실패 이유가 여기서도 확인됨)
-- `securitySchemes` 정의 없음 — 인증이 필요한지조차 문서에 명시되지 않음
+------
 
-UI에는 PATCH만 노출되어 있었지만 문서에는 DELETE도 버젓이 적혀 있었다. 개발자가 "클라이언트에 없으니 안전하다"고 생각하고 숨겨둔 기능이었다.
+## 5단계: API 문서 탐색
+
+이미 `/api/user/wiener`라는 경로를 알고 있었다. 자연스러운 다음 판단은 상위 경로였다.
+
+> "/api/ 자체에 접근하면 뭔가 나오지 않을까?"
+
+`/api/`에 GET 요청을 보냈다. 200 OK가 반환됐다. 사이트 어디에도 링크되어 있지 않은 API 문서 페이지였다.
+
+| Verb   | Endpoint         | Response |
+| ------ | ---------------- | -------- |
+| GET    | /user/[username] | User     |
+| DELETE | /user/[username] | Result   |
+| PATCH  | /user/[username] | User     |
+
+여기서 한 가지 추론을 했다. **이 HTML 페이지는 어딘가에 있는 원본 파일을 읽어서 렌더링한 결과물일 가능성이 높다.**
+
+개발자들이 API 문서를 만드는 방식은 보통 이렇다. `openapi.json` 같은 원본 스펙 파일을 먼저 작성하고, Swagger UI나 ReDoc 같은 도구가 이 파일을 읽어서 사람이 보기 좋은 HTML 페이지로 자동 렌더링한다. HTML 문서는 결과물이고, 원본 파일이 어딘가 있다는 뜻이다.
+
+페이지 소스를 확인하면 어떤 원본 파일을 쓰는지 바로 알 수 있는 경우가 많다. Swagger UI라면 소스 안에 이런 코드가 있다.
+
+```javascript
+SwaggerUIBundle({
+    url: "/api/openapi.json",
+    ...
+})
+```
+
+원본 파일 경로가 소스에 직접 명시되어 있다. 소스에서 못 찾으면 렌더링 도구와 프레임워크 관례 순서로 시도한다.
+
+| 발견한 것          | 추론 가능한 원본                                 |
+| ------------------ | ------------------------------------------------ |
+| Swagger UI 화면    | `/openapi.json`, `/swagger.json`, `/v2/api-docs` |
+| ReDoc 화면         | `/openapi.json`, `/openapi.yaml`                 |
+| Spring Boot 서비스 | `/v2/api-docs`, `/v3/api-docs`                   |
+| FastAPI (Python)   | `/openapi.json`, `/docs`, `/redoc`               |
+| Express/Node.js    | `/api-docs`, `/swagger.json`                     |
+| Django REST        | `/api/schema/`, `/api/schema/swagger-ui/`        |
+
+이 경우 `/api/openapi.json`을 시도했고 200이 반환됐다.
+
+**`/api/openapi.json`에서 추가로 확인된 것:**
+
+- User 스키마: `username`, `email` 두 필드만 정의됨 — Mass Assignment 시도 시 다른 필드가 무시된 이유가 여기서 확인됨
+- `securitySchemes` 정의 없음 — 인증이 필요한지조차 문서에 명시되어 있지 않음
+
+UI에는 PATCH만 노출되어 있었지만 문서에는 DELETE도 버젓이 적혀 있었다. 개발자가 "클라이언트에 없으니 안전하다"고 생각하고 숨겨둔 기능이었다. 문서를 찾으면 숨겨진 기능 전체가 드러난다.
 
 <br>
 
@@ -146,7 +190,7 @@ PATCH는 소유권 검증이 있었다. DELETE도 똑같이 검증하는지는 �
 직접 실행하기 전에 존재하지 않는 사용자로 먼저 테스트했다.
 
 ```
-DELETE /api/user/nonexistent_9999 (wiener 세션)
+DELETE /api/user/nonexist (wiener 세션)
 → 400 {"code": 404, "error": "User not found"}
 ```
 
@@ -157,7 +201,7 @@ DELETE /api/user/carlos (wiener 세션)
 → 200 OK {"status": "User deleted"}
 ```
 
-인증(로그인 여부)만 확인하고 인가(본인 소유인지)는 확인하지 않았다. 랩 클리어.
+인증(로그인 여부)만 확인하고 인가(본인 소유인지)는 확인하지 않았다. 이로서 랩 클리어를 할 수 있었다.
 
 <br>
 
